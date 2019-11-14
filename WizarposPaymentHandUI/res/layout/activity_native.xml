@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.view.precent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.wizarpos.pay.view.precent.PercentRelativeLayout
+        android:id="@+id/flBig"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/ivBigBarcode"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            app:layout_heightPercent="90%w"
+            app:layout_widthPercent="90%w" >
+        </ImageView>
+    </com.wizarpos.pay.view.precent.PercentRelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llFront"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/ivBarcode"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/c_title"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:id="@+id/llBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnMciropay"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_corner_bg"
+                android:text="@string/btn_micro"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnCheckOrder"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/round_corner_bg"
+                android:text="@string/check_trans_num"
+                android:textSize="18sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.wizarpos.pay.view.precent.PercentRelativeLayout>

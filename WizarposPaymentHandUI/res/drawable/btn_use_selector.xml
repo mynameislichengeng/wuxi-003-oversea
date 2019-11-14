@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 微博列表界面tab栏@我 按钮 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/used" android:state_pressed="true" />
+    <item android:drawable="@drawable/use" android:state_pressed="false" />
+    <item android:state_enabled="true" android:drawable="@drawable/used" />
+</selector>

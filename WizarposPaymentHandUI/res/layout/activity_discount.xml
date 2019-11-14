@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.view.precent.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.wizarpos.pay.cashier.activity.DiscountActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_heightPercent="32%h">
+
+        <TextView
+            android:id="@+id/etInitAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待收金额:100.00"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_moderate2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
+
+
+            <EditText
+                android:id="@+id/etCustomDiscount"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/btnCustomDiscount"
+                android:background="@drawable/et_input_selector"
+                android:editable="false"
+                android:gravity="right|center"
+                android:maxLength="8"
+                android:numeric="integer"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="0.00"
+                android:textColor="#000"
+                android:textSize="16sp">
+
+            </EditText>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="自定义:"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnCustomDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:background="?attr/colorPrimary"
+                android:text="设置"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+
+            <EditText
+                android:id="@+id/etPrecentDiscount"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/btnPrecentDiscount"
+                android:background="@drawable/et_input_selector"
+                android:editable="false"
+                android:gravity="right|center"
+                android:hint="100"
+                android:maxLength="8"
+                android:numeric="integer"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="折扣(1-100):"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnPrecentDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:background="?attr/colorPrimary"
+                android:text="设置"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
+
+
+            <EditText
+                android:id="@+id/etDirectDiscount"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/btnDirectDiscount"
+                android:background="@drawable/et_input_selector"
+                android:editable="false"
+                android:gravity="right|center"
+                android:maxLength="8"
+                android:numeric="integer"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="0.00"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="扣减:"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnDirectDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:background="?attr/colorPrimary"
+                android:text="设置"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/flInputPad"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        app:layout_heightPercent="48%h" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_pulish_selector"
+        android:visibility="gone" />
+
+</com.wizarpos.pay.view.precent.PercentLinearLayout>

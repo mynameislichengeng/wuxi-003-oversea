@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:scrollbars="none">
+
+    <com.wizarpos.pay.ui.ProgressLayout
+        android:id="@+id/plDailyDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tvTimeRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="03-01/2016"
+
+                    android:textColor="#FF888888"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:gravity="left|center_vertical"
+                android:text="Employee: All"
+                android:textColor="#888888"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvDevice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center_vertical"
+                android:text="Device: All"
+                android:textColor="#888888"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/flPie"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:text="SUMMARY"
+                    android:textColor="#666666"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8D8D8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#FAFAFA" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8D8D8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#D8D8D8" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Refund"
+                                android:textColor="#666666"
+                                android:textSize="18sp"
+                                android:visibility="invisible" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:text="NUMBER"
+                                android:textColor="#999999"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="AMOUNT"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llGrossSales"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_back_arrow"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvGrossSales"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Gross Sales"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvGrossSalesCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvGrossSalesAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llRefund"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivRefundIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_back_arrow"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvRefundType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Refund"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvRefundCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvRefundAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llNetSales"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivNetSaleIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_back_arrow"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvNetSaleType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Net Sales"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvNetSaleCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvNetSaleAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llTips"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivTipsIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_back_arrow"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvTipsType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Tips"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvTipsCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvTipsAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llTotalCollected"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivTotalCollectedIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_back_arrow"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvTotalCollectedType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Total Collected"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvTotalCollectedCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp"
+                                android:visibility="invisible" />
+
+                            <TextView
+                                android:id="@+id/tvTotalCollectedAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            android:text="WECHAT PAY SUMMARY"
+                            android:textColor="#666666"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llWechatSummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivWechatNetSaleIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_pay_weixin" />
+
+                            <TextView
+                                android:id="@+id/tvWechatNetSaleType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Net Sales"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvWechatNetSaleCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvWechatNetSaleAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            android:text="ALIPAY PAY SUMMARY"
+                            android:textColor="#666666"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llAliPaySummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivAliPayNetSaleIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_pay_zhifubao" />
+
+                            <TextView
+                                android:id="@+id/tvAliPayNetSaleType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Net Sales"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvAliPayNetSaleCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvAliPayNetSaleAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            android:text="UNION PAY QR SUMMARY"
+                            android:textColor="#666666"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llUnionPaySummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:id="@+id/ivUnionPayNetSalesIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginRight="4dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_pay_union" />
+
+                            <TextView
+                                android:id="@+id/tvUnionPayNetSalesType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="Net Sales"
+                                android:textColor="#666666"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvUnionPayNetSalesCount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:text=""
+                                android:textColor="#999999"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvUnionPayNetSalesAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:text="400.00"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#D8D8D8" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.wizarpos.pay.ui.ProgressLayout>
+</ScrollView>

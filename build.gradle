@@ -1,0 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.1'
+    }
+    allprojects {
+        repositories {
+            jcenter()
+            maven { url "https://jitpack.io" }
+            mavenCentral()
+            maven() { url "https://oss.sonatype.org/content/repositories/snapshots" }
+            maven { url "http://58.214.17.30:8081/nexus/content/groups/Android/" }
+//            maven { url "http://192.168.2.123:8081/nexus/content/groups/Android/" }
+            maven {
+                url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
+            }
+            google()
+        }
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}

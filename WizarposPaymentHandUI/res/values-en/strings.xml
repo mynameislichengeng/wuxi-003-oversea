@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Register</string>
+    <!--<string name="app_name">LY HOUR WePay</string>-->    <!--柬埔寨应用名-->
+    <string name="redmineInfo">Language switching</string>
+    <string name="input_password">Please enter  password</string>
+    <string name="input_merchant">Please enter  merchant</string>
+    <string name="input_username">Please enter  username</string>
+    <string name="yestoday_total"></string>
+    <string name="SN_num">SN</string>
+    <string name="action_settings">SETTINGS</string>
+    <string name="action_qrcode">QR code</string>
+    <string name="action_swipe"></string>
+    <string name="config_tenpay_toast">QR Code Payment</string>
+    <string name="yestoday">Yesterday</string>
+    <string name="add_chashier_manger">Create Employee</string>
+    <string name="alipay">Alipay</string>
+    <string name="before_week">Last Week</string>
+    <string name="today">Today</string>
+    <string name="manager_password">Password</string>
+    <string name="is_manager">Administrator Permission</string>
+    <string name="ok">OK</string>
+    <string name="manage">Management</string>
+    <string name="cashier_manager">Employee Management</string>
+    <string name="tv_pay">payment</string>
+    <string name="serial_num">Receipt Number:</string>
+    <string name="revoke">ISSUE REFUND</string>
+    <string name="cancle">Issue Refund</string>
+    <string name="cancle_success">Refund Approved</string>
+    <string name="cancle_fails">Refund Failed</string>
+    <string name="version_num">Version</string>
+    <string name="version_code">1.0.1</string>
+    <string name="before_month">Last Month</string>
+    <string name="btn_ok">OK</string>
+    <string name="button_ok">OK</string>
+    <string name="library_smoothprogressbar_libraryVersion">1.0.0</string>
+    <string name="pay_cashier">SALE</string>
+    <string name="setting">SETTINGS</string>
+    <string name="this_month">This Month</string>
+    <string name="this_week">This Week</string>
+    <string name="trans_amount_zero">0.00</string>
+    <string name="main_menu_title">DAILY SUMMARY</string>
+    <string name="wechat_pay">WechatPay</string>
+    <string name="wechatpay">WechatPay</string>
+    <string name="tel_num">4008399665</string>
+    <string name="agent_id"></string>
+    <string name="bottom_hint">Place a QR code inside the viewfinder rectangle to scan it.</string>
+    <string name="card_bank_pay_title">Card</string>
+    <string name="intput_num">0123456789</string>
+    <string name="spb_default_speed">1</string>
+    <string name="seekbar_add">+</string>
+    <string name="seekbar_minus">-</string>
+    <string name="host_original_port">80</string>
+    <string name="key">KEY：</string>
+    <string name="employee">Employee</string>
+    <string name="exit">SIGN OUT</string>
+    <string name="trans_detail">ACTIVITY</string>
+    <string name="daily_summary">DAILY SUMMARY</string>
+    <string name="print_number">NUMBER OF RECEIPT COPIES</string>
+    <string name="employee_management">Employee Management</string>
+    <string name="about">ABOUT</string>
+    <string name="print_choose_num">Select Number of Receipt Copies</string>
+    <string name="user_name">Username</string>
+    <string name="pass_word">Password</string>
+    <string name="login">SIGN IN</string>
+    <string name="make_up">ISSUE RECEIPT</string>
+    <string name="refund">Refund</string>
+    <string name="receipt_number_show">Receipt Number</string>
+    <string name="receipt_number">Receipt Number:</string>
+    <string name="receipt_gen_number">Refund Receipt Number:</string>
+    <string name="sale">Sale</string>
+    <string name="opertor_number">Cashier:</string>
+    <string name="type">TYPE</string>
+    <string name="date">DATE</string>
+    <string name="custom">Custom</string>
+    <string name="enter_receipt_number">Enter a receipt number</string>
+    <string name="reset">Reset</string>
+    <string name="search">Search</string>
+    <string name="daily_summary_international">DAILY SUMMARY</string>
+    <string name="activity">activity</string>
+    <string name="print">Print</string>
+    <string name="version">Version</string>
+    <string name="sn">SN</string>
+    <string name="merchant">Merchant</string>
+    <string name="sign_in">Sign In</string>
+    <string name="today_total">DAILY SUMMARY</string>
+    <string name="remember_me">Remember me</string>
+    <string name="tips_setting">TIPS SETTING</string>
+    <string name="payment_success">APPROVED</string>
+    <string name="Continue">OK</string>
+    <string name="exit_info">Please press RETURN again to exit APP</string>
+    <string name="no_data">No Transactions</string>
+    <string name="payamount_warn">Enter an amount greater than zero</string>
+    <string name="trading_conditions">Total:</string>
+    <string name="no_today_transaction">No transaction records</string>
+    <string name="password">SECURITY CODE</string>
+    <string name="input_password_title">SECURITY CODE</string>
+    <string name="security_code_error">Security code error</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="input_cancel_amount">Enter an amount greater than zero</string>
+    <string name="data_parse">Data parsing failed</string>
+    <string name="data_query_error">Start date is greater than end date</string>
+    <string name="revoke_large">Refund should be less than pay</string>
+    <string name="Enter_other_merchant_num">Enter other merchant num</string>
+    <string name="Please_select_merchan">Please select merchant</string>
+    <string name="pup_cancle">cancel</string>
+    <string name="Enter_merchan_num">Enter merchant num</string>
+    <string name="consumption_failure">Consumption failure</string>
+    <string name="issue_refund">ISSUE REFUND</string>
+    <string name="enter_sale_amount">Enter Sale Amount</string>
+    <string name="currencySymbol">$</string>
+
+
+    <!--小费设置-->
+    <string name="tipParameterSetting">TIP PARAMETER SETTING</string>
+    <string name="collectTips">Collect Tips</string>
+    <string name="tip_setting">TIPS SETTING</string>
+    <string name="setPercentageAmounts">Set Percentage Amounts</string>
+    <string name="preSetPercentageAmounts">Pre-Set Percentage Amounts</string>
+    <string name="allowCustomAmounts">Allow custom amounts</string>
+    <string name="save">Save</string>
+
+    <!-- 安全密码修改 -->
+    <string name="changeSecurityCode">CHANGE SECURITY CODE</string>
+    <string name="oldSecurityCode">Current SC:</string>
+    <string name="newSecurityCode">New SC:</string>
+    <string name="confrimSecurityCode">Confirm SC:</string>
+
+    <!--小费界面-->
+    <string name="enter_a_tip">Or Enter a Tip</string>
+    <string name="saleAmount">Sale Amount</string>
+    <string name="approxCurrency">approx.￥</string>
+    <string name="select_a_tip_percent">Select a Tip Percent</string>
+    <string name="_0Amount">$0.00</string>
+    <string name="no_tip">No Tip</string>
+    <string name="total_tip">Total:</string>
+    <string name="approx_0_00">approx.￥0.00</string>
+    <string name="note_approx">Note:1 USD = approx.5.12 CNY</string>
+    <string name="note">Note:</string>
+    <string name="exchangeApprox">1 CAD = approx.</string>
+
+    <!--收银界面-->
+    <string name="press">:Press</string>
+    <string name="or">or</string>
+
+
+    <!--月份-->
+    <string name="jan_simple">Jan.</string>
+    <string name="feb_simple">Feb.</string>
+    <string name="mar_simple">Mar.</string>
+    <string name="apr_simple">Apr.</string>
+    <string name="may_simple">May.</string>
+    <string name="june_simple">June.</string>
+    <string name="july_simple">July.</string>
+    <string name="aug_simple">Aug.</string>
+    <string name="sept_simple">Sept.</string>
+    <string name="oct_simple">Oct.</string>
+    <string name="nov_simple">Nov.</string>
+    <string name="dec_simple">Dec.</string>
+    <string name="jan">January</string>
+    <string name="feb">February</string>
+    <string name="mar">March</string>
+    <string name="apr">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="aug">August</string>
+    <string name="sept">September</string>
+    <string name="oct">October</string>
+    <string name="nov">November</string>
+    <string name="dec">December</string>
+
+    <string name="go_pay">CHARGE</string>
+</resources>

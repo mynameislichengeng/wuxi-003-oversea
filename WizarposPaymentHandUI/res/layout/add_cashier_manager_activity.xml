@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-65dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/btn_add_manager"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/add" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+
+        
+    <com.wizarpos.pay.view.ListViewCompat
+        android:id="@+id/list_data_compat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff4f7f9"
+        android:cacheColorHint="#00000000"
+        android:divider="#dddbdb"
+        android:dividerHeight="1.0px"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        >
+    </com.wizarpos.pay.view.ListViewCompat>
+      <!--   <ListView
+            android:id="@+id/lv_cashier_manager"
+            android:layout_width="wrap_content"
+            android:background="@color/gray_color"
+            android:layout_height="420dp"></ListView>
+ -->
+    </LinearLayout>
+
+</LinearLayout>

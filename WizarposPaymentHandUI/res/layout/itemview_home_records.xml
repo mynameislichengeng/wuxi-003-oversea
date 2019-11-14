@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/padding_normal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="@dimen/padding_normal" >
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/ic_launcher"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tvRecordTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:textColor="@color/home_records_title"
+        android:layout_toRightOf="@id/ivIcon"
+        android:text="title"
+        android:textSize="@dimen/text_moderate2"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tvRecordValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/tvRecordEnd"
+        android:textColor="@color/black"
+        android:text="value"
+        android:textSize="@dimen/text_big"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tvRecordEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="元"
+        android:textColor="@color/home_records_end"
+        android:textSize="@dimen/text_big" 
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

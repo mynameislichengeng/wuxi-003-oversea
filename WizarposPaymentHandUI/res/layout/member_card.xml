@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_scan_card"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:textColor="#000"
+                android:alpha="0.6"
+                android:text="@string/scan_card"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_humanwork"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/two_code"
+                android:textColor="#000"
+                android:alpha="0.6"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_two_dimensioncode"
+                android:layout_width="0dp"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:alpha="0.6"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/human_work"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_scan_card"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="2dp"
+                android:background="@color/blue_color"
+                android:orientation="horizontal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_humanwork"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="2dp"
+                android:background="@color/gray_color"
+                android:orientation="horizontal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_two_dimensioncode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="2dp"
+                android:background="@color/gray_color"
+                android:orientation="horizontal"/>
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_membercard_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#f3f3f3"/>
+
+    </LinearLayout>
+
+</LinearLayout>

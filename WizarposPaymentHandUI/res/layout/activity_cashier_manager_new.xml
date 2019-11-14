@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp" >
+
+    <LinearLayout
+        android:id="@+id/llOperatorId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:gravity="left"
+            android:text="@string/sign_in_code"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_login_num"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ffffff"
+            android:maxLength="8"
+            android:numeric="integer"
+            android:paddingLeft="10dp"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDividerOperatorId"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:clickable="false"
+        android:background="@drawable/selector_color_gray_or_bule"/>
+    
+    <LinearLayout
+        android:id="@+id/llOperatorPwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:gravity="left"
+            android:text="@string/manager_password"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:alpha="0.6"
+            android:background="#ffffff"
+            android:maxLength="8"
+            android:numeric="integer"
+            android:paddingLeft="10dp"
+            android:password="true"
+            android:textColor="#999999"
+            android:textSize="16sp" >
+        </EditText>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDividerOperatorPwd"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:clickable="false"
+        android:background="@drawable/selector_color_gray_or_bule"/>
+
+    <LinearLayout
+        android:id="@+id/llOperatorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:gravity="left"
+            android:text="@string/manager_name"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ffffff"
+            android:hint=""
+            android:maxLength="8"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDividerOperatorName"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:clickable="false"
+        android:background="@drawable/selector_color_gray_or_bule"/>
+
+    <LinearLayout
+        android:id="@+id/llOperatorTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:gravity="left"
+            android:text="@string/contact_stype"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_contact"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ffffff"
+            android:maxLength="11"
+            android:numeric="integer"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDividerOperatorTel"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:clickable="false"
+        android:background="@drawable/selector_color_gray_or_bule"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/is_manager"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+
+        <ToggleButton
+            android:id="@+id/tb_is_manager"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_selector_toggle"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_confirm"
+        android:layout_width="200dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:text="确定"
+        android:visibility="gone"
+        android:background="@drawable/btn_blue_corner" />
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llAuthCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="left"
+            android:text="验证码"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <com.wizarpos.pay.common.view.XEditText
+            android:id="@+id/etAuthCode"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ffffff"
+            android:maxLength="8"
+            android:numeric="integer"
+            android:paddingLeft="10dp"
+            android:password="true"
+            android:hint="请输入验证码"
+            android:gravity="center_vertical|left"
+            android:drawableRight="@drawable/icon_hide_pw"
+            android:drawablePadding="10dp"
+            android:textColor="#AAAAAA"
+            android:textSize="16sp" >
+        </com.wizarpos.pay.common.view.XEditText>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:clickable="false"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/selector_color_gray_or_bule"/>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="45dp"
+        android:text="确定"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_blue_corner" />
+</LinearLayout>

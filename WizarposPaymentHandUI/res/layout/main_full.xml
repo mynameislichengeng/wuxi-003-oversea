@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <!-- 标题 -->
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            layout="@layout/main_menu_title"
+            android:visibility="gone" />
+        <!-- 显示近期的消费情况 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="3"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/total_amount"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp" >
+            </android.support.v4.view.ViewPager>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <RadioButton
+                    android:id="@+id/first_radio_button"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/scroll_active"
+                    android:button="@null"
+                    android:gravity="center" />
+
+                <RadioButton
+                    android:id="@+id/second_radio_button"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/scroll_normal"
+                    android:button="@null"
+                    android:gravity="center" />
+
+                <RadioButton
+                    android:id="@+id/third_radio_button"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/scroll_normal"
+                    android:button="@null"
+                    android:gravity="center" />
+            </RadioGroup>
+        </LinearLayout>
+        <!-- 显示数据的list -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal" >
+
+            <ListView
+                android:id="@+id/list_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" >
+            </ListView>
+        </LinearLayout>
+        <!-- 收款按钮 -->
+
+        <LinearLayout
+            android:id="@+id/ll_iPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_ipay"
+                android:layout_width="0dp"
+               	android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/round_corner_bg"
+                android:drawableLeft="@drawable/coin"
+                android:paddingLeft="20dp"
+                android:text="@string/wo_yao_shou_kuan"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_ticket_use"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/round_corner_bg_oragne"
+                android:drawableLeft="@drawable/arch"
+                android:paddingLeft="20dp"
+                android:text="@string/ka_quan_he_xiao"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="visible" />
+            <!--
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/coin"
+                android:contentDescription="@string/app_name" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="175dp"
+                android:visibility="visible"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/scan_arch"
+                android:contentDescription="@string/app_name" />
+            -->
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard_view"
+    android:background="#f3f3f3"
+    android:layout_marginLeft="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/key_7"
+                android:layout_width="80dp"
+                style="?android:attr/action"
+                android:layout_height="@dimen/key_board_h"
+                android:background="@drawable/btn_selector_digit_7" />
+
+            <Button
+                android:id="@+id/key_8"
+                android:layout_marginLeft="1dp"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/key_board_h"
+                style="?android:attr/action"
+                android:background="@drawable/btn_selector_digit_8" />
+
+            <Button
+                android:id="@+id/key_9"
+                android:layout_marginLeft="1dp"
+                style="?android:attr/action"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/key_board_h"
+                android:background="@drawable/btn_selector_digit_9" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp">
+
+            <Button
+                style="?android:attr/action"
+                android:id="@+id/key_4"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/key_board_h"
+                android:background="@drawable/btn_selector_digit_4" />
+
+            <Button
+                android:id="@+id/key_5"
+                android:layout_marginLeft="1dp"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/key_board_h"
+                style="?android:attr/action"
+                android:background="@drawable/btn_selector_digit_5" />
+
+            <Button
+                android:layout_marginLeft="1dp"
+                android:id="@+id/key_6"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/key_board_h"
+                style="?android:attr/action"
+                android:background="@drawable/btn_selector_digit_6" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/keyboad_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/key_board_123_top">
+
+        <Button
+            android:id="@+id/key_1"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/key_board_h"
+            style="?android:attr/action"
+            android:background="@drawable/btn_selector_digit_1" />
+
+        <Button
+            android:id="@+id/key_2"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/key_board_h"
+            android:layout_marginLeft="1dp"
+            style="?android:attr/action"
+            android:background="@drawable/btn_selector_digit_2" />
+
+        <Button
+            android:layout_marginLeft="1dp"
+            android:id="@+id/key_3"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/key_board_h"
+            style="?android:attr/action"
+            android:background="@drawable/btn_selector_digit_3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/keyboad_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/key_board_0del_top">
+
+        <Button
+            android:id="@+id/key_0"
+            android:layout_width="161dp"
+            style="?android:attr/action"
+            android:layout_height="@dimen/key_board_h"
+            android:background="@drawable/btn_selector_digit_0" />
+
+        <Button
+            android:layout_marginLeft="1dp"
+            android:id="@+id/key_del"
+            style="?android:attr/action"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/key_board_h"
+            android:background="@drawable/btn_selector_digit_del_2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="244dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_qing_chu"
+            android:layout_width="75dp"
+            style="?android:attr/action"
+            android:layout_height="@dimen/key_board_big_h"
+            android:background="@drawable/btn_selector_digit_del" />
+
+        <Button
+            android:layout_marginTop="1dp"
+            android:id="@+id/btn_shoukuan"
+            android:layout_width="75dp"
+            style="?android:attr/action"
+            android:layout_height="@dimen/key_board_big_h"
+            android:background="@drawable/btn_selector_pay" />
+    </LinearLayout>
+</RelativeLayout>

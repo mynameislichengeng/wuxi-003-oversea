@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tip_parameter_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.wizarpos.pay.setting.activity.TipParameterSettingActivity">
+
+    <com.ui.setting.CommonItem
+        android:id="@+id/ciCollectionTip"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:switchCompat="true"
+        app:textLeft="@string/collectTips" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="@string/setPercentageAmounts"
+            android:textColor="#000000" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/scSetPercentageAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#D8D8D8" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:text="@string/preSetPercentageAmounts"
+        android:textColor="#000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="P1"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/etP1"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/shape_tip_unselected"
+                android:gravity="center_vertical"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingLeft="4dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="%" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="P2"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/etP2"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/shape_tip_unselected"
+                android:gravity="center_vertical"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingLeft="4dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="%" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="P3"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/etP3"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/shape_tip_unselected"
+                android:gravity="center_vertical"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingLeft="4dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="%" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#D8D8D8" />
+
+    <com.ui.setting.CommonItem
+        android:id="@+id/ciCustomAmount"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:switchCompat="true"
+        app:textLeft="@string/allowCustomAmounts" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvNote"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llSave"
+            android:background="#f3f3f3"
+            android:gravity="left|bottom"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:text="@string/note" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llSave"
+            android:layout_toRightOf="@id/tvNote"
+            android:background="#f3f3f3"
+            android:gravity="left|bottom"
+            android:paddingBottom="16dp"
+            android:text="0≤P1≤P2≤P3≤100" />
+
+        <LinearLayout
+            android:id="@+id/llSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/rtButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/save"
+                android:textColor="#ffffff"
+                app:rv_backgroundColor="@color/dark_bule"
+                app:rv_backgroundPressColor="@color/blue_color"
+                app:rv_cornerRadius="5dp"
+                app:rv_strokeWidth="1dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="key_board_h">65dp</dimen>
+    <dimen name="key_board_big_h">130dp</dimen>
+    <dimen name="key_board_123_top">132dp</dimen>
+    <dimen name="key_board_0del_top">199dp</dimen>
+    <dimen name="key_board_blue_h">41dp</dimen>
+    <dimen name="key_board_blue_big_h">167dp</dimen>
+    <dimen name="key_board_blue_top">5dp</dimen>
+    <dimen name="activity_key_board_top">60dp</dimen>
+    <dimen name="activity_repeal_transaction_top">120dp</dimen>
+    <dimen name="activity_input_password_top">110dp</dimen>
+    <dimen name="fragment_ticket_number_humanwork_top">70dp</dimen>
+    <dimen name="activity_cash_pay_success_top">20dp</dimen>
+    <dimen name="activity_alipay_native_top">5dp</dimen>
+    <dimen name="fragment_total_margain">55dp</dimen>
+</resources>

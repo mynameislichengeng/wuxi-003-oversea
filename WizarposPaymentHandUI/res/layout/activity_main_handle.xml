@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.ui.widget.ResideLayout
+    android:id="@+id/resideLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.wizarpos.pay.ui.theme.ColorRelativeLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="240dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="35dp"/>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="80dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_menu"
+            android:layout_below="@+id/top_menu">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTicketUse"
+                    style="@style/MenuStyle"
+                    android:drawableLeft="@drawable/ic_write_off"
+                    android:text="卡券核销"/>
+
+                <TextView
+                    android:id="@+id/tvTransactionAcount"
+                    style="@style/MenuStyle"
+                    android:drawableLeft="@drawable/ic_record"
+                    android:text="交易记录"/>
+
+                <TextView
+                    android:id="@+id/tvTicketUseAcount"
+                    style="@style/MenuStyle"
+                    android:text="卡券核销记录"/>
+
+                <TextView
+                    android:id="@+id/tvTodayTotal"
+                    style="@style/MenuStyle"
+                    android:text="今日汇总"/>
+
+                <TextView
+                    android:id="@+id/tvExit"
+                    style="@style/MenuStyle"
+                    android:text="退出"/>
+                <TextView
+                    android:id="@+id/tvSetting"
+                    style="@style/MenuStyle"
+                    android:text="设置"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottom_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:padding="12dp"
+                android:text="关于"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:padding="12dp"
+                android:text="主题"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </com.wizarpos.pay.ui.theme.ColorRelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.wizarpos.pay.ui.theme.ColorView
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="?attr/colorPrimary"/>
+
+        <include layout="@layout/tool_bar_layout"/>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+    </LinearLayout>
+
+
+</com.wizarpos.pay.ui.widget.ResideLayout>

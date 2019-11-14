@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wizarpos.pay.view.BasicActivity" >
+
+
+    <FrameLayout
+        android:id="@+id/webTenpayNative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:id="@+id/llBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/btnMicroPay"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/shape_trans"
+            android:text="被扫" />
+
+        <Button
+            android:id="@+id/btnCheckOrder"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:divider="@drawable/shape_trans"
+            android:text="检查订单" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_receivables"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <com.ui.setting.CommonItem
+        android:id="@+id/ciSaleAmount"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:textLeft="@string/saleAmount"
+        app:textRight="$0.00" />
+
+    <TextView
+        android:id="@+id/tvShowRMBTotal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f3f3f3"
+        android:gravity="right|center_vertical"
+        android:maxLength="20"
+        android:paddingRight="20dp"
+        android:text="@string/approx_0_00"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/rlTip"
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/select_a_tip_percent"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvTips"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llP1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tip"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvP1Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/_0Amount"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvP1Percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llP2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tip"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvP2Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/_0Amount"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvP2Percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="15%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llP3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tip"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvP3Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/_0Amount"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvP3Percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="20%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llInput"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_tip"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvInputTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/no_tip" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#f3f3f3" />
+
+    <LinearLayout
+        android:id="@+id/llEnterTip"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="1dp"
+        android:orientation="vertical">
+
+        <com.ui.setting.CommonItem
+            android:id="@+id/ciInputTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:etTextRight="0.00"
+            app:textLeft="@string/enter_a_tip"
+            app:textRight="@string/currencySymbol" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#f3f3f3" />
+
+    <com.ui.setting.CommonItem
+        android:id="@+id/ciTotal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:textLeft="@string/total_tip"
+        app:textRight="@string/_0Amount" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/rtPay"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/ok"
+                android:textColor="#ffffff"
+                app:rv_backgroundColor="@color/dark_bule"
+                app:rv_backgroundPressColor="@color/blue_color"
+                app:rv_cornerRadius="5dp"
+                app:rv_strokeWidth="1dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvShowPayTotalRMB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvExchange"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#f3f3f3"
+            android:gravity="right"
+            android:maxLength="20"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/approx_0_00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvExchange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/llPay"
+            android:background="#f3f3f3"
+            android:gravity="center_horizontal"
+            android:paddingBottom="6dp"
+            android:text="@string/note_approx" />
+
+    </RelativeLayout>
+
+</LinearLayout>

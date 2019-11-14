@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+dependencies {
+    compile fileTree(include: '*.jar', dir: 'libs')
+    compile project(':WizarposPaymentLogic')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    // or 1.4-beta1
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    // or 1.4-beta1
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    // or 1.4-beta1
+    compile('com.github.afollestad.material-dialogs:core:0.9.6.0')
+    compile files('libs/xcl-charts.jar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0'
+    compile 'me.zhanghai.android.materialedittext:library:1.0.2'
+    compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+    compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
+    compile 'com.android.support:multidex:1.0.3'
+    //    compile files('libs/gifView.jar')
+    compile 'com.orhanobut:dialogplus:1.11'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //图片加载框架
+    compile 'com.getui:sdk-for-google-play:2.10.3.5'
+
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig{
+        multiDexEnabled true
+        manifestPlaceholders = [
+                GETUI_APP_ID : "WrooBGYx6UAJE0aURcZjz4",
+                GETUI_APP_KEY : "2p0Pz1tPveADus5DkYmAC9",
+                GETUI_APP_SECRET : "M3u40aUfR2ApsPXdCBqLY4"
+        ]
+        ndk {
+            abiFilters "armeabi"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/DEPENDENCIES.txt'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    dexOptions {
+        incremental true
+        //javaMaxHeapSize=1024M for 32bit Java,2048M for 64bit Java
+//        javaMaxHeapSize "1024M"
+        javaMaxHeapSize "2048M"
+    }
+
+
+}

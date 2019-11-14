@@ -1,0 +1,226 @@
+package com.wizarpos.pay.model;
+
+import java.io.Serializable;
+
+public class DailyDetailResp implements Serializable {
+    private String discountAmount;
+    private String masterTranLogId;
+    private String tranLogId;
+    private String tran_time;
+    private String transKind;
+    private String transType;
+    private String trasnAmount;
+    private String refundAmount;
+    private String thirdTradeNo;
+
+    private String tipAmount;
+    private String thirdExtId;
+    private String thirdExtName;
+    private String exchangeRate;
+    private String cnyAmount;//服务端返回交易的人民币金额
+
+    public boolean isExpand = false;
+    private String tranType;
+    private String transName;
+    private String singleAmount;
+    private String transTime;
+    private String tranlogId;
+    private String payTime;
+    private String cancelKind;
+
+    public String getCancelKind() {
+        return cancelKind;
+    }
+
+    public void setCancelKind(String cancelKind) {
+        this.cancelKind = cancelKind;
+    }
+
+    public String getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
+    }
+
+    public String getThirdTradeNo() {
+        return thirdTradeNo;
+    }
+
+    public void setThirdTradeNo(String thirdTradeNo) {
+        this.thirdTradeNo = thirdTradeNo;
+    }
+
+    public String getTipAmount() {
+        return tipAmount;
+    }
+
+    public void setTipAmount(String tipAmount) {
+        this.tipAmount = tipAmount;
+    }
+
+
+    public String getThirdExtId() {
+        return thirdExtId;
+    }
+
+    public void setThirdExtId(String thirdExtId) {
+        this.thirdExtId = thirdExtId;
+    }
+
+    public String getThirdExtName() {
+        return thirdExtName;
+    }
+
+    public void setThirdExtName(String thirdExtName) {
+        this.thirdExtName = thirdExtName;
+    }
+
+    public String getRefundAmount() {
+        return refundAmount;
+    }
+
+    public void setRefundAmount(String refundAmount) {
+        this.refundAmount = refundAmount;
+    }
+
+    private String optName;
+    private String bank_info;
+
+    public String getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(String discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public String getOptName() {
+        return optName;
+    }
+
+    public void setOptName(String optName) {
+        this.optName = optName;
+    }
+
+    public String getTranLogId() {
+        return tranLogId;
+    }
+
+    public void setTranLogId(String tranLogId) {
+        this.tranLogId = tranLogId;
+    }
+
+    public String getTran_time() {
+        return tran_time;
+    }
+
+    public void setTran_time(String tran_time) {
+        this.tran_time = tran_time;
+    }
+
+    public String getTransKind() {
+        return transKind;
+    }
+
+    public void setTransKind(String transKind) {
+        this.transKind = transKind;
+    }
+
+    public String getTransType() {
+        return transType;
+    }
+
+    public void setTransType(String transType) {
+        this.transType = transType;
+    }
+
+    public String getTrasnAmount() {
+        return trasnAmount;
+    }
+
+    public void setTrasnAmount(String trasnAmount) {
+        this.trasnAmount = trasnAmount;
+    }
+
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
+    }
+
+    public String getTranType() {
+        return tranType;
+    }
+
+    public void setTranType(String tranType) {
+        this.tranType = tranType;
+    }
+
+    public String getTransName() {
+        return transName;
+    }
+
+    public void setTransName(String transName) {
+        this.transName = transName;
+    }
+
+    public String getSingleAmount() {
+        return singleAmount;
+    }
+
+    public void setSingleAmount(String singleAmount) {
+        this.singleAmount = singleAmount;
+    }
+
+    public String getTransTime() {
+        return transTime;
+    }
+
+    public void setTransTime(String transTime) {
+        this.transTime = transTime;
+    }
+
+    public String getTranlogId() {
+        return tranlogId;
+    }
+
+    public void setTranlogId(String tranlogId) {
+        this.tranlogId = tranlogId;
+    }
+
+    public String getBank_info() {
+        return bank_info;
+    }
+
+    public void setBank_info(String bank_info) {
+        this.bank_info = bank_info;
+    }
+
+    public String getMasterTranLogId() {
+        return masterTranLogId;
+    }
+
+    public void setMasterTranLogId(String masterTranLogId) {
+        this.masterTranLogId = masterTranLogId;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(String exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public String getCnyAmount() {
+        return cnyAmount;
+    }
+
+    public void setCnyAmount(String cnyAmount) {
+        this.cnyAmount = cnyAmount;
+    }
+}

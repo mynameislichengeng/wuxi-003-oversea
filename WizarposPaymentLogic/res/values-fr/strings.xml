@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pleas_input_password">Mot de passe d’entrée loginname</string>
+    <string name="password_error">erreur de nom ou mot de passe de connexion</string>
+    <string name="please_input_complete_info">Veuillez entrer l’information complète</string>
+    <string name="merchant_data_parse_error">erreur d’analyse de données marchand</string>
+    <string name="cannot_conect_service">Impossible de se connecter service</string>
+    <string name="change_operator_need_conect_net">besoin de se connecter à net mise à jour</string>
+    <string name="data_parse_error">L’analyse de données a échoué </string>
+    <string name="network_hijackhead">L’analyse de données a échoué. Votre réseau semble avoir été compromise. Veuillez réessayer ultérieurement ou basculer vers un réseau stable.</string>
+    <string name="wechat_pay_cancel">Rémunération de Wechat Revoke</string>
+    <string name="alipay_cancel">Alipay Revoke</string>
+    <string name="wechat_pay">Wechat Pay </string>
+    <string name="alipay">Alipay </string>
+    <string name="no_network">Pas d’internet</string>
+    <string name="request_failed">Demande a échoué</string>
+    <string name="cancel_success">Remboursement approuvé</string>
+    <string name="enter_password">Veuillez saisir le mot de passe</string>
+
+    <!--交易记录明细分类-->
+    <string name="pay_tag">La consommation</string>
+    <string name="revoke_tag">Remboursement</string>
+    <string name="refund_tag">Remboursement</string>
+    <string name="amount_tag">Montant:</string>
+
+    <!--打印内容-->
+    <string name="print_merchant_id">ID marchand:</string>
+    <string name="print_terminal_id">ID de terminal:</string>
+    <string name="print_cashier_id">ID de la Caisse: </string>
+    <string name="refund_uppercase">REMBOURSEMENT</string>
+    <string name="print_receipt">Réception</string>
+    <string name="print_type">Type de:</string>
+    <string name="print_trans">TRANS #:</string>
+    <string name="print_acctName">Nom de l’ACCT:</string>
+    <string name="print_acct">Acct:</string>
+    <string name="print_approved">APPROUVÉ</string>
+    <string name="print_customer_copy">COPIE DU CLIENT</string>
+    <string name="print_merchant_copy">COPIE DE MARCHANDS</string>
+    <string name="print_important">-important-</string>
+    <string name="print_hint1">Veuillez conserver cette copie</string>
+    <string name="print_hint2">pour vos dossiers.</string>
+    <string name="print_daily_summary_title">RÉSUMÉ QUOTIDIEN</string>
+    <string name="print_merchant_name">Nom du commerçant:</string>
+    <string name="print_daily_total">Total:</string>
+    <string name="print_daily_total_transactions">Total des Transactions:</string>
+    <string name="print_daily_refund">REMBOURSEMENT:</string>
+    <string name="print_daily_refund_transactions">Transactions de remboursement:</string>
+    <string name="print_payType">Type</string>
+    <string name="print_transactions">Transactions</string>
+    <string name="print_amount">Montant</string>
+    <string name="print_sale">VENTE</string>
+    <string name="print_tip">Astuce:</string>
+    <string name="print_purchase">Achat:</string>
+    <string name="print_reprint">(Réimpression)</string>
+    <string name="print_fx_rate">Change monnaie:</string>
+</resources>

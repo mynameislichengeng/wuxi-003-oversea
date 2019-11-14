@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnClearApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="一忘皆空" />
+
+    <Button
+        android:id="@+id/btnPrintSync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打印测试同步" />
+
+
+    <Button
+        android:id="@+id/btnPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打印测试异步" />
+
+    <Button
+        android:id="@+id/btnPrintNeverEnding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打印测试(一直打印)" />
+
+    <Button
+        android:id="@+id/btnPrintEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打印测试(停止一直打印)" />
+
+    <Button
+        android:id="@+id/btnICStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IC start" />
+
+
+    <Button
+        android:id="@+id/btnICEND"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IC end" />
+</LinearLayout>

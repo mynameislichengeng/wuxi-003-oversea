@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_background"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@color/blue_color" >
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:shadowRadius="2.5"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:visibility="visible" >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" >
+
+        <CheckBox
+            android:id="@+id/cb_net_state"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/wife"
+            android:button="@null" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="redmineInfo">Changement de langue</string>
+    <string name="input_password">Veuillez entrer le mot de pass</string>
+    <string name="input_merchant">S’il vous plaît entrez marchand</string>
+    <string name="input_username">Veuillez entrer le nom d’utilisateur </string>
+    <string name="yestoday_total"></string>
+    <string name="SN_num">SN</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_qrcode">Code QR</string>
+    <string name="action_swipe"></string>
+    <string name="app_name">Enregistreuse</string>
+    <string name="config_tenpay_toast">QR Code paiement</string>
+    <string name="yestoday">Hier</string>
+    <string name="add_chashier_manger">Créer des employés</string>
+    <string name="alipay">Alipay</string>
+    <string name="before_week">La semaine dernière</string>
+    <string name="today">Aujourd’hui</string>
+    <string name="manager_password">Mot de passe</string>
+    <string name="is_manager">Autorisation d’administrateur</string>
+    <string name="ok">Bien</string>
+    <string name="manage">Gestion</string>
+    <string name="cashier_manager">Gestion des employés</string>
+    <string name="tv_pay">paiement</string>
+    <string name="two_code">code QR</string>
+    <string name="serial_num">Numéro de réception:</string>
+    <string name="revoke">Question remboursement</string>
+    <string name="cancle">Question remboursement</string>
+    <string name="cancle_success">Remboursement approuvé</string>
+    <string name="cancle_fails">Remboursement a échoué</string>
+    <string name="version_num">Version</string>
+    <string name="version_code">1.0.1</string>
+    <string name="before_month">Mois dernier</string>
+    <string name="btn_ok">Bien</string>
+    <string name="button_ok">Bien</string>
+    <string name="library_smoothprogressbar_libraryVersion">1.0.0</string>
+    <string name="pay_cashier">VENTE</string>
+    <string name="setting">Paramètres</string>
+    <string name="this_month">Ce mois-ci</string>
+    <string name="this_week">Cette semaine</string>
+    <string name="trans_amount_zero">0.00</string>
+    <string name="main_menu_title">RÉSUMÉ QUOTIDIEN</string>
+    <string name="wechat_pay">WechatPay</string>
+    <string name="wechatpay">WechatPay</string>
+    <string name="tel_num">4008399665</string>
+    <string name="bottom_hint">Placer un code QR dans le rectangle de viseur pour scanner.</string>
+    <string name="card_bank_pay_title">Carte</string>
+    <string name="intput_num">0123456789</string>
+    <string name="spb_default_speed">1</string>
+    <string name="seekbar_add">+</string>
+    <string name="seekbar_minus">-</string>
+    <string name="host_original_port">80</string>
+    <string name="key">CLÉ :</string>
+    <string name="employee">Employé</string>
+    <string name="exit">DÉCONNECTER</string>
+    <string name="trans_detail">ACTIVITÉ</string>
+    <string name="daily_summary">RÉSUMÉ QUOTIDIEN</string>
+    <string name="print_number">NOMBRE D’EXEMPLAIRES DE RÉCEPTION</string>
+    <string name="employee_management">Gestion des employés</string>
+    <string name="about">APPROPOS</string>
+    <string name="print_choose_num">Sélectionnez le nombre de Copies de réception</string>
+    <string name="user_name">Nom d’utilisateur</string>
+    <string name="pass_word">Mot de passe</string>
+    <string name="login">Connexion</string>
+    <string name="make_up">PROBLÈME DE RÉCEPTION</string>
+    <string name="refund">Remboursement</string>
+    <string name="receipt_number_show">Numéro de reçu</string>
+    <string name="receipt_number">Numéro de reçu:</string>
+    <string name="receipt_gen_number">Numéro de reçu de remboursement:</string>
+    <string name="sale">VENTE</string>
+    <string name="opertor_number">CAISSIÈRE:</string>
+    <string name="type">TYPE DE</string>
+    <string name="date">DATE</string>
+    <string name="custom">Custom</string>
+    <string name="enter_receipt_number">Entrez un numéro de réception</string>
+    <string name="reset">Remise à zéro</string>
+    <string name="search">Recherche</string>
+    <string name="daily_summary_international">RÉSUMÉ QUOTIDIEN</string>
+    <string name="activity">ACTIVITÉ</string>
+    <string name="print">Imprimer</string>
+    <string name="version">Version</string>
+    <string name="sn">SN</string>
+    <string name="merchant">Marchand</string>
+    <string name="sign_in">Connexion</string>
+    <string name="today_total">RÉSUMÉ QUOTIDIEN</string>
+    <string name="remember_me">Souvenir de moi</string>
+    <string name="tips_setting">CONSEILS DE RÉGLAGE</string>
+    <string name="payment_success">APPROUVÉE</string>
+    <string name="Continue">Bien</string>
+    <string name="exit_info">S’il vous plaît Appuyez sur retour pour quitter l’APP</string>
+    <string name="no_data">Aucune transaction</string>
+    <string name="payamount_warn">Enter an amount greater than zero</string>
+    <string name="trading_conditions">Total:</string>
+    <string name="no_today_transaction">Aucun enregistrement de transaction</string>
+    <string name="password">CODE DE SÉCURITÉ</string>
+    <string name="input_password_title">CODE DE SÉCURITÉ</string>
+    <string name="security_code_error">Erreur de code de sécurité</string>
+    <string name="start_date">Date de début</string>
+    <string name="end_date">Date de fin</string>
+    <string name="input_cancel_amount">Entrée un montant supérieur à zéro</string>
+    <string name="data_parse">L’analyse de données a échoué</string>
+    <string name="data_query_error">Date de début est supérieur à la date de fin </string>
+    <string name="revoke_large">Remboursement doit être inférieure à la rémunération</string>
+    <string name="Enter_other_merchant_num">Entrez le autre numéro de marchand</string>
+    <string name="Please_select_merchan">L’analyse de données a échoué</string>
+    <string name="pup_cancle">Annuler</string>
+    <string name="Enter_merchan_num">Entrez le num marchand</string>
+    <string name="consumption_failure">Échec de la consommation</string>
+    <string name="issue_refund">Question remboursement</string>
+    <string name="enter_sale_amount">Entrez le montant de la vente</string>
+    <string name="currencySymbol">$</string>
+
+    <!--小费设置-->
+    <string name="tipParameterSetting">DÉFINITION D’UN PARAMÈTRE DE TYPE </string>
+    <string name="collectTips">Ramassez les pourboires</string>
+    <string name="tip_setting">CONSEILS DE RÉGLAGE</string>
+    <string name="setPercentageAmounts">Pourcentage des quantités</string>
+    <string name="preSetPercentageAmounts">Pourcentages préétablis</string>
+    <string name="allowCustomAmounts">Permettre aux montants personnalisés</string>
+    <string name="save">Enregistrer</string>
+
+    <!-- 安全密码修改 -->
+    <string name="changeSecurityCode">CODE DE SÉCURITÉ DE CHANGEMENT</string>
+    <string name="oldSecurityCode">SC courant:</string>
+    <string name="newSecurityCode">Nouvelle SC:</string>
+    <string name="confrimSecurityCode">Confirmer la SC:</string>
+
+    <!--小费界面-->
+    <string name="enter_a_tip">Ou entrez une astuce</string>
+    <string name="saleAmount">Montant de la vente</string>
+    <string name="approxCurrency">environ￥</string>
+    <string name="select_a_tip_percent">Sélectionnez un pourcentage de pointe </string>
+    <string name="_0Amount">$0.00</string>
+    <string name="no_tip">Aucun Conseil</string>
+    <string name="total_tip">Total:</string>
+    <string name="approx_0_00">environ￥0.00</string>
+    <string name="note_approx">Remarque:1 CAD = environ5.12 CNY</string>
+    <string name="note">Remarque:</string>
+    <string name="exchangeApprox">1 CAD = environ￥.</string>
+
+    <!--收银界面-->
+    <string name="press">:Press</string>
+    <string name="or">ou</string>
+
+    <!--月份-->
+    <string name="jan_simple">janv.</string>
+    <string name="feb_simple">févr.</string>
+    <string name="mar_simple">mars</string>
+    <string name="apr_simple">avril</string>
+    <string name="may_simple">mai</string>
+    <string name="june_simple">juin</string>
+    <string name="july_simple">juil.</string>
+    <string name="aug_simple">août</string>
+    <string name="sept_simple">sept.</string>
+    <string name="oct_simple">oct.</string>
+    <string name="nov_simple">nov.</string>
+    <string name="dec_simple">déc</string>
+    <string name="jan">janvier</string>
+    <string name="feb">février</string>
+    <string name="mar">mars</string>
+    <string name="apr">avril</string>
+    <string name="may">mai</string>
+    <string name="june">juin</string>
+    <string name="july">juillet</string>
+    <string name="aug">août</string>
+    <string name="sept">septembre</string>
+    <string name="oct">octobre</string>
+    <string name="nov">novembre</string>
+    <string name="dec">décembre</string>
+
+    <string name="go_pay">Bien</string>
+</resources>

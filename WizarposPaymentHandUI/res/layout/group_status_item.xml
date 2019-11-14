@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/activity_adapter_parent_background"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="#D8D8D8"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="03"
+            android:padding="5dp"
+            android:background="@drawable/textview_bg_blue_circle"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:alpha="0.5">
+
+            <TextView
+                android:id="@+id/one_status_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="#000000"
+                android:layout_centerVertical="true"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥800.00"
+                android:gravity="center"
+                android:layout_toLeftOf="@+id/ivArrowRight"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/ivArrowRight"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/btn_back_right"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#D8D8D8" />
+</LinearLayout>

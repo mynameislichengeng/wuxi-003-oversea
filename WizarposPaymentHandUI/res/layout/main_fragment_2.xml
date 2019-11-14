@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/flReplace"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/gray_color"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:id="@+id/btn_main_cashier"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cashier_selector"
+                android:button="@null" />
+
+            <TextView
+                android:id="@+id/tv_mainmenu_shou_kuan"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#000"
+                android:alpha="0.5"
+                android:textSize="12sp"
+                android:text="@string/pay_cashier" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_count"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:id="@+id/btn_main_account"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_static_selector"
+                android:button="@null" />
+
+            <TextView
+                android:id="@+id/tv_mainmenu_zhang_ben"
+                android:layout_gravity="center"
+                android:textColor="#000"
+                android:alpha="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:text="@string/count_detail" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_manager"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:id="@+id/btn_main_manager"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_manager_selector"
+                android:button="@null" />
+
+            <TextView
+                android:id="@+id/tv_mainmenu_guan_li"
+                android:layout_gravity="center"
+                android:textColor="#000"
+                android:alpha="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:text="@string/manage" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_setting"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:id="@+id/btn_main_setting"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_setting_selector"
+                android:button="@null" />
+
+            <TextView
+                android:id="@+id/tv_mainmenu_she_zhi"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#000"
+                android:alpha="0.5"
+                android:textSize="12sp"
+                android:text="@string/setting" />
+        </LinearLayout>
+    </RadioGroup>
+
+</LinearLayout>

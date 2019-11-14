@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wizarpos.pay.manage.activity.CardLinkConfigActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnSetParam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置参数" />
+
+            <Button
+                android:id="@+id/btnKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下载主密钥" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签到" />
+
+            <Button
+                android:id="@+id/btnSettle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结算" />
+
+            <Button
+                android:id="@+id/btnBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询余额" />
+
+            <Button
+                android:id="@+id/btnSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消费"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnVoidSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消费撤销" />
+
+            <Button
+                android:id="@+id/btnRefund"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退货" />
+
+            <Button
+                android:id="@+id/btnDownloadAID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下载AID参数" />
+
+            <Button
+                android:id="@+id/btnDownloadCAPK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下载公钥参数" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:scrollbars="none"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/tvTimeRange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="03-01/2016"
+                android:textColor="#FF888888"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+        </LinearLayout>
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D8D8D8" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="@string/trading_conditions"
+                android:gravity="left|center_vertical"
+                android:textColor="#888888"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvTransactionDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:layout_weight="0"
+                android:text="0.00"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#D8D8D8" />-->
+
+        <com.wizarpos.pay.ui.ProgressLayout
+            android:id="@+id/plDailyDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <FrameLayout
+                    android:id="@+id/flPie"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp"
+                    android:layout_height="120dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                </FrameLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="支付方式比例"
+                    android:textColor="#666666"
+                    android:visibility="gone"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8D8D8" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#FAFAFA" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8D8D8" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.wizarpos.pay.ui.newui.util.MostItemListView
+                            android:id="@+id/lvShowDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:divider="#D8D8D8"
+                            android:dividerHeight="1px"
+                            android:background="#ffffff"
+                            android:scrollbars="none"
+                            />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#D8D8D8"/>
+                        <LinearLayout
+                            android:id="@+id/llRevoke"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:id="@+id/ivRevokeIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:padding="4dp"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_back_arrow"/>
+
+                            <TextView
+                                android:id="@+id/tvRevokeType"
+                                android:layout_width="0dp"
+                                android:layout_weight="1.8"
+                                android:layout_height="wrap_content"
+                                android:text="Refund"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:textColor="#666666"
+                                android:gravity="center_vertical|left"/>
+
+                            <TextView
+                                android:id="@+id/tvRevokeCount"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical|left"
+                                android:textSize="18sp"
+                                android:textColor="#999999"
+                                android:text="" />
+
+                            <TextView
+                                android:id="@+id/tvRevokeAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center_vertical|right"
+                                android:textSize="18sp"
+                                android:text="400.00" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#D8D8D8" />
+                    </LinearLayout>
+                </LinearLayout>
+
+    <!--
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="100dp"
+                        android:gravity="center">
+                        <com.github.lzyzsd.circleprogress.DonutProgress
+                            android:id="@+id/dpConsumption"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:donut_finished_color="@color/red_color"
+                            app:donut_prefix_text="消费"
+                            app:donut_text_color="#888888"
+                            app:donut_text_size="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="100dp"
+                        android:gravity="center">
+                        <com.github.lzyzsd.circleprogress.DonutProgress
+                            android:id="@+id/dpRevoke"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:donut_finished_color="@color/orange"
+                            app:donut_prefix_text="撤销"
+                            app:donut_text_color="#888888"
+                            app:donut_text_size="16sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvCustomAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvRevokeAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D8D8D8" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#FAFAFA" />
+                <ListView
+                    android:id="@+id/lvShowDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#FAFAFA"
+                    android:dividerHeight="10dp"
+                    />-->
+            </LinearLayout>
+        </com.wizarpos.pay.ui.ProgressLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wizarpos.pay2.lite"
+    android:versionCode="36"
+    android:versionName="1.0.37">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
+    <!-- 获取IMEI所需权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ARQ_EMV_COMMON" />
+    <uses-permission android:name="android.permission.ARQ_EMV_FILE" />
+    <uses-permission android:name="android.permission.ARQ_EMV_LIB" />
+    <uses-permission android:name="android.permission.ARQ_KEY" />
+    <uses-permission android:name="android.permission.ARQ_MAGC" />
+    <uses-permission android:name="android.permission.ARQ_LCD" />
+    <uses-permission android:name="android.permission.ARQ_ICC" />
+    <uses-permission android:name="android.permission.ARQ_SECURITY" />
+    <uses-permission android:name="android.permission.ARQ_MISC" />
+    <uses-permission android:name="android.permission.ARQ_FILEOPS" />
+    <uses-permission android:name="android.permission.ARQ_ENCRYPTION" />
+    <uses-permission android:name="android.permission.ARQ_KEYREL" />
+    <uses-permission android:name="android.permission.CLOUDPOS_SAFE_MODULE_READONLY" />
+    <uses-permission android:name="android.permission.CLOUDPOS_SAFE_MODULE" />
+    <!-- 开钱箱的权限 -->
+    <uses-permission android:name="android.permission.WIZARPOS_MONEYBOX" />
+    <!-- 调试需要注掉 -->
+    <uses-permission android:name="android.permission.WIZARPOS_CUSTOMER_DISPLAY" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PUSHSERVICE" />
+    <!-- 打电话权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <permission
+        android:name="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.wizarpos.cashier.permission.CASHIER_WEPAY"
+        android:protectionLevel="normal" />
+
+    <!--
+    <permission
+        android:name="com.wizarpos.cashier.permission.CASHEIR_BROADCAST"
+        android:protectionLevel="normal" />
+    -->
+
+
+    <!-- 声明支付易客显广播权限 ,调用新的客显工程 -->
+    <!-- <uses-permission android:name="com.android.permission.SEND_PAY" /> -->
+
+
+    <!-- 打印权限 -->
+    <uses-permission android:name="android.permission.WIZARPOS_PRINTER" />
+    <uses-permission android:name="android.permission.WIZARPOS_MSR" />
+    <uses-permission android:name="android.permission.WIZARPOS_CONTACTLESS_CARD" />
+    <uses-permission android:name="android.permission.WIZARPOS_SMARTCARD" />
+    <uses-permission android:name="android.permission.WIZARPOS_PIN_GET_PIN_BLOCK" />
+    <uses-permission android:name="android.permission.WIZARPOS_PIN_MAC" />
+    <uses-permission android:name="android.permission.WIZARPOS_PIN_ENCRYPT_DATA" />
+    <uses-permission android:name="android.permission.WIZARPOS_PIN_UPDATA_MASTER_KEY" />
+    <uses-permission android:name="android.permission.WIZARPOS_PIN_UPDATA_USER_KEY" />
+    <uses-permission android:name="android.permission.WIZARPOS_SERIAL" />
+
+    <!-- 允许网络访问的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 扫描权限 开始 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- 扫描权限 结束 -->
+
+
+    <!-- 支付应用调用权限 开始 -->
+    <uses-permission android:name="com.unionpay.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.wizarpos.cuppos.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.wizarpos.fjumspos.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.wizarpos.cardinfolink.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.wizarpos.allinpay_gd.payment.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.wizarpos.paymentrouter.permission.WIZARPOS_PAY" />
+    <uses-permission android:name="com.tesla.tunguska.cuppay.CloudPosPaymentClient.permission.CLOUDPAY" />
+    <uses-permission android:name="com.tesla.tunguska.cuppay.CloudPosPaymentClient.permission.REVERSE" />
+    <uses-permission android:name="com.tesla.tunguska.cuppay.CloudPosPaymentClient.permission.CLOUDPAY_SIGN" />
+    <uses-permission android:name="com.tesla.tunguska.cuppay.CloudPosPaymentClient.permission.REVERSE_SIGN" />
+    <!-- 支付应用调用权限 结束 -->
+
+
+    <!-- 民生 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PRINTER" />
+
+    <!-- 签名权限 -->
+    <uses-permission android:name="android.permission.WIZARPOS_SAFE_MODULE" />
+
+    <!-- 系统查看任务 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.wizarpos.pay.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <!-- 嵌入收单应用 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CLOUDPOS_MSR" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PRINTER" />
+    <uses-permission android:name="android.permission.CLOUDPOS_SMARTCARD" />
+    <uses-permission android:name="android.permission.CLOUDPOS_CONTACTLESS_CARD" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PIN_GET_PIN_BLOCK" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PIN_MAC" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PIN_ENCRYPT_DATA" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PIN_UPDATE_MASTER_KEY" />
+    <uses-permission android:name="android.permission.CLOUDPOS_PIN_UPDATE_USER_KEY" />
+    <uses-permission android:name="android.permission.CLOUDPOS_LED" />
+    <uses-permission android:name="android.permission.CLOUDPOS_SAFE_MODULE" />
+    <uses-permission android:name="android.permission.CLOUDPOS_SETTIME" />
+    <!-- huashi -->
+    <uses-permission android:name="com.wizarpos.keyposclient.permission.LOCAL_TMK_SERVICE" />
+    <!-- end huashi -->
+    <!-- end 嵌入收单应用 -->
+    <!--连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- iBeancon功能所需权限 -->;
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name="com.wizarpos.pay.app.Pay2Application"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_app"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.wizarpos.pay.login.view.StartupActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- TEST -->
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewMainActivity"
+            android:screenOrientation="portrait">
+
+            <!--
+                <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewDownloadKeyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.VoidTransActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewSettleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewCardLinkSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewAuthCodeSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewDailyStatementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewDailySumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewDailySumActivityPlus"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewBATAuthCodeSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewPaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wizarpos.pay.ui.newui.NewVoidCardLinkActivity" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewAboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewMicroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewTranlogActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewPasswordSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.ui.newui.NewCashierManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.wizarpos.pay.test.TestModeConfigActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.test.TestStartMenuActivity"
+            android:screenOrientation="portrait" />
+        <!-- END TEST -->
+
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.BankCardPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.CashPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.PaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.GatheringActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.setting.activity.HostSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.setting.activity.DebugActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.view.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.view.LoginMerchantRebuildActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.OfflineHelperActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.PaymentSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.RemarkSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.RoundSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.PaymentSettingListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.PaymengSettingContainerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.wizarpos.pay.statistics.activity.QueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.statistics.activity.ItemDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.CommonThirdPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.AlipayMicroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.AlipayNativeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.WepayMicroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.WepayNativeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.TicketPublishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.WaitPrintActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.TicketUseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.MemberCardDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.QwalletMicroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.QwalletNativeActivity"
+            android:label="手Q扫码支付"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.CancelTransactionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.CashierManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.AddCashierManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.RepealTransactionResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.ModifyPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.setting.activity.ContactCustomerServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.setting.activity.SuggestionFeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.MainFragmentActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.view.ProgressingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.ScanTicketUseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.EditCashierManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.InputPassWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.ShowQueryDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.ThirdTicketCancleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.WepayTicketCancleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.WizarTicketCancleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.WepayTicketCancleMixActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.BaiduMicroPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.BaiduNativePayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.OtherPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.MixPayActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.MixMembertTicketActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.input.InputInfoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.input.TicketScanUseActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.input.TicketUseCameraActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.input.InputInfoCameraActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.app.DefaultErrorActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.NetPaySettingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.view.ChoosePayModeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranDialogStyle" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.SignLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.PaymentSecurityCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.cashier.activity.UnionPayMicroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.common.ticketdisplay.DisplayTicketActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.common.ticketdisplay.DisplaySingleImageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.statistics.activity.RecordActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.statistics.activity.TicketDetialActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.hugo.android.scanner.CaptureActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+
+        <!-- 商户进件 -->
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.NewMerChantFillFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.NewMerchantActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.AddtoMerchantActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.AgreementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.SetBankAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.UploadInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.login.merchant.input.SettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name="com.wizarpos.pay.view.util.ConnectionChangeReceiver">
+            <intent-filter android:priority="999999">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.wizarpos.pay.service.BankTransUploadService"
+            android:exported="false" />
+        <service android:name="com.wizarpos.device.printer.PrintService" />
+
+        <!-- leakcanary -->
+        <!--
+        <service
+            android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+        <service
+            android:name="com.squareup.leakcanary.DisplayLeakService"
+            android:enabled="false" />
+
+        <activity android:screenOrientation="portrait"
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:enabled="false"
+            android:icon="@drawable/__leak_canary_icon"
+            android:label="@string/__leak_canary_display_activity_label"
+            android:taskAffinity="com.squareup.leakcanary"
+            android:theme="@style/__LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+        <!-- end leakcanary -->
+
+
+        <!-- third app -->
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.PayNetactivityProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.LoginActivityProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.CancelTransactionActivityProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.LoginHandoverActivityProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.PayActivityProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.MemberCardRechargeProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_SERVICE"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wizarpos.pay.thirdapp.InfoProxy"
+            android:exported="true"
+            android:permission="com.wizarpos.cashier.permission.CASHIER_WEPAY"
+            android:screenOrientation="portrait" />
+
+        <!-- end third app -->
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55a38d3467e58e3377005479" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
+
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.PaymentItemSettingActivity"
+            android:label="@string/title_activity_payment_item_setting"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.wizarpos.pay.cashier.activity.DiscountActivity" />
+        <activity
+            android:name="com.wizarpos.pay.manage.activity.CardLinkConfigActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wizarpos.pay.setting.activity.TipParameterSettingActivity" />
+
+        <receiver android:name="com.wizarpos.pay.broadcastreceiver.Alarmreceiver">
+            <intent-filter>
+                <action android:name="com.wizarpos.pay.update"></action>
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.wizarpos.pay.setting.activity.SetLanguageActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="com.wizarpos.pay.service.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+        <service android:name="com.wizarpos.pay.service.ReceiveIntentService" />
+
+    </application>
+
+</manifest>

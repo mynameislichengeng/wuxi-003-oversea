@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.view.precent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/main_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/ll_total_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f3f3f3"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:padding="@dimen/padding_normal"
+                    android:text="@string/today"
+                    android:textColor="@color/blue_color" />
+            </LinearLayout>
+            <!-- 无数据 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:gravity="center"
+                    android:text="@string/no_count"
+                    android:textColor="#000"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <!-- 无数据 -->
+
+            <com.wizarpos.pay.ui.ProgressLayout
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.wizarpos.pay.view.swipyrefresh.SwipyRefreshLayout
+                    android:id="@+id/swipyrefreshlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#f3f3f3"
+                    android:cacheColorHint="#00000000"
+                    app:direction="both" >
+
+                    <ListView
+                        android:id="@+id/lv_list_detail_Recode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="1px" >
+                    </ListView>
+                </com.wizarpos.pay.view.swipyrefresh.SwipyRefreshLayout>
+            </com.wizarpos.pay.ui.ProgressLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detialFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+    </RelativeLayout>
+
+</com.wizarpos.pay.view.precent.PercentRelativeLayout>

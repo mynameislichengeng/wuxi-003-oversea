@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.view.precent.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/etInputAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cashier_input_amount"
+                android:editable="false"
+                android:gravity="right|center_vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:text="0.00"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_extraBig" />
+
+            <TextView
+                android:id="@+id/tvDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:editable="false"
+                android:text="已扣减: 0.00"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_moderate2" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rlPayMode"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%h"
+        android:background="@color/cashier_input_pay_mode"
+        android:gravity="center_horizontal|center_vertical"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/ivPayMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvPayMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/cashier_choose_pay_mode_title"
+            android:textSize="@dimen/text_moderate1" />
+
+        <TextView
+            android:id="@+id/tvChangePayMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:text="更改"
+            android:textColor="@color/cashier_choose_pay_mode_cancel" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flInputPad"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        app:layout_heightPercent="66.5%h" >
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fl_paymode_choose"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        app:layout_heightPercent="76.5%h" 
+        android:background="#e6e6e6"
+        android:visibility="gone">
+        
+        <GridView
+            android:id="@+id/gv_paymode_choose"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="6dp"
+            android:scrollbars="none"
+            android:listSelector="@android:color/transparent" />
+
+    </FrameLayout>
+
+</com.wizarpos.pay.view.precent.PercentLinearLayout>

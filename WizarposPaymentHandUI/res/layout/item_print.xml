@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/llPrintItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tvPrintItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_marginLeft="40dp"
+            android:text="1"
+            />
+        <ImageView
+            android:id="@+id/ivPrintItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="40dp"
+            android:clickable="false"
+            android:text="@null"
+            android:background="@drawable/selector_radio_btn_blue"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/ivPrintItemDivider"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector_color_gray_or_bule"
+        android:clickable="false"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="1px" />
+</LinearLayout>

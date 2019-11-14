@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/resale_capture_flashlight_press_60" />
+    <item android:drawable="@drawable/resale_capture_flashlight_60" />
+</selector>

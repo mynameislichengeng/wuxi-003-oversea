@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wizarpos.pay.view.precent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="36%h">
+    </android.support.v4.view.ViewPager>
+    
+    <!--
+    <FrameLayout
+        android:id="@+id/flTop"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" 
+        android:visibility="gone">
+    </FrameLayout>
+    -->
+
+    <RelativeLayout
+        android:id="@+id/rlHomeBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp" >
+
+        <Button
+            android:id="@+id/btnPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/vEmpty"
+            android:background="@drawable/home_btn_oragen_selector"
+            android:drawableLeft="@drawable/coin"
+            android:drawablePadding="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="6dp"
+            android:text="我要收款"
+            android:textColor="@color/white" />
+
+        <View
+            android:id="@+id/vEmpty"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="8dp" />
+
+        <Button
+            android:id="@+id/btnTicketCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/vEmpty"
+            android:background="@drawable/home_btn_blue_selector"
+            android:drawableLeft="@drawable/payother"
+            android:drawablePadding="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="6dp"
+            android:text="卡券核销"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvRecords"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rlHomeBtns"
+        android:layout_below="@+id/vpTitle"
+        android:background="@color/white" />
+
+</com.wizarpos.pay.view.precent.PercentRelativeLayout>

@@ -1,0 +1,168 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/color_discount_dark_line" />
+
+    <RelativeLayout
+        android:id="@+id/rlInputAmount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="请输入待收金额:"
+            android:textSize="@dimen/text_moderate1" />
+
+        <com.wizarpos.pay.ui.AmountEditText
+            android:id="@+id/tvMixPayInputAmountTips"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:editable="false"
+            android:gravity="right"
+            android:textSize="@dimen/text_moderate1" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llChooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <RelativeLayout
+            android:id="@+id/rlDirectDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvDirectDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/padding_normal"
+                android:text="直接折扣"
+                android:textSize="@dimen/text_size_normal" />
+
+            <View
+                android:id="@+id/vDirectLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_discount_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlPercentDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvPercentDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/padding_normal"
+                android:text="比例折扣"
+                android:textSize="@dimen/text_size_normal" />
+
+            <View
+                android:id="@+id/vPercentLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_discount_line"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etMixAmount"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_edittext_selector"
+            android:editable="false"
+            android:gravity="center|right"
+            android:paddingRight="@dimen/padding_normal"
+            android:text="0.00"
+            android:textSize="@dimen/text_moderate1" />
+
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textSize="@dimen/text_moderate1" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/vMixPrecent"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="5dp"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/etMixPrecent"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:background="@drawable/login_edittext_selector"
+            android:editable="false"
+            android:gravity="center|right"
+            android:maxLength="3"
+            android:paddingRight="25dp"
+            android:text="0"
+            android:textSize="@dimen/text_moderate1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/etMixPrecent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="%"
+            android:textSize="@dimen/text_moderate1" />
+
+        <TextView
+            android:id="@+id/tvMixPrecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:paddingRight="@dimen/padding_normal"
+            android:text="0.00元"
+            android:textSize="@dimen/text_moderate1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/flInputPad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+
+</LinearLayout>

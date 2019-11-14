@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_alipay"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@color/white"
+                android:text="@string/alipay"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_wechatpay"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@color/white"
+                android:text="@string/wepay"
+                android:textColor="#000"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/btn_shouq"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@color/white"
+                android:text="@string/q_wallet_title"
+                android:textColor="#000"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/btn_baidu"
+                style="?android:attr/accessibilityEventTypes"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@color/white"
+                android:text="@string/bai_du_pay"
+                android:textColor="#000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/ll_alipay"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/blue_color"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_wechat"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray_color"
+                android:orientation="horizontal" >
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_shouq"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray_color"
+                android:orientation="horizontal" >
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_baidu"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray_color"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_paysetting_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</RelativeLayout>

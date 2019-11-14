@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">非常抱歉\n出错了!</string>
+    <string name="customactivityoncrash_error_activity_unknown_exception">未知异常</string>
+    <string name="customactivityoncrash_error_activity_restart_app">重启</string>
+    <string name="customactivityoncrash_error_activity_close_app">退出</string>
+    <string name="customactivityoncrash_error_activity_error_details">错误明细</string>
+    <string name="customactivityoncrash_error_activity_error_details_title">错误明细</string>
+    <string name="customactivityoncrash_error_activity_error_details_close">退出</string>
+
+    <string name="pleas_input_password">请输入用户名密码</string>
+    <string name="password_error">用户名密码错误</string>
+    <string name="please_input_complete_info">请输入完整信息</string>
+    <string name="merchant_data_parse_error">商户数据解析异常</string>
+    <string name="cannot_conect_service">无法登陆,无法连接到服务器</string>
+    <string name="change_operator_need_conect_net">操作员变更,需要联网更新</string>
+    <string name="data_parse_error">数据解析失败</string>
+    <string name="network_hijackhead">数据解析失败，检测到你的网络被劫持，请稍后重试或换用稳定的网络！</string>
+    <string name="wechat_pay_cancel">微信消费撤销</string>
+    <string name="alipay_cancel">支付宝消费撤销</string>
+    <string name="alipay">支付宝消费</string>
+    <string name="wechat_pay">微信消费</string>
+    <string name="no_network">网络不通</string>
+    <string name="request_failed">请求失败</string>
+    <string name="cancel_success">撤销成功</string>
+    <string name="enter_password">请用户输入密码</string>
+
+    <!--交易记录明细分类-->
+    <string name="pay_tag">支付</string>
+    <string name="revoke_tag">撤销</string>
+    <string name="refund_tag">退货</string>
+    <string name="amount_tag">Amount:</string>
+
+    <!--打印内容-->
+    <string name="print_merchant_id">Merchant ID:</string>
+    <string name="print_terminal_id">Terminal ID:</string>
+    <string name="print_cashier_id">Cashier ID:</string>
+    <string name="refund_uppercase">REFUND</string>
+    <string name="print_receipt">Receipt</string>
+    <string name="print_type">Type:</string>
+    <string name="print_trans">Trans#:</string>
+    <string name="print_acctName">Acct Name:</string>
+    <string name="print_acct">Acct:</string>
+    <string name="print_approved">APPPROVED</string>
+    <string name="print_customer_copy">CUSTOMER COPY</string>
+    <string name="print_important">-important-</string>
+    <string name="print_hint1">Please retain this Copy</string>
+    <string name="print_hint2">for your records.</string>
+    <string name="print_merchant_copy">MERCHANT COPY</string>
+    <string name="print_daily_summary_title">DAILY SUMMARY</string>
+    <string name="print_daily_report_sales">DAILY Report</string>
+    <string name="print_summary_type_sales">SALES</string>
+    <string name="print_summary_period">Summary Period:</string>
+    <string name="print_emplayee">Emplayee:</string>
+    <string name="print_merchant_name">Merchant Name:</string>
+    <string name="print_daily_total">Total              :</string>
+    <string name="print_daily_total_transactions">Total Transactions :</string>
+    <string name="print_daily_refund">Refund             ：</string>
+    <string name="print_daily_refund_transactions">Refund Transactions：</string>
+    <string name="print_payType">payType</string>
+    <string name="print_transactions">Transactions</string>
+    <string name="print_amount">Amount</string>
+    <string name="print_sale">SALE</string>
+    <string name="print_tip">Tip:</string>
+    <string name="print_purchase">Purchase:</string>
+    <string name="print_reprint">(Re print)</string>
+    <string name="print_fx_rate">FX rate:</string>
+</resources>
