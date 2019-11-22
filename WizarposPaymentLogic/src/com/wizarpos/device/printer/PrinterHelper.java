@@ -168,7 +168,7 @@ public class PrinterHelper {
                 if (keyword.equals("<b>")) {
                     isBoldFont = true;
                 } else if (keyword.equals("</b>")) {
-                    isBoldFont = false;
+                    isBoldFont = true;
                 } else if (keyword.equals("<c>")) {
                     align = AlignEnum.CENTER;
                 } else if (keyword.equals("</c>")) {

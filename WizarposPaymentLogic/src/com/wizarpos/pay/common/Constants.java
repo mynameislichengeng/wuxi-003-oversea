@@ -38,8 +38,8 @@ public class Constants {
     //    public static final String SUFFIX_URL = "/member-server/service";//服务器版本放到head中
     public static final String SERVER_VERSION = "V1_9";//服务器版本放到head中维护 wu
 
-//    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INT ;
-    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR ;
+//    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL;
+        public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR ;
     public static final String DEFAULT_PORT = AppConfigInitUtil.DEFAULT_PORT;
 
     public static final String SUFFIX_URL = "/member-server/service";//服务器版本放到head中
@@ -960,7 +960,7 @@ public class Constants {
         TRAN_TYPE.put(SC_504_TICKET_CANCEL, "券作废");
         TRAN_TYPE.put(SC_830_MERCHANT_CARD_CHANGE, "会员卡换卡");
         TRAN_TYPE.put(SC_813_ALIPAY, "Alipay");
-        TRAN_TYPE.put(SC_814_TENPAY, "Wechat" );
+        TRAN_TYPE.put(SC_814_TENPAY, "Wechat");
 //        TRAN_TYPE.put(SC_814_TENPAY, "Wechat" + PaymentApplication.getInstance().getString(R.string.pay_tag));
 //        TRAN_TYPE.put(SC_820_ORDER_DEF_DETAIL, "Wechat" + " " + PaymentApplication.getInstance().getString(R.string.pay_tag) + " " + PaymentApplication.getInstance().getString(R.string.refund_tag));
 //        TRAN_TYPE.put(SC_809_CANCEL_ALIPAY, "Alipay" + " " + PaymentApplication.getInstance().getString(R.string.refund_tag));
