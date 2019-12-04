@@ -1,2 +1,0 @@
-include ':motionpay-PaymentHandUI'
-include ':motionpay-PaymentLogic'
