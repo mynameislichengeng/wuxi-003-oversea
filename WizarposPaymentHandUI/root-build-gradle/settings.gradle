@@ -1,0 +1,22 @@
+//include ':atool'
+//include ':appcompat'
+include ':WizarposPaymentLogic'
+//HAND
+include ':WizarposPaymentHandUI'
+//include ':WizarposPaymentLogic:PulltorefreshLib'
+//include ':WizarposPaymentLogic:SwipeMenuListViewLibrary'
+//include ':UI:UI'
+//POS
+//include ':WizarposPayment'
+//include ':WizarposMemberLogic'
+//include ':comcashier'
+//include ':WizarposSaleLogic'
+//include ':GrandOceanHandUI'
+//include ':GrandOceanLogic'
+//include ':GrandOceanSaleUI'
+//include ':MixPayDemo'
+
+//handUI third_app
+//include ':third_app'
+
+//include ':wifitest'；
