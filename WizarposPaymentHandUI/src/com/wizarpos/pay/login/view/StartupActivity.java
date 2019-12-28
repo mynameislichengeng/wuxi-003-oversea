@@ -117,9 +117,11 @@ public class StartupActivity extends BaseViewActivity {
 
     private void go() {
         if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
+            Log.d("tagtagtag", "进入home界面");
 //			startActivity(new Intent(this, MainFragmentActivity2.class));
             startActivity(new Intent(this, NewMainActivity.class));
         } else {
+            Log.d("tagtagtag", "进入登陆界面");
             startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
         }
         this.finish();

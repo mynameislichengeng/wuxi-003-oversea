@@ -1,5 +1,6 @@
 package com.wizarpos.pay.login.view;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -92,6 +94,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
     private CheckBox cb_remember_psw;
     private TextView tvForgetPwd;
     private ImageView ivLoginClose;
+    private Button btn_login;
     private boolean isShowPassword = false;
 
     //由于登录前无法获取数据库信息，从Sp中读取相关数据
@@ -110,6 +113,12 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         return intent;
     }
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, LoginMerchantRebuildActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        ((Activity) context).startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +129,10 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         initView();
         if (thirdAppController.isInservice()) {
             getPubCertificate();
+        } else {
+            autoLogin();
         }
+
     }
 
     private void getPubCertificate() {
@@ -174,7 +186,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
     private void initView() {
 //        setTitleText("登录");
         setMainView(R.layout.activity_login_new_ui);
-        cb_remember_psw = (CheckBox) findViewById(R.id.cb_remember_psw);
+        cb_remember_psw = findViewById(R.id.cb_remember_psw);
         cb_remember_psw.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -192,7 +204,10 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         setOnClickListenerById(R.id.tvForgetPwd, this);
         setOnClickListenerById(R.id.ivLoginClose, this);
         setOnClickListenerById(R.id.tvMerchantId, this);
-        setOnClickListenerById(R.id.btn_login, this);
+        //登陆
+        btn_login = findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(this);
+//        setOnClickListenerById(R.id.btn_login, this);
         setOnClickListenerById(R.id.btnRegist, this);
         setOnClickListenerById(R.id.btnTest, this);
         setOnClickListenerById(R.id.btnSwitchLanguage, this);
@@ -290,6 +305,20 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         }
         et_password.setSelection(et_password.getText().length());
         et_operater.setSelection(et_operater.getText().length());
+    }
+
+    /**
+     * 自动登陆
+     */
+    private void autoLogin() {
+        //如果是记住密码
+        if (isRemember) {
+            //是否是通过点击sign-out方式退出，如果是sign-out方式退出则不要自动登陆，默认为FALSE
+            String isFlag = AppStateManager.getState(AppStateDef.IS_SIGN_OUT_EXIT, Constants.FALSE);
+            if (!Constants.TRUE.equals(isFlag)) {
+                this.btn_login.performClick();
+            }
+        }
     }
 
     @Override

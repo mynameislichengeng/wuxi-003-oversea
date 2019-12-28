@@ -215,15 +215,17 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                             AppStateManager.clearCache();
                             AppConfigHelper.clearCache();
                             NewMainActivity.this.finish();
-                            Intent intent = new Intent(NewMainActivity.this, LoginMerchantRebuildActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
+                            AppStateManager.setState(AppStateDef.IS_SIGN_OUT_EXIT, Constants.TRUE);
+                            LoginMerchantRebuildActivity.startActivity(NewMainActivity.this);
                         } else if (TESTWEXIN == item.getRealValue()) {//测试第三方支付
                         }
                     }
                 });
             }
         });
+        //清除登出标记
+        AppStateManager.setState(AppStateDef.IS_SIGN_OUT_EXIT, Constants.FALSE);
 //        //TODO testprinter
 //        if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
 //            for (int i = 0; i < 10; i++) {
@@ -345,6 +347,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                 AppConfigHelper.clearCache();
                 AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
                 NewMainActivity.this.finish();
+                System.exit(0);
                 return false;
             }
         }
