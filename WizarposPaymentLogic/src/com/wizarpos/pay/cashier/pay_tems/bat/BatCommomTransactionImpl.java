@@ -6,29 +6,20 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
-import com.wizarpos.atool.tool.DateUtil;
-import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.base.net.ResponseListener;
-import com.wizarpos.device.printer.PrintServiceController;
-import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatMicroRsp;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatNewReq;
 import com.wizarpos.pay.cashier.pay_tems.bat.inf.BatCommonTransaction;
 import com.wizarpos.pay.cashier.pay_tems.wepay.NetWorkUtils;
 import com.wizarpos.pay.common.Constants;
-import com.wizarpos.pay.common.LastPrintHelper;
 import com.wizarpos.pay.common.base.BasePresenter;
-import com.wizarpos.pay.common.device.printer.Q1PrintBuilder;
-import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay.model.OrderDef;
 import com.wizarpos.wizarpospaymentlogic.R;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,20 +125,32 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
     protected void parseMicro(Response response, BasePresenter.ResultListener resultListener) {
         if (response.result != null && !TextUtils.isEmpty(response.getResult().toString())) {
             JSONObject object = JSONObject.parseObject(response.result.toString());
+            JSONObject orderObj = (JSONObject) object.get("orderDef");
+            Integer state = null;
+            if (orderObj != null&&object.containsKey("state")) {
+                state = orderObj.getIntValue("state");
+            }
+            //
             if (object.containsKey("err_code") && object.getIntValue("err_code") == BatMicroRsp.ERROR_CODE) {//处理需要密码
                 BatMicroRsp rsp = new BatMicroRsp();
                 rsp.setMsg(context.getResources().getString(R.string.enter_password));
                 resultListener.onFaild(new Response(1, rsp.getMsg()));
-                JSONObject resultObj = (JSONObject) response.result;
-                JSONObject orderObj = (JSONObject) resultObj.get("orderDef");
+//                JSONObject resultObj = (JSONObject) response.result;
+//                orderObj = (JSONObject) resultObj.get("orderDef");
                 String orderNum = orderObj.getString("orderNo");
                 String id = orderObj.getString("id");
                 transactionInfo.setCnyAmount(orderObj.getString("cnyAmount"));
                 transactionInfo.setTranLogId(id);
                 transactionInfo.setTranId(orderNum);
-//                Toast.makeText(context, "Please wait while a customer is entering PIN", Toast.LENGTH_LONG).show();
                 looperQuery(resultListener);
-            } else {
+            } else if (state != null && state == 1) {
+                String orderNum = orderObj.getString("orderNo");
+                String id = orderObj.getString("id");
+                transactionInfo.setCnyAmount(orderObj.getString("cnyAmount"));
+                transactionInfo.setTranLogId(id);
+                transactionInfo.setTranId(orderNum);
+                looperQuery(resultListener);
+            } else if (state != null && state == 2) {
                 BatMicroRsp rsp = JSONObject.parseObject(response.result.toString(), BatMicroRsp.class);
                 JSONObject json = JSONObject.parseObject(response.getResult()
                         .toString());
@@ -179,6 +182,10 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 resultListener.onSuccess(new Response(0, "支付成功", bundleResult()));
 //                printTransInfoWithListener(result, resultListener);
 //                resultListener.onSuccess(result);
+            }else {
+                Response ps = new Response();
+                ps.setMsg(response.getMsg());
+                resultListener.onFaild(ps);
             }
         }
     }
@@ -209,83 +216,85 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
         looperQuery(listener);
     }
 
-    public void checkOrderState(String tranId, final boolean print, final BasePresenter.ResultListener listener) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("orderNo", tranId);
-        params.put("mid", AppConfigHelper.getConfig(AppConfigDef.mid));
-        NetRequest.getInstance().addRequest(Constants.SC_820_ORDER_DEF_DETAIL, params,
-                new ResponseListener() {
 
-                    @Override
-                    public void onSuccess(Response response) {
-                        if (response.result == null) {
-                            response.code = 1;
-                            response.msg = "数据解析失败";
-                            listener.onFaild(response);
-                            return;
-                        }
-                        OrderDef order = JSONObject.parseObject(response.result.toString(), OrderDef.class);
-                        if (StringUtil.isSameString(order.getTimeOutFlag(), OrderDef.TIME_OUT)) {
-                            order.setState(OrderDef.STATE_TIME_OUT);
-                        }
-                        if (print) {
-                            printOrderInfo(order);
-                        }
-                        listener.onSuccess(new Response(0, OrderDef.getOrderStateDes(order.getState()), order));
-                    }
-
-                    @Override
-                    public void onFaild(Response response) {
-                        listener.onFaild(new Response(1, response.msg));
-                    }
-                });
-    }
-
-    public void printOrderInfo(OrderDef orderDef) {
-        PrintServiceController controller = new PrintServiceController(context);
-        Q1PrintBuilder builder = new Q1PrintBuilder();
-        String printString = "";
-        String transType = orderDef.getPayType();
-        String payTypeDes = null;
-        if (Constants.WEPAYFLAG.equals(transType)) {
-            payTypeDes = "微信支付";
-        } else if (Constants.ALIPAYFLAG.equals(transType)) {
-            payTypeDes = "支付宝支付";
-        } else if (Constants.BAIDUPAYFLAG.equals(transType)) {
-            payTypeDes = "百度支付";
-        } else if (Constants.TENPAYFLAG.equals(transType)) {
-            payTypeDes = "QQ钱包支付";
-        }
-        if (!TextUtils.isEmpty(payTypeDes)) {
-            printString += builder.center(builder.bold(AppConfigHelper.getConfig(AppConfigDef.merchantName)));
-        }
-        printString += builder.branch();
-//        printString += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid) + builder.br();
-//        printString += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
-//        printString += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
-        // Logger.debug("订单号：" + transactionInfo.getTranId());
-        printString += "流水号："
-                + (!TextUtils.isEmpty(orderDef.getId()) ? Tools.deleteMidTranLog(orderDef.getId(), AppConfigHelper.getConfig(AppConfigDef.mid)) : "")
-                + builder.br();
-        printString += "时间：" + DateUtil.format(new Date(), DateUtil.P4) + builder.br();
-        printString += "收银员：" + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName) + builder.br();
-        printString += builder.branch();
-//        if (!TextUtils.isEmpty(orderDef.getThirdTradeNo())) {
-//            printString += "凭证号：" + builder.br() + orderDef.getThirdTradeNo() + builder.br();
-//            if (!TextUtils.isEmpty(orderDef.getPayType())) {
-//                if (!TextUtils.isEmpty(payTypeDes)) {
-//                    printString += "支付方式：" + payTypeDes + builder.br();
-//                }
-//            }
+//    public void printOrderInfo(OrderDef orderDef) {
+//        PrintServiceController controller = new PrintServiceController(context);
+//        Q1PrintBuilder builder = new Q1PrintBuilder();
+//        String printString = "";
+//        String transType = orderDef.getPayType();
+//        String payTypeDes = null;
+//        if (Constants.WEPAYFLAG.equals(transType)) {
+//            payTypeDes = "微信支付";
+//        } else if (Constants.ALIPAYFLAG.equals(transType)) {
+//            payTypeDes = "支付宝支付";
+//        } else if (Constants.BAIDUPAYFLAG.equals(transType)) {
+//            payTypeDes = "百度支付";
+//        } else if (Constants.TENPAYFLAG.equals(transType)) {
+//            payTypeDes = "QQ钱包支付";
 //        }
-        printString += "应收金额：" + Calculater.divide100(String.valueOf(orderDef.getInputAmount())) + "元" + builder.br();
-        printString += "支付方式：" + payTypeDes + builder.br();
-        printString += "实收金额：" + Calculater.divide100(String.valueOf(orderDef.getAmount())) + "元" + builder.br();
-        printString += builder.branch();
-        printString += builder.endPrint();
-        controller.print(printString);
-//        controller.cutPaper();
-        LastPrintHelper.beginTransaction().addString(printString).commit();
-    }
+//        if (!TextUtils.isEmpty(payTypeDes)) {
+//            printString += builder.center(builder.bold(AppConfigHelper.getConfig(AppConfigDef.merchantName)));
+//        }
+//        printString += builder.branch();
+////        printString += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid) + builder.br();
+////        printString += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
+////        printString += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
+//        // Logger.debug("订单号：" + transactionInfo.getTranId());
+//        printString += "流水号："
+//                + (!TextUtils.isEmpty(orderDef.getId()) ? Tools.deleteMidTranLog(orderDef.getId(), AppConfigHelper.getConfig(AppConfigDef.mid)) : "")
+//                + builder.br();
+//        printString += "时间：" + DateUtil.format(new Date(), DateUtil.P4) + builder.br();
+//        printString += "收银员：" + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName) + builder.br();
+//        printString += builder.branch();
+////        if (!TextUtils.isEmpty(orderDef.getThirdTradeNo())) {
+////            printString += "凭证号：" + builder.br() + orderDef.getThirdTradeNo() + builder.br();
+////            if (!TextUtils.isEmpty(orderDef.getPayType())) {
+////                if (!TextUtils.isEmpty(payTypeDes)) {
+////                    printString += "支付方式：" + payTypeDes + builder.br();
+////                }
+////            }
+////        }
+//        printString += "应收金额：" + Calculater.divide100(String.valueOf(orderDef.getInputAmount())) + "元" + builder.br();
+//        printString += "支付方式：" + payTypeDes + builder.br();
+//        printString += "实收金额：" + Calculater.divide100(String.valueOf(orderDef.getAmount())) + "元" + builder.br();
+//        printString += builder.branch();
+//        printString += builder.endPrint();
+//        controller.print(printString);
+////        controller.cutPaper();
+//        LastPrintHelper.beginTransaction().addString(printString).commit();
+//    }
+
+
+//    public void checkOrderState(String tranId, final boolean print, final BasePresenter.ResultListener listener) {
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("orderNo", tranId);
+//        params.put("mid", AppConfigHelper.getConfig(AppConfigDef.mid));
+//        NetRequest.getInstance().addRequest(Constants.SC_820_ORDER_DEF_DETAIL, params,
+//                new ResponseListener() {
+//
+//                    @Override
+//                    public void onSuccess(Response response) {
+//                        if (response.result == null) {
+//                            response.code = 1;
+//                            response.msg = "数据解析失败";
+//                            listener.onFaild(response);
+//                            return;
+//                        }
+//                        OrderDef order = JSONObject.parseObject(response.result.toString(), OrderDef.class);
+//                        if (StringUtil.isSameString(order.getTimeOutFlag(), OrderDef.TIME_OUT)) {
+//                            order.setState(OrderDef.STATE_TIME_OUT);
+//                        }
+//                        if (print) {
+//                            printOrderInfo(order);
+//                        }
+//                        listener.onSuccess(new Response(0, OrderDef.getOrderStateDes(order.getState()), order));
+//                    }
+//
+//                    @Override
+//                    public void onFaild(Response response) {
+//                        listener.onFaild(new Response(1, response.msg));
+//                    }
+//                });
+//    }
 
 }

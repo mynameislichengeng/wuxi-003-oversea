@@ -27,6 +27,8 @@ public class Response implements Serializable {
         this.result = result;
     }
 
+
+
     public int getCode() {
         return this.code;
     }
