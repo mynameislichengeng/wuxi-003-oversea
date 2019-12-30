@@ -63,6 +63,7 @@ import static com.wizarpos.pay.db.AppConfigHelper.getConfig;
  */
 public class StatisticsPresenter extends BasePresenter {
 
+    private final int PAGE_SIZE = 10;
     private GroupQueryResp handler;
     private long count;
     private long totalPage = 0;// 总页数
@@ -169,6 +170,50 @@ public class StatisticsPresenter extends BasePresenter {
 //                JSONObject detailLog = (JSONObject) detailResult.get("logs");
                 List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
                 listent.onSuccess(new Response(0, "交易成功", list));
+            }
+
+            @Override
+            public void onFaild(Response response) {
+                listent.onFaild(response);
+            }
+        });
+    }
+
+    /**
+     * @param transType  交易类型，可传空(//1 充值  2撤销 3消费)
+     * @param startTime  起始时间
+     * @param pageNumber 当前页数
+     * @param endTime    截至时间
+     * @param rechargeOn //0不含充值 1含充值 不传返回全部
+     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段
+     * @param listent
+     */
+    public void getQueryDetailNew(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranLogId, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("transType", transType);
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
+        params.put("rechargeOn", rechargeOn);//暂时没有意义
+        params.put("timeRange", timeRange);
+        params.put("pageNo", Integer.valueOf(pageNumber));
+        params.put("pageSize", PAGE_SIZE);
+
+        if (!TextUtils.isEmpty(tranLogId) && (tranLogId.startsWith("P") || tranLogId.startsWith("p"))) {
+            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + tranLogId.substring(1));
+            params.remove("transType");
+            params.remove("timeRange");
+        }
+        NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
+
+            @Override
+            public void onSuccess(Response response) {
+                String jsonStr = JSON.toJSONString(response);
+                listent.onSuccess(new Response(0, "交易成功", jsonStr));
+                //之前的
+//                JSONObject detailResult = (JSONObject) response.getResult();
+//                JSONObject detailLog = (JSONObject) detailResult.get("logs");
+//                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
+//                listent.onSuccess(new Response(0, "交易成功", list));
             }
 
             @Override
@@ -2077,41 +2122,41 @@ public class StatisticsPresenter extends BasePresenter {
         printString += builder.center(AppConfigHelper.getConfig(AppConfigDef.merchantName, ""));
         printString += builder.center(AppConfigHelper.getConfig(AppConfigDef.merchantAddr, ""));
         printString += builder.center(DateUtil.formatInternationalDate(new Date()));
-        printString += "Summary Period:"+ builder.br();
+        printString += "Summary Period:" + builder.br();
         printString += "" + multipleSpaces(32 - tranLogVo.getBeginTime().length()) + tranLogVo.getBeginTime() + builder.br();
         printString += "" + multipleSpaces(32 - tranLogVo.getEndTime().length()) + tranLogVo.getEndTime() + builder.br();
-        printString +=  builder.br();
+        printString += builder.br();
 
         printString += context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid, "") + builder.br();
-        printString += context.getString(R.string.print_emplayee) +"All" + builder.br();
-        if("4".equals(getConfig(AppConfigDef.authFlag))){
+        printString += context.getString(R.string.print_emplayee) + "All" + builder.br();
+        if ("4".equals(getConfig(AppConfigDef.authFlag))) {
             printString += context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn, "") + builder.br();
-        }else {
+        } else {
             printString += context.getString(R.string.print_terminal_id) + "All" + builder.br();
         }
 
 
-        printString +=  builder.br();
+        printString += builder.br();
 
         printString += builder.center(builder.bold("SUMMARY"));
-        printString += "Gross Sales x " + tranLogVo.getGrossSalesNumber() + multipleSpaces(31 - (("Gross Sales x " + tranLogVo.getGrossSalesNumber())+Tools.formatFen(tranLogVo.getGrossSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getGrossSalesAmount())) + builder.br();
-        printString += "Refunds x " + tranLogVo.getRefundsNumber() + multipleSpaces(31 - (("Refunds x " + tranLogVo.getRefundsNumber())+Tools.formatFen(tranLogVo.getRefundsAmount())).length()) + "$" + Tools.formatFen(tranLogVo.getRefundsAmount()) + builder.br();
-        printString += "Net Sales x " + tranLogVo.getNetSalesNumber() + multipleSpaces(31 - (("Net Sales x " + tranLogVo.getNetSalesNumber())+Tools.formatFen(tranLogVo.getNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getNetSalesAmount())) + builder.br();
-        printString +="Tips x " + tranLogVo.getTipsNumber()+ multipleSpaces(31 -  (("Tips x " + tranLogVo.getTipsNumber())+Tools.formatFen(tranLogVo.getTipsAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getTipsAmount())) + builder.br();
+        printString += "Gross Sales x " + tranLogVo.getGrossSalesNumber() + multipleSpaces(31 - (("Gross Sales x " + tranLogVo.getGrossSalesNumber()) + Tools.formatFen(tranLogVo.getGrossSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getGrossSalesAmount())) + builder.br();
+        printString += "Refunds x " + tranLogVo.getRefundsNumber() + multipleSpaces(31 - (("Refunds x " + tranLogVo.getRefundsNumber()) + Tools.formatFen(tranLogVo.getRefundsAmount())).length()) + "$" + Tools.formatFen(tranLogVo.getRefundsAmount()) + builder.br();
+        printString += "Net Sales x " + tranLogVo.getNetSalesNumber() + multipleSpaces(31 - (("Net Sales x " + tranLogVo.getNetSalesNumber()) + Tools.formatFen(tranLogVo.getNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getNetSalesAmount())) + builder.br();
+        printString += "Tips x " + tranLogVo.getTipsNumber() + multipleSpaces(31 - (("Tips x " + tranLogVo.getTipsNumber()) + Tools.formatFen(tranLogVo.getTipsAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getTipsAmount())) + builder.br();
         printString += "Total Collected" + multipleSpaces(16 - Tools.formatFen(tranLogVo.getTotalCollected()).length()) + ("$" + Tools.formatFen(tranLogVo.getTotalCollected())) + builder.br();
-        printString +=  builder.br();
+        printString += builder.br();
 
         printString += builder.center(builder.bold("WECHAT PAY SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getWechatNetSalesNumber() +  multipleSpaces(32 - (("Net Sales x " + tranLogVo.getWechatNetSalesNumber())+"$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())) + builder.br();
-        printString +=  builder.br();
+        printString += "Net Sales x " + tranLogVo.getWechatNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getWechatNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())) + builder.br();
+        printString += builder.br();
 
         printString += builder.center(builder.bold("ALIPAY SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getAlipayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getAlipayNetSalesNumber())+"$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())) + builder.br();
-        printString +=  builder.br();
+        printString += "Net Sales x " + tranLogVo.getAlipayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getAlipayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())) + builder.br();
+        printString += builder.br();
 
         printString += builder.center(builder.bold("Union Pay QR SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getUnionPayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber())+"$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())) + builder.br();
-        printString +=  builder.br();
+        printString += "Net Sales x " + tranLogVo.getUnionPayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())) + builder.br();
+        printString += builder.br();
 
         printString += builder.center("END OF REPORT") + builder.br();
         printString += builder.branch();

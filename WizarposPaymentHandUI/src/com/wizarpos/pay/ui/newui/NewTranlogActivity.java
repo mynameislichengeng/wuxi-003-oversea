@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.itheima.pulltorefreshlib.PullToRefreshListView;
 import com.ui.dialog.DialogHelper;
 import com.ui.dialog.NoticeDialogFragment;
 import com.wizarpos.atool.tool.Tools;
@@ -36,6 +37,9 @@ import com.wizarpos.pay.manage.activity.InputPassWordActivity;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.SendTransInfo;
 import com.wizarpos.pay.model.TransDetailResp;
+import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
+import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
+import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
@@ -45,10 +49,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
-    private ExpandableListView expandableListView;
-    private TranlogDetailAdapter adapter;
+    //    private ExpandableListView expandableListView;
+//    private TranlogDetailAdapter adapter;
     private DrawerLayout dlMain;
     private String alreadyAmount;
+
+    private PullToRefreshListView pullToRefreshListView;
+    private TranRecoderAdapter adapter;
 
     //右侧抽屉相关数据
     private QueryFragment queryFragment;
@@ -68,11 +75,14 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
     private List<DailyDetailResp> respList = new ArrayList<>();
     private List<DailyDetailResp> relist = new ArrayList<>();
 
+    private List<DailyDetailResp> itemList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        getData(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
+//        getData(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
+        getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
         initDrawerLayout();
     }
 
@@ -82,12 +92,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
         cardLinkProxy = new QueryAnyProxy(this);
         setTitleTxt(getResources().getString(R.string.trans_detail));
 //        setTitleRightImage(R.drawable.ic_nav_search);
-        adapter = new TranlogDetailAdapter(NewTranlogActivity.this);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListView.setAdapter(adapter);
-        expandableListView.setGroupIndicator(null); // 去掉默认带的箭头
-        expandableListView.setSelection(0);// 设置默认选中项
-        expandableListView.setOnGroupClickListener(onGroupClickListener);
+        pullToRefreshListView = findViewById(R.id.pull_to_refresh_list_view);
+        adapter = new TranRecoderAdapter(NewTranlogActivity.this);
+        adapter.setmList(itemList);
+        pullToRefreshListView.setAdapter(adapter);
+
         adapter.setOnTranLogDetialListener(new TranlogDetailAdapter.OnTranLogDetialListener() {
             @Override
             public void onPrint(final DailyDetailResp resp) {
@@ -219,14 +228,14 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
                 RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), alreadyAmount);
                 refundDialogFragment.show(getFragmentManager(), null);
             } else if (requestCode == REQUEST_PAY_CANCEL) {
-                getData(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
+                getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
                 printRefund();
             }
 
         }
     }
 
-    private void printRefund(){
+    private void printRefund() {
         int printNumber = 1;
         if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
             printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
@@ -341,7 +350,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
 
     @Override
     public void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId) {
-        getData(timeRange, UNRECHARGEON, tranType, startDate, DEFAULTNUM, endDate, tranlogId);
+        getDataNew(timeRange, UNRECHARGEON, tranType, startDate, DEFAULTNUM, endDate, tranlogId);
         if (dlMain.isDrawerOpen(Gravity.RIGHT)) {
             dlMain.closeDrawer(Gravity.RIGHT);
         }
@@ -419,43 +428,108 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
         });
     }
 
-    /**
-     * 查询方法
-     *
-     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段 必须传
-     * @param rechargeOn //0不含充值 1含充值
-     * @param transType
-     * @param startTime
-     * @param pageNumber //必须传，查询几天数据
-     * @param endTime
-     * @param tranlogId  //流水号
-     */
-    private void getData(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
+//    /**
+//     * 查询方法
+//     *
+//     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段 必须传
+//     * @param rechargeOn //0不含充值 1含充值
+//     * @param transType
+//     * @param startTime
+//     * @param pageNumber //必须传，查询几天数据
+//     * @param endTime
+//     * @param tranlogId  //流水号
+//     */
+//    private void getData(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
+//        progresser.showProgress();
+//        statisticsPresenter.getQueryDetail(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+//            @Override
+//            public void onSuccess(Response response) {
+//                progresser.showContent();
+//                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
+//                adapter.setDataChanged(list);
+//                // 遍历所有group,将所有项设置成默认展开
+//                int groupCount = expandableListView.getCount();
+//                for (int i = 0; i < groupCount; i++) {
+//                    expandableListView.expandGroup(i);
+//                }
+//                if (groupCount == 0) {
+//                    progresser.showContent();
+//                    progresser.showError(getResources().getString(R.string.no_data), R.drawable.nodata_new, false);
+//                }
+//            }
+//
+//            @Override
+//            public void onFaild(Response response) {
+//                progresser.showContent();
+//                progresser.showError(response.getMsg().toString(), true);
+//            }
+//        });
+//    }
+
+    private void getDataNew(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
         progresser.showProgress();
-        statisticsPresenter.getQueryDetail(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+        pageNumber = "1";
+        statisticsPresenter.getQueryDetailNew(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
-                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
-                adapter.setDataChanged(list);
-                // 遍历所有group,将所有项设置成默认展开
-                int groupCount = expandableListView.getCount();
-                for (int i = 0; i < groupCount; i++) {
-                    expandableListView.expandGroup(i);
-                }
-                if (groupCount == 0) {
-                    progresser.showContent();
-                    progresser.showError(getResources().getString(R.string.no_data), R.drawable.nodata_new, false);
-                }
+                operateOnSuccess(response.getResult().toString());
+
             }
 
             @Override
             public void onFaild(Response response) {
                 progresser.showContent();
-                progresser.showError(response.getMsg().toString(), true);
+                operateOnFaild(response);
             }
         });
     }
+
+    /**
+     * 操作成功的回调
+     *
+     * @param responseJson
+     */
+    private void operateOnSuccess(String responseJson) {
+        ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(responseJson, ResponseTranRecoderListBean.class);
+        if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
+            ResponseTranRecoderListBean.ResultBeanX resultBeanX = responseTranRecoderListBean.getResult();
+            operateListView(resultBeanX);
+        } else {
+            Response response1 = new Response();
+            response1.setMsg("请求返回数据error");
+            operateOnFaild(response1);
+        }
+    }
+
+    /**
+     * 操作错误的回调
+     *
+     * @param response
+     */
+    private void operateOnFaild(Response response) {
+
+        progresser.showError(response.getMsg().toString(), true);
+    }
+
+    /**
+     * 操作listView
+     *
+     * @param resultBeanX
+     */
+    private void operateListView(ResponseTranRecoderListBean.ResultBeanX resultBeanX) {
+        List<ResponseTranRecoderListBean.ResultBeanX.ResultBean> mList = resultBeanX.getResult();
+        if (mList != null && mList.size() > 0) {
+            List<DailyDetailResp> tempItem = TransRecordDataUtil.create(mList);
+            operateAddLiteItem(tempItem);
+        }
+
+    }
+
+    private void operateAddLiteItem(List<DailyDetailResp> mList) {
+        adapter.addDataChanged(mList);
+    }
+
 
     @Override
     public void onBackPressed() {

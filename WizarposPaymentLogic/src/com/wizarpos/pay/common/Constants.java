@@ -41,7 +41,7 @@ public class Constants {
     //正式地址
 //    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL;
     //测试地址
-        public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR ;
+    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR;
     public static final String DEFAULT_PORT = AppConfigInitUtil.DEFAULT_PORT;
 
     public static final String SUFFIX_URL = "/member-server/service";//服务器版本放到head中
@@ -562,6 +562,14 @@ public class Constants {
      * 交易记录查询（根据时间范围查询  ）
      */
     public static final String SC_924_TRAN_DETAIL = "924";
+
+
+    /**
+     * 交易记录查询（根据时间范围查询  ）--与924的功能一致
+     * 含有分页查询
+     */
+    public static final String SC_964_TRAN_DETAIL_PAGE = "964";
+
     /**
      * 券的详情
      */

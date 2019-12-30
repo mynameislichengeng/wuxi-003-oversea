@@ -60,7 +60,13 @@
                         android:childDivider="@android:color/transparent"
                         android:divider="@null"
                         android:dividerHeight="0dp"
+                        android:visibility="gone"
                         android:scrollbars="none"/>
+
+                    <com.itheima.pulltorefreshlib.PullToRefreshListView
+                        android:id="@+id/pull_to_refresh_list_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 </RelativeLayout>
             </com.wizarpos.pay.ui.ProgressLayout>
         </LinearLayout>
