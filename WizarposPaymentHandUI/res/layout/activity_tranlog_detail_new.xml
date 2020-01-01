@@ -1,46 +1,40 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:id="@+id/dl_main"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:keepScreenOn="true"
-                                        android:orientation="vertical"
-                                        tools:context="com.wizarpos.pay.ui.newui.NewTranlogActivity"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    tools:context="com.wizarpos.pay.ui.newui.NewTranlogActivity">
     <!--下层 中间的主布局-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        >
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
-                android:visibility="visible"
-                >
+                android:visibility="visible">
 
-                <include layout="@layout/common_top_bar_layout"/>
+                <include layout="@layout/common_top_bar_layout" />
             </RelativeLayout>
             <!--主界面部分-->
             <com.wizarpos.pay.ui.ProgressLayout
                 android:id="@+id/progress"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
 
                     <View
                         android:id="@+id/view_help"
@@ -48,25 +42,22 @@
                         android:layout_height="fill_parent"
                         android:layout_marginLeft="10dp"
                         android:background="#b3b3b3"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <ExpandableListView
                         android:id="@+id/expandableListView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:cacheColorHint="#00000000"
                         android:childDivider="@android:color/transparent"
                         android:divider="@null"
                         android:dividerHeight="0dp"
-                        android:visibility="gone"
-                        android:scrollbars="none"/>
+                        android:scrollbars="none"
+                        android:visibility="gone" />
 
-                    <com.itheima.pulltorefreshlib.PullToRefreshListView
-                        android:id="@+id/pull_to_refresh_list_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <include layout="@layout/base_simplelinear_recycleview"></include>
                 </RelativeLayout>
             </com.wizarpos.pay.ui.ProgressLayout>
         </LinearLayout>
@@ -76,7 +67,7 @@
         android:id="@+id/inRight"
         android:layout_width="260dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right" />
     <!--<include
         android:id="@+id/inRight"
         layout="@layout/partial_query_right"

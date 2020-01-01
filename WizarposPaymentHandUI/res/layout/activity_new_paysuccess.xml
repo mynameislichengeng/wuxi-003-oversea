@@ -48,11 +48,11 @@
         android:layout_height="28dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="23dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="140dp"
         android:layout_marginRight="23dp"
         android:background="@drawable/btn_reprint_cashier_selector"
         android:gravity="center"
-        android:text="@string/Continue"
+        android:text="OK"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 

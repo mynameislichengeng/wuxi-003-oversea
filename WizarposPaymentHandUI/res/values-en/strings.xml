@@ -172,4 +172,7 @@
     <string name="dec">December</string>
 
     <string name="go_pay">CHARGE</string>
+
+    <string name="refresh_last_page">Already the last page</string>
+    <string name="all">All</string>
 </resources>

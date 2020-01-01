@@ -42,10 +42,9 @@ public class ItemDataUtils {
 
     public static List<ArrayItem> getTranTypes(){
         List<ArrayItem> tranTypes=new ArrayList<>();
-//        tranTypes.add(new ArrayItem("1", "充值"));
-
-        tranTypes.add(new ArrayItem(3,Pay2Application.getInstance().getResources().getString(R.string.sale)));
+        tranTypes.add(new ArrayItem(1, Pay2Application.getInstance().getResources().getString(R.string.all)));
         tranTypes.add(new ArrayItem(2, Pay2Application.getInstance().getResources().getString(R.string.refund)));
+        tranTypes.add(new ArrayItem(3,Pay2Application.getInstance().getResources().getString(R.string.sale)));
         return  tranTypes;
     }
 

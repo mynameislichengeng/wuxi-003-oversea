@@ -25,6 +25,7 @@ dependencies {
     compile 'com.getui:sdk-for-google-play:2.10.3.5'
     //
     compile 'com.github.open-android:PullToRefresh:v1.0'
+    compile project(path: ':librefreshlistview')
 }
 
 android {

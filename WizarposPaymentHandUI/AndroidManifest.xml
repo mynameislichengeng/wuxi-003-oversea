@@ -186,16 +186,7 @@
         <!-- TEST -->
         <activity
             android:name="com.wizarpos.pay.ui.newui.NewMainActivity"
-            android:screenOrientation="portrait">
-
-            <!--
-                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.wizarpos.pay.ui.newui.NewDownloadKeyActivity"
             android:screenOrientation="portrait" />
@@ -591,6 +582,11 @@
             android:name="com.wizarpos.pay.manage.activity.CardLinkConfigActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.wizarpos.pay.setting.activity.TipParameterSettingActivity" />
+
+        <activity
+            android:name="com.wizarpos.pay.recode.test.TestActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"></activity>
 
         <receiver android:name="com.wizarpos.pay.broadcastreceiver.Alarmreceiver">
             <intent-filter>

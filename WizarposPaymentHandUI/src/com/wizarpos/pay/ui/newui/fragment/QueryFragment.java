@@ -16,6 +16,7 @@ import com.wizarpos.pay.common.DialogHelper;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.ViewHolder;
 import com.wizarpos.pay.common.device.DeviceManager;
+import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.ArrayItem;
@@ -30,15 +31,10 @@ import java.util.Map;
 /**
  * Song
  */
-public class QueryFragment extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
+public class QueryFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
+    private final int DEFAULT_TRANTYPE_INDEX = 0;//类型，默认位置
+    private final int DEFAULT_TIME_RANGE_INDEX = 0;//默认位置
 
     //右侧抽屉相关数据
     private View view = null;
@@ -49,7 +45,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener{
      * @param tranTypeIndex index
      * @param timeRangeIndex index
      */
-    private int tranType, timeRange, tranTypeIndex = 0, timeRangeIndex = 0;
+    private int tranType, timeRange, tranTypeIndex = DEFAULT_TRANTYPE_INDEX, timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
     private BaseLogicAdapter<ArrayItem> tranTypeAdapter, timeRangeAdapter;
     private EditText etStartTime, etEndTime, etTranLogId;
 
@@ -150,8 +146,8 @@ public class QueryFragment extends Fragment implements View.OnClickListener{
         etEndTime = (EditText) view.findViewById(R.id.etEndTime);
         etEndTime.setInputType(InputType.TYPE_NULL);
         etTranLogId = (EditText) view.findViewById(R.id.etTranLogId);
-        if(DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_Q1
-                || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_M0){
+        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_Q1
+                || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_M0) {
             etTranLogId.setInputType(InputType.TYPE_NULL);
         }
         etStartTime.setOnClickListener(new View.OnClickListener() {
@@ -209,16 +205,16 @@ public class QueryFragment extends Fragment implements View.OnClickListener{
                         params.put("startDate", startDate);
                         params.put("endDate", endDate);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return;
                 }
             }
             String tranlogId = "";
-            if (etTranLogId.getText() != null && !TextUtils.isEmpty(etTranLogId.getText().toString())){
+            if (etTranLogId.getText() != null && !TextUtils.isEmpty(etTranLogId.getText().toString())) {
                 tranlogId = "P" + etTranLogId.getText().toString();
             }
-            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"),tranlogId);
+            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"), tranlogId);
             doQueryReset();
         }
     }
@@ -243,11 +239,11 @@ public class QueryFragment extends Fragment implements View.OnClickListener{
     /**
      * 重置查询条件 Song
      */
-    private void doQueryReset() {
-        tranType = 3;
-        timeRange = 0;
-        tranTypeIndex = 0;
-        timeRangeIndex = 0;
+    public void doQueryReset() {
+        tranTypeIndex = DEFAULT_TRANTYPE_INDEX;
+        tranType = Integer.valueOf(TransRecordConstants.TransType.ALL.getType());
+        timeRange = Integer.valueOf(TransRecordConstants.TimeRange.TODAY.getType());
+        timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
         etStartTime.setText("");
         etEndTime.setText("");
         etTranLogId.setText("");
@@ -258,7 +254,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvResetQuery:
                 doQueryReset();
                 break;

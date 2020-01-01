@@ -41,7 +41,7 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//public class NewTranlogActivityBackup extends NewBaseTranlogActivity implements QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
+//public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
 //    private ExpandableListView expandableListView;
 //    private TranlogDetailAdapter adapter;
 //    private DrawerLayout dlMain;
@@ -58,7 +58,7 @@
 //    private String UNRECHARGEON = "0";
 //    private String DEFAULTNUM = "0";
 //    private QueryAnyProxy cardLinkProxy;
-//    private static String TAG = NewTranlogActivityBackup.class.getSimpleName();
+////    private static String TAG = NewTranlogActivityBackup.class.getSimpleName();
 //    private static final int REQUEST_PAY_CANCEL = 2001;
 //    private static final int REQUEST_INPUT_PASSWORD = 2002;
 //    private DailyDetailResp dailyDetailResp;
@@ -80,9 +80,10 @@
 //        cardLinkProxy = new QueryAnyProxy(this);
 //        setTitleTxt(getResources().getString(R.string.trans_detail));
 ////        setTitleRightImage(R.drawable.ic_nav_search);
-//        adapter = new TranlogDetailAdapter(NewTranlogActivityBackup.this);
+//        adapter = new TranlogDetailAdapter(NewTranlogActivity.this);
 //
 //        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+//        expandableListView.setVisibility(View.VISIBLE);
 //        expandableListView.setAdapter(adapter);
 //        expandableListView.setGroupIndicator(null); // 去掉默认带的箭头
 //        expandableListView.setSelection(0);// 设置默认选中项
@@ -206,7 +207,7 @@
 //    }
 //
 //    public void toInputPasswordActivity(int requestCode) {
-//        Intent intent = new Intent(NewTranlogActivityBackup.this, InputPassWordActivity.class);
+//        Intent intent = new Intent(NewTranlogActivity.this, InputPassWordActivity.class);
 //        this.startActivityForResult(intent, requestCode);
 //    }
 //
@@ -507,6 +508,6 @@
 //
 //    @Override
 //    public void onSave(String amount) {
-//        startActivityForResult(VoidTransActivity.getStartIntent(NewTranlogActivityBackup.this, dailyDetailResp, Calculater.formotYuan(amount)), REQUEST_PAY_CANCEL);
+//        startActivityForResult(VoidTransActivity.getStartIntent(NewTranlogActivity.this, dailyDetailResp, Calculater.formotYuan(amount)), REQUEST_PAY_CANCEL);
 //    }
 //}

@@ -1,6 +1,6 @@
 //include ':atool'
 //include ':appcompat'
-include ':WizarposPaymentLogic'
+include ':WizarposPaymentLogic', ':librefreshlistview'
 //HAND
 include ':WizarposPaymentHandUI'
 //include ':WizarposPaymentLogic:PulltorefreshLib'

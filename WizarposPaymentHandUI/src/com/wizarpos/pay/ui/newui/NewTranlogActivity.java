@@ -8,24 +8,21 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.itheima.pulltorefreshlib.PullToRefreshListView;
+import com.lc.librefreshlistview.linear.SimpleLinearRecycleView;
+import com.lc.librefreshlistview.listener.RefreshEventListener;
 import com.ui.dialog.DialogHelper;
 import com.ui.dialog.NoticeDialogFragment;
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.base.net.ResponseListener;
-import com.wizarpos.device.printer.html.WebPrintActivity;
 import com.wizarpos.device.printer.html.WebPrintHelper;
-import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.hspos.api.TransInfo;
-import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.cardlink.QueryAnyProxy;
 import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
@@ -38,35 +35,33 @@ import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.SendTransInfo;
 import com.wizarpos.pay.model.TransDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
+import com.wizarpos.pay.recode.hisotory.activitylist.bean.TranRecordStatusParam;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
+import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
+import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.hisotory.activitylist.data.TranRecordStatusDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
-import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
 import com.wizarpos.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
+public class NewTranlogActivity extends NewBaseTranlogActivity implements TransRecordConstants, QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
     //    private ExpandableListView expandableListView;
 //    private TranlogDetailAdapter adapter;
     private DrawerLayout dlMain;
     private String alreadyAmount;
 
-    private PullToRefreshListView pullToRefreshListView;
+    private SimpleLinearRecycleView simpleLinearRecycleView;
     private TranRecoderAdapter adapter;
 
     //右侧抽屉相关数据
     private QueryFragment queryFragment;
 
     private StatisticsPresenter statisticsPresenter;
-    private String TODAY = "0";
-    private String YESTODAY = "1";
-    private String THISWEEK = "2";
-    private String RECHARGEON = "1";
-    private String UNRECHARGEON = "0";
-    private String DEFAULTNUM = "0";
+
     private QueryAnyProxy cardLinkProxy;
     private static String TAG = NewTranlogActivity.class.getSimpleName();
     private static final int REQUEST_PAY_CANCEL = 2001;
@@ -75,29 +70,26 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
     private List<DailyDetailResp> respList = new ArrayList<>();
     private List<DailyDetailResp> relist = new ArrayList<>();
 
-    private List<DailyDetailResp> itemList = new ArrayList<>();
+    private List<DailyDetailResp> itemList;//列表list
+
+    private TranRecordStatusParam tranRecordStatusParam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
         initView();
-//        getData(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
-        getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
+        getDataNew();
         initDrawerLayout();
     }
 
-    private void initView() {
-//        setMainView(R.layout.activity_tranlog_detail_new);
-        statisticsPresenter = new StatisticsPresenter(this);
-        cardLinkProxy = new QueryAnyProxy(this);
-        setTitleTxt(getResources().getString(R.string.trans_detail));
-//        setTitleRightImage(R.drawable.ic_nav_search);
-        pullToRefreshListView = findViewById(R.id.pull_to_refresh_list_view);
+    private void initData() {
+        tranRecordStatusParam = TranRecordStatusDataUtil.createDefault();
         adapter = new TranRecoderAdapter(NewTranlogActivity.this);
-        adapter.setmList(itemList);
-        pullToRefreshListView.setAdapter(adapter);
+        itemList = new ArrayList<>();
+        adapter.setLists(itemList);
 
-        adapter.setOnTranLogDetialListener(new TranlogDetailAdapter.OnTranLogDetialListener() {
+        adapter.setOnTranLogDetialListener(new OnTranLogDetialListener() {
             @Override
             public void onPrint(final DailyDetailResp resp) {
                 if (Constants.SC_700_BANK_CARD_PAY.equals(resp.getTransType())) {
@@ -113,7 +105,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
 //                    statisticsPresenter.printDetial(resp);
                 } else {
                     String masterTranlogId = Tools.deleteMidTranLog(resp.getMasterTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-                    getDetailData("", "", "", "", DEFAULTNUM, "", masterTranlogId);
+                    getDetailData("", "", "", "", "", masterTranlogId);
                 }
             }
 
@@ -124,6 +116,371 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
                 toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
             }
         });
+    }
+
+    private void initView() {
+//        setMainView(R.layout.activity_tranlog_detail_new);
+        statisticsPresenter = new StatisticsPresenter(this);
+        cardLinkProxy = new QueryAnyProxy(this);
+        setTitleTxt(getResources().getString(R.string.trans_detail));
+        simpleLinearRecycleView = findViewById(R.id.rel_list);
+
+        simpleLinearRecycleView.setRecycleViewAdapter(adapter);
+        simpleLinearRecycleView.settingEnablePullToRefresh(false);//关闭下拉刷新
+        simpleLinearRecycleView.setRefreshEventListener(new RefreshEventListener() {
+            @Override
+            public void onTopDownRefresh(boolean isManual) {
+
+            }
+
+            @Override
+            public void onBottomLoadMore(boolean isSilence) {
+                operateOnPullUpLoad();
+            }
+
+            @Override
+            public void onCompleteRefresh() {
+
+            }
+        });
+
+    }
+
+    /**
+     * 右侧查询相关控件 Song
+     * 封装为Fragment
+     */
+    private void initDrawerLayout() {
+        dlMain = (DrawerLayout) findViewById(R.id.dl_main);
+        dlMain.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+        });
+        queryFragment = QueryFragment.newInstance();
+        if (!queryFragment.isAdded()) {
+            getSupportFragmentManager().beginTransaction().add(R.id.inRight, queryFragment, "query").commit();
+        }
+    }
+
+    private void setTitleTxt(String title) {
+        Toolbar toolbarOwner = (Toolbar) findViewById(R.id.toolbarOwner);
+        if (toolbarOwner != null) {
+            toolbarOwner.setVisibility(View.VISIBLE);
+            setSupportActionBar(toolbarOwner);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            toolbarOwner.setNavigationIcon(R.drawable.back);
+        }
+        TextView tvTitleOwner = (TextView) findViewById(R.id.tvTitleOwner);
+        RelativeLayout rlToolbarRightOwner = (RelativeLayout) findViewById(R.id.rlToolbarRightOwner);
+        if (tvTitleOwner != null) {
+            tvTitleOwner.setText(title);
+            tvTitleOwner.setVisibility(View.VISIBLE);
+        }
+        TextView tvSettingParams = (TextView) findViewById(R.id.tvSettingParams);
+        if (tvSettingParams != null && rlToolbarRightOwner != null) {
+            rlToolbarRightOwner.setVisibility(View.VISIBLE);
+            rlToolbarRightOwner.setOnClickListener(this);
+            tvSettingParams.setBackgroundResource(R.drawable.ic_nav_search);
+            tvSettingParams.setOnClickListener(this);
+        }
+  /*      ImageView ivLeftIcon = (ImageView) findViewById(R.id.ivLeftIcon);
+        if (ivLeftIcon != null) {
+            ivLeftIcon.setVisibility(View.VISIBLE);
+            ivLeftIcon.setImageResource(R.id.);
+            ivLeftIcon.setOnClickListener(this);
+        }*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvSettingParams:
+                if (!dlMain.isDrawerOpen(Gravity.RIGHT)) {
+                    dlMain.openDrawer(Gravity.RIGHT);
+                } else {
+                    dlMain.closeDrawer(Gravity.RIGHT);
+                }
+                break;
+            case R.id.rlToolbarRightOwner:
+                findViewById(R.id.tvSettingParams).performClick();
+                break;
+            case R.id.ivLeftIcon:
+                //back
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(NewMainActivity.getStartIntent(this));
+        NetRequest.getInstance().cancelFirst(Constants.TRANLOG_DETAIL_TAG);
+        super.onBackPressed();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home || id == R.drawable.back) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_INPUT_PASSWORD) {
+                RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), alreadyAmount);
+                refundDialogFragment.show(getFragmentManager(), null);
+            } else if (requestCode == REQUEST_PAY_CANCEL) {
+//                getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
+                operatePayForCancle();
+            }
+
+        }
+    }
+
+    private void setLayoutRefreshOnComplete() {
+        simpleLinearRecycleView.stopRefresh();
+    }
+
+    private void setLayoutListView(List<DailyDetailResp> mList) {
+        adapter.addDataChanged(mList);
+    }
+
+    private void setLayoutListViewEmpty() {
+        adapter.clearList();
+    }
+
+    private void setLayoutEmptyView() {
+        progresser.showError(getResources().getString(R.string.no_data), R.drawable.nodata_new, false);
+
+    }
+
+
+    /**
+     * 请求数据成功后，需要更新的状态数据
+     *
+     * @param isNextPage
+     * @param pageNum
+     */
+    private void setDataActivityStatusHttpOnSuccess(boolean isNextPage, int pageNum) {
+        tranRecordStatusParam.setNextPage(isNextPage);
+        tranRecordStatusParam.setPageNo(pageNum);
+    }
+
+
+    /**
+     * 上拉加载更多
+     */
+    private void operateOnPullUpLoad() {
+        if (tranRecordStatusParam.isNextPage()) {
+            getDataNew();
+        } else {
+            Toast.makeText(this, R.string.refresh_last_page, Toast.LENGTH_SHORT).show();
+            setLayoutRefreshOnComplete();
+        }
+    }
+
+    /**
+     * 操作listView
+     *
+     * @param resultBeanX
+     */
+    private void operateListView(ResponseTranRecoderListBean.ResultBeanX resultBeanX) {
+
+        List<ResponseTranRecoderListBean.ResultBeanX.ResultBean> mList = resultBeanX.getResult();
+        if (mList != null && mList.size() > 0) {
+            List<DailyDetailResp> tempItem = TransRecordDataUtil.create(mList);
+            setLayoutListView(tempItem);
+        } else {
+            setLayoutListViewEmpty();
+            setLayoutEmptyView();
+        }
+    }
+
+
+    /**
+     * 请求成功的回调
+     *
+     * @param responseJson
+     */
+    private void operateOnSuccess(String responseJson) {
+        //刷新完成
+        setLayoutRefreshOnComplete();
+        ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(responseJson, ResponseTranRecoderListBean.class);
+        if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
+            ResponseTranRecoderListBean.ResultBeanX resultBeanX = responseTranRecoderListBean.getResult();
+            setDataActivityStatusHttpOnSuccess(resultBeanX.isHasNext(), resultBeanX.getPageNo());
+            operateListView(resultBeanX);
+        } else {
+            Response response1 = new Response();
+            response1.setMsg("请求返回数据error");
+            operateOnFaild(response1);
+        }
+    }
+
+    /**
+     * 请求错误的回调
+     *
+     * @param response
+     */
+    private void operateOnFaild(Response response) {
+        //刷新完成
+        setLayoutRefreshOnComplete();
+        progresser.showError(response.getMsg().toString(), true);
+    }
+
+    /**
+     * 侧边栏查询回调
+     *
+     * @param tranType
+     * @param timeRange
+     * @param startDate
+     * @param endDate
+     * @param tranlogId
+     */
+    private void operateFragmentOnQuery(String tranType, String timeRange, String startDate, String endDate, String tranlogId) {
+        //设置状态值
+        tranRecordStatusParam.setPageNo(0);
+        tranRecordStatusParam.setNextPage(true);
+        tranRecordStatusParam.setTimeRange(timeRange);
+        tranRecordStatusParam.setTransType(tranType);
+        tranRecordStatusParam.setStartTime(startDate);
+        tranRecordStatusParam.setEndTime(endDate);
+        tranRecordStatusParam.setTranLogId(tranlogId);
+
+        //清空数据
+        setLayoutListViewEmpty();
+
+        //隐藏侧边栏
+        if (dlMain.isDrawerOpen(Gravity.RIGHT)) {
+            dlMain.closeDrawer(Gravity.RIGHT);
+        }
+        // 请求数据
+        getDataNew();
+
+    }
+
+
+    private void operatePayForCancle() {
+        //清空状态数据
+        tranRecordStatusParam = TranRecordStatusDataUtil.createDefault();
+        //清空重置
+//        queryFragment.doQueryReset();
+        //清空数据
+        setLayoutListViewEmpty();
+        //
+        getDataNew();
+        printRefund();
+    }
+
+
+    private void getDataNew() {
+        progresser.showProgress();
+        doPostTranRecordList();
+    }
+
+    /**
+     * 请求列表数据
+     */
+    private void doPostTranRecordList() {
+        //时间类型
+        String timeRange = tranRecordStatusParam.getTimeRange();
+        //查看类型
+        String transType = tranRecordStatusParam.getTransType();
+        //如果是自定义时间,则有开始时间
+        String startTime = tranRecordStatusParam.getStartTime();
+        //如果是自定义时间,则有结束时间
+        String endTime = tranRecordStatusParam.getEndTime();
+        //日志TranLogId
+        String tranlogId = tranRecordStatusParam.getTranLogId();
+        //第几页
+        String pageNumber = String.valueOf(tranRecordStatusParam.getPageNo() + 1);
+
+        String rechargeOn = TransRecordConstants.UNRECHARGEON;
+        int pageSize = TransRecordConstants.PAGE_SIZE;
+
+        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNumber, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+            @Override
+            public void onSuccess(Response response) {
+                progresser.showContent();
+                operateOnSuccess(response.getResult().toString());
+            }
+
+            @Override
+            public void onFaild(Response response) {
+                progresser.showContent();
+                operateOnFaild(response);
+            }
+        });
+    }
+
+
+    /**
+     * 根据主流水号查询相关的所有订单并打印小票
+     */
+    private void getDetailData(String timeRange, String rechargeOn, String transType, String startTime, String endTime, String tranlogId) {
+        progresser.showProgress();
+        int pageSize = TransRecordConstants.ALL_PAGE_SIZE;
+        int pageNum = 1;
+        statisticsPresenter.getDetailQuery(rechargeOn,pageSize,pageNum,timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+            @Override
+            public void onSuccess(Response response) {
+                progresser.showContent();
+                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
+                if (list.size() > 0 && list != null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        relist = list.get(i).getTransDetail();
+                        respList.addAll(relist);
+                    }
+                }
+                if (respList.size() > 0) {
+                    NoticeDialogFragment dialogFragment = NoticeDialogFragment.newInstance("REPRINT", "Make your choice", "Customer Copy", "Merchant Copy");
+                    dialogFragment.setListener(new DialogHelper.DialogCallbackAndNo() {
+                        @Override
+                        public void callback() {
+                            rePrintCustomer();
+                        }
+
+                        @Override
+                        public void callbackNo() {
+                            rePrintMerchant();
+                        }
+                    });
+                    dialogFragment.show(getSupportFragmentManager(), "SimpleMsgDialogFragment");
+                }
+            }
+
+            @Override
+            public void onFaild(Response response) {
+                progresser.showContent();
+                progresser.showError(response.getMsg().toString(), true);
+            }
+        });
+    }
+
+    @Override
+    public void onSave(String amount) {
+        startActivityForResult(VoidTransActivity.getStartIntent(NewTranlogActivity.this, dailyDetailResp, Calculater.formotYuan(amount)), REQUEST_PAY_CANCEL);
     }
 
     private void rePrintCustomer() {
@@ -220,20 +577,6 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
         this.startActivityForResult(intent, requestCode);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_INPUT_PASSWORD) {
-                RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), alreadyAmount);
-                refundDialogFragment.show(getFragmentManager(), null);
-            } else if (requestCode == REQUEST_PAY_CANCEL) {
-                getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
-                printRefund();
-            }
-
-        }
-    }
 
     private void printRefund() {
         int printNumber = 1;
@@ -324,261 +667,16 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements QueryF
     }
 
     /**
-     * 右侧查询相关控件 Song
-     * 封装为Fragment
+     * 点击侧边栏回调
+     *
+     * @param timeRange
+     * @param tranType
+     * @param startDate
+     * @param endDate
+     * @param tranlogId
      */
-    private void initDrawerLayout() {
-        dlMain = (DrawerLayout) findViewById(R.id.dl_main);
-        dlMain.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-        });
-        queryFragment = QueryFragment.newInstance();
-        if (!queryFragment.isAdded()) {
-            getSupportFragmentManager().beginTransaction().add(R.id.inRight, queryFragment, "query").commit();
-        }
-    }
-
     @Override
     public void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId) {
-        getDataNew(timeRange, UNRECHARGEON, tranType, startDate, DEFAULTNUM, endDate, tranlogId);
-        if (dlMain.isDrawerOpen(Gravity.RIGHT)) {
-            dlMain.closeDrawer(Gravity.RIGHT);
-        }
-    }
-
-    private void setTitleTxt(String title) {
-        Toolbar toolbarOwner = (Toolbar) findViewById(R.id.toolbarOwner);
-        if (toolbarOwner != null) {
-            toolbarOwner.setVisibility(View.VISIBLE);
-            setSupportActionBar(toolbarOwner);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            toolbarOwner.setNavigationIcon(R.drawable.back);
-        }
-        TextView tvTitleOwner = (TextView) findViewById(R.id.tvTitleOwner);
-        RelativeLayout rlToolbarRightOwner = (RelativeLayout) findViewById(R.id.rlToolbarRightOwner);
-        if (tvTitleOwner != null) {
-            tvTitleOwner.setText(title);
-            tvTitleOwner.setVisibility(View.VISIBLE);
-        }
-        TextView tvSettingParams = (TextView) findViewById(R.id.tvSettingParams);
-        if (tvSettingParams != null && rlToolbarRightOwner != null) {
-            rlToolbarRightOwner.setVisibility(View.VISIBLE);
-            rlToolbarRightOwner.setOnClickListener(this);
-            tvSettingParams.setBackgroundResource(R.drawable.ic_nav_search);
-            tvSettingParams.setOnClickListener(this);
-        }
-  /*      ImageView ivLeftIcon = (ImageView) findViewById(R.id.ivLeftIcon);
-        if (ivLeftIcon != null) {
-            ivLeftIcon.setVisibility(View.VISIBLE);
-            ivLeftIcon.setImageResource(R.id.);
-            ivLeftIcon.setOnClickListener(this);
-        }*/
-    }
-
-    /**
-     * 根据主流水号查询相关的所有订单并打印小票
-     */
-    private void getDetailData(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
-        progresser.showProgress();
-        statisticsPresenter.getDetailQuery(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
-            @Override
-            public void onSuccess(Response response) {
-                progresser.showContent();
-                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
-                if (list.size() > 0 && list != null) {
-                    for (int i = 0; i < list.size(); i++) {
-                        relist = list.get(i).getTransDetail();
-                        respList.addAll(relist);
-                    }
-                }
-                if (respList.size() > 0) {
-                    NoticeDialogFragment dialogFragment = NoticeDialogFragment.newInstance("REPRINT", "Make your choice", "Customer Copy", "Merchant Copy");
-                    dialogFragment.setListener(new DialogHelper.DialogCallbackAndNo() {
-                        @Override
-                        public void callback() {
-                            rePrintCustomer();
-                        }
-
-                        @Override
-                        public void callbackNo() {
-                            rePrintMerchant();
-                        }
-                    });
-                    dialogFragment.show(getSupportFragmentManager(), "SimpleMsgDialogFragment");
-                }
-            }
-
-            @Override
-            public void onFaild(Response response) {
-                progresser.showContent();
-                progresser.showError(response.getMsg().toString(), true);
-            }
-        });
-    }
-
-//    /**
-//     * 查询方法
-//     *
-//     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段 必须传
-//     * @param rechargeOn //0不含充值 1含充值
-//     * @param transType
-//     * @param startTime
-//     * @param pageNumber //必须传，查询几天数据
-//     * @param endTime
-//     * @param tranlogId  //流水号
-//     */
-//    private void getData(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
-//        progresser.showProgress();
-//        statisticsPresenter.getQueryDetail(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
-//            @Override
-//            public void onSuccess(Response response) {
-//                progresser.showContent();
-//                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
-//                adapter.setDataChanged(list);
-//                // 遍历所有group,将所有项设置成默认展开
-//                int groupCount = expandableListView.getCount();
-//                for (int i = 0; i < groupCount; i++) {
-//                    expandableListView.expandGroup(i);
-//                }
-//                if (groupCount == 0) {
-//                    progresser.showContent();
-//                    progresser.showError(getResources().getString(R.string.no_data), R.drawable.nodata_new, false);
-//                }
-//            }
-//
-//            @Override
-//            public void onFaild(Response response) {
-//                progresser.showContent();
-//                progresser.showError(response.getMsg().toString(), true);
-//            }
-//        });
-//    }
-
-    private void getDataNew(String timeRange, String rechargeOn, String transType, String startTime, String pageNumber, String endTime, String tranlogId) {
-        progresser.showProgress();
-        pageNumber = "1";
-        statisticsPresenter.getQueryDetailNew(timeRange, rechargeOn, transType, startTime, pageNumber, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
-            @Override
-            public void onSuccess(Response response) {
-                progresser.showContent();
-                operateOnSuccess(response.getResult().toString());
-
-            }
-
-            @Override
-            public void onFaild(Response response) {
-                progresser.showContent();
-                operateOnFaild(response);
-            }
-        });
-    }
-
-    /**
-     * 操作成功的回调
-     *
-     * @param responseJson
-     */
-    private void operateOnSuccess(String responseJson) {
-        ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(responseJson, ResponseTranRecoderListBean.class);
-        if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
-            ResponseTranRecoderListBean.ResultBeanX resultBeanX = responseTranRecoderListBean.getResult();
-            operateListView(resultBeanX);
-        } else {
-            Response response1 = new Response();
-            response1.setMsg("请求返回数据error");
-            operateOnFaild(response1);
-        }
-    }
-
-    /**
-     * 操作错误的回调
-     *
-     * @param response
-     */
-    private void operateOnFaild(Response response) {
-
-        progresser.showError(response.getMsg().toString(), true);
-    }
-
-    /**
-     * 操作listView
-     *
-     * @param resultBeanX
-     */
-    private void operateListView(ResponseTranRecoderListBean.ResultBeanX resultBeanX) {
-        List<ResponseTranRecoderListBean.ResultBeanX.ResultBean> mList = resultBeanX.getResult();
-        if (mList != null && mList.size() > 0) {
-            List<DailyDetailResp> tempItem = TransRecordDataUtil.create(mList);
-            operateAddLiteItem(tempItem);
-        }
-
-    }
-
-    private void operateAddLiteItem(List<DailyDetailResp> mList) {
-        adapter.addDataChanged(mList);
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        startActivity(NewMainActivity.getStartIntent(this));
-        NetRequest.getInstance().cancelFirst(Constants.TRANLOG_DETAIL_TAG);
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvSettingParams:
-                if (!dlMain.isDrawerOpen(Gravity.RIGHT)) {
-                    dlMain.openDrawer(Gravity.RIGHT);
-                } else {
-                    dlMain.closeDrawer(Gravity.RIGHT);
-                }
-                break;
-            case R.id.rlToolbarRightOwner:
-                findViewById(R.id.tvSettingParams).performClick();
-                break;
-            case R.id.ivLeftIcon:
-                //back
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
-    }
-
-    ExpandableListView.OnGroupClickListener onGroupClickListener = new ExpandableListView.OnGroupClickListener() {
-        @Override
-        public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-            return true;
-        }
-    };
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home || id == R.drawable.back) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onSave(String amount) {
-        startActivityForResult(VoidTransActivity.getStartIntent(NewTranlogActivity.this, dailyDetailResp, Calculater.formotYuan(amount)), REQUEST_PAY_CANCEL);
+        operateFragmentOnQuery(tranType, timeRange, startDate, endDate, tranlogId);
     }
 }
