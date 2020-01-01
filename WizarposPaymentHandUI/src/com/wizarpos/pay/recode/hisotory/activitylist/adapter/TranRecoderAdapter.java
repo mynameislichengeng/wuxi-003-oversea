@@ -106,6 +106,7 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         final LinearLayout llDetail = (LinearLayout) viewHolder.findViewById(R.id.llDetail);
         final ImageView ivBottomLine = (ImageView) viewHolder.findViewById(R.id.ivBottomLine);
         final ImageView ivArrowRight = (ImageView) viewHolder.findViewById(R.id.ivArrowRight);
+        ivArrowRight.setImageResource(R.drawable.btn_back_up);
         if (item.isExpand) {
             llDetail.setVisibility(View.VISIBLE);
             ivBottomLine.setVisibility(View.VISIBLE);
@@ -113,13 +114,15 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         } else {
             llDetail.setVisibility(View.GONE);
             ivBottomLine.setVisibility(View.GONE);
-            ivArrowRight.setImageResource(R.drawable.icon_down);
+//            ivArrowRight.setImageResource(R.drawable.icon_down);
+            ivArrowRight.setImageResource(R.drawable.btn_back_up);
         }
-//        if (isLastChild) {
-//            viewHolder.ivLastBottomLine.setVisibility(View.VISIBLE);
-//        } else {
-//            viewHolder.ivLastBottomLine.setVisibility(View.GONE);
-//        }
+        ImageView ivLastBottomLine = (ImageView) viewHolder.findViewById(R.id.ivLastBottomLine);
+        if (true) {
+            ivLastBottomLine.setVisibility(View.VISIBLE);
+        } else {
+            ivLastBottomLine.setVisibility(View.GONE);
+        }
 
 
         RelativeLayout rlItemContent = (RelativeLayout) viewHolder.findViewById(R.id.rlItemContent);
@@ -129,7 +132,8 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
                 if (item.isExpand) {
                     llDetail.setVisibility(View.GONE);
                     ivBottomLine.setVisibility(View.GONE);
-                    ivArrowRight.setImageResource(R.drawable.icon_down);
+//                    ivArrowRight.setImageResource(R.drawable.icon_down);
+                    ivArrowRight.setImageResource(R.drawable.btn_back_up);
                     item.isExpand = false;
                 } else {
                     llDetail.setVisibility(View.VISIBLE);
@@ -223,24 +227,7 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         return list;
     }
 
-    /**
-     * 只要小时，不要月份
-     *
-     * @return
-     */
-    private String getPayTime(String payTime) {
 
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = simpleDateFormat.parse(payTime);
-            SimpleDateFormat hh = new SimpleDateFormat("HH:mm:ss");
-            String str = hh.format(date);
-            return str;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return payTime;
-    }
 
     private void initBtnsView(final View viewHolder, boolean isShowRevoke) {
         Button btnPrint = (Button) viewHolder.findViewById(R.id.btnPrint);

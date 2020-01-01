@@ -121,19 +121,22 @@ public class StatisticsPresenter extends BasePresenter {
         params.put("pageNo", pageNumber);
         params.put("pageSize", pageSize);
         if (!TextUtils.isEmpty(masterTranLogId) && (masterTranLogId.startsWith("P") || masterTranLogId.startsWith("p"))) {
-            params.put("masterTranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
+//            params.put("masterTranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
 //            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
             params.remove("transType");
             params.remove("timeRange");
         }
-        NetRequest.getInstance().addRequest(Constants.SC_924_TRAN_DETAIL, params, tag, new ResponseListener() {
+        NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
 
             @Override
             public void onSuccess(Response response) {
-                JSONObject detailResult = (JSONObject) response.getResult();
-//                JSONObject detailLog = (JSONObject) detailResult.get("logs");
-                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
-                listent.onSuccess(new Response(0, "交易成功", list));
+//                JSONObject detailResult = (JSONObject) response.getResult();
+////                JSONObject detailLog = (JSONObject) detailResult.get("logs");
+//                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
+//                listent.onSuccess(new Response(0, "交易成功", list));
+
+                String jsonStr = JSON.toJSONString(response);
+                listent.onSuccess(new Response(0, "交易成功", jsonStr));
             }
 
             @Override
@@ -303,7 +306,7 @@ public class StatisticsPresenter extends BasePresenter {
     public void getDailySummaryPlus(String date, final String tag, final ResponseListener responseListener) {
         Map<String, Object> params = new HashMap<>();
         params.put("timeRange", "0"); // 暂时只支持当天
-        NetRequest.getInstance().addRequest(Constants.SC_961_DAILY_SUMMARY_PLUS, params, tag, new ResponseListener() {
+        NetRequest.getInstance().addRequest(Constants.SC_963_DAILY_SUMMARY_PLUS, params, tag, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 try {

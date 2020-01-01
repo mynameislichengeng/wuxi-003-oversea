@@ -582,6 +582,11 @@ public class Constants {
      * 日结单新版
      */
     public static final String SC_961_DAILY_SUMMARY_PLUS = "961";
+
+    /**
+     * 用来替换 961接口的
+     */
+    public static final String SC_963_DAILY_SUMMARY_PLUS = "963";
     /**
      * 修改操作员登录密码
      */

@@ -3,6 +3,8 @@ package com.wizarpos.pay.recode.test;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.lc.librefreshlistview.linear.SimpleLinearRecycleView;
 import com.lc.librefreshlistview.listener.RefreshEventListener;
@@ -21,35 +23,38 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_simplelinear_recycleview);
+        setContentView(R.layout.recode_item_transaction_records);
+        ImageView iv = findViewById(R.id.ivArrowRight);
+        iv.setVisibility(View.VISIBLE);
+        iv.setImageResource(R.drawable.btn_back_up);
         initData();
-        simpleLinearRecycleView = findViewById(R.id.rel_list);
-        simpleLinearRecycleView.setRecycleViewAdapter(testAdapter);
-        simpleLinearRecycleView.setRefreshEventListener(new RefreshEventListener() {
-            @Override
-            public void onTopDownRefresh(boolean isManual) {
-
-            }
-
-            @Override
-            public void onBottomLoadMore(boolean isSilence) {
-
-            }
-
-            @Override
-            public void onCompleteRefresh() {
-
-            }
-        });
+//        simpleLinearRecycleView = findViewById(R.id.rel_list);
+//        simpleLinearRecycleView.setRecycleViewAdapter(testAdapter);
+//        simpleLinearRecycleView.setRefreshEventListener(new RefreshEventListener() {
+//            @Override
+//            public void onTopDownRefresh(boolean isManual) {
+//
+//            }
+//
+//            @Override
+//            public void onBottomLoadMore(boolean isSilence) {
+//
+//            }
+//
+//            @Override
+//            public void onCompleteRefresh() {
+//
+//            }
+//        });
     }
 
     private void initData() {
-        mList = new ArrayList<>();
-        testAdapter = new TestAdapter(this);
-        testAdapter.setLists(mList);
-        for (int i = 0; i < 10; i++) {
-            mList.add("你好:" + i);
-        }
+//        mList = new ArrayList<>();
+//        testAdapter = new TestAdapter(this);
+//        testAdapter.setLists(mList);
+//        for (int i = 0; i < 10; i++) {
+//            mList.add("你好:" + i);
+//        }
 
     }
 }

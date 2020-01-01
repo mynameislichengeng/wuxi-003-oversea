@@ -34,7 +34,7 @@ import java.util.Map;
 public class QueryFragment extends Fragment implements View.OnClickListener {
 
     private final int DEFAULT_TRANTYPE_INDEX = 0;//类型，默认位置
-    private final int DEFAULT_TIME_RANGE_INDEX = 0;//默认位置
+    private final int DEFAULT_TIME_RANGE_INDEX = 2;//默认位置
 
     //右侧抽屉相关数据
     private View view = null;
@@ -242,7 +242,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     public void doQueryReset() {
         tranTypeIndex = DEFAULT_TRANTYPE_INDEX;
         tranType = Integer.valueOf(TransRecordConstants.TransType.ALL.getType());
-        timeRange = Integer.valueOf(TransRecordConstants.TimeRange.TODAY.getType());
+        timeRange = Integer.valueOf(TransRecordConstants.TimeRange.THIS_WEEK.getType());
         timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
         etStartTime.setText("");
         etEndTime.setText("");

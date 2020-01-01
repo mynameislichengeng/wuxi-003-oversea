@@ -33,7 +33,6 @@ import com.wizarpos.pay.fragment.RefundDialogFragment;
 import com.wizarpos.pay.manage.activity.InputPassWordActivity;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.SendTransInfo;
-import com.wizarpos.pay.model.TransDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.TranRecordStatusParam;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
@@ -309,7 +308,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
         List<ResponseTranRecoderListBean.ResultBeanX.ResultBean> mList = resultBeanX.getResult();
         if (mList != null && mList.size() > 0) {
-            List<DailyDetailResp> tempItem = TransRecordDataUtil.create(mList);
+            List<DailyDetailResp> tempItem = transProtocol(resultBeanX);
             setLayoutListView(tempItem);
         } else {
             setLayoutListViewEmpty();
@@ -317,6 +316,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         }
     }
 
+    private List<DailyDetailResp> transProtocol(ResponseTranRecoderListBean.ResultBeanX resultBeanX) {
+        List<ResponseTranRecoderListBean.ResultBeanX.ResultBean> mList = resultBeanX.getResult();
+        List<DailyDetailResp> tempItem = TransRecordDataUtil.create(mList);
+        return tempItem;
+    }
 
     /**
      * 请求成功的回调
@@ -442,17 +446,28 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         progresser.showProgress();
         int pageSize = TransRecordConstants.ALL_PAGE_SIZE;
         int pageNum = 1;
-        statisticsPresenter.getDetailQuery(rechargeOn,pageSize,pageNum,timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+        statisticsPresenter.getDetailQuery(rechargeOn, pageSize, pageNum, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
-                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
-                if (list.size() > 0 && list != null) {
-                    for (int i = 0; i < list.size(); i++) {
-                        relist = list.get(i).getTransDetail();
-                        respList.addAll(relist);
+                ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(response.getResult().toString(), ResponseTranRecoderListBean.class);
+
+                if (responseTranRecoderListBean.getResult() != null) {
+                    ResponseTranRecoderListBean.ResultBeanX tmpResult = responseTranRecoderListBean.getResult();
+                    if (tmpResult.getResult() != null) {
+                        List<DailyDetailResp> m = transProtocol(tmpResult);
+                        respList.addAll(m);
                     }
+
                 }
+
+                //                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
+//                if (list.size() > 0 && list != null) {
+//                    for (int i = 0; i < list.size(); i++) {
+//                        relist = list.get(i).getTransDetail();
+//                        respList.addAll(relist);
+//                    }
+//                }
                 if (respList.size() > 0) {
                     NoticeDialogFragment dialogFragment = NoticeDialogFragment.newInstance("REPRINT", "Make your choice", "Customer Copy", "Merchant Copy");
                     dialogFragment.setListener(new DialogHelper.DialogCallbackAndNo() {
