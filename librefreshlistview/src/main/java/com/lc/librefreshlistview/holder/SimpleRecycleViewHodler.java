@@ -11,7 +11,8 @@ import android.view.View;
 
 public class SimpleRecycleViewHodler extends RecyclerView.ViewHolder {
     private View rootView;
-    private SparseArray<View> views = new SparseArray<>();
+    private SparseArray<View> sparseArrayViews = new SparseArray<>();
+
     public SimpleRecycleViewHodler(View itemView) {
         super(itemView);
         this.rootView = itemView;
@@ -22,10 +23,10 @@ public class SimpleRecycleViewHodler extends RecyclerView.ViewHolder {
     }
 
     public <T extends View> T getView(int viewId) {
-        T view = (T) views.get(viewId);
+        T view = (T) sparseArrayViews.get(viewId);
         if (view == null) {
             view = (T) rootView.findViewById(viewId);
-            views.put(viewId, view);
+            sparseArrayViews.put(viewId, view);
         }
         return view;
     }

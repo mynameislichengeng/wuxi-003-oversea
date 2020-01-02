@@ -127,7 +127,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
             JSONObject object = JSONObject.parseObject(response.result.toString());
             JSONObject orderObj = (JSONObject) object.get("orderDef");
             Integer state = null;
-            if (orderObj != null&&object.containsKey("state")) {
+            if (orderObj != null&&orderObj.containsKey("state")) {
                 state = orderObj.getIntValue("state");
             }
             //
