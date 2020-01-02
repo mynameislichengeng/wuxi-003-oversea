@@ -48,6 +48,7 @@ public class TransactionInfo implements Serializable {
     protected String mixTranLogId;
     protected String payTypeFlag;//线上支付类型
     private String payType;//移动支付的支付类型 wu
+    private String transCurrency;
 
     protected List<TicketInfo> tList;//线上支付发行的卡券
     protected String commoncashierOrderId;//销售单Id wu
@@ -426,6 +427,14 @@ public class TransactionInfo implements Serializable {
 
     public void setCnyAmount(String cnyAmount) {
         this.cnyAmount = cnyAmount;
+    }
+
+    public String getTransCurrency() {
+        return transCurrency;
+    }
+
+    public void setTransCurrency(String transCurrency) {
+        this.transCurrency = transCurrency;
     }
 }
 

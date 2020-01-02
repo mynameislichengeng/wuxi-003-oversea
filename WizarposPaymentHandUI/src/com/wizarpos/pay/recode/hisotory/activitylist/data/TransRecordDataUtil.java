@@ -30,6 +30,7 @@ public class TransRecordDataUtil {
         dailyDetailResp.setExchangeRate(resultBean.getExchangeRate());
         dailyDetailResp.setMasterTranLogId(resultBean.getMasterTranLogId());
         dailyDetailResp.setRefundAmount(String.valueOf(resultBean.getRefundAmount()));
+        dailyDetailResp.setTransCurrency(resultBean.getTransCurrency());
         return dailyDetailResp;
     }
 

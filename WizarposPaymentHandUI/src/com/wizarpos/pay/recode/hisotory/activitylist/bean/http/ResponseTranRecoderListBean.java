@@ -187,6 +187,7 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
             private int transAmount;
             private String transKind;
             private String transType;
+            private String transCurrency;//结算类型
 
             public int getCnyAmount() {
                 return cnyAmount;
@@ -322,6 +323,14 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
 
             public void setTransType(String transType) {
                 this.transType = transType;
+            }
+
+            public String getTransCurrency() {
+                return transCurrency;
+            }
+
+            public void setTransCurrency(String transCurrency) {
+                this.transCurrency = transCurrency;
             }
         }
     }

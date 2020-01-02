@@ -1,11 +1,13 @@
 package com.wizarpos.pay.recode.hisotory.activitylist.constants;
 
-public interface TransRecordConstants {
+import com.wizarpos.recode.history.constants.TransRecordLogicConstants;
+
+public interface TransRecordConstants extends TransRecordLogicConstants {
 
     int PAGENO_DEFAULT = 0;//默认启始页
     int PAGE_SIZE = 20;//每1页数目
 
-    int ALL_PAGE_SIZE = 50;
+    int ALL_PAGE_SIZE = 50;// 这是用在打印发票的时候
 
     boolean IS_NEXT_REFRESH = true;
 
@@ -55,6 +57,8 @@ public interface TransRecordConstants {
             this.type = type;
         }
     }
+
+
 
 
 }

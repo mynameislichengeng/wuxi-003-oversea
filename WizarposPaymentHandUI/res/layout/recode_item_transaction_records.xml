@@ -4,19 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/lin_trans_recorde_month_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
 
-        <include layout="@layout/group_status_item" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/item_transaction_records" />
-    </LinearLayout>
+    <include layout="@layout/item_transaction_records" />
 </LinearLayout>

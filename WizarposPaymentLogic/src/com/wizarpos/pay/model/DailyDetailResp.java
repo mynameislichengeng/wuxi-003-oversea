@@ -12,6 +12,7 @@ public class DailyDetailResp implements Serializable {
     private String trasnAmount;
     private String refundAmount;
     private String thirdTradeNo;
+    private String transCurrency;// 结算类型
 
     private String tipAmount;
     private String thirdExtId;
@@ -222,5 +223,13 @@ public class DailyDetailResp implements Serializable {
 
     public void setCnyAmount(String cnyAmount) {
         this.cnyAmount = cnyAmount;
+    }
+
+    public String getTransCurrency() {
+        return transCurrency;
+    }
+
+    public void setTransCurrency(String transCurrency) {
+        this.transCurrency = transCurrency;
     }
 }

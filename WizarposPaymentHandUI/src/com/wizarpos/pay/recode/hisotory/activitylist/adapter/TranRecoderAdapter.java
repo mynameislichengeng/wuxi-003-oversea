@@ -21,6 +21,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 //import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
+import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
 import com.wizarpos.pay.ui.newui.util.TodayTotalUtil;
 import com.wizarpos.pay2.lite.R;
 
@@ -55,8 +56,12 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     private void operateChildView(int position, final SimpleRecycleViewHodler viewHolder) {
         final DailyDetailResp item = getLists().get(position);
 
+        //显示多少钱
         TextView tvTranAmount = viewHolder.getView(R.id.tvTranAmount);
         tvTranAmount.setText(Calculater.formotFen(item.getSingleAmount()));
+        //货币类型
+        TextView tvTranCurrency = viewHolder.getView(R.id.tvTranCurrency);
+        tvTranCurrency.setText(TransRecordConstants.TRANSCURRENCY.getSymbol(item.getTransCurrency()));
 
         ImageView ivTranlogIcon = viewHolder.getView(R.id.ivTranlogIcon);
         if (TextUtils.isEmpty(item.getTransKind())) {
@@ -108,7 +113,7 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         viewHolder.getView(R.id.llTranlogDetailReduce).setVisibility(View.GONE);//隐藏卡劵核销
         viewHolder.getView(R.id.llTranlogDetailReduceAmount).setVisibility(View.GONE);//隐藏减扣金额
         final ImageView ivBottomLine = (ImageView) viewHolder.getView(R.id.ivBottomLine);
-        final ImageButton ivArrowRight = viewHolder.getView(R.id.ivArrowRight1);
+        final ImageView ivArrowRight = viewHolder.getView(R.id.ivArrowRight);
 
         if (item.isExpand) {
             llDetail.setVisibility(View.VISIBLE);

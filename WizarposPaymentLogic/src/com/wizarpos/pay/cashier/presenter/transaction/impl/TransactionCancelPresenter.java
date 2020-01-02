@@ -24,6 +24,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
+import com.wizarpos.recode.history.constants.TransRecordLogicConstants;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -403,7 +404,7 @@ public class TransactionCancelPresenter {
         m.put("refundAmount", refundAmount);
         m.put("batFlag", Constants.BAT_FLAG);
         m.put("refundOperId", AppConfigHelper.getConfig(AppConfigDef.refundOperId));
-        m.put("refundOperName",  AppConfigHelper.getConfig(AppConfigDef.refundOperName));
+        m.put("refundOperName", AppConfigHelper.getConfig(AppConfigDef.refundOperName));
         NetRequest.getInstance().addRequest(Constants.SC_955_TRANLOG_CANCEL, m, new ResponseListener() {
 
             @Override
@@ -413,6 +414,7 @@ public class TransactionCancelPresenter {
                 if (response != null) {
                     JSONObject result = (JSONObject) response.getResult();
                     resp.setRefundAmount(result.getString("refundAmount").replace("-", "").trim());
+                    resp.setTransCurrency(result.getString("transCurrency").replace("-", "").trim());
                     resp.setTransKind(result.getString("tranDesc").replace("Refund", "").trim());
                     resp.setMasterTranLogId(result.getString("masterTranLogId"));
                     resp.setTranLogId(result.getString("id"));
@@ -470,7 +472,9 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", "$" + Calculater.formotFen(resp.getRefundAmount())));
+
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getRefundAmount())));
                 String exchangeRate = resp.getExchangeRate();
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -550,8 +554,9 @@ public class TransactionCancelPresenter {
             printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + "$" + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            //
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -569,7 +574,7 @@ public class TransactionCancelPresenter {
             String payType = resp.getTransKind();
             if ("WechatPay".equals(payType)) {
                 payType = "Wechat Pay";
-            }else  if (payType.contains("Union")) {
+            } else if (payType.contains("Union")) {
                 payType = "Union Pay QR";
             }
             String printType = context.getString(R.string.print_type);
@@ -630,7 +635,8 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", "$" + Calculater.formotFen(resp.getRefundAmount())));
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getRefundAmount())));
                 String exchangeRate = resp.getExchangeRate();
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -710,8 +716,8 @@ public class TransactionCancelPresenter {
             printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + "$" + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -729,7 +735,7 @@ public class TransactionCancelPresenter {
             String payType = resp.getTransKind();
             if ("WechatPay".equals(payType)) {
                 payType = "Wechat Pay";
-            }else  if(payType.contains("Union")) {
+            } else if (payType.contains("Union")) {
                 payType = "Union Pay QR";
             }
             String printType = context.getString(R.string.print_type);

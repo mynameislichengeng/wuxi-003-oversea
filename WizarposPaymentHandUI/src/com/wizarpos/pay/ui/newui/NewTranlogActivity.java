@@ -445,8 +445,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void getDetailData(String timeRange, String rechargeOn, String transType, String startTime, String endTime, String tranlogId) {
         progresser.showProgress();
         int pageSize = TransRecordConstants.ALL_PAGE_SIZE;
-        int pageNum = 1;
-        statisticsPresenter.getDetailQuery(rechargeOn, pageSize, pageNum, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+        String pageNum = "1";
+        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNum, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
@@ -486,6 +486,10 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         });
     }
 
+    /**
+     * refund确认后的回调
+     * @param amount
+     */
     @Override
     public void onSave(String amount) {
         startActivityForResult(VoidTransActivity.getStartIntent(NewTranlogActivity.this, dailyDetailResp, Calculater.formotYuan(amount)), REQUEST_PAY_CANCEL);

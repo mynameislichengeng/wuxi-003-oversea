@@ -99,51 +99,51 @@ public class StatisticsPresenter extends BasePresenter {
         }
     }
 
-    /**
-     * 根据主流水号查询相关的所有订单
-     *
-     * @param transType  交易类型，可传空(//1 充值  2撤销 3消费)
-     * @param startTime  起始时间
-     * @param pageNumber 当前页数
-     * @param endTime    截至时间
-     * @param rechargeOn //0不含充值 1含充值 不传返回全部
-     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段
-     * @param listent
-     */
-    public void getDetailQuery(String rechargeOn,int pageSize,int pageNumber,String timeRange , String transType, String startTime , String endTime, String masterTranLogId, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("transType", transType);
-        params.put("startTime", startTime);
-        params.put("endTime", endTime);
-        params.put("rechargeOn", rechargeOn);
-        params.put("timeRange", timeRange);
-        params.put("pageNo", pageNumber);
-        params.put("pageSize", pageSize);
-        if (!TextUtils.isEmpty(masterTranLogId) && (masterTranLogId.startsWith("P") || masterTranLogId.startsWith("p"))) {
-//            params.put("masterTranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
-            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
-            params.remove("transType");
-            params.remove("timeRange");
-        }
-        NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
-
-            @Override
-            public void onSuccess(Response response) {
-//                JSONObject detailResult = (JSONObject) response.getResult();
-////                JSONObject detailLog = (JSONObject) detailResult.get("logs");
-//                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
-//                listent.onSuccess(new Response(0, "交易成功", list));
-
-                String jsonStr = JSON.toJSONString(response);
-                listent.onSuccess(new Response(0, "交易成功", jsonStr));
-            }
-
-            @Override
-            public void onFaild(Response response) {
-                listent.onFaild(response);
-            }
-        });
-    }
+//    /**
+//     * 根据主流水号查询相关的所有订单
+//     *
+//     * @param transType  交易类型，可传空(//1 充值  2撤销 3消费)
+//     * @param startTime  起始时间
+//     * @param pageNumber 当前页数
+//     * @param endTime    截至时间
+//     * @param rechargeOn //0不含充值 1含充值 不传返回全部
+//     * @param timeRange  //0 今天 1 昨天 2本周 3上周 4本月 5上月 6时间段
+//     * @param listent
+//     */
+//    public void getDetailQuery(String rechargeOn,int pageSize,int pageNumber,String timeRange , String transType, String startTime , String endTime, String masterTranLogId, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("transType", transType);
+//        params.put("startTime", startTime);
+//        params.put("endTime", endTime);
+//        params.put("rechargeOn", rechargeOn);
+//        params.put("timeRange", timeRange);
+//        params.put("pageNo", pageNumber);
+//        params.put("pageSize", pageSize);
+//        if (!TextUtils.isEmpty(masterTranLogId) && (masterTranLogId.startsWith("P") || masterTranLogId.startsWith("p"))) {
+////            params.put("masterTranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
+//            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
+//            params.remove("transType");
+//            params.remove("timeRange");
+//        }
+//        NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
+//
+//            @Override
+//            public void onSuccess(Response response) {
+////                JSONObject detailResult = (JSONObject) response.getResult();
+//////                JSONObject detailLog = (JSONObject) detailResult.get("logs");
+////                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
+////                listent.onSuccess(new Response(0, "交易成功", list));
+//
+//                String jsonStr = JSON.toJSONString(response);
+//                listent.onSuccess(new Response(0, "交易成功", jsonStr));
+//            }
+//
+//            @Override
+//            public void onFaild(Response response) {
+//                listent.onFaild(response);
+//            }
+//        });
+//    }
 
 
 
@@ -178,11 +178,7 @@ public class StatisticsPresenter extends BasePresenter {
             public void onSuccess(Response response) {
                 String jsonStr = JSON.toJSONString(response);
                 listent.onSuccess(new Response(0, "交易成功", jsonStr));
-                //之前的
-//                JSONObject detailResult = (JSONObject) response.getResult();
-//                JSONObject detailLog = (JSONObject) detailResult.get("logs");
-//                List<TransDetailResp> list = JSONArray.parseArray(detailResult.get("logs").toString(), TransDetailResp.class);
-//                listent.onSuccess(new Response(0, "交易成功", list));
+
             }
 
             @Override

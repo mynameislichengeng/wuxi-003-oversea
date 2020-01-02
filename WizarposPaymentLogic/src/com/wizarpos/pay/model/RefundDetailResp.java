@@ -19,6 +19,7 @@ public class RefundDetailResp implements Serializable {
     private String exchangeRate;
     private String payTime;//撤销时间
     private String cnyAmount;//服务端返回交易的人民币金额
+    private String transCurrency;
 
     public String getThirdExtName() {
         return thirdExtName;
@@ -106,5 +107,15 @@ public class RefundDetailResp implements Serializable {
 
     public void setCnyAmount(String cnyAmount) {
         this.cnyAmount = cnyAmount;
+    }
+
+
+
+    public String getTransCurrency() {
+        return transCurrency;
+    }
+
+    public void setTransCurrency(String transCurrency) {
+        this.transCurrency = transCurrency;
     }
 }

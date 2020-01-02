@@ -32,6 +32,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.GetCommonTicketInfoResp;
 import com.wizarpos.pay.model.OrderDef;
+import com.wizarpos.recode.history.constants.TransRecordLogicConstants;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -178,7 +179,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                     String printTip = context.getString(R.string.print_tip);
                     lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, "$" + Calculater.formotFen(tipsAmount)));
                 }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", "$" + totalAmount));
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(transactionInfo.getTransCurrency());
+                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + totalAmount));
                 String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -275,7 +277,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 printString += printTip + multipleSpaces(31 - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + "$" + Calculater.formotFen(tipsAmount) + builder.br();
             }
-            printString += "Total:" + multipleSpaces(25 - totalAmount.length()) + "$" + totalAmount + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(transactionInfo.getTransCurrency());
+            printString += "Total:" + multipleSpaces(25 - totalAmount.length()) + transCurrency + totalAmount + builder.br();
             String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -371,7 +374,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                     String printTip = context.getString(R.string.print_tip);
                     lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, "$" + Calculater.formotFen(tipsAmount)));
                 }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", "$" + totalAmount));
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(transactionInfo.getTransCurrency());
+                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + totalAmount));
                 String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -468,7 +472,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 printString += printTip + multipleSpaces(31 - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + "$" + Calculater.formotFen(tipsAmount) + builder.br();
             }
-            printString += "Total:" + multipleSpaces(25 - totalAmount.length()) + "$" + totalAmount + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(transactionInfo.getTransCurrency());
+            printString += "Total:" + multipleSpaces(25 - totalAmount.length()) + transCurrency + totalAmount + builder.br();
             String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";

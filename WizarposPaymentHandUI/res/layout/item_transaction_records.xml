@@ -89,14 +89,14 @@
                 android:text="08:39:21"
                 android:textColor="#B7B7B7" />
 
-            <ImageButton
-                android:id="@+id/ivArrowRight1"
+            <ImageView
+                android:id="@+id/ivArrowRight"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:background="@null"
+                android:src="@drawable/icon_down"
                 android:focusable="false"
                 android:scaleType="centerCrop" />
 
@@ -105,12 +105,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/ivArrowRight1"
+                android:layout_toLeftOf="@id/ivArrowRight"
                 android:text="800"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tvTranCurrency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
