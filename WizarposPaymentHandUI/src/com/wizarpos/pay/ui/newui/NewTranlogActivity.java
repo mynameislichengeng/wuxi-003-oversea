@@ -461,13 +461,6 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
                 }
 
-                //                List<TransDetailResp> list = (List<TransDetailResp>) response.getResult();
-//                if (list.size() > 0 && list != null) {
-//                    for (int i = 0; i < list.size(); i++) {
-//                        relist = list.get(i).getTransDetail();
-//                        respList.addAll(relist);
-//                    }
-//                }
                 if (respList.size() > 0) {
                     NoticeDialogFragment dialogFragment = NoticeDialogFragment.newInstance("REPRINT", "Make your choice", "Customer Copy", "Merchant Copy");
                     dialogFragment.setListener(new DialogHelper.DialogCallbackAndNo() {

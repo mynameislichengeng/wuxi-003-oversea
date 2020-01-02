@@ -115,14 +115,13 @@ public class StatisticsPresenter extends BasePresenter {
         params.put("transType", transType);
         params.put("startTime", startTime);
         params.put("endTime", endTime);
-//        params.put("pageNo", pageNumber);
         params.put("rechargeOn", rechargeOn);
         params.put("timeRange", timeRange);
         params.put("pageNo", pageNumber);
         params.put("pageSize", pageSize);
         if (!TextUtils.isEmpty(masterTranLogId) && (masterTranLogId.startsWith("P") || masterTranLogId.startsWith("p"))) {
 //            params.put("masterTranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
-//            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
+            params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + masterTranLogId.substring(1));
             params.remove("transType");
             params.remove("timeRange");
         }
