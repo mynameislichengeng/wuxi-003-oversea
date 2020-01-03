@@ -21,17 +21,11 @@ public interface TransRecordLogicConstants {
             return type;
         }
 
-        public void setType(String type) {
-            this.type = type;
-        }
 
-        public String getSymbol() {
+        private String getSymbol() {
             return symbol;
         }
 
-        public void setSymbol(String symbol) {
-            this.symbol = symbol;
-        }
 
         public static String getSymbol(String type) {
             TRANSCURRENCY[] imageFormatTypes = values();
