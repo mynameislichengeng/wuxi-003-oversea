@@ -16,7 +16,7 @@ import com.wizarpos.pay.common.DialogHelper;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.ViewHolder;
 import com.wizarpos.pay.common.device.DeviceManager;
-import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.ArrayItem;

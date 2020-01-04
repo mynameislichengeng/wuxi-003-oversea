@@ -26,6 +26,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<SimpleR
     protected List<T> lists;
     protected OnItemClick onItemClick;//每一项布局响应事件
     protected Context context;
+    protected T t;
 
 
     /**
@@ -107,5 +108,11 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<SimpleR
         }
     }
 
+    public T getT() {
+        return t;
+    }
 
+    public void setT(T t) {
+        this.t = t;
+    }
 }

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,14 +20,11 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 //import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
-import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.ui.newui.util.TodayTotalUtil;
 import com.wizarpos.pay2.lite.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {

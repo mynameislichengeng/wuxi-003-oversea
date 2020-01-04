@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lc.baseui.widget.ed.AutoSearchEditNoBtn
+        android:id="@+id/search_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/rel_root_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_ed">
+
+        <include layout="@layout/base_simplelinear_recycleview"></include>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -37,7 +37,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.TranRecordStatusParam;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
 import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
-import com.wizarpos.pay.recode.hisotory.activitylist.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TranRecordStatusDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;

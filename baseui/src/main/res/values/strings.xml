@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">libbase</string>
+    <string name="http_ing">正在进行请求</string>
+    <string name="http_ing_delete">正在进行删除</string>
+    <string name="warn_btn_dou_click">不能连续点击</string>
+    <string name="warn_input_not_null">输入的内容不能为空</string>
+    <string name="must_input">必填</string>
+    <string name="must_optional">可选</string>
+    <string name="no_net">当前没有网络</string>
+    <string name="to_last_page">已经最后一页了</string>
+    <string name="sure">确定</string>
+    <string name="cancle">取消</string>
+    <string name="add">添加</string>
+    <string name="newadd">新增</string>
+
+    <string name="alert">修改</string>
+    <string name="delete">删除</string>
+    <string name="query">查询</string>
+    <string name="save">保存</string>
+    <string name="lookfor">搜索</string>
+    <string name="all_select">全选</string>
+    <string name="all_cancle">全不选</string>
+    <string name="degree">同意</string>
+    <string name="no_degree">不同意</string>
+    <string name="send">发送</string>
+    <string-array name="defaule">
+        <item>默认</item>
+    </string-array>
+    <string name="delete_operate_success">删除成功</string>
+
+    <string-array name="wuxian_title">
+        <item>养老保险</item>
+        <item>医疗保险</item>
+        <item>失业保险</item>
+        <item>工伤保险</item>
+        <item>生育保险</item>
+        <item>1</item>
+    </string-array>
+    <string name="callphone">拨打电话</string>
+    <string name="sendmsg">发送短信</string>
+</resources>

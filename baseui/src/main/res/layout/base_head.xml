@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/base_header_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_left_head"
+        style="@style/base_header_left">
+
+        <Button
+            android:id="@+id/btn_left"
+            style="@style/base_header_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/icon_btn_return_left" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_center_head"
+        style="@style/base_header_center">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/base_header_center"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_right_head"
+        style="@style/base_header_right">
+
+        <Button
+            android:id="@+id/btn_right"
+            style="@style/base_header_right"
+            android:background="@null"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            style="@style/base_header_right"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rel_content_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <include layout="@layout/base_recyclerview"></include>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/iv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"></View>
+
+    <FrameLayout
+        android:id="@+id/fl_add_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_bottom">
+
+    </FrameLayout>
+
+    <com.lc.baseui.widget.button.ImageAndTextButton
+        android:id="@+id/btn_nums_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/iv_bottom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

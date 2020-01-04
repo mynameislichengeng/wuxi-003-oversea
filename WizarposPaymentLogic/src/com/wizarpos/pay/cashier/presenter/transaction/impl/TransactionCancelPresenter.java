@@ -24,7 +24,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
-import com.wizarpos.recode.history.constants.TransRecordLogicConstants;
+import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;

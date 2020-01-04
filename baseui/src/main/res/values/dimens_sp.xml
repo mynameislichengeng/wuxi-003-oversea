@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--标题，中间字大小-->
+    <dimen name="text_base_header_title">18sp</dimen>
+    <dimen name="text_base_header_text">16sp</dimen>
+    <!--文本中的文字-->
+    <dimen name="text_mainview_text_title">16sp</dimen>
+    <dimen name="text_mainview_text_value">16sp</dimen>
+    <dimen name="text_mainview_text_annotion">14sp</dimen>
+    <!--dialogtitle的文本-->
+    <dimen name="text_dialog_title">15sp</dimen>
+
+</resources>

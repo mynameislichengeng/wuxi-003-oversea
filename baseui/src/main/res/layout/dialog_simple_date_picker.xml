@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width='270dp'
+    android:layout_height='wrap_content'
+    android:layout_centerInParent='true'
+    android:background="@drawable/shape_radius20dp_bg_white"
+    android:orientation='vertical'>
+
+    <TextView
+        android:id='@+id/tv_dialog_title'
+        android:layout_width='match_parent'
+        android:layout_height='wrap_content'
+        android:gravity='center'
+        android:padding='10dp'
+        android:text='请选择日期'
+        android:textSize='18sp' />
+
+    <View
+        android:layout_width='match_parent'
+        android:layout_height='1dp'
+        android:background='@android:color/darker_gray' />
+
+
+    <com.aigestudio.wheelpicker.widgets.WheelDatePicker
+        android:id='@+id/wheelpicker'
+        android:layout_width='wrap_content'
+        android:layout_height='wrap_content'
+        android:layout_gravity='center' />
+
+    <View
+        android:layout_width='match_parent'
+        android:layout_height='1dp'
+        android:background='@android:color/darker_gray' />
+
+    <LinearLayout
+        android:layout_width='match_parent'
+        android:layout_height='wrap_content'
+        android:gravity='center'
+        android:orientation='horizontal'
+        android:paddingBottom='13dp'
+        android:paddingLeft='10dp'
+        android:paddingRight='10dp'
+        android:paddingTop='13dp'>
+
+        <TextView
+            android:id='@+id/tv_cancel'
+            android:layout_width='0dp'
+            android:layout_height='wrap_content'
+            android:layout_weight="1"
+            android:gravity='center'
+            android:text='取消'
+            android:textSize='18sp' />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="25dp"
+            android:background="@android:color/darker_gray"></View>
+
+        <TextView
+            android:id='@+id/tv_sure'
+            android:layout_width='0dp'
+            android:layout_height='wrap_content'
+            android:layout_weight="1"
+            android:gravity='center'
+            android:text='确定'
+            android:textSize='18sp' />
+    </LinearLayout>
+
+</LinearLayout>
