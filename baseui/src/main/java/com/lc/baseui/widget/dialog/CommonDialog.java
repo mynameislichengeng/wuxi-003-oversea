@@ -1,10 +1,8 @@
 package com.lc.baseui.widget.dialog;//package com.haoqee.humanaffair.wiget.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lc.baseui.R;
-import com.lc.baseui.constants.UIStyleConstants;
+import com.lc.baseui.constants.UIStyleEnum;
 
 
 /**
@@ -20,22 +18,22 @@ import com.lc.baseui.constants.UIStyleConstants;
  * @author: zhuchunlin@uzoo.cn
  */
 public class CommonDialog extends Dialog {
-    public static final String TAG = CommonDialog.class.getSimpleName();
+    private static final String TAG = CommonDialog.class.getSimpleName();
 
 
     private TextView dialog_title_tv, dialog_content_tv;
     private Button dialog_left_btn, dialog_right_btn;
     private EditText dialog_ed_content;
-    private String flag_show = "";
+    private UIStyleEnum uiStyle = UIStyleEnum.TEXTVIEW;
 
 
     /**
-     * @param context 上下文
-     * @param flag    用于判断要显示的类型
+     * @param context     上下文
+     * @param uiStyleEnum 用于判断要显示的类型
      **/
-    public CommonDialog(Context context, String flag) {
+    public CommonDialog(Context context, UIStyleEnum uiStyleEnum) {
         super(context, R.style.common_dialog);
-        flag_show = flag;
+        uiStyle = uiStyleEnum;
     }
 
     public CommonDialog(Context context) {
@@ -72,13 +70,14 @@ public class CommonDialog extends Dialog {
     private void initContent() {
         dialog_content_tv = (TextView) findViewById(R.id.dialog_content_tv);
         dialog_ed_content = (EditText) findViewById(R.id.dialog_ed_content);
-        if (UIStyleConstants.EDITVIEW.equals(flag_show)) {
-            dialog_ed_content.setVisibility(View.VISIBLE);
-        } else if (UIStyleConstants.NUMS.equals(flag_show)) {
-            dialog_ed_content.setInputType(InputType.TYPE_CLASS_NUMBER);
-            dialog_ed_content.setVisibility(View.VISIBLE);
-        } else {
-            dialog_content_tv.setVisibility(View.VISIBLE);
+        switch (uiStyle) {
+            case EDITVIEW:
+                dialog_ed_content.setVisibility(View.VISIBLE);
+                break;
+
+            default:
+                dialog_content_tv.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
@@ -104,9 +103,8 @@ public class CommonDialog extends Dialog {
             content = "";
         }
 
-        switch (flag_show) {
-            case UIStyleConstants.NUMS:
-            case UIStyleConstants.EDITVIEW:
+        switch (uiStyle) {
+            case EDITVIEW:
                 dialog_ed_content.setText(content);
                 dialog_ed_content.setSelection(content.length());
                 break;
@@ -122,9 +120,8 @@ public class CommonDialog extends Dialog {
      **/
     public String getContent() {
         String content;
-        switch (flag_show) {
-            case UIStyleConstants.NUMS:
-            case UIStyleConstants.EDITVIEW:
+        switch (uiStyle) {
+            case EDITVIEW:
                 content = dialog_ed_content.getText().toString();
                 break;
             default:

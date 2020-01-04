@@ -25,6 +25,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
+import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -473,8 +474,9 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
 
-                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getRefundAmount())));
+                String printTotal = context.getString(R.string.print_total);
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
                 String exchangeRate = resp.getExchangeRate();
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -555,8 +557,10 @@ public class TransactionCancelPresenter {
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
             //
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            String printTotal = context.getString(R.string.print_total);
+            printString +=printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -635,8 +639,9 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
-                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-                lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getRefundAmount())));
+                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+                String printTotal = context.getString(R.string.print_total);
+                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
                 String exchangeRate = resp.getExchangeRate();
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
@@ -716,8 +721,10 @@ public class TransactionCancelPresenter {
             printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            String printTotal = context.getString(R.string.print_total);
+            printString +=printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";

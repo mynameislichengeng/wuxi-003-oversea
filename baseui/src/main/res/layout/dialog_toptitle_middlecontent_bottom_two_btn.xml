@@ -69,7 +69,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/selector_radius18dp_bg_tran_press_ffda44_stroke_ffda44"
-                android:text="@string/cancle"
+                android:text="@string/cancle_str"
                 android:textColor="@color/color_value_51596d"
                 android:textSize="14sp" />
 

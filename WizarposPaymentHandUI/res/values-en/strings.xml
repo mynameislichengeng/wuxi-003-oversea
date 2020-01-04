@@ -25,7 +25,7 @@
     <string name="tv_pay">payment</string>
     <string name="serial_num">Receipt Number:</string>
     <string name="revoke">ISSUE REFUND</string>
-    <string name="cancle">Issue Refund</string>
+    <string name="cancle">cancle</string>
     <string name="cancle_success">Refund Approved</string>
     <string name="cancle_fails">Refund Failed</string>
     <string name="version_num">Version</string>

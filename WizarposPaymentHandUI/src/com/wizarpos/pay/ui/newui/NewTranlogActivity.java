@@ -103,7 +103,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                     cardLinkProxy.queryAnyTrans(transInfo);
 //                    statisticsPresenter.printDetial(resp);
                 } else {
-                    String masterTranlogId = Tools.deleteMidTranLog(resp.getMasterTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+                    String masterTranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                     getDetailData("", "", "", "", "", masterTranlogId);
                 }
             }
@@ -488,6 +488,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
     /**
      * refund确认后的回调
+     *
      * @param amount
      */
     @Override

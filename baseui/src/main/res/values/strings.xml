@@ -9,7 +9,7 @@
     <string name="no_net">当前没有网络</string>
     <string name="to_last_page">已经最后一页了</string>
     <string name="sure">确定</string>
-    <string name="cancle">取消</string>
+    <string name="cancle_str">取消</string>
     <string name="add">添加</string>
     <string name="newadd">新增</string>
 

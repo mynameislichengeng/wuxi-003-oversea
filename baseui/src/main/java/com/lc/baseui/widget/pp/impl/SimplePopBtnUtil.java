@@ -21,7 +21,7 @@ public class SimplePopBtnUtil {
      **/
     public static void phoneWindow(final Activity activity, View view, final String phone) {
         final SimplePopWindowBtn3 pop = new SimplePopWindowBtn3(activity);
-        pop.setText(R.string.callphone, R.string.sendmsg, R.string.cancle);
+        pop.setText(R.string.callphone, R.string.sendmsg, R.string.cancle_str);
         pop.setClickEventBeforTWoBtn(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

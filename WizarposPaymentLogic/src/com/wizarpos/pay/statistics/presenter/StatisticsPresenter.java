@@ -41,6 +41,7 @@ import com.wizarpos.pay.statistics.model.TicketTranLogBean;
 import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.model.TranLogBean;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
+import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -1268,63 +1269,7 @@ public class StatisticsPresenter extends BasePresenter {
     }
 
 
-    public void printRefund(RefundDetailResp resp) {
-        PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
-        Q1PrintBuilder builder = new Q1PrintBuilder();
-        String printString = "";
-        String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
-        printString += builder.center(builder.bold(merchant));
-        printString += builder.center("228 Hunt Club Rd.");
-        printString += builder.center("Ottawa,Ontario,K1V 1C1");
-        printString += builder.center("(613)3196686");
-        String address = "";
-        String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-        printString += "Merchant ID:" + merchantId + builder.br();
-        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-        printString += "Terminal ID:" + terminalId + builder.br();
-        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-        printString += "Cashier ID:" + cahierId + builder.br();
-        printString += builder.br();
-        printString += builder.center(builder.bold("REFUND")) + builder.br();
 
-        printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getRefundAmount()).length()) + "$" + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
-        String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
-        if (TextUtils.isEmpty(exchangeRate)) {
-            exchangeRate = "1";
-        }
-        String cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-        printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
-        printString += builder.br();
-        String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-        printString += "Receipt#" + multipleSpaces(24 - tranlogId.length()) + tranlogId + builder.br();
-        printString += DateUtil.format(new Date(), DateUtil.P1) + multipleSpaces(22 - DateUtil.format(new Date(), DateUtil.P12).length()) + DateUtil.format(new Date(), DateUtil.P12) + builder.br();
-        String payType = resp.getTransKind();
-        printString += "Type:" + multipleSpaces(27 - payType.length()) + payType + builder.br();
-        String thirdTransOrder = resp.getThirdTradeNo();
-        if (!TextUtils.isEmpty(thirdTransOrder)) {
-            printString += "Trans#:" + builder.br();
-            printString += multipleSpaces(32 - thirdTransOrder.length()) + thirdTransOrder + builder.br();
-        }
-        String acctName = resp.getThirdExtName();
-        if (!TextUtils.isEmpty(acctName)) {
-            printString += "Acct Name:" + multipleSpaces(22 - acctName.length()) + acctName + builder.br();
-        }
-        String acct = resp.getThirdExtId();
-        if (!TextUtils.isEmpty(acct)) {
-            printString += "Acct:" + multipleSpaces(27 - acct.length()) + acct + builder.br();
-        }
-
-        printString += builder.br();
-        printString += builder.center(builder.bold("APPPROVED"));
-        printString += builder.br();
-        printString += builder.center(builder.bold("MERCHANT COPY"));
-        printString += builder.center(builder.bold("-important-"));
-        printString += builder.center(builder.bold("Please retain this Copy"));
-        printString += builder.center(builder.bold("for your records."));
-        printString += builder.branch() + builder.endPrint();
-        controller.print(printString);
-        controller.cutPaper();
-    }
 
     public void reprintCustomerRefund(DailyDetailResp resp) {
         if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
@@ -1362,7 +1307,10 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + "$" + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+            //
+            String tranCurreny = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+            int numPrint = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            printString += "Total:" + multipleSpaces(numPrint - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + tranCurreny + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -1452,8 +1400,10 @@ public class StatisticsPresenter extends BasePresenter {
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
 
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            String printTotal = context.getString(R.string.print_total);
+            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -1547,8 +1497,9 @@ public class StatisticsPresenter extends BasePresenter {
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
         //
-        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
-        lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim())));
+        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+        String printTotal = context.getString(R.string.print_total);
+        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim())));
         String exchangeRate = resp.getExchangeRate();
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
@@ -1637,18 +1588,21 @@ public class StatisticsPresenter extends BasePresenter {
             String tipsAmount = resp.getTipAmount();
             String printPurchase = context.getString(R.string.print_purchase);
             //
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
-                printString += printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
             } else {
-                printString += printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
             }
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 String printTip = context.getString(R.string.print_tip);
-                printString += printTip + multipleSpaces(31 - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
             }
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency+ Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            String printTotal = context.getString(R.string.print_total);
+            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -1744,18 +1698,22 @@ public class StatisticsPresenter extends BasePresenter {
             String tipsAmount = resp.getTipAmount();
             String printPurchase = context.getString(R.string.print_purchase);
             //
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
+            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
-                printString += printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
             } else {
-                printString += printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
             }
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
                 String printTip = context.getString(R.string.print_tip);
-                printString += printTip + multipleSpaces(31 - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
             }
-            printString += "Total:" + multipleSpaces(25 - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+            int numSpaceTotal = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+            String printTotal = context.getString(R.string.print_total);
+            printString += printTotal + multipleSpaces(numSpaceTotal - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -1853,7 +1811,7 @@ public class StatisticsPresenter extends BasePresenter {
         String tipsAmount = resp.getTipAmount();
         String printPurchase = context.getString(R.string.print_purchase);
 
-        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(resp.getTransCurrency());
+        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
 
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
             String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
@@ -1866,7 +1824,8 @@ public class StatisticsPresenter extends BasePresenter {
             String printTip = context.getString(R.string.print_tip);
             lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, transCurrency + Calculater.formotFen(tipsAmount)));
         }
-        lines.add(new HTMLPrintModel.LeftAndRightLine("Total:", transCurrency + Calculater.formotFen(resp.getSingleAmount())));
+        String printTotal = context.getString(R.string.print_total);
+        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
         String exchangeRate = resp.getExchangeRate();
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";

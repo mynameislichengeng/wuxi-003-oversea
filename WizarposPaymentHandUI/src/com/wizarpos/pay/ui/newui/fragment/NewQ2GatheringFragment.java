@@ -20,6 +20,7 @@ import com.wizarpos.pay.broadcastreceiver.Alarmreceiver;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
+import com.wizarpos.pay.recode.sale.widget.SaleInvoiceEditView;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
@@ -85,7 +86,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
      * 点击编辑icon的相应事件回调
      */
     private void operateEditIconOnclick() {
-
+        SaleInvoiceEditView.show(getContext());
     }
 
     private void initInputPad() {
