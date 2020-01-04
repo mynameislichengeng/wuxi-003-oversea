@@ -17,6 +17,7 @@ public class MerchantDefSuffix implements Serializable{
     private String tipsTerminalAllow;
     private String collectTips;
     private String tipsPercentage;
+    private String mandatoryFlag;//是否需要强制输入invoice
 
     public String getBusinessFlag() {
         return businessFlag;
@@ -96,5 +97,13 @@ public class MerchantDefSuffix implements Serializable{
 
     public void setTipsPercentage(String tipsPercentage) {
         this.tipsPercentage = tipsPercentage;
+    }
+
+    public String getMandatoryFlag() {
+        return mandatoryFlag;
+    }
+
+    public void setMandatoryFlag(String mandatoryFlag) {
+        this.mandatoryFlag = mandatoryFlag;
     }
 }

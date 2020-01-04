@@ -356,4 +356,6 @@
 
     <string name="refresh_last_page">已经最后一页了</string>
     <string name="pay_invoice">发票</string>
+
+    <string name="please_invoice_input">请输入invoice值</string>
 </resources>

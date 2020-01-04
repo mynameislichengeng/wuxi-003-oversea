@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/shape_radius_top10dp_bg_dde3e7">
+        android:layout_height="50dp"
+        android:background="@drawable/shape_radius_6dp_bg_blue">
 
         <TextView
             android:id="@+id/dialog_title_tv"
@@ -15,15 +15,15 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
-            android:textColor="@color/color_value_51596d"
-            android:textSize="18sp" />
+            android:textColor="@color/text_main_white"
+            android:textSize="24sp" />
     </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_radius_bottom10dp_bg_white"
+        android:background="@drawable/shape_radius_bottom6dp_bg_white"
         android:orientation="vertical">
 
 
@@ -35,7 +35,7 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:textColor="@color/color_value_51596d"
-            android:textSize="16sp"
+            android:textSize="22sp"
             android:visibility="gone" />
 
         <EditText
@@ -47,7 +47,7 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:textColor="@color/color_value_51596d"
-            android:textSize="16sp"
+            android:textSize="22sp"
             android:visibility="gone" />
 
         <View
@@ -57,35 +57,38 @@
             android:background="@color/color_value_dde3e7" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/dialog_left_btn"
-                android:layout_width="100dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/selector_radius18dp_bg_tran_press_ffda44_stroke_ffda44"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radius10dp_bg_blue_press_grey"
                 android:text="@string/cancle_str"
-                android:textColor="@color/color_value_51596d"
-                android:textSize="14sp" />
+                android:textColor="@color/text_main_white"
+                android:textSize="20sp" />
 
 
             <Button
                 android:id="@+id/dialog_right_btn"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/selector_radius18dp_bg_tran_press_ffda44_stroke_ffda44"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radius10dp_bg_grey_press_blue"
                 android:text="@string/sure"
-                android:textColor="@color/color_value_51596d"
-                android:textSize="14sp" />
+                android:textColor="@color/bg_main_white"
+                android:textSize="20sp" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

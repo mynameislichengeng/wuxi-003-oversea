@@ -176,4 +176,5 @@
     <string name="refresh_last_page">Already the last page</string>
     <string name="all">All</string>
     <string name="pay_invoice">invoice</string>
+    <string name="please_invoice_input">Please enter an invoice value</string>
 </resources>

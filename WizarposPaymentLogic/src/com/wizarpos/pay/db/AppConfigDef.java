@@ -202,6 +202,8 @@ public class AppConfigDef {
     public static final String percentP3 = "percentP3";//3档小费百分比
     public static final String tipsCustomAllow = "tipsCustomAllow";//是否允许顾客输入小费金额, T允许  F不允许
     public static final String tipsTerminalAllow = "tipsTerminalAllow";//是否允许客户端修改参数,T允许  F不允许
+    public static final String mandatoryFlag = "mandatoryFlag";//是否需要invoice
+    public static final String invoicenum = "invoicenum";
 //	public static final String loginMid = "loginMid";//登陆的商户号
 //	public static final String loginMerchantName = "loginMerchantName";//登陆的商户名
 

@@ -20,6 +20,8 @@ import com.wizarpos.pay.broadcastreceiver.Alarmreceiver;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
+import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
+import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
 import com.wizarpos.pay.recode.sale.widget.SaleInvoiceEditView;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
@@ -29,7 +31,7 @@ import com.wizarpos.pay2.lite.R;
 public class NewQ2GatheringFragment extends BaseViewFragment {
     private final static String TAG_LOG = NewQ2GatheringFragment.class.getName();
     private EditText etAmount;
-    private TextView tvShowRMB;
+    private TextView tvShowRMB, tv_invoice;
     private ImageView ivInvoiceEditIcon;
     private String exchangeRate;
     private InputPad inputPad;
@@ -65,6 +67,9 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
                 operateEditIconOnclick();
             }
         });
+        //invoice
+        tv_invoice = mainView.findViewById(R.id.tv_invoice);
+
         exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
         if (TextUtils.isEmpty(exchangeRate)) {
             progresser.showProgress();
@@ -82,11 +87,21 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         }));
     }
 
+    private void setLayoutInvoiceTv() {
+        String invoiceStr = InvoiceServiceImpl.getInstance().gettingInvoice(getContext());
+        tv_invoice.setText(invoiceStr);
+    }
+
     /**
      * 点击编辑icon的相应事件回调
      */
     private void operateEditIconOnclick() {
-        SaleInvoiceEditView.show(getContext());
+        InvoiceServiceImpl.getInstance().settingInvoiceCallback(getContext(), new InvoiceUIClickListener() {
+            @Override
+            public void onClick(String invoice) {
+                setLayoutInvoiceTv();
+            }
+        });
     }
 
     private void initInputPad() {
@@ -107,6 +122,11 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
             Toast.makeText(Pay2Application.getInstance(), Pay2Application.getInstance().getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
             return;
         }
+        //验证invoice是否输入合法
+        if (!InvoiceServiceImpl.getInstance().validateInvoice(getContext())) {
+            return;
+        }
+
         if (onConfirmListener != null) {
             onConfirmListener.onComfirm();
         }

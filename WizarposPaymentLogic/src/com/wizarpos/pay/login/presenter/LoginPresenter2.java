@@ -431,6 +431,8 @@ public class LoginPresenter2 extends BasePresenter {
             AppConfigHelper.setConfig(AppConfigDef.collectTips, loginResp.getMerchantDefSuffix().getCollectTips());//是否启用小费  ON启用 OFF禁用
             AppConfigHelper.setConfig(AppConfigDef.tipsPercentageAllow, loginResp.getMerchantDefSuffix().getTipsPercentageAllow());//是否允许手动设置百分比，T允许，F不允许
             AppConfigHelper.setConfig(AppConfigDef.tipsCustomAllow, loginResp.getMerchantDefSuffix().getTipsCustomAllow());//是否允许顾客输入小费金额  T允许  F不允许
+            AppConfigHelper.setConfig(AppConfigDef.mandatoryFlag, loginResp.getMerchantDefSuffix().getMandatoryFlag());//invoice码是否强制输入(0 关闭 ，1开启)
+
             JSONObject jsonObject = JSONObject.parseObject(loginResp.getMerchantDefSuffix().getTipsPercentage());
             if (null != jsonObject) {
                 AppConfigHelper.setConfig(AppConfigDef.percentP1, jsonObject.getString("p1"));

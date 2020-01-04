@@ -2,4 +2,5 @@
 <resources>
 
     <string name="colon">:</string>
+    <string name="all_num_and_chars">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>

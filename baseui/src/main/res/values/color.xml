@@ -10,14 +10,16 @@
     <color name="color_value_ffda44">#ffda44</color>
     <color name="color_value_dedede">#dedede</color>
     <color name="color_value_blue_55A5FE">#4bafeb</color>
+    <color name="color_value_blue_2771E1">#2771E1</color>
 
     <!--字体主体色-->
     <color name="text_main_black">#323232</color>
     <color name="text_main_grey">#808080</color>
-    <color name="text_main_blue">#4bafeb</color>
+    <color name="text_main_blue">#2771E1</color>
     <color name="text_main_red">#ff0000</color>
+    <color name="text_main_white">#ffffff</color>
     <!--背景色-->
-    <color name="bg_main_blue">#4bafeb</color>
+    <color name="bg_main_blue">#2771E1</color>
     <color name="bg_main_grey">#dedede</color>
     <color name="bg_main_black">#323232</color>
     <color name="bg_main_red">#ff0000</color>
