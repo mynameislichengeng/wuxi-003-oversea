@@ -8,7 +8,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +26,13 @@ import com.wizarpos.pay.view.util.NewCashTextWatcher;
 import com.wizarpos.pay2.lite.R;
 
 public class NewQ2GatheringFragment extends BaseViewFragment {
-    private final static String TAG_LOG = "NewGatheringFragment";
+    private final static String TAG_LOG = NewQ2GatheringFragment.class.getName();
     private EditText etAmount;
     private TextView tvShowRMB;
+    private ImageView ivInvoiceEditIcon;
     private String exchangeRate;
     private InputPad inputPad;
+
     private OnConfirmListener onConfirmListener;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -53,6 +57,13 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         setMainView(R.layout.fragment_gathering_for_q2);
         etAmount = (EditText) mainView.findViewById(R.id.etAmount);
         tvShowRMB = ((TextView) mainView.findViewById(R.id.tvShowRMB));
+        ivInvoiceEditIcon = mainView.findViewById(R.id.iv_invoice);//编辑图标
+        ivInvoiceEditIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operateEditIconOnclick();
+            }
+        });
         exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
         if (TextUtils.isEmpty(exchangeRate)) {
             progresser.showProgress();
@@ -70,11 +81,18 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         }));
     }
 
+    /**
+     * 点击编辑icon的相应事件回调
+     */
+    private void operateEditIconOnclick() {
+
+    }
+
     private void initInputPad() {
-        inputPad = (InputPad)mainView.findViewById(R.id.inputPad);
+        inputPad = (InputPad) mainView.findViewById(R.id.inputPad);
         etAmount.setSelection(etAmount.getText().length());
         etAmount.setInputType(InputType.TYPE_NULL);
-        inputPad.addEditView(etAmount,InputPad.InputType.TYPE_INPUT_MONEY);
+        inputPad.addEditView(etAmount, InputPad.InputType.TYPE_INPUT_MONEY);
         inputPad.setOnConfirmListener(new InputPad.OnComfirmListener() {
             @Override
             public void onConfirm(EditText editText) {
@@ -88,7 +106,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
             Toast.makeText(Pay2Application.getInstance(), Pay2Application.getInstance().getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (onConfirmListener!=null){
+        if (onConfirmListener != null) {
             onConfirmListener.onComfirm();
         }
     }
@@ -114,7 +132,6 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     }
 
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -124,7 +141,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         }
     }
 
-    public interface OnConfirmListener{
+    public interface OnConfirmListener {
         void onComfirm();
     }
 }
