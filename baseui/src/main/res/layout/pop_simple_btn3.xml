@@ -13,7 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/selector_radius10dp_bg_blue_press_grey"
+        android:background="@drawable/selector_radius6dp_bg_blue_press_grey"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
@@ -37,7 +37,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/selector_radius10dp_bg_blue_press_grey"
+        android:background="@drawable/selector_radius6dp_bg_blue_press_grey"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
@@ -60,7 +60,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/selector_radius10dp_bg_blue_press_grey"
+        android:background="@drawable/selector_radius6dp_bg_blue_press_grey"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 

@@ -2,20 +2,17 @@ package com.wizarpos.pay.recode.sale.service.impl;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
-import com.wizarpos.log.util.StringUtil;
-import com.wizarpos.pay.db.AppConfigDef;
-import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.constants.SaleConstants;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay.recode.sale.service.InvoiceService;
 import com.wizarpos.pay.recode.sale.widget.SaleInvoiceEditView;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 
 
-public class InvoiceServiceImpl implements InvoiceService {
+public class InvoiceServiceImpl extends InvoiceLoginServiceImpl implements InvoiceService {
 
     private static InvoiceService instance = new InvoiceServiceImpl();
 
@@ -79,16 +76,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
 
-    private void setAppconfigInvoiceValue(String invoiceValue) {
-        AppConfigHelper.setConfig(AppConfigDef.invoicenum, invoiceValue);
-    }
 
-    private String getAppconfigInvoiceValue() {
-        return AppConfigHelper.getConfig(AppConfigDef.invoicenum, "");
-    }
-
-    private String getAppconfigMandatoryFlag() {
-        return AppConfigHelper.getConfig(AppConfigDef.mandatoryFlag, "");//invoice码是否强制输入(0 关闭 ，1开启)
-    }
 
 }

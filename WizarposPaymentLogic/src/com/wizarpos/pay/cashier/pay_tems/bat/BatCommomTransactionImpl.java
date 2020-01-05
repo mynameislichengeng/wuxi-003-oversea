@@ -18,6 +18,8 @@ import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BasePresenter;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
+import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.util.HashMap;
@@ -69,6 +71,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
         params.put("wmHxInfo", transactionInfo.getBatTicket());
         params.put("flag", flag);
         params.put("tipAmount", transactionInfo.getTips());
+        params.put(HttpConstants.API_953_PARAM.INVOICENO.getKey(), InvoiceLoginServiceImpl.getInstatnce().getAppconfigInvoiceValue());
         BatNewReq req = new BatNewReq();
         req.setGoods_info(TextUtils.isEmpty(transactionInfo.getBody()) ? "第三方支付" : transactionInfo.getBody());
         req.setSpbill_create_ip(NetWorkUtils.getLocalIpAddress(PaymentApplication.getInstance()));
@@ -127,7 +130,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
             JSONObject object = JSONObject.parseObject(response.result.toString());
             JSONObject orderObj = (JSONObject) object.get("orderDef");
             Integer state = null;
-            if (orderObj != null&&orderObj.containsKey("state")) {
+            if (orderObj != null && orderObj.containsKey("state")) {
                 state = orderObj.getIntValue("state");
             }
             //
@@ -183,7 +186,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 resultListener.onSuccess(new Response(0, "支付成功", bundleResult()));
 //                printTransInfoWithListener(result, resultListener);
 //                resultListener.onSuccess(result);
-            }else {
+            } else {
                 Response ps = new Response();
                 ps.setMsg(response.getMsg());
                 resultListener.onFaild(ps);

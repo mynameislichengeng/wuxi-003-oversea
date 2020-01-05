@@ -1,4 +1,4 @@
-package com.wizarpos.recode.payprocess.entity.http;
+package com.wizarpos.recode.sale.entity.http;
 
 import com.wizarpos.recode.entity.base.ResponseBaseHttpParam;
 

@@ -70,7 +70,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_radius10dp_bg_blue_press_grey"
+                android:background="@drawable/selector_radius6dp_bg_grey_press_blue"
                 android:text="@string/cancle_str"
                 android:textColor="@color/text_main_white"
                 android:textSize="20sp" />
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_radius10dp_bg_grey_press_blue"
+                android:background="@drawable/selector_radius6dp_bg_blue_press_grey"
                 android:text="@string/sure"
                 android:textColor="@color/bg_main_white"
                 android:textSize="20sp" />
