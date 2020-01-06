@@ -18,6 +18,8 @@ public interface InvoiceService {
 
      boolean validateInvoice(Context context);
 
+    void clearInvoiceValue();
+
 
 
 

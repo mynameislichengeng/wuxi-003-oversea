@@ -8,6 +8,8 @@ import com.wizarpos.pay.common.Constants;
 
 public class BaseActivity extends AppCompatActivity {
 
+
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);

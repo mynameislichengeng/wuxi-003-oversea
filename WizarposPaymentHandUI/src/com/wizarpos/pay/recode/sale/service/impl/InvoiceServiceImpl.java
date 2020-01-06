@@ -50,6 +50,12 @@ public class InvoiceServiceImpl extends InvoiceLoginServiceImpl implements Invoi
 
     }
 
+    /**
+     * 检查是否符合要求
+     *
+     * @param context
+     * @return
+     */
     @Override
     public boolean validateInvoice(Context context) {
         // 必须有
@@ -64,7 +70,10 @@ public class InvoiceServiceImpl extends InvoiceLoginServiceImpl implements Invoi
         return true;
     }
 
-
+    @Override
+    public void clearInvoiceValue() {
+        setAppconfigInvoiceValue("");
+    }
 
 
     public boolean isNeedInvoiceFlag() {
@@ -74,8 +83,6 @@ public class InvoiceServiceImpl extends InvoiceLoginServiceImpl implements Invoi
         }
         return false;
     }
-
-
 
 
 }

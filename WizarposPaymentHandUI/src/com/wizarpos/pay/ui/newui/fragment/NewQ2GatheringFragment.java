@@ -57,6 +57,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
 
     @Override
     public void initView() {
+        Log.d(TAG_LOG, "initView()");
         setMainView(R.layout.fragment_gathering_for_q2);
         etAmount = (EditText) mainView.findViewById(R.id.etAmount);
         tvShowRMB = ((TextView) mainView.findViewById(R.id.tvShowRMB));
@@ -69,7 +70,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         });
         //invoice
         tv_invoice = mainView.findViewById(R.id.tv_invoice);
-
+        setLayoutInvoiceTv();
         exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
         if (TextUtils.isEmpty(exchangeRate)) {
             progresser.showProgress();
@@ -156,6 +157,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG_LOG, "onDestroy()");
         if (receiver != null) {
             LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
             receiver = null;

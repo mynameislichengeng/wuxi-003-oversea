@@ -181,6 +181,7 @@ public class NewDailySumActivityPlus extends BaseViewActivity {
         PieData wechatPieData = getPieData(tranLogVo, tranLogVo.getWechatSalesAmount(), "Wechat Pay", TodayTotalUtil.FLAG_WEXIN_COLOR);
         PieData alipayPieData = getPieData(tranLogVo, tranLogVo.getAlipaySalesAmount(), "Alipay", TodayTotalUtil.FLAG_ALIPAY_COLOR);
         PieData unionPieData = getPieData(tranLogVo, tranLogVo.getUnionPaySalesAmount(), "Union Pay QR", TodayTotalUtil.FLAG_UNION_COLOR);
+
         chartData.add(wechatPieData);
         chartData.add(alipayPieData);
         chartData.add(unionPieData);

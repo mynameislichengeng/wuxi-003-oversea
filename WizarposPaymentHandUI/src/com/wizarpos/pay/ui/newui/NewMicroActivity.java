@@ -3,6 +3,7 @@ package com.wizarpos.pay.ui.newui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
@@ -24,12 +25,14 @@ import com.wizarpos.pay2.lite.R;
  */
 
 public class NewMicroActivity extends NewThirdpayScanActivity implements OnClickListener {
+    private final String TAG_LOG = this.getClass().getName();
     private BatCommonTransaction batTransaction;
     private TextView tvScanResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG_LOG, "onCreate()");
         Intent intent = getIntent();
         String realAmount = intent.getStringExtra(Constants.realAmount); //增加realAmount验证,如果没有realAmount,则将initAmount设为realAmount wu
         if (TextUtils.isEmpty(realAmount)) {

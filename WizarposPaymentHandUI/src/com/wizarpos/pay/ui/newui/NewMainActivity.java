@@ -40,6 +40,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.view.LoginMerchantRebuildActivity;
+import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
 import com.wizarpos.pay.ui.newui.entity.ItemBean;
 import com.wizarpos.pay.ui.newui.fragment.NewGatheringFragment;
 import com.wizarpos.pay.ui.newui.fragment.NewQ2GatheringFragment;
@@ -53,7 +54,7 @@ import com.wizarpos.pay2.lite.R;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
 
-    private static final String LOG_TAG = NewMainActivity.class.getSimpleName();
+    private static final String LOG_TAG = NewMainActivity.class.getName();
     private static final String EXTAR_RETURN = "isReturn";
     private ListView lvType;
     private DrawerLayout dl;
@@ -98,9 +99,16 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "onCreate()");
         initView();
         initData();
         requestFocus();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "onResume()");
     }
 
     @Override
@@ -117,6 +125,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
 
     @Override
     protected void onDestroy() {
+        Log.d(LOG_TAG, "onDestroy()");
         clearToast();
         cardLinkTransaction.endTrans();
         super.onDestroy();
@@ -353,24 +362,6 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         }
         return super.onKeyDown(keyCode, event);
     }
-    //暂时没有银行卡消费
-//    @Override
-//    public boolean onKeyUp(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//            String amount = newGatheringFragment.getAmount();
-//            if (!TextUtils.isEmpty(amount)) {
-//                if (bankCardComfirmCard) {
-//                    cardLinkTransaction.continueTrans();
-//                    bankCardComfirmCard = false;
-//                } else {
-//                    bankCardPay();
-//                }
-//            } else {
-//                showWarnMsg("请输入收款金额");
-//            }
-//        }
-//        return super.onKeyUp(keyCode, event);
-//    }
 
     private void goUnionPay() {
         String amount = "";
@@ -423,39 +414,6 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         }
     }
 
-    private void goQrPay() {
-        if (System.currentTimeMillis() - holdtime > 2000) {
-            String amount = newGatheringFragment.getAmount();
-            if (!TextUtils.isEmpty(amount)) {
-                Intent intent = new Intent();
-                intent.putExtra(Constants.initAmount, Tools.toIntMoney(amount) + "");
-                intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-                startActivityForResult(intent, PAY_REQUEST_CODE);
-                finish();
-            } else {
-                showWarnMsg("请输入收款金额");
-            }
-            holdtime = System.currentTimeMillis();
-        }
-    }
-
-    private void bankCardPay() {
-        if (bankcardProgressing) {
-            return;
-        }
-        String amountStr = newGatheringFragment.getAmount();
-        try {
-            amount = Integer.parseInt(Calculater.formotYuan(amountStr));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (amount <= 0) {
-            showWarnMsg("请输入收款金额");
-            return;
-        }
-//        cardLinkTransaction.continueTrans();
-        startSale();
-    }
 
     private void initSale() {
         cardLinkTransaction = new CardLinkTransaction(this);
@@ -466,6 +424,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         } else {
 //            startSale(); //进入主页面后不再立刻开启交易
         }
+        InvoiceServiceImpl.getInstance().clearInvoiceValue();
     }
 
     private void startSale() {
