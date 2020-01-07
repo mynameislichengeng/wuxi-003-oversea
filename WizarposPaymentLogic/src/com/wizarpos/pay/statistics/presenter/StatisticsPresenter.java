@@ -155,7 +155,7 @@ public class StatisticsPresenter extends BasePresenter {
      * @param endTime    截至时间
      * @param listent
      */
-    public void getQueryDetailNew(String rechargeOn, int pageSize, String pageNumber, String timeRange, String transType, String startTime, String endTime, String tranLogId, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
+    public void getQueryDetailNew(String rechargeOn, int pageSize, String pageNumber, String timeRange, String transType, String startTime, String endTime, String tranLogId,String invoiceNum, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("transType", transType);
         params.put("startTime", startTime);
@@ -170,6 +170,9 @@ public class StatisticsPresenter extends BasePresenter {
             params.remove("transType");
             params.remove("timeRange");
         }
+
+
+
         NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
 
             @Override

@@ -27,6 +27,9 @@ import com.wizarpos.pay2.lite.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+交易界面的adapter
+ */
 public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
 
     private Context context;

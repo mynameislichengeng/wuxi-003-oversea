@@ -47,12 +47,11 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
      */
     private int tranType, timeRange, tranTypeIndex = DEFAULT_TRANTYPE_INDEX, timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
     private BaseLogicAdapter<ArrayItem> tranTypeAdapter, timeRangeAdapter;
-    private EditText etStartTime, etEndTime, etTranLogId;
+    private EditText etStartTime, etEndTime, etTranLogId, etInvoiceNum;
 
     private QueryFragmentListener mListener;
 
     public QueryFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -64,8 +63,6 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     public static QueryFragment newInstance() {
         QueryFragment fragment = new QueryFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,10 +70,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -150,6 +144,8 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                 || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_M0) {
             etTranLogId.setInputType(InputType.TYPE_NULL);
         }
+        //invoice num编辑ui
+        etInvoiceNum = view.findViewById(R.id.etInvoiceNo);
         etStartTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DialogHelper.showDateDialog(getContext(), etStartTime);
@@ -214,7 +210,11 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
             if (etTranLogId.getText() != null && !TextUtils.isEmpty(etTranLogId.getText().toString())) {
                 tranlogId = "P" + etTranLogId.getText().toString();
             }
-            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"), tranlogId);
+            String invoiceNum = "";
+            if (etInvoiceNum.getText() != null && !TextUtils.isEmpty(etInvoiceNum.getText().toString())) {
+                invoiceNum = etInvoiceNum.getText().toString();
+            }
+            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"), tranlogId,invoiceNum);
             doQueryReset();
         }
     }
@@ -247,6 +247,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         etStartTime.setText("");
         etEndTime.setText("");
         etTranLogId.setText("");
+        etInvoiceNum.setText("");
         tranTypeAdapter.notifyDataSetChanged();
         timeRangeAdapter.notifyDataSetChanged();
         view.findViewById(R.id.llTimeChoose).setVisibility(View.GONE);
@@ -273,6 +274,6 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
          * @param startDate
          * @param endDate
          */
-        void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId);
+        void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId,String invoiceNum);
     }
 }

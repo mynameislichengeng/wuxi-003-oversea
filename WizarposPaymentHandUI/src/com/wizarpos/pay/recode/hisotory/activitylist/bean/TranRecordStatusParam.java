@@ -9,6 +9,7 @@ public class TranRecordStatusParam {
     private int pageSize;
     private String transType;
     private String tranLogId;
+    private String invoiceNum;
     private String timeRange;
     private String startTime;
     private String endTime;
@@ -77,5 +78,13 @@ public class TranRecordStatusParam {
 
     public void setNextPage(boolean nextPage) {
         isNextPage = nextPage;
+    }
+
+    public String getInvoiceNum() {
+        return invoiceNum;
+    }
+
+    public void setInvoiceNum(String invoiceNum) {
+        this.invoiceNum = invoiceNum;
     }
 }

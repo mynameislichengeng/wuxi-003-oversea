@@ -48,8 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewTranlogActivity extends NewBaseTranlogActivity implements TransRecordConstants, QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
-    //    private ExpandableListView expandableListView;
-//    private TranlogDetailAdapter adapter;
+    private static String TAG = NewTranlogActivity.class.getSimpleName();
     private DrawerLayout dlMain;
     private String alreadyAmount;
 
@@ -62,12 +61,12 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private StatisticsPresenter statisticsPresenter;
 
     private QueryAnyProxy cardLinkProxy;
-    private static String TAG = NewTranlogActivity.class.getSimpleName();
+
     private static final int REQUEST_PAY_CANCEL = 2001;
     private static final int REQUEST_INPUT_PASSWORD = 2002;
     private DailyDetailResp dailyDetailResp;
+
     private List<DailyDetailResp> respList = new ArrayList<>();
-    private List<DailyDetailResp> relist = new ArrayList<>();
 
     private List<DailyDetailResp> itemList;//列表list
 
@@ -103,8 +102,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                     cardLinkProxy.queryAnyTrans(transInfo);
 //                    statisticsPresenter.printDetial(resp);
                 } else {
-                    String masterTranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-                    getDetailData("", "", "", "", "", masterTranlogId);
+                    String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+                    getDetailData(tranlogId);
                 }
             }
 
@@ -362,7 +361,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
      * @param endDate
      * @param tranlogId
      */
-    private void operateFragmentOnQuery(String tranType, String timeRange, String startDate, String endDate, String tranlogId) {
+    private void operateFragmentOnQuery(String tranType, String timeRange, String startDate, String endDate, String tranlogId, String invoiceNum) {
         //设置状态值
         tranRecordStatusParam.setPageNo(0);
         tranRecordStatusParam.setNextPage(true);
@@ -371,6 +370,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         tranRecordStatusParam.setStartTime(startDate);
         tranRecordStatusParam.setEndTime(endDate);
         tranRecordStatusParam.setTranLogId(tranlogId);
+        tranRecordStatusParam.setInvoiceNum(invoiceNum);
 
         //清空数据
         setLayoutListViewEmpty();
@@ -415,15 +415,17 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         String startTime = tranRecordStatusParam.getStartTime();
         //如果是自定义时间,则有结束时间
         String endTime = tranRecordStatusParam.getEndTime();
-        //日志TranLogId
+        //TranLogId
         String tranlogId = tranRecordStatusParam.getTranLogId();
+        //invoiceId
+        String invoiceNum = tranRecordStatusParam.getInvoiceNum();
         //第几页
         String pageNumber = String.valueOf(tranRecordStatusParam.getPageNo() + 1);
 
         String rechargeOn = TransRecordConstants.UNRECHARGEON;
         int pageSize = TransRecordConstants.PAGE_SIZE;
 
-        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNumber, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNumber, timeRange, transType, startTime, endTime, tranlogId, invoiceNum, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
@@ -442,11 +444,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     /**
      * 根据主流水号查询相关的所有订单并打印小票
      */
-    private void getDetailData(String timeRange, String rechargeOn, String transType, String startTime, String endTime, String tranlogId) {
+    private void getDetailData(String tranlogId) {
         progresser.showProgress();
         int pageSize = TransRecordConstants.ALL_PAGE_SIZE;
         String pageNum = "1";
-        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNum, timeRange, transType, startTime, endTime, tranlogId, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+        statisticsPresenter.getQueryDetailNew("", pageSize, pageNum, "", "", "", "", tranlogId, "", Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
@@ -689,7 +691,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
      * @param tranlogId
      */
     @Override
-    public void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId) {
-        operateFragmentOnQuery(tranType, timeRange, startDate, endDate, tranlogId);
+    public void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId, String invoiceNum) {
+        operateFragmentOnQuery(tranType, timeRange, startDate, endDate, tranlogId, invoiceNum);
     }
 }

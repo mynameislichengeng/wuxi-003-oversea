@@ -1,4 +1,4 @@
-package com.lc.baseui.widget.dialog.base;
+package com.lc.baseui.widget.dialog;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lc.baseui.R;
+import com.lc.baseui.widget.dialog.base.CustomerDialog;
 import com.lc.librefreshlistview.adapter.BaseRecycleAdapter;
 
 /**
@@ -16,7 +17,7 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
 
 
     public SimpleListViewDialog(Context context) {
-        super(context);
+        super(context, R.style.common_dialog);
     }
 
     public SimpleListViewDialog(Context context, int themeResId) {
@@ -53,7 +54,7 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
 
     /**
      * 设置adapter
-     * **/
+     **/
     public void setAdapter(BaseRecycleAdapter adapter) {
         this.adapter = adapter;
         if (adapter != null) {

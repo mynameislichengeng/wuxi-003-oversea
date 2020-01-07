@@ -177,4 +177,6 @@
     <string name="all">All</string>
     <string name="pay_invoice">invoice</string>
     <string name="please_invoice_input">Please enter an invoice value</string>
+    <string name="invoice_num">Invoice Number</string>
+    <string name="hint_enter_invoice_num">Enter invoice number</string>
 </resources>
