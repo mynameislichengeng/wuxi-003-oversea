@@ -16,11 +16,25 @@ public class CashierIdContent {
      * @return
      */
     public static HTMLPrintModel.SimpleLine printHtml(Context context) {
-        return new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName));
+
+        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+        String operateNo = AppConfigHelper.getConfig(AppConfigDef.operatorNo);
+        StringBuffer sb = new StringBuffer();
+        sb.append(cahierId);
+        sb.append("(");
+        sb.append(operateNo);
+        sb.append(")");
+        return new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + sb.toString());
     }
 
     public static String printString(Context context) {
         String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-        return context.getString(R.string.print_cashier_id) + cahierId;
+        String operateNo = AppConfigHelper.getConfig(AppConfigDef.operatorNo);
+        StringBuffer sb = new StringBuffer();
+        sb.append(cahierId);
+        sb.append("(");
+        sb.append(operateNo);
+        sb.append(")");
+        return context.getString(R.string.print_cashier_id) + sb.toString();
     }
 }

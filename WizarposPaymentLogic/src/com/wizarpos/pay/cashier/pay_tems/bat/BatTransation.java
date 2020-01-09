@@ -35,6 +35,7 @@ import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.content.PurchaseContent;
+import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
 import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.wizarpospaymentlogic.R;
@@ -210,8 +211,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
 
                 // 打印
-                HTMLPrintModel.LeftAndRightLine contentSettlement = PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo);
-                lines.add(contentSettlement);
+//                HTMLPrintModel.LeftAndRightLine contentSettlement = PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo);
+//                lines.add(contentSettlement);
+                lines.add(SettlementContent.printHtmlSettlement(transactionInfo));
 
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
@@ -331,7 +333,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 exchangeRate = "1";
             }
 
-            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
+//            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
+            printString += SettlementContent.printStringSettlement(transactionInfo) + builder.br();
+
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
@@ -444,8 +448,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
                 //
 
-                lines.add(PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo));
-
+//                lines.add(PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo));
+                lines.add(SettlementContent.printHtmlSettlement(transactionInfo));
 
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
@@ -564,7 +568,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             }
 
 
-            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
+//            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
+            printString += SettlementContent.printStringSettlement(transactionInfo) + builder.br();
 
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
@@ -682,7 +687,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                             if (!TextUtils.isEmpty(orderDef.getThirdExtName())) {
                                 transactionInfo.setThirdExtName(orderDef.getThirdExtName());
                             }
-
+                            transactionInfo.setSettlementCurrency(orderDef.getSettlementCurrency());
+                            transactionInfo.setSettlementAmount(orderDef.getSettlementAmount());
 
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT, getPrintContext());
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT, getCustomerPrintContext());

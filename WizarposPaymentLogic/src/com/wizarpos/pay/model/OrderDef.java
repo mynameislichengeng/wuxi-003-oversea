@@ -131,6 +131,9 @@ public class OrderDef implements Serializable {
 	
 	private String timeOutFlag;//是否交易超时 后续需自动撤销 "O"(大写字母o) 为超时
 
+	private String settlementCurrency;
+	private String settlementAmount;
+
 	public String getTicketInfo() {
 		return ticketInfo;
 	}
@@ -353,5 +356,21 @@ public class OrderDef implements Serializable {
 
 	public void setPayTime(String payTime) {
 		this.payTime = payTime;
+	}
+
+	public String getSettlementCurrency() {
+		return settlementCurrency;
+	}
+
+	public void setSettlementCurrency(String settlementCurrency) {
+		this.settlementCurrency = settlementCurrency;
+	}
+
+	public String getSettlementAmount() {
+		return settlementAmount;
+	}
+
+	public void setSettlementAmount(String settlementAmount) {
+		this.settlementAmount = settlementAmount;
 	}
 }

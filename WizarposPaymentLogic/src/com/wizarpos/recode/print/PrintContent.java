@@ -15,57 +15,57 @@ import com.wizarpos.wizarpospaymentlogic.R;
 
 public class PrintContent {
 
-    public static HTMLPrintModel.LeftAndRightLine printHtmlSettlement(String totalAmount, String exchangeRate, TransactionInfo transactionInfo) {
-
-        String tranCurrency = transactionInfo.getTransCurrency();
-        String settlementCurrency = transactionInfo.getSettlementCurrency();
-        String tempAmount;
-        String tempCurrency;
-        if (tranCurrency.equals(settlementCurrency)) {
-            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            tempAmount = cnyAmount;
-            tempCurrency = "CNY";
-        } else {
-            String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
-            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
-                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            tempAmount = settlementAmount;
-            tempCurrency = settlementCurrency;
-        }
-
-        HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", tempCurrency + " " + tempAmount);
-        return leftAndRightLine;
-    }
-
-    public static String printStringSettlement(String totalAmount, String exchangeRate, TransactionInfo transactionInfo) {
-
-        String tranCurrency = transactionInfo.getTransCurrency();
-        String settlementCurrency = transactionInfo.getSettlementCurrency();
-        String tempAmount;
-        String tempCurrency;
-        if (tranCurrency.equals(settlementCurrency)) {
-            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            tempAmount = cnyAmount;
-            tempCurrency = "CNY";
-        } else {
-            String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
-            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
-                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            tempAmount = settlementAmount;
-            tempCurrency = settlementCurrency;
-        }
-
-        String str = multipleSpaces(28 - tempAmount.length()) + tempCurrency + " " + tempAmount;
-        return str;
-    }
+//    public static HTMLPrintModel.LeftAndRightLine printHtmlSettlement(String totalAmount, String exchangeRate, TransactionInfo transactionInfo) {
+//
+//        String tranCurrency = transactionInfo.getTransCurrency();
+//        String settlementCurrency = transactionInfo.getSettlementCurrency();
+//        String tempAmount;
+//        String tempCurrency;
+//        if (tranCurrency.equals(settlementCurrency)) {
+//            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
+//            }
+//            tempAmount = cnyAmount;
+//            tempCurrency = "CNY";
+//        } else {
+//            String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
+//            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
+//                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
+//            }
+//            tempAmount = settlementAmount;
+//            tempCurrency = settlementCurrency;
+//        }
+//
+//        HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", tempCurrency + " " + tempAmount);
+//        return leftAndRightLine;
+//    }
+//
+//    public static String printStringSettlement(String totalAmount, String exchangeRate, TransactionInfo transactionInfo) {
+//
+//        String tranCurrency = transactionInfo.getTransCurrency();
+//        String settlementCurrency = transactionInfo.getSettlementCurrency();
+//        String tempAmount;
+//        String tempCurrency;
+//        if (tranCurrency.equals(settlementCurrency)) {
+//            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
+//            }
+//            tempAmount = cnyAmount;
+//            tempCurrency = "CNY";
+//        } else {
+//            String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
+//            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
+//                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
+//            }
+//            tempAmount = settlementAmount;
+//            tempCurrency = settlementCurrency;
+//        }
+//
+//        String str = multipleSpaces(28 - tempAmount.length()) + tempCurrency + " " + tempAmount;
+//        return str;
+//    }
 
 
     public static String printStringSettlement(String exchangeRate, DailyDetailResp resp) {
