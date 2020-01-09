@@ -142,6 +142,9 @@ public class PrintContent {
                 settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(resp.getRefundAmount(), exchangeRate)));
             }
             tempAmount = settlementAmount;
+            if (tempAmount.startsWith("-")) {
+                tempAmount = tempAmount.substring(1);
+            }
             tempCurrency = settlementCurrency;
         }
 
@@ -169,6 +172,9 @@ public class PrintContent {
                 settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(resp.getRefundAmount(), exchangeRate)));
             }
             tempAmount = settlementAmount;
+            if (tempAmount.startsWith("-")) {
+                tempAmount = tempAmount.substring(1);
+            }
             tempCurrency = settlementCurrency;
         }
 

@@ -14,9 +14,11 @@ import com.wizarpos.pay.recode.hisotory.activitylist.bean.adapter.RefundWarnAdap
 import com.wizarpos.pay2.lite.R;
 
 public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
+    private String[] stuName;
 
     public RefundClickAdapter(Context context, DailyDetailResp itemList) {
         this.context = context;
+        stuName = context.getResources().getStringArray(R.array.refund_adapter_item_title);
         this.t = itemList;
     }
 
@@ -26,11 +28,16 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     }
 
     @Override
+    public int getItemCount() {
+        return stuName.length;
+    }
+
+    @Override
     public void onBindViewHolder(SimpleRecycleViewHodler holder, int position) {
         TextView tvTitle = holder.getView(R.id.tv_adapter_title);
         TextView tvValue = holder.getView(R.id.tv_adapter_value);
 
-        String[] stuName = context.getResources().getStringArray(R.array.refund_adapter_item_title);
+
         String title = null;
         String value = null;
         DailyDetailResp refundWarnAdapterParam = getT();
@@ -46,7 +53,8 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
                 break;
             case 2:
                 title = stuName[2];
-                value = refundWarnAdapterParam.getPayTime();
+                String tranlog = refundWarnAdapterParam.getTranLogId();
+                value = tranlog;
                 break;
             case 3:
                 title = stuName[3];

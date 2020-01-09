@@ -41,6 +41,7 @@ import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.view.LoginMerchantRebuildActivity;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
+import com.wizarpos.pay.recode.test.TestActivity;
 import com.wizarpos.pay.ui.newui.entity.ItemBean;
 import com.wizarpos.pay.ui.newui.fragment.NewGatheringFragment;
 import com.wizarpos.pay.ui.newui.fragment.NewQ2GatheringFragment;
@@ -208,9 +209,11 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                         } else if (TICKET_USE_RECORD == item.getRealValue()) {//卡券核销记录
                             Toast.makeText(NewMainActivity.this, "暂不支持卡券核销", Toast.LENGTH_SHORT).show();
                         } else if (TODAY_RECORD == item.getRealValue()) {//今日汇总
-//                            startNewActivity(NewDailySumActivity.class);
+
                             startNewActivity(NewDailySumActivityPlus.class);
-//                            Toast.makeText(NewMainActivity.this, "today record", Toast.LENGTH_SHORT).show();
+
+                            //test todo
+//                            TestActivity.startAc(NewMainActivity.this);
                         } else if (SETTING == item.getRealValue()) {//设置
                             startActivity(new Intent(NewMainActivity.this, NewSettingActivity.class));
                             NewMainActivity.this.finish();
