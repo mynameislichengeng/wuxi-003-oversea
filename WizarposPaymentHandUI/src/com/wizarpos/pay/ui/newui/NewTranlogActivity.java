@@ -305,18 +305,20 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
     private void operateRefundOnclick(DailyDetailResp resp) {
         dailyDetailResp = resp;
-        TransRecordDialog.refundDialog(NewTranlogActivity.this, dailyDetailResp, new SimpleListViewDialog.OnCancleAndSuceClickListener() {
-            @Override
-            public void onSure(View view) {
-//                        alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
-                toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
-            }
+        // alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
 
-            @Override
-            public void onCancle(View view) {
-
-            }
-        });
+        toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
+//        TransRecordDialog.refundDialog(NewTranlogActivity.this, dailyDetailResp, new SimpleListViewDialog.OnCancleAndSuceClickListener() {
+//            @Override
+//            public void onSure(View view) {
+//
+//            }
+//
+//            @Override
+//            public void onCancle(View view) {
+//
+//            }
+//        });
     }
 
 

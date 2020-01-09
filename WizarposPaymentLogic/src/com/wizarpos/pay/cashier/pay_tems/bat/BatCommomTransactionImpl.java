@@ -174,14 +174,14 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 //
                 transactionInfo.setTransCurrency(tranIdObj.getString("transCurrency"));
 
-                transactionInfo.setSn(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SN.getKey()));
+//                transactionInfo.setSn(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SN.getKey()));
 
-                String optName = tranIdObj.getString(HttpConstants.API_953_RESPONSE.OPTNAME.getKey());
-                if (TextUtils.isEmpty(optName)) {
-                    transactionInfo.setOptName("");
-                } else {
-                    transactionInfo.setOptName(optName);
-                }
+//                String optName = tranIdObj.getString(HttpConstants.API_953_RESPONSE.OPTNAME.getKey());
+//                if (TextUtils.isEmpty(optName)) {
+//                    transactionInfo.setOptName("");
+//                } else {
+//                    transactionInfo.setOptName(optName);
+//                }
 
                 transactionInfo.setSettlementAmount(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SETTLEMENTAMOUNT.getKey()));
                 transactionInfo.setSettlementCurrency(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SETTLEMENTCURRENCY.getKey()));
