@@ -155,7 +155,7 @@ public class StatisticsPresenter extends BasePresenter {
      * @param endTime    截至时间
      * @param listent
      */
-    public void getQueryDetailNew(String rechargeOn, int pageSize, String pageNumber, String timeRange, String transType, String startTime, String endTime, String tranLogId,String invoiceNum, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
+    public void getQueryDetailNew(String rechargeOn, int pageSize, String pageNumber, String timeRange, String transType, String startTime, String endTime, String tranLogId, String invoiceNum, String tag, final ResponseListener listent) {//极简版收款根据时间范围查询交易@hong[20160325]
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("transType", transType);
         params.put("startTime", startTime);
@@ -170,7 +170,6 @@ public class StatisticsPresenter extends BasePresenter {
             params.remove("transType");
             params.remove("timeRange");
         }
-
 
 
         NetRequest.getInstance().addRequest(Constants.SC_964_TRAN_DETAIL_PAGE, params, tag, new ResponseListener() {
@@ -1272,8 +1271,6 @@ public class StatisticsPresenter extends BasePresenter {
     }
 
 
-
-
     public void reprintCustomerRefund(DailyDetailResp resp) {
         if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
             reprintRefundByBitmap(resp, context.getString(R.string.print_customer_copy));
@@ -1304,25 +1301,38 @@ public class StatisticsPresenter extends BasePresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String optNameStr = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
             //
             String tranCurreny = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
             int numPrint = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            printString += "Total:" + multipleSpaces(numPrint - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + tranCurreny + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+            String printtotal = context.getString(R.string.print_total);
+            printString += printtotal + multipleSpaces(numPrint - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + tranCurreny + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String printSetlCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += printSetlCurrency + builder.br();
+
             printString += builder.br() + builder.nBr();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1396,10 +1406,20 @@ public class StatisticsPresenter extends BasePresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr);
+
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+            String optNameStr = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+
+
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
 
@@ -1411,11 +1431,16 @@ public class StatisticsPresenter extends BasePresenter {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String printSetleCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += printSetleCurrency + builder.br();
+
             printString += builder.br() + builder.nBr();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1493,10 +1518,18 @@ public class StatisticsPresenter extends BasePresenter {
         }
         String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + merchantId));
-        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
-        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
+
+//        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
+
+        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+        lines.add(snHtml);
+
+//        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
+        HTMLPrintModel.SimpleLine optNameStr = PrintManager.printHtmlOptName(context, resp.getOptName());
+        lines.add(optNameStr);
+
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
         //
@@ -1507,11 +1540,16 @@ public class StatisticsPresenter extends BasePresenter {
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
         }
-        String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-        if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-            cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
-        }
-        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+//        String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//        if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//            cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
+//        }
+//        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+        HTMLPrintModel.LeftAndRightLine printSetCurency = PrintManager.printHtmlSettlement(exchangeRate, resp);
+        lines.add(printSetCurency);
+
         lines.add(new HTMLPrintModel.EmptyLine());
         String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
         String printRecepit = context.getString(R.string.print_receipt);
@@ -1581,10 +1619,19 @@ public class StatisticsPresenter extends BasePresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String optName = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optName) + builder.br();
+
+
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
             String totalAmount = resp.getSingleAmount();
@@ -1610,11 +1657,14 @@ public class StatisticsPresenter extends BasePresenter {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String strSetPrint = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += strSetPrint + builder.br();
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
@@ -1691,10 +1741,19 @@ public class StatisticsPresenter extends BasePresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String optNameStr = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+
+
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
             String totalAmount = resp.getSingleAmount();
@@ -1721,11 +1780,15 @@ public class StatisticsPresenter extends BasePresenter {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String settlePrintStr = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += settlePrintStr + builder.br();
+
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
@@ -1804,10 +1867,19 @@ public class StatisticsPresenter extends BasePresenter {
         }
         String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + merchantId));
-        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
-        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
+
+//        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
+
+
+        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+        lines.add(snHtml);
+
+//        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
+        HTMLPrintModel.SimpleLine optNameHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+        lines.add(optNameHtml);
+
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_sale), true, true));
         String totalAmount = resp.getSingleAmount();
@@ -1833,11 +1905,15 @@ public class StatisticsPresenter extends BasePresenter {
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
         }
-        String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-        if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-            cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
-        }
-        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+//        String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//        if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//            cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
+//        }
+//        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+        HTMLPrintModel.LeftAndRightLine printSettle = PrintManager.printHtmlSettlement(exchangeRate, resp);
+        lines.add(printSettle);
         String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
         String printFx = context.getString(R.string.print_fx_rate);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));

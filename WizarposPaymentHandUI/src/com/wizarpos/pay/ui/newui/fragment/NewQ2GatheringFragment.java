@@ -124,9 +124,9 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
             return;
         }
         //验证invoice是否输入合法
-        if (!InvoiceServiceImpl.getInstance().validateInvoice(getContext())) {
-            return;
-        }
+//        if (!InvoiceServiceImpl.getInstance().validateInvoice(getContext())) {
+//            return;
+//        }
 
         if (onConfirmListener != null) {
             onConfirmListener.onComfirm();

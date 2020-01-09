@@ -13,6 +13,8 @@ public class DailyDetailResp implements Serializable {
     private String refundAmount;
     private String thirdTradeNo;
     private String transCurrency;// 结算类型
+    private String settlementAmount;
+    private String settlementCurrency;
 
     private String tipAmount;
     private String thirdExtId;
@@ -28,6 +30,8 @@ public class DailyDetailResp implements Serializable {
     private String tranlogId;
     private String payTime;
     private String cancelKind;
+    private String sn;
+
 
     public String getCancelKind() {
         return cancelKind;
@@ -232,4 +236,29 @@ public class DailyDetailResp implements Serializable {
     public void setTransCurrency(String transCurrency) {
         this.transCurrency = transCurrency;
     }
+
+    public String getSettlementAmount() {
+        return settlementAmount;
+    }
+
+    public void setSettlementAmount(String settlementAmount) {
+        this.settlementAmount = settlementAmount;
+    }
+
+    public String getSettlementCurrency() {
+        return settlementCurrency;
+    }
+
+    public void setSettlementCurrency(String settlementCurrency) {
+        this.settlementCurrency = settlementCurrency;
+    }
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
 }

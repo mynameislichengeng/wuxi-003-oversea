@@ -44,6 +44,8 @@ public class TranLogVo {
     private int alipayNetSalesNumber;
     //支付宝净销售总金额
     private int alipayNetSalesAmount;
+    //支付宝-新接口用的-饼图使用
+    private int alipayGrossAmount;
 
     //微信销售总笔数
     private int wechatSalesNumber;
@@ -57,6 +59,8 @@ public class TranLogVo {
     private int wechatNetSalesNumber;
     //微信净销售总金额
     private int wechatNetSalesAmount;
+    //微信-新接口用的-饼图使用
+    private int wechatGrossAmount;
 
 
     //银联支付宝销售总笔数
@@ -71,6 +75,8 @@ public class TranLogVo {
     private int unionPayNetSalesNumber;
     //银联支付净销售总金额
     private int unionPayNetSalesAmount;
+    //银联支付-新接口用的-饼图使用
+    private int unionPayGrossAmount;
 
     public String getBeginTime() {
         return beginTime;
@@ -310,5 +316,29 @@ public class TranLogVo {
 
     public void setUnionPayNetSalesAmount(int unionPayNetSalesAmount) {
         this.unionPayNetSalesAmount = unionPayNetSalesAmount;
+    }
+
+    public int getAlipayGrossAmount() {
+        return alipayGrossAmount;
+    }
+
+    public void setAlipayGrossAmount(int alipayGrossAmount) {
+        this.alipayGrossAmount = alipayGrossAmount;
+    }
+
+    public int getWechatGrossAmount() {
+        return wechatGrossAmount;
+    }
+
+    public void setWechatGrossAmount(int wechatGrossAmount) {
+        this.wechatGrossAmount = wechatGrossAmount;
+    }
+
+    public int getUnionPayGrossAmount() {
+        return unionPayGrossAmount;
+    }
+
+    public void setUnionPayGrossAmount(int unionPayGrossAmount) {
+        this.unionPayGrossAmount = unionPayGrossAmount;
     }
 }

@@ -161,8 +161,13 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
                 lines.add(new HTMLPrintModel.SimpleLine(AppConfigHelper.getConfig(AppConfigDef.merchantTel), false, true));
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
+                HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, transactionInfo.getSn());
+                lines.add(snHtml);
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+                HTMLPrintModel.SimpleLine optName = PrintManager.printHtmlOptName(context, transactionInfo.getOptName());
+                lines.add(optName);
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_sale), true, true));
                 String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
@@ -188,11 +193,11 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-                String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-                }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+                // 打印
+                HTMLPrintModel.LeftAndRightLine contentSettlement = PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo);
+                lines.add(contentSettlement);
+
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
@@ -261,10 +266,17 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String sn = transactionInfo.getSn();
+            printString += PrintManager.printStringSn(context, sn) + builder.br();
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String cahierId = transactionInfo.getOptName();
+            printString += PrintManager.printStringOptName(context, cahierId) + builder.br();
+
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br() + builder.nBr();
 
@@ -295,11 +307,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
@@ -369,8 +378,16 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
                 lines.add(new HTMLPrintModel.SimpleLine(AppConfigHelper.getConfig(AppConfigDef.merchantTel), false, true));
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
+                HTMLPrintModel.SimpleLine lineSn = PrintManager.printHtmlSn(context, transactionInfo.getSn());
+                lines.add(lineSn);
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+                HTMLPrintModel.SimpleLine lineOptName = PrintManager.printHtmlOptName(context, transactionInfo.getOptName());
+                lines.add(lineOptName);
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_sale), true, true));
                 String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
@@ -395,11 +412,11 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-                String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-                }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+                //
+
+                lines.add(PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo));
+
+
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
@@ -468,10 +485,19 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = transactionInfo.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+            String cahierId = transactionInfo.getOptName();
+            printString += PrintManager.printStringOptName(context, cahierId) + builder.br();
+
+
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
             String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
@@ -497,11 +523,10 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+
+            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
+
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();

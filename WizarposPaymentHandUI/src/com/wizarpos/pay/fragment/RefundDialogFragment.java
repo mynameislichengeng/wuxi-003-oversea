@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.ui.setting.CommonItem;
 import com.wizarpos.pay.common.utils.Calculater;
+import com.wizarpos.pay.model.DailyDetailResp;
+import com.wizarpos.pay.recode.constants.IntentConstants;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 /**
  * Created by 苏震 on 2016/11/10.
@@ -24,18 +27,24 @@ import com.wizarpos.pay2.lite.R;
 
 public class RefundDialogFragment extends DialogFragment implements View.OnClickListener {
 
+    private DailyDetailResp dailyDetailResp;
     private String title;
+
+
     private String amount;
     private String alreadyAmount;
+
+
     private OnSaveListener onSaveListener;
     private CommonItem ciAmount;
     private EditText etAmount;
 
 
-    public static RefundDialogFragment newInstance(String title, String alreadyAmount) {
+    public static RefundDialogFragment newInstance(String title, DailyDetailResp dailyDetailResp) {
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-        bundle.putString("alreadyAmount", alreadyAmount);
+//        bundle.putString("alreadyAmount", alreadyAmount);
+        bundle.putSerializable(IntentConstants.TradLogActivity.REFUND_DIALOG_OBJECT.getKey(), dailyDetailResp);
         RefundDialogFragment refundDialogFragment = new RefundDialogFragment();
         refundDialogFragment.setArguments(bundle);
         return refundDialogFragment;
@@ -46,7 +55,9 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         title = bundle.getString("title");
-        alreadyAmount = bundle.getString("alreadyAmount");
+//        alreadyAmount = bundle.getString("alreadyAmount");
+        dailyDetailResp = (DailyDetailResp) bundle.getSerializable(IntentConstants.TradLogActivity.REFUND_DIALOG_OBJECT.getKey());
+        alreadyAmount = String.valueOf(Integer.parseInt(dailyDetailResp.getSingleAmount()) - Integer.parseInt(dailyDetailResp.getRefundAmount()));
     }
 
     @Nullable
@@ -66,6 +77,8 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
         view.findViewById(R.id.rvCancel).setOnClickListener(this);
         view.findViewById(R.id.rvCommit).setOnClickListener(this);
         ciAmount = ((CommonItem) view.findViewById(R.id.ciAmount));
+        String trancy = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(dailyDetailResp.getTransCurrency());
+        ciAmount.getTvRight().setText(trancy);
         ciAmount.getTvRight().setPadding(0, 0, 0, 0);
         etAmount = ciAmount.getEtRight();
         if ("0".equals(alreadyAmount)) {

@@ -31,6 +31,9 @@ public class TransRecordDataUtil {
         dailyDetailResp.setMasterTranLogId(resultBean.getMasterTranLogId());
         dailyDetailResp.setRefundAmount(String.valueOf(resultBean.getRefundAmount()));
         dailyDetailResp.setTransCurrency(resultBean.getTransCurrency());
+        dailyDetailResp.setSettlementAmount(resultBean.getSettlementAmount());
+        dailyDetailResp.setSettlementCurrency(resultBean.getSettlementCurrency());
+        dailyDetailResp.setSn(resultBean.getSn());
         return dailyDetailResp;
     }
 

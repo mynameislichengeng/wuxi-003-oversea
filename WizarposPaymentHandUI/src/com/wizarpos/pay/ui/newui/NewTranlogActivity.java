@@ -124,15 +124,17 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         simpleLinearRecycleView = findViewById(R.id.rel_list);
 
         simpleLinearRecycleView.setRecycleViewAdapter(adapter);
-        simpleLinearRecycleView.settingEnablePullToRefresh(false);//关闭下拉刷新
+//        simpleLinearRecycleView.settingEnablePullToRefresh(false);//关闭下拉刷新
         simpleLinearRecycleView.setRefreshEventListener(new RefreshEventListener() {
             @Override
             public void onTopDownRefresh(boolean isManual) {
-
+                //下拉刷新
+                operateOnPullDownRefresh();
             }
 
             @Override
             public void onBottomLoadMore(boolean isSilence) {
+                //上拉加载
                 operateOnPullUpLoad();
             }
 
@@ -192,12 +194,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             tvSettingParams.setBackgroundResource(R.drawable.ic_nav_search);
             tvSettingParams.setOnClickListener(this);
         }
-  /*      ImageView ivLeftIcon = (ImageView) findViewById(R.id.ivLeftIcon);
-        if (ivLeftIcon != null) {
-            ivLeftIcon.setVisibility(View.VISIBLE);
-            ivLeftIcon.setImageResource(R.id.);
-            ivLeftIcon.setOnClickListener(this);
-        }*/
+
     }
 
     @Override
@@ -246,7 +243,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_INPUT_PASSWORD) {
-                RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), alreadyAmount);
+                RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), dailyDetailResp);
                 refundDialogFragment.show(getFragmentManager(), null);
             } else if (requestCode == REQUEST_PAY_CANCEL) {
 //                getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
@@ -285,6 +282,14 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         tranRecordStatusParam.setPageNo(pageNum);
     }
 
+    /**
+     * 下拉刷新
+     */
+    private void operateOnPullDownRefresh() {
+        tranRecordStatusParam = TranRecordStatusDataUtil.createDefault();
+        setLayoutListViewEmpty();
+        getDataNew();
+    }
 
     /**
      * 上拉加载更多

@@ -51,9 +51,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
 
                     <com.wizarpos.pay.ui.newui.util.MostItemGridView
                         android:id="@+id/gvTranType"
@@ -102,9 +102,9 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingRight="10dp"
+                        android:paddingBottom="10dp">
 
                         <com.wizarpos.pay.ui.newui.util.MostItemGridView
                             android:id="@+id/gvTimeRange"
@@ -149,8 +149,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:drawablePadding="10dp"
                             android:drawableRight="@drawable/ic_date_choose"
+                            android:drawablePadding="10dp"
                             android:gravity="center_vertical|right"
                             android:paddingRight="20dp"
                             android:textColor="#0074e1"
@@ -185,8 +185,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:drawablePadding="10dp"
                             android:drawableRight="@drawable/ic_date_choose"
+                            android:drawablePadding="10dp"
                             android:gravity="center_vertical|right"
                             android:paddingRight="20dp"
                             android:textColor="#0074e1"
@@ -243,16 +243,20 @@
                         android:textColor="#666666"
                         android:textSize="14sp" />
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#D8D8D8" />
+                    android:background="#D8D8D8"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:id="@+id/linInvoiceNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -24,6 +24,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
+import com.wizarpos.recode.constants.HttpConstants;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.wizarpospaymentlogic.R;
@@ -423,6 +424,18 @@ public class TransactionCancelPresenter {
                     resp.setExchangeRate(result.getString("exchangeRate"));
                     resp.setCnyAmount(result.getString("cnyAmount"));
                     resp.setPayTime(result.getString("payTime"));
+                    //
+                    resp.setSn(result.getString(HttpConstants.API_955_RESPONSE.SN.getKey()));
+                    //
+
+                    if (result.getString(HttpConstants.API_955_RESPONSE.OPTNAME.getKey()) != null) {
+                        resp.setOptName(result.getString(HttpConstants.API_955_RESPONSE.OPTNAME.getKey()));
+                    } else {
+                        resp.setOptName("");
+                    }
+                    resp.setSettlementCurrency(result.getString(HttpConstants.API_955_RESPONSE.SETTLEMENTCURRENCY.getKey()));
+                    resp.setSettlementAmount(result.getString(HttpConstants.API_955_RESPONSE.SETTLEMENTAMOUNT.getKey()));
+
                     if (result.getString("thirdExtName") != null) {
                         resp.setThirdExtName(result.getString("thirdExtName"));
                     }
@@ -469,8 +482,15 @@ public class TransactionCancelPresenter {
                 }
                 lines.add(new HTMLPrintModel.SimpleLine(AppConfigHelper.getConfig(AppConfigDef.merchantTel), false, true));
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
+                HTMLPrintModel.SimpleLine snPrinHtml = PrintManager.printHtmlSn(context, resp.getSn());
+                lines.add(snPrinHtml);
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+                lines.add(optHtml);
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
 
@@ -550,17 +570,24 @@ public class TransactionCancelPresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String optNameStr = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
             //
             String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
             int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
             String printTotal = context.getString(R.string.print_total);
-            printString +=printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -635,8 +662,15 @@ public class TransactionCancelPresenter {
                 }
                 lines.add(new HTMLPrintModel.SimpleLine(AppConfigHelper.getConfig(AppConfigDef.merchantTel), false, true));
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
+                HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+                lines.add(snHtml);
+
+//                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
+                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+                lines.add(optHtml);
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
                 String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
@@ -646,11 +680,17 @@ public class TransactionCancelPresenter {
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-                }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+                
+//                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
+//                }
+//                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+                HTMLPrintModel.LeftAndRightLine setlementHtml = PrintManager.printHtmlSettlement(exchangeRate, resp);
+                lines.add(setlementHtml);
+
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
@@ -715,16 +755,24 @@ public class TransactionCancelPresenter {
             }
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
-            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+
+//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
+//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+            String snStr = resp.getSn();
+            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+
+
+//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
+//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+            String optName = resp.getOptName();
+            printString += PrintManager.printStringOptName(context, optName) + builder.br();
+
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
             String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
             int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
             String printTotal = context.getString(R.string.print_total);
-            printString +=printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";

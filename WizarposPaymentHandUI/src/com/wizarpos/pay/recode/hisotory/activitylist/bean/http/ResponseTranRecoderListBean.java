@@ -188,6 +188,10 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
             private String transKind;
             private String transType;
             private String transCurrency;//结算类型
+            private String settlementAmount;
+            private String settlementCurrency;
+            private String sn;
+
 
             public int getCnyAmount() {
                 return cnyAmount;
@@ -331,6 +335,30 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
 
             public void setTransCurrency(String transCurrency) {
                 this.transCurrency = transCurrency;
+            }
+
+            public String getSettlementAmount() {
+                return settlementAmount;
+            }
+
+            public void setSettlementAmount(String settlementAmount) {
+                this.settlementAmount = settlementAmount;
+            }
+
+            public String getSettlementCurrency() {
+                return settlementCurrency;
+            }
+
+            public void setSettlementCurrency(String settlementCurrency) {
+                this.settlementCurrency = settlementCurrency;
+            }
+
+            public String getSn() {
+                return sn;
+            }
+
+            public void setSn(String sn) {
+                this.sn = sn;
             }
         }
     }

@@ -1,8 +1,11 @@
 package com.wizarpos.recode.print;
 
+
+
+
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
-public class PrintManager {
+public class PrintManager extends PrintContent {
 
     public static int tranZhSpaceNums(int origin, int zhCount, String type) {
         int result = origin;
@@ -11,5 +14,7 @@ public class PrintManager {
         }
         return result;
     }
+
+
 
 }

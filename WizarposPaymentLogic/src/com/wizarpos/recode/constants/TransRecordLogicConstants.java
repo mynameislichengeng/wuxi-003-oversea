@@ -3,16 +3,20 @@ package com.wizarpos.recode.constants;
 public interface TransRecordLogicConstants {
 
 
+    enum PrintTextType {
+        HTML, STRING
+    }
+
     //货币结算类型
     enum TRANSCURRENCY {
-        CAD("CAD", "$","$"),
-        USD("USD", "$","$"),
-        CNY("CNY", "¥","\uFFE5");
+        CAD("CAD", "$", "$"),
+        USD("USD", "$", "$"),
+        CNY("CNY", "¥", "\uFFE5");
         private String type;
         private String symbol;
         private String printStr;
 
-        TRANSCURRENCY(String type, String symbol,String printStr) {
+        TRANSCURRENCY(String type, String symbol, String printStr) {
             this.type = type;
             this.symbol = symbol;
             this.printStr = printStr;

@@ -36,7 +36,7 @@ import static com.wizarpos.pay.db.AppConfigHelper.getConfig;
  */
 public class NewDailySumActivityPlus extends BaseViewActivity {
     private StatisticsPresenter statisticsPresenter;
-    private TextView tvTimeRange,tvDevice;
+    private TextView tvTimeRange, tvDevice;
     private TextView tvGrossSalesCount;
     private TextView tvGrossSalesAmount;
     private TextView tvRefundCount;
@@ -98,9 +98,9 @@ public class NewDailySumActivityPlus extends BaseViewActivity {
         tvUnionPayNetSalesCount = findViewById(R.id.tvUnionPayNetSalesCount);
 
         tvTotalCollectedAmount = findViewById(R.id.tvTotalCollectedAmount);
-        if("4".equals(getConfig(AppConfigDef.authFlag))){
-            tvDevice.setText("Device: "+AppConfigHelper.getConfig(AppConfigDef.sn, ""));
-        }else {
+        if ("4".equals(getConfig(AppConfigDef.authFlag))) {
+            tvDevice.setText("Device: " + AppConfigHelper.getConfig(AppConfigDef.sn, ""));
+        } else {
             tvDevice.setText("Device: All");
         }
     }
@@ -178,9 +178,9 @@ public class NewDailySumActivityPlus extends BaseViewActivity {
 
     private ArrayList<PieData> initPieData(TranLogVo tranLogVo) {
         ArrayList<PieData> chartData = new ArrayList<>();
-        PieData wechatPieData = getPieData(tranLogVo, tranLogVo.getWechatSalesAmount(), "Wechat Pay", TodayTotalUtil.FLAG_WEXIN_COLOR);
-        PieData alipayPieData = getPieData(tranLogVo, tranLogVo.getAlipaySalesAmount(), "Alipay", TodayTotalUtil.FLAG_ALIPAY_COLOR);
-        PieData unionPieData = getPieData(tranLogVo, tranLogVo.getUnionPaySalesAmount(), "Union Pay QR", TodayTotalUtil.FLAG_UNION_COLOR);
+        PieData wechatPieData = getPieData(tranLogVo, tranLogVo.getWechatGrossAmount(), "Wechat Pay", TodayTotalUtil.FLAG_WEXIN_COLOR);
+        PieData alipayPieData = getPieData(tranLogVo, tranLogVo.getAlipayGrossAmount(), "Alipay", TodayTotalUtil.FLAG_ALIPAY_COLOR);
+        PieData unionPieData = getPieData(tranLogVo, tranLogVo.getUnionPayGrossAmount(), "Union Pay QR", TodayTotalUtil.FLAG_UNION_COLOR);
 
         chartData.add(wechatPieData);
         chartData.add(alipayPieData);
@@ -231,7 +231,7 @@ public class NewDailySumActivityPlus extends BaseViewActivity {
      * @Description:打印交易汇总(日结单)
      */
     private void printDay() {
-        if(tranLogVo!=null){
+        if (tranLogVo != null) {
             try {
                 statisticsPresenter.printTodaySumPlus(tranLogVo);
             } catch (Exception e) {

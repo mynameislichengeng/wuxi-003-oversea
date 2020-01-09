@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.base.net.ResponseListener;
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatMicroRsp;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatNewReq;
@@ -171,6 +172,19 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 transactionInfo.setPayTime(tranIdObj.getString("payTime"));
                 transactionInfo.setCnyAmount(tranIdObj.getString("cnyAmount"));
                 transactionInfo.setTransCurrency(tranIdObj.getString("transCurrency"));
+
+                transactionInfo.setSn(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SN.getKey()));
+
+                String optName = tranIdObj.getString(HttpConstants.API_953_RESPONSE.OPTNAME.getKey());
+                if (TextUtils.isEmpty(optName)) {
+                    transactionInfo.setOptName("");
+                } else {
+                    transactionInfo.setOptName(optName);
+                }
+
+                transactionInfo.setSettlementAmount(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SETTLEMENTAMOUNT.getKey()));
+                transactionInfo.setSettlementCurrency(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SETTLEMENTCURRENCY.getKey()));
+
                 String cnyAmount = tranIdObj.getString("cnyAmount");
                 if (!TextUtils.isEmpty(cnyAmount)) {
                     AppConfigHelper.setConfig(AppConfigDef.CNY_AMOUNT, cnyAmount);

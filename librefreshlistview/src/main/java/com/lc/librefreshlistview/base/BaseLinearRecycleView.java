@@ -77,7 +77,7 @@ public abstract class BaseLinearRecycleView<T> extends AbstractBaseRecycleView<T
             //设置刷新完成以后，headerview固定的时间
             xRefreshView.setPinnedTime(500);
             xRefreshView.setMoveForHorizontal(true);
-
+            xRefreshView.setPullRefreshEnable(true);
             xRefreshView.setPullLoadEnable(true);
             xRefreshView.setAutoLoadMore(false);
 
