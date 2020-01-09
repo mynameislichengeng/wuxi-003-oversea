@@ -53,29 +53,7 @@
                 android:textColorHint="@color/text_main_grey"
                 android:textSize="14sp" />
 
-            <com.lc.baseui.widget.spinner.CustomSpinner
-                android:id="@+id/sp_value_right"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="right" />
 
-            <com.lc.baseui.widget.cb.MultiCheckBox
-                android:id="@+id/multi_cb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:visibility="gone" />
-
-            <com.lc.baseui.widget.ed.EditToEdit
-                android:id="@+id/ed_to_ed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:visibility="gone" />
         </RelativeLayout>
 
         <ImageView

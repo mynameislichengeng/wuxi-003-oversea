@@ -360,4 +360,18 @@
     <string name="please_invoice_input">请输入invoice值</string>
     <string name="invoice_num">发票号</string>
     <string name="hint_enter_invoice_num">输入发票号</string>
+
+    <string-array name="refund_adapter_item_title">
+
+        <item>交易金额:</item>
+
+        <item>交易类型:</item>
+
+        <item>交易流水号:</item>
+
+        <item>交易时间:</item>
+
+        <item>退款金额:</item>
+
+    </string-array>
 </resources>

@@ -50,7 +50,7 @@ import java.util.List;
 public class NewTranlogActivity extends NewBaseTranlogActivity implements TransRecordConstants, QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
     private static String TAG = NewTranlogActivity.class.getSimpleName();
     private DrawerLayout dlMain;
-    private String alreadyAmount;
+//    private String alreadyAmount;
 
     private SimpleLinearRecycleView simpleLinearRecycleView;
     private TranRecoderAdapter adapter;
@@ -110,7 +110,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             @Override
             public void onRevoke(DailyDetailResp resp) {
                 dailyDetailResp = resp;
-                alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
+//                alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
                 toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
             }
         });
@@ -302,6 +302,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             setLayoutRefreshOnComplete();
         }
     }
+
+
 
     /**
      * 操作listView

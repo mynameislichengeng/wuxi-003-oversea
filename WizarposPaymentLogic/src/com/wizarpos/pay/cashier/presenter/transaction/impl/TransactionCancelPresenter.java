@@ -501,11 +501,15 @@ public class TransactionCancelPresenter {
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-                }
-                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+
+//                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
+//                }
+//                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
+                HTMLPrintModel.LeftAndRightLine setlePrint = PrintManager.printHtmlSettlement(exchangeRate, resp);
+                lines.add(setlePrint);
+
                 lines.add(new HTMLPrintModel.EmptyLine());
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
@@ -592,11 +596,17 @@ public class TransactionCancelPresenter {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String selPrint = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += selPrint + builder.br();
+
+
             printString += builder.br();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -680,7 +690,7 @@ public class TransactionCancelPresenter {
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-                
+
 //                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
@@ -777,11 +787,16 @@ public class TransactionCancelPresenter {
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
-            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-            }
-            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
+//            }
+//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+
+            String printSetlement = PrintManager.printStringSettlement(exchangeRate, resp);
+            printString += printSetlement + builder.br();
+
             printString += builder.br();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);

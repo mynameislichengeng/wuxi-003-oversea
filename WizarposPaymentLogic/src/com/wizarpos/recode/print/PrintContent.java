@@ -149,9 +149,32 @@ public class PrintContent {
         return leftAndRightLine;
     }
 
+    public static String printStringSettlement(String exchangeRate, RefundDetailResp resp) {
 
+        String tranCurrency = resp.getTransCurrency();
+        String settlementCurrency = resp.getSettlementCurrency();
+        String tempAmount;
+        String tempCurrency;
+        if (tranCurrency.equals(settlementCurrency)) {
 
+            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
+            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
+                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
+            }
+            tempAmount = cnyAmount;
+            tempCurrency = "CNY";
+        } else {
+            String settlementAmount = Calculater.formotFen(resp.getSettlementAmount()).trim();
+            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
+                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(resp.getRefundAmount(), exchangeRate)));
+            }
+            tempAmount = settlementAmount;
+            tempCurrency = settlementCurrency;
+        }
 
+        String s = multipleSpaces(28 - tempAmount.length()) + tempCurrency + " " + tempAmount;
+        return s;
+    }
 
 
     public static HTMLPrintModel.SimpleLine printHtmlSn(Context context, String sn) {

@@ -179,4 +179,18 @@
     <string name="please_invoice_input">Please enter an invoice value</string>
     <string name="invoice_num">Invoice Number</string>
     <string name="hint_enter_invoice_num">Enter invoice number</string>
+
+    <string-array name="refund_adapter_item_title">
+
+        <item>Sale Amount:</item>
+
+        <item>Payment Type:</item>
+
+        <item>Receipt#:</item>
+
+        <item>Time:</item>
+
+        <item>Refund Amount:</item>
+
+    </string-array>
 </resources>
