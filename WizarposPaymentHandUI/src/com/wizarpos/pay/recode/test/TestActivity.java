@@ -46,7 +46,7 @@ public class TestActivity extends AppCompatActivity {
         resp.setTransType("alipay");
         resp.setTranLogId("p123123");
         resp.setRefundAmount("123");
-        TransRecordDialog.refundDialog(this, resp);
+//        TransRecordDialog.refundDialog(this, resp);
     }
 
 }

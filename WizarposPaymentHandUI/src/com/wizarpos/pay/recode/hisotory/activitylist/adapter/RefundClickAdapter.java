@@ -9,9 +9,12 @@ import android.widget.TextView;
 import com.lc.librefreshlistview.adapter.BaseRecycleAdapter;
 import com.lc.librefreshlistview.holder.SimpleRecycleViewHodler;
 import com.wizarpos.log.util.StringUtil;
+import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.adapter.RefundWarnAdapterParam;
 import com.wizarpos.pay2.lite.R;
+
+import org.w3c.dom.Text;
 
 public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     private String[] stuName;
@@ -45,15 +48,24 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         switch (position) {
             case 0:
                 title = stuName[0];
-                value = refundWarnAdapterParam.getSingleAmount();
+                value = Calculater.divide100(refundWarnAdapterParam.getSingleAmount());
                 break;
             case 1:
                 title = stuName[1];
-                value = refundWarnAdapterParam.getTransType();
+                value = refundWarnAdapterParam.getTransName();
                 break;
             case 2:
                 title = stuName[2];
                 String tranlog = refundWarnAdapterParam.getTranLogId();
+                if (TextUtils.isEmpty(tranlog)) {
+                    tranlog = "";
+                } else {
+                    if (tranlog.length() > 12) {
+                        String a = tranlog.substring(0, 6);
+                        String b = tranlog.substring(tranlog.length() - 6);
+                        tranlog = a + b;
+                    }
+                }
                 value = tranlog;
                 break;
             case 3:
@@ -62,7 +74,7 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
                 break;
             case 4:
                 title = stuName[4];
-                value = refundWarnAdapterParam.getRefundAmount();
+                value = Calculater.divide100(refundWarnAdapterParam.getRefundAmount());
                 break;
             default:
                 break;

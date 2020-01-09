@@ -2,5 +2,5 @@
     <!-- 填充颜色 -->
     <solid android:color="#000000" />
     <!-- 圆角半径 -->
-    <corners android:radius="20dp" />
+    <corners android:radius="15dp" />
 </shape>

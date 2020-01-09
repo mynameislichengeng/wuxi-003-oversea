@@ -30,6 +30,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.GetCommonTicketInfoResp;
 import com.wizarpos.pay.model.OrderDef;
+import com.wizarpos.recode.constants.HttpConstants;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.wizarpospaymentlogic.R;
@@ -643,6 +644,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                             if (!TextUtils.isEmpty(orderDef.getThirdExtName())) {
                                 transactionInfo.setThirdExtName(orderDef.getThirdExtName());
                             }
+
+
+
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT, getPrintContext());
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT, getCustomerPrintContext());
                             resultListener.onSuccess(new Response(0, "支付成功", bundleResult()));

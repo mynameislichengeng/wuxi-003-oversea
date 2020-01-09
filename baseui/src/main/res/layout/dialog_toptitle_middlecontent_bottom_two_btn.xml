@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/shape_radius_6dp_bg_blue">
+        android:background="@drawable/shape_radius_top6dp_bg_blue">
 
         <TextView
             android:id="@+id/dialog_title_tv"

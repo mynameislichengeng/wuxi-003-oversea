@@ -171,6 +171,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 transactionInfo.setPayType(tranIdObj.getString("payType"));//移动支付对应的支付类型 wu
                 transactionInfo.setPayTime(tranIdObj.getString("payTime"));
                 transactionInfo.setCnyAmount(tranIdObj.getString("cnyAmount"));
+                //
                 transactionInfo.setTransCurrency(tranIdObj.getString("transCurrency"));
 
                 transactionInfo.setSn(tranIdObj.getString(HttpConstants.API_953_RESPONSE.SN.getKey()));

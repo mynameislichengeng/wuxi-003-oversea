@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.lc.baseui.widget.dialog.SimpleListViewDialog;
 import com.lc.librefreshlistview.linear.SimpleLinearRecycleView;
 import com.lc.librefreshlistview.listener.RefreshEventListener;
 import com.ui.dialog.DialogHelper;
@@ -40,6 +41,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialLis
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TranRecordStatusDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
+import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
 import com.wizarpos.pay2.lite.R;
@@ -109,9 +111,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
             @Override
             public void onRevoke(DailyDetailResp resp) {
-                dailyDetailResp = resp;
-//                alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
-                toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
+                operateRefundOnclick(resp);
             }
         });
     }
@@ -303,6 +303,21 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         }
     }
 
+    private void operateRefundOnclick(DailyDetailResp resp) {
+        dailyDetailResp = resp;
+        TransRecordDialog.refundDialog(NewTranlogActivity.this, dailyDetailResp, new SimpleListViewDialog.OnCancleAndSuceClickListener() {
+            @Override
+            public void onSure(View view) {
+//                        alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
+                toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
+            }
+
+            @Override
+            public void onCancle(View view) {
+
+            }
+        });
+    }
 
 
     /**

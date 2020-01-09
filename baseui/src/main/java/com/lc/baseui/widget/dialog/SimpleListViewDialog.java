@@ -3,6 +3,7 @@ package com.lc.baseui.widget.dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lc.baseui.R;
@@ -30,23 +31,38 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
 
     @Override
     public int getLayout() {
-        return R.layout.dialog_toptitle_middlelistview_bottom_one_btn;
+        return R.layout.dialog_toptitle_middlelistview_bottom_two_btn;
     }
 
+    protected TextView tv_title;
     protected RecyclerView listview;
+    protected Button btnCancle, btnOk;
+
     protected BaseRecycleAdapter adapter;
-    protected TextView tv_title, tv_cacle;
     protected OnSelectItemDialog onSelectItemDialog;
+    protected OnCancleAndSuceClickListener onCancleAndSuceClickListener;
 
     @Override
     public void init() {
         listview = (RecyclerView) findViewById(R.id.list);
         tv_title = (TextView) findViewById(R.id.tv_dialog_title);
-        tv_cacle = (TextView) findViewById(R.id.tv_cancel);
-        tv_cacle.setOnClickListener(new View.OnClickListener() {
+        btnCancle = (Button) findViewById(R.id.dialog_left_btn);
+        btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
+                if (onCancleAndSuceClickListener != null) {
+                    onCancleAndSuceClickListener.onCancle(v);
+                }
+            }
+        });
+        btnOk = (Button) findViewById(R.id.dialog_right_btn);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onCancleAndSuceClickListener != null) {
+                    onCancleAndSuceClickListener.onSure(v);
+                }
             }
         });
     }
@@ -81,17 +97,25 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
         tv_title.setText(res);
     }
 
-    public void setBottomText(String title) {
-        tv_cacle.setText(title);
+    public void setDialogTitleVisible(int visible){
+        tv_title.setVisibility(visible);
     }
 
-    public void setBottomText(int title) {
-        tv_cacle.setText(title);
-    }
 
     public void setOnSelectItemDialog(OnSelectItemDialog onSelectItemDialog) {
         this.onSelectItemDialog = onSelectItemDialog;
     }
+
+    public void setOnCancleAndSuceClickListener(OnCancleAndSuceClickListener onCancleAndSuceClickListener) {
+        this.onCancleAndSuceClickListener = onCancleAndSuceClickListener;
+    }
+
+    public static interface OnCancleAndSuceClickListener {
+        void onSure(View view);
+
+        void onCancle(View view);
+    }
+
 
     public static interface OnSelectItemDialog {
         <T> void onSelectItem(int position, T t);
