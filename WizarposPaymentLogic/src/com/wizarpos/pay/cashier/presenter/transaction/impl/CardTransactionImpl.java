@@ -546,7 +546,7 @@ public class CardTransactionImpl extends TransactionImpl implements CardTransact
             printString += "总金额:" + Calculater.divide100(mixInitAmount) + builder.br();
         }
         printString += "收银：" + Calculater.divide100(initAmount) + "元" + builder.br();
-        // printString += "折扣：" + disCountNeed + "折" + pb.br();
+        // printStringPayFor += "折扣：" + disCountNeed + "折" + pb.br();
         if (!TextUtils.isEmpty(discountAmount) && !"0".equals(discountAmount)) {
             printString += "折扣减价：" + Calculater.divide100(discountAmount) + "元" + builder.br();
         }

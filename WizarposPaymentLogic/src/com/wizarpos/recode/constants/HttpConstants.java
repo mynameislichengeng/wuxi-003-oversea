@@ -7,6 +7,7 @@ public interface HttpConstants {
     String FIELD_OPTNAME = "optName";
     String FIELD_SETTLEMENTCURRENCY = "settlementCurrency";
     String FIELD_SETTLEMENTAMOUNT = "settlementAmount";
+    String FIELD_TRANAMOUNT = "tranAmount";
 
 
     /**
@@ -52,6 +53,7 @@ public interface HttpConstants {
         OPTNAME(FIELD_OPTNAME),
         SETTLEMENTCURRENCY(FIELD_SETTLEMENTCURRENCY),
         SETTLEMENTAMOUNT(FIELD_SETTLEMENTAMOUNT),
+        TRANAMOUNT(FIELD_TRANAMOUNT),
         ;
 
         private String key;

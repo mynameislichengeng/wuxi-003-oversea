@@ -5,7 +5,10 @@ import android.text.TextUtils;
 
 import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.pay.common.utils.Calculater;
+import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
+import com.wizarpos.recode.constants.TransRecordLogicConstants;
+import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -13,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 public class PurchaseContent extends PrintBase {
 
-    public static HTMLPrintModel.LeftAndRightLine printHtmlPurchase(Context context, String tipsAmount, String totalAmount) {
+    public static HTMLPrintModel.LeftAndRightLine printHtmlPurchasePayFor(Context context, String tipsAmount, String totalAmount) {
         HTMLPrintModel.LeftAndRightLine purchase = null;
         String printPurchase = context.getString(R.string.print_purchase);
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
@@ -25,7 +28,7 @@ public class PurchaseContent extends PrintBase {
         return purchase;
     }
 
-    public static String printStrPurchase(Context context, String tipsAmount, String totalAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
+    public static String printStrPurchasePayFor(Context context, String tipsAmount, String totalAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
         String pur = null;
         String printPurchase = context.getString(R.string.print_purchase);
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
@@ -35,5 +38,48 @@ public class PurchaseContent extends PrintBase {
             pur = printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - totalAmount.length()) + "$" + totalAmount;
         }
         return pur;
+    }
+
+    public static String printStringActivity(Context context, DailyDetailResp resp) throws UnsupportedEncodingException {
+        //
+        String printPurchase = context.getString(R.string.print_purchase);
+
+        String transCurrency = resp.getTransCurrency();
+        String transCurrencyPrint = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
+
+        String tranAmount = resp.getTrasnAmount();
+        String tipsAmount = resp.getTipAmount();
+        int numSpace = tranZhSpaceNums(31, 1, transCurrency);
+        String purchaseAmount;
+        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+            purchaseAmount = divide100(Calculater.subtract(tranAmount, tipsAmount));
+        } else {
+            purchaseAmount = divide100(tranAmount);
+        }
+        return printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrencyPrint + purchaseAmount;
+    }
+
+    public static HTMLPrintModel.LeftAndRightLine printHtmlActivity(Context context, DailyDetailResp resp) {
+        //
+        try {
+            String printPurchase = context.getString(R.string.print_purchase);
+
+            String transCurrency = resp.getTransCurrency();
+            String transCurrencyPrint = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
+
+            String tranAmount = resp.getTrasnAmount();
+            String tipsAmount = resp.getTipAmount();
+            String purchaseAmount;
+            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+                purchaseAmount = divide100(Calculater.subtract(tranAmount, tipsAmount));
+            } else {
+                purchaseAmount = divide100(tranAmount);
+            }
+            HTMLPrintModel.LeftAndRightLine printLine = new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrencyPrint + purchaseAmount);
+            return printLine;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

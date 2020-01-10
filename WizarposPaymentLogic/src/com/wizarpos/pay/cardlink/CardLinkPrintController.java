@@ -83,12 +83,12 @@ class CardLinkPrintController {
         String line = "--------------------------------";
         printString += "" + pb.center(line);
 //        if(type == 1){
-//            printString += "商户存根           MERCHANT COPY";
+//            printStringPayFor += "商户存根           MERCHANT COPY";
 //        }else{
-//            printString += "持卡人存根       CARDHOLDER COPY";
+//            printStringPayFor += "持卡人存根       CARDHOLDER COPY";
 //        }
-//        printString += pb.br();
-//        printString += "" + pb.center(line);
+//        printStringPayFor += pb.br();
+//        printStringPayFor += "" + pb.center(line);
         printString += transInfo.getMerchantName() == null ? "" : transInfo.getMerchantName();
         printString += pb.br();
         int paperWidth = 32;
@@ -96,7 +96,7 @@ class CardLinkPrintController {
         printString += line + pb.br();
         printString += "商户号:" + (transInfo.getMid() == null ? "" : transInfo.getMid()) + pb.br();
         printString += "终端号:" + (transInfo.getTid() == null ? "" : transInfo.getTid()) + pb.br();
-//        printString += "操作员:" + (AppConfigHelper.getConfig(AppConfigDef.operatorNo)) + pb.br();
+//        printStringPayFor += "操作员:" + (AppConfigHelper.getConfig(AppConfigDef.operatorNo)) + pb.br();
         printString += "操作员:" + ("01") + pb.br(); //写死为01, 原先使用收款操作员号有问题 wu@[20160811]
         printString += "发卡行:" + (TextUtils.isEmpty(transInfo.getIssuerName()) ? transInfo.getIssuerCode() : transInfo.getIssuerName()) + pb.br();
         printString += "收单行:" + (TextUtils.isEmpty(transInfo.getAcquirerName()) ? transInfo.getAcquirerCode() : transInfo.getAcquirerName()) + pb.br();
@@ -262,17 +262,17 @@ class CardLinkPrintController {
         String printString = pb.br() + pb.high(pb.center(pb.normal("银联POS签购单")));
         String line = "--------------------------------";
         printString += "" + pb.center(line);
-//        printString += transInfo.getMerchantName() == null ? "" : transInfo.getMerchantName();
+//        printStringPayFor += transInfo.getMerchantName() == null ? "" : transInfo.getMerchantName();
         if (type == 1) {
             printString += "商户存根           MERCHANT COPY";
         } else {
             printString += "持卡人存根       CARDHOLDER COPY";
         }
         printString += pb.br();
-//        printString += "" + pb.center(line);
-//        printString += pb.br();
+//        printStringPayFor += "" + pb.center(line);
+//        printStringPayFor += pb.br();
 //        int paperWidth = 32;
-//        printString += name + fillString(nameTip, paperWidth - 10, ' ', true) + pb.br();
+//        printStringPayFor += name + fillString(nameTip, paperWidth - 10, ' ', true) + pb.br();
         printString += line + pb.br();
         printString += "商户号:" + (transInfo.getMid() == null ? "" : transInfo.getMid()) + pb.br();
         printString += "终端号:" + (transInfo.getTid() == null ? "" : transInfo.getTid()) + pb.br();
@@ -394,7 +394,7 @@ class CardLinkPrintController {
         }
 
 //        if (!TextUtils.isEmpty(transInfo.getAtc())) {
-//            printString += pb.small("ATC:" + transInfo.getAtc()) + pb.br();
+//            printStringPayFor += pb.small("ATC:" + transInfo.getAtc()) + pb.br();
 //        }
 
         if (!TextUtils.isEmpty(transInfo.getAppLabel())) {
@@ -414,11 +414,11 @@ class CardLinkPrintController {
         }
 
 //        if (transInfo.getT != null) {
-//            printString += "TermCap:" + json.get("TermCap").toString() + pb.br();
+//            printStringPayFor += "TermCap:" + json.get("TermCap").toString() + pb.br();
 //        }
 
 //        if (transInfo.get != null) {
-//            printString += "产品标示信息:" + json.get("ProductIdentity").toString() + pb.br();
+//            printStringPayFor += "产品标示信息:" + json.get("ProductIdentity").toString() + pb.br();
 //        }
         printString += pb.smallLineSpan(smallLineSpanStr);
 
@@ -481,12 +481,12 @@ class CardLinkPrintController {
         }
 
         printString += println_LabelCountAmount("消费交易", settleInfo.getCupSaleCount(), settleInfo.getCupSaleAmount());
-//        printString += println_LabelCountAmount("电子现金", settleInfo.getCupCashCount(), settleInfo.getCupCashAmount());
-//        printString += println_LabelCountAmount("完成请求", settleInfo.getCupAuthCompCount(), settleInfo.getCupAuthCompAmount());
-//        printString += println_LabelCountAmount("完成通知", settleInfo.getCupAuthSettleCount(), settleInfo.getCupAuthSettleAmount());
-//        printString += println_LabelCountAmount("离线交易", settleInfo.getCupOfflineCount(), settleInfo.getCupOfflineAmount());
+//        printStringPayFor += println_LabelCountAmount("电子现金", settleInfo.getCupCashCount(), settleInfo.getCupCashAmount());
+//        printStringPayFor += println_LabelCountAmount("完成请求", settleInfo.getCupAuthCompCount(), settleInfo.getCupAuthCompAmount());
+//        printStringPayFor += println_LabelCountAmount("完成通知", settleInfo.getCupAuthSettleCount(), settleInfo.getCupAuthSettleAmount());
+//        printStringPayFor += println_LabelCountAmount("离线交易", settleInfo.getCupOfflineCount(), settleInfo.getCupOfflineAmount());
         printString += println_LabelCountAmount("退货交易", settleInfo.getCupRefundCount(), settleInfo.getCupRefundAmount());
-//        printString += println_LabelCountAmount("圈存交易", settleInfo.getCupLoadCount(), settleInfo.getCupLoadAmount());
+//        printStringPayFor += println_LabelCountAmount("圈存交易", settleInfo.getCupLoadCount(), settleInfo.getCupLoadAmount());
         if ((settleInfo.getSettleFlag() & 0x01) != 0) {
             printString += "外卡对账平" + pb.br();
         } else if ((settleInfo.getSettleFlag() & 0x02) != 0) {
@@ -496,17 +496,17 @@ class CardLinkPrintController {
         }
 
         printString += println_LabelCountAmount("消费交易", settleInfo.getAbrSaleCount(), settleInfo.getAbrSaleAmount());
-//        printString += println_LabelCountAmount("电子现金 ", settleInfo.getAbrCashCount(), settleInfo.getAbrCashAmount());
-//        printString += println_LabelCountAmount("完成请求", settleInfo.getAbrAuthCompCount(), settleInfo.getAbrAuthCompAmount());
-//        printString += println_LabelCountAmount("完成通知", settleInfo.getAbrAuthSettleCount(), settleInfo.getAbrAuthSettleAmount());
-//        printString += println_LabelCountAmount("离线交易", settleInfo.getAbrOfflineCount(), settleInfo.getAbrOfflineAmount());
+//        printStringPayFor += println_LabelCountAmount("电子现金 ", settleInfo.getAbrCashCount(), settleInfo.getAbrCashAmount());
+//        printStringPayFor += println_LabelCountAmount("完成请求", settleInfo.getAbrAuthCompCount(), settleInfo.getAbrAuthCompAmount());
+//        printStringPayFor += println_LabelCountAmount("完成通知", settleInfo.getAbrAuthSettleCount(), settleInfo.getAbrAuthSettleAmount());
+//        printStringPayFor += println_LabelCountAmount("离线交易", settleInfo.getAbrOfflineCount(), settleInfo.getAbrOfflineAmount());
         printString += println_LabelCountAmount("退货交易", settleInfo.getAbrRefundCount(), settleInfo.getAbrRefundAmount());
-//        printString += println_LabelCountAmount("圈存交易", settleInfo.getAbrLoadCount(), settleInfo.getAbrLoadAmount());
+//        printStringPayFor += println_LabelCountAmount("圈存交易", settleInfo.getAbrLoadCount(), settleInfo.getAbrLoadAmount());
         printString += pb.endPrint();
-//        printString += println_LabelCountAmount("微信消费", settleInfo.getWXSaleCount(),    settleInfo.getWXSaleAmount());
-//        printString += println_LabelCountAmount("微信退货", settleInfo.getWXRefundCount(),  settleInfo.getWXRefundAmount());
-//        printString += println_LabelCountAmount("支付宝消费",settleInfo.getAliSaleCount(),   settleInfo.getAliSaleAmount());
-//        printString += println_LabelCountAmount("支付宝退货",settleInfo.getAliRefundCount(), settleInfo.getAliRefundAmount());
+//        printStringPayFor += println_LabelCountAmount("微信消费", settleInfo.getWXSaleCount(),    settleInfo.getWXSaleAmount());
+//        printStringPayFor += println_LabelCountAmount("微信退货", settleInfo.getWXRefundCount(),  settleInfo.getWXRefundAmount());
+//        printStringPayFor += println_LabelCountAmount("支付宝消费",settleInfo.getAliSaleCount(),   settleInfo.getAliSaleAmount());
+//        printStringPayFor += println_LabelCountAmount("支付宝退货",settleInfo.getAliRefundCount(), settleInfo.getAliRefundAmount());
 
 //        if (appState.getTranType() == B_PRINT_SETTLE_REPORT) {
 //            println("           重印结算单");

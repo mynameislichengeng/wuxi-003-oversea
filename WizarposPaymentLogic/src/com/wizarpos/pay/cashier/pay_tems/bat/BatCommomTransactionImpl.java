@@ -239,7 +239,7 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
 //    public void printOrderInfo(OrderDef orderDef) {
 //        PrintServiceController controller = new PrintServiceController(context);
 //        Q1PrintBuilder builder = new Q1PrintBuilder();
-//        String printString = "";
+//        String printStringPayFor = "";
 //        String transType = orderDef.getPayType();
 //        String payTypeDes = null;
 //        if (Constants.WEPAYFLAG.equals(transType)) {
@@ -252,35 +252,35 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
 //            payTypeDes = "QQ钱包支付";
 //        }
 //        if (!TextUtils.isEmpty(payTypeDes)) {
-//            printString += builder.center(builder.bold(AppConfigHelper.getConfig(AppConfigDef.merchantName)));
+//            printStringPayFor += builder.center(builder.bold(AppConfigHelper.getConfig(AppConfigDef.merchantName)));
 //        }
-//        printString += builder.branch();
-////        printString += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid) + builder.br();
-////        printString += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
-////        printString += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
+//        printStringPayFor += builder.branch();
+////        printStringPayFor += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid) + builder.br();
+////        printStringPayFor += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
+////        printStringPayFor += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
 //        // Logger.debug("订单号：" + transactionInfo.getTranId());
-//        printString += "流水号："
+//        printStringPayFor += "流水号："
 //                + (!TextUtils.isEmpty(orderDef.getId()) ? Tools.deleteMidTranLog(orderDef.getId(), AppConfigHelper.getConfig(AppConfigDef.mid)) : "")
 //                + builder.br();
-//        printString += "时间：" + DateUtil.format(new Date(), DateUtil.P4) + builder.br();
-//        printString += "收银员：" + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName) + builder.br();
-//        printString += builder.branch();
+//        printStringPayFor += "时间：" + DateUtil.format(new Date(), DateUtil.P4) + builder.br();
+//        printStringPayFor += "收银员：" + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName) + builder.br();
+//        printStringPayFor += builder.branch();
 ////        if (!TextUtils.isEmpty(orderDef.getThirdTradeNo())) {
-////            printString += "凭证号：" + builder.br() + orderDef.getThirdTradeNo() + builder.br();
+////            printStringPayFor += "凭证号：" + builder.br() + orderDef.getThirdTradeNo() + builder.br();
 ////            if (!TextUtils.isEmpty(orderDef.getPayType())) {
 ////                if (!TextUtils.isEmpty(payTypeDes)) {
-////                    printString += "支付方式：" + payTypeDes + builder.br();
+////                    printStringPayFor += "支付方式：" + payTypeDes + builder.br();
 ////                }
 ////            }
 ////        }
-//        printString += "应收金额：" + Calculater.divide100(String.valueOf(orderDef.getInputAmount())) + "元" + builder.br();
-//        printString += "支付方式：" + payTypeDes + builder.br();
-//        printString += "实收金额：" + Calculater.divide100(String.valueOf(orderDef.getAmount())) + "元" + builder.br();
-//        printString += builder.branch();
-//        printString += builder.endPrint();
-//        controller.print(printString);
+//        printStringPayFor += "应收金额：" + Calculater.divide100(String.valueOf(orderDef.getInputAmount())) + "元" + builder.br();
+//        printStringPayFor += "支付方式：" + payTypeDes + builder.br();
+//        printStringPayFor += "实收金额：" + Calculater.divide100(String.valueOf(orderDef.getAmount())) + "元" + builder.br();
+//        printStringPayFor += builder.branch();
+//        printStringPayFor += builder.endPrint();
+//        controller.print(printStringPayFor);
 ////        controller.cutPaper();
-//        LastPrintHelper.beginTransaction().addString(printString).commit();
+//        LastPrintHelper.beginTransaction().addString(printStringPayFor).commit();
 //    }
 
 

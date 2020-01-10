@@ -42,6 +42,12 @@ import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.model.TranLogBean;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.PrintManager;
+import com.wizarpos.recode.print.content.CashierIdContent;
+import com.wizarpos.recode.print.content.DeviceContent;
+import com.wizarpos.recode.print.content.PurchaseContent;
+import com.wizarpos.recode.print.content.SettlementContent;
+import com.wizarpos.recode.print.content.TipsContent;
+import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -570,7 +576,7 @@ public class StatisticsPresenter extends BasePresenter {
             printString += "交易金额：" + recordPrinter[2] + "元" + builder.br();
             printString += builder.branch();
         }
-//        printString += builder.br();
+//        printStringPayFor += builder.br();
         // 带券
         for (int i = 0; i < recordListTickets.size(); i++) {
             String[] recordPrinter = recordListTickets.get(i);
@@ -579,16 +585,16 @@ public class StatisticsPresenter extends BasePresenter {
             printString += "交易金额：" + recordPrinter[2] + "元" + builder.br();
             printString += builder.branch();
         }
-//        printString += builder.br();
+//        printStringPayFor += builder.br();
         // for(int i = 0; i < recordTicketUsed.size(); i++){
         // String[] recordPrinter = recordTicketUsed.get(i);
-        // printString += "交易类型：" + recordPrinter[0] + pb.br();
-        // printString += "笔    数：" + recordPrinter[1] + pb.br();
-        // printString += "交易金额：" + recordPrinter[2] + pb.br();
-        // printString += pb.normal("--------------------------------") +
+        // printStringPayFor += "交易类型：" + recordPrinter[0] + pb.br();
+        // printStringPayFor += "笔    数：" + recordPrinter[1] + pb.br();
+        // printStringPayFor += "交易金额：" + recordPrinter[2] + pb.br();
+        // printStringPayFor += pb.normal("--------------------------------") +
         // pb.br() ;
         // }
-        // printString += pb.br();
+        // printStringPayFor += pb.br();
         for (int i = 0; i < recordListTickets2.size(); i++) {
             String[] recordPrinter = recordListTickets2.get(i);
             printString += "交易类型：" + recordPrinter[0] + builder.br();
@@ -599,12 +605,12 @@ public class StatisticsPresenter extends BasePresenter {
 
         // for(int i = 0; i < recordTicketCancel.size(); i++){
         // String[] recordPrinter = recordTicketCancel.get(i);
-        // printString += "交易类型：" + recordPrinter[0] + pb.br();
-        // printString += "笔    数：" + recordPrinter[1] + pb.br();
-        // printString += "交易金额：" + recordPrinter[2] + pb.br();
-        // printString += pb.normal("--------------------------------");
+        // printStringPayFor += "交易类型：" + recordPrinter[0] + pb.br();
+        // printStringPayFor += "笔    数：" + recordPrinter[1] + pb.br();
+        // printStringPayFor += "交易金额：" + recordPrinter[2] + pb.br();
+        // printStringPayFor += pb.normal("--------------------------------");
         // }
-        // printString += pb.br() ;
+        // printStringPayFor += pb.br() ;
         for (int i = 0; i < recordTicketListSum.size(); i++) {
             String[] recordPrinter = recordTicketListSum.get(i);
             printString += "券 类 型：" + recordPrinter[0] + builder.br();
@@ -1004,7 +1010,7 @@ public class StatisticsPresenter extends BasePresenter {
             // JSONObject jobMerchantDef = job.getJSONObject("merchantDef");
             printString += builder.branch();
             printString += "流水号：" + job.getString("id") + builder.br();
-//            printString += "支付宝交易号：" + builder.br() + job.getString("thirdTradeNo") + builder.br();
+//            printStringPayFor += "支付宝交易号：" + builder.br() + job.getString("thirdTradeNo") + builder.br();
             printString += "慧商户号：" + job.getString("mid") + builder.br();
             printString += "终端设备号：" + AppConfigHelper.getConfig(AppConfigDef.sn) + builder.br();
             String tranType = tranTypeChange(job);//解决组合支付部分trancode不识别的问题@yaosong
@@ -1303,35 +1309,42 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-            String optNameStr = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            String optNameStr = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
             //
-            String tranCurreny = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            int numPrint = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printtotal = context.getString(R.string.print_total);
-            printString += printtotal + multipleSpaces(numPrint - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + tranCurreny + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
+//            String tranCurreny = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            int numPrint = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printtotal = context.getString(R.string.print_total);
+//            printString += printtotal + multipleSpaces(numPrint - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + tranCurreny + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+
+            printString += TotalContent.printStringActivity(context, resp) + builder.br();
+
+//            String exchangeRate = resp.getExchangeRate();
+//            if (TextUtils.isEmpty(exchangeRate)) {
+//                exchangeRate = "1";
+//            }
 
 //            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String printSetlCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += printSetlCurrency + builder.br();
+//            String printSetlCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printString += printSetlCurrency + builder.br();
+
+            printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -1408,38 +1421,45 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr);
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr);
+            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
 
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
 
-            String optNameStr = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+//            String optNameStr = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
 
 
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br() + builder.nBr();
 
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printTotal = context.getString(R.string.print_total);
-            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printTotal = context.getString(R.string.print_total);
+//            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+
+            printString += TotalContent.printStringActivity(context, resp) + builder.br();
+
+//            String exchangeRate = resp.getExchangeRate();
+//            if (TextUtils.isEmpty(exchangeRate)) {
+//                exchangeRate = "1";
+//            }
 
 //            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String printSetleCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += printSetleCurrency + builder.br();
+//            String printSetleCurrency = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printString += printSetleCurrency + builder.br();
+
+            printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -1522,20 +1542,25 @@ public class StatisticsPresenter extends BasePresenter {
 //        String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
 //        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
 
-        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
-        lines.add(snHtml);
+//        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+//        lines.add(snHtml);
+        lines.add(DeviceContent.printHtmlDeviceActivity(context, resp));
 
 //        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
 //        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
-        HTMLPrintModel.SimpleLine optNameStr = PrintManager.printHtmlOptName(context, resp.getOptName());
-        lines.add(optNameStr);
+//        HTMLPrintModel.SimpleLine optNameStr = PrintManager.printHtmlOptName(context, resp.getOptName());
+//        lines.add(optNameStr);
+        lines.add(CashierIdContent.printHtmlActivity(context, resp));
 
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
         //
-        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-        String printTotal = context.getString(R.string.print_total);
-        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim())));
+//        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//        String printTotal = context.getString(R.string.print_total);
+//        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim())));
+//
+        lines.add(TotalContent.printHtmlActivity(context, resp));
+
         String exchangeRate = resp.getExchangeRate();
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
@@ -1547,7 +1572,7 @@ public class StatisticsPresenter extends BasePresenter {
 //        }
 //        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
 
-        HTMLPrintModel.LeftAndRightLine printSetCurency = PrintManager.printHtmlSettlement(exchangeRate, resp);
+        HTMLPrintModel.LeftAndRightLine printSetCurency = SettlementContent.printHtmlActivity(resp);
         lines.add(printSetCurency);
 
         lines.add(new HTMLPrintModel.EmptyLine());
@@ -1621,38 +1646,53 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
 
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-            String optName = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optName) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            String optName = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optName) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
 
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
             String totalAmount = resp.getSingleAmount();
             String tipsAmount = resp.getTipAmount();
-            String printPurchase = context.getString(R.string.print_purchase);
-            //
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
-            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
-                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
-            } else {
-                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
+
+//            String printPurchase = context.getString(R.string.print_purchase);
+//            //
+//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//                String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
+//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+//            } else {
+//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+//            }
+            printString += PurchaseContent.printStringActivity(context, resp) + builder.br();
+
+
+            String printTips = TipsContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(printString)) {
+                printString += printTips + builder.br();
             }
-            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                String printTip = context.getString(R.string.print_tip);
-                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
-            }
-            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printTotal = context.getString(R.string.print_total);
-            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//                String printTip = context.getString(R.string.print_tip);
+//                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+//            }
+
+//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printTotal = context.getString(R.string.print_total);
+//            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
+            printString += TotalContent.printStringActivity(context, resp) + builder.br();
+
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
@@ -1661,10 +1701,12 @@ public class StatisticsPresenter extends BasePresenter {
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String strSetPrint = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += strSetPrint + builder.br();
+//            String strSetPrint = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printString += strSetPrint + builder.br();
+            printString += SettlementContent.printStringActivity(resp) + builder.br();
+
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
@@ -1743,38 +1785,53 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
 
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-            String optNameStr = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            String optNameStr = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
 
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
-            String totalAmount = resp.getSingleAmount();
-            String tipsAmount = resp.getTipAmount();
-            String printPurchase = context.getString(R.string.print_purchase);
-            //
-            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
-                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
-            } else {
-                printString += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
+//            String totalAmount = resp.getSingleAmount();
+//            String tipsAmount = resp.getTipAmount();
+//            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
+
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            String printPurchase = context.getString(R.string.print_purchase);
+//            //
+//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//                String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
+//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+//            } else {
+//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+//            }
+            printString += PurchaseContent.printStringActivity(context, resp) + builder.br();
+
+//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//                String printTip = context.getString(R.string.print_tip);
+//                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+//            }
+            String printTips = TipsContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(printString)) {
+                printString += printTips + builder.br();
             }
-            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                String printTip = context.getString(R.string.print_tip);
-                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
-            }
-            int numSpaceTotal = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printTotal = context.getString(R.string.print_total);
-            printString += printTotal + multipleSpaces(numSpaceTotal - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
+
+//            int numSpaceTotal = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printTotal = context.getString(R.string.print_total);
+//            printString += printTotal + multipleSpaces(numSpaceTotal - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
+
+            printString += TotalContent.printStringActivity(context, resp) + builder.br();
+
 
             String exchangeRate = resp.getExchangeRate();
             if (TextUtils.isEmpty(exchangeRate)) {
@@ -1784,10 +1841,11 @@ public class StatisticsPresenter extends BasePresenter {
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String settlePrintStr = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += settlePrintStr + builder.br();
+//            String settlePrintStr = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printString += settlePrintStr + builder.br();
+            printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
@@ -1872,35 +1930,46 @@ public class StatisticsPresenter extends BasePresenter {
 //        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + terminalId));
 
 
-        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
-        lines.add(snHtml);
+//        HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+//        lines.add(snHtml);
+        lines.add(DeviceContent.printHtmlDeviceActivity(context, resp));
 
 //        String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
 //        lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + cahierId));
-        HTMLPrintModel.SimpleLine optNameHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
-        lines.add(optNameHtml);
+//        HTMLPrintModel.SimpleLine optNameHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+//        lines.add(optNameHtml);
+        lines.add(CashierIdContent.printHtmlActivity(context, resp));
 
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_sale), true, true));
         String totalAmount = resp.getSingleAmount();
         String tipsAmount = resp.getTipAmount();
-        String printPurchase = context.getString(R.string.print_purchase);
+
 
         String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//        String printPurchase = context.getString(R.string.print_purchase);
+//
+//        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//            String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
+//
+//            lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + purchaseAmount));
+//        } else {
+//            lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
+//        }
+        lines.add(PurchaseContent.printHtmlActivity(context, resp));
 
-        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-            String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
+        HTMLPrintModel.LeftAndRightLine tipHtml = TipsContent.printHtmlActivity(context, resp);
+        if (tipHtml != null) {
+            lines.add(tipHtml);
+        }
+//        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
+//            String printTip = context.getString(R.string.print_tip);
+//            lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, transCurrency + Calculater.formotFen(tipsAmount)));
+//        }
+//        String printTotal = context.getString(R.string.print_total);
+//        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
+        lines.add(TotalContent.printHtmlActivity(context, resp));
 
-            lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + purchaseAmount));
-        } else {
-            lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
-        }
-        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-            String printTip = context.getString(R.string.print_tip);
-            lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, transCurrency + Calculater.formotFen(tipsAmount)));
-        }
-        String printTotal = context.getString(R.string.print_total);
-        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
         String exchangeRate = resp.getExchangeRate();
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
@@ -1912,8 +1981,10 @@ public class StatisticsPresenter extends BasePresenter {
 //        }
 //        lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
 
-        HTMLPrintModel.LeftAndRightLine printSettle = PrintManager.printHtmlSettlement(exchangeRate, resp);
+        HTMLPrintModel.LeftAndRightLine printSettle = SettlementContent.printHtmlActivity(resp);
         lines.add(printSettle);
+
+
         String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
         String printFx = context.getString(R.string.print_fx_rate);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
@@ -2012,32 +2083,32 @@ public class StatisticsPresenter extends BasePresenter {
         PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
         Q1PrintBuilder builder = new Q1PrintBuilder();
         String printString = "";
-//        printString += builder.center(builder.bold("今日汇总" + "(" + getShowCurrentTime() + ")"));
-//        printString += builder.branch();
-//        printString += "终端设备号：" + AppConfigHelper.getConfig(AppConfigDef.sn, "") + builder.br();
-//        printString += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid, "") + builder.br();
-//        printString += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName, "") + builder.br();
-//        printString += builder.branch();
+//        printStringPayFor += builder.center(builder.bold("今日汇总" + "(" + getShowCurrentTime() + ")"));
+//        printStringPayFor += builder.branch();
+//        printStringPayFor += "终端设备号：" + AppConfigHelper.getConfig(AppConfigDef.sn, "") + builder.br();
+//        printStringPayFor += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid, "") + builder.br();
+//        printStringPayFor += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName, "") + builder.br();
+//        printStringPayFor += builder.branch();
 //        //交易-----------------------------------------------------------------
-//        printString += "交易总金额：" + Calculater.formotFen(dailyRes.getTransTotalAmount()) + "元" + builder.br();
-//        printString += "交易总笔数：" + dailyRes.getTransTotalAcount() + builder.br();
+//        printStringPayFor += "交易总金额：" + Calculater.formotFen(dailyRes.getTransTotalAmount()) + "元" + builder.br();
+//        printStringPayFor += "交易总笔数：" + dailyRes.getTransTotalAcount() + builder.br();
 //        if (TextUtils.isEmpty(dailyRes.getRefundAmount())) {
-//            printString += "撤销总金额：" + "0.00" + "元" + builder.br();
+//            printStringPayFor += "撤销总金额：" + "0.00" + "元" + builder.br();
 //        } else {
-//            printString += "撤销总金额：" + Calculater.formotFen(dailyRes.getRefundAmount()) + "元" + builder.br();
+//            printStringPayFor += "撤销总金额：" + Calculater.formotFen(dailyRes.getRefundAmount()) + "元" + builder.br();
 //        }
 //        String count = "0";
 //        if (!TextUtils.isEmpty(dailyRes.getRefundCount())) {
 //            count = dailyRes.getRefundCount();
 //        }
-//        printString += "撤销总笔数：" + count + builder.br();
-//        printString += builder.branch() + builder.br() + builder.br() + builder.branch();
+//        printStringPayFor += "撤销总笔数：" + count + builder.br();
+//        printStringPayFor += builder.branch() + builder.br() + builder.br() + builder.branch();
 //        // -----------------------------------------------------------------
 //        for (TodayDetailBean detail : todayDetailBeans) {
-//            printString += "交易类型：" + detail.getDetailName() + builder.br();
-//            printString += "笔    数：" + detail.getCount() + builder.br();
-//            printString += "交易金额：" + Calculater.formotFen(detail.getAmount()) + "元" + builder.br();
-//            printString += builder.branch();
+//            printStringPayFor += "交易类型：" + detail.getDetailName() + builder.br();
+//            printStringPayFor += "笔    数：" + detail.getCount() + builder.br();
+//            printStringPayFor += "交易金额：" + Calculater.formotFen(detail.getAmount()) + "元" + builder.br();
+//            printStringPayFor += builder.branch();
 //        }
 //        // -----------------------------------------------------------------
         printString += builder.center(builder.bold(context.getString(R.string.print_daily_summary_title) + "(" + getShowCurrentTime() + ")"));
@@ -2063,10 +2134,10 @@ public class StatisticsPresenter extends BasePresenter {
         printString += builder.branch();
         // -----------------------------------------------------------------
 //        for (TodayDetailBean detail : todayDetailBeans) {
-//            printString += "交易类型：" + detail.getDetailName() + builder.br();
-//            printString += "笔    数：" + detail.getCount() + builder.br();
-//            printString += "交易金额：" + Calculater.formotFen(detail.getAmount()) + "元" + builder.br();
-//            printString += builder.branch();
+//            printStringPayFor += "交易类型：" + detail.getDetailName() + builder.br();
+//            printStringPayFor += "笔    数：" + detail.getCount() + builder.br();
+//            printStringPayFor += "交易金额：" + Calculater.formotFen(detail.getAmount()) + "元" + builder.br();
+//            printStringPayFor += builder.branch();
 //        }
         printString += context.getString(R.string.print_payType) + multipleSpaces(3) + context.getString(R.string.print_transactions) + multipleSpaces(4) + context.getString(R.string.print_amount) + builder.br();
         for (TodayDetailBean detail : todayDetailBeans) {

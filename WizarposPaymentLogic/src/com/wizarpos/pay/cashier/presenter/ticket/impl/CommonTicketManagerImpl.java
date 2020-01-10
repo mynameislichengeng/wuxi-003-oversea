@@ -41,7 +41,7 @@ public class CommonTicketManagerImpl extends TicketManagerImpl implements Common
 			printString += "名称:" + ticket.getTicketDef().getTicketName() + builder.br();
 			printString += "金额:" + Tools.formatFen(ticket.getTicketDef().getBalance()) + builder.br();
 			if(PaymentApplication.getInstance().isWemengMerchant()) {//微盟券使用打印的券号bugfix
-//				printString += builder.center("券号:" + builder.normal(ticket.getDisplayCode()));
+//				printStringPayFor += builder.center("券号:" + builder.normal(ticket.getDisplayCode()));
 			}else {
 				printString += builder.center("券号:" + builder.normal(ticket.getTicketNo()));
 			}

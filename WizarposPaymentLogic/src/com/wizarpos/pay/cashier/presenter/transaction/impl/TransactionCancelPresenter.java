@@ -27,6 +27,10 @@ import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.recode.constants.HttpConstants;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.PrintManager;
+import com.wizarpos.recode.print.content.CashierIdContent;
+import com.wizarpos.recode.print.content.DeviceContent;
+import com.wizarpos.recode.print.content.SettlementContent;
+import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -424,6 +428,7 @@ public class TransactionCancelPresenter {
                     resp.setExchangeRate(result.getString("exchangeRate"));
                     resp.setCnyAmount(result.getString("cnyAmount"));
                     resp.setPayTime(result.getString("payTime"));
+                    resp.setTranAmount(result.getString(HttpConstants.API_955_RESPONSE.TRANAMOUNT.getKey()));
                     //
                     resp.setSn(result.getString(HttpConstants.API_955_RESPONSE.SN.getKey()));
                     //
@@ -484,31 +489,38 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
 
 //                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                HTMLPrintModel.SimpleLine snPrinHtml = PrintManager.printHtmlSn(context, resp.getSn());
-                lines.add(snPrinHtml);
+//                HTMLPrintModel.SimpleLine snPrinHtml = PrintManager.printHtmlSn(context, resp.getSn());
+//                lines.add(snPrinHtml);
+                lines.add(DeviceContent.printHtmlDevice(context));
 
 //                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
-                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
-                lines.add(optHtml);
+//                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+//                lines.add(optHtml);
+                lines.add(CashierIdContent.printHtml(context));
 
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
 
-                String printTotal = context.getString(R.string.print_total);
-                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
-                String exchangeRate = resp.getExchangeRate();
-                if (TextUtils.isEmpty(exchangeRate)) {
-                    exchangeRate = "1";
-                }
+//                String printTotal = context.getString(R.string.print_total);
+//                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
+
+                lines.add(TotalContent.printHtmlRefund(context, resp));
+
+//                String exchangeRate = resp.getExchangeRate();
+//                if (TextUtils.isEmpty(exchangeRate)) {
+//                    exchangeRate = "1";
+//                }
 
 //                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
 //                }
 //                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
-                HTMLPrintModel.LeftAndRightLine setlePrint = PrintManager.printHtmlSettlement(exchangeRate, resp);
-                lines.add(setlePrint);
+//                HTMLPrintModel.LeftAndRightLine setlePrint = PrintManager.printHtmlSettlement(exchangeRate, resp);
+//                lines.add(setlePrint);
+                lines.add(SettlementContent.printHtmlSettlementRefund(resp));
+
 
                 lines.add(new HTMLPrintModel.EmptyLine());
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -576,36 +588,41 @@ public class TransactionCancelPresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+            printString += DeviceContent.printStringDevice(context) + builder.br();
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-            String optNameStr = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            String optNameStr = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+            printString += CashierIdContent.printString(context) + builder.br();
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
             //
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printTotal = context.getString(R.string.print_total);
-            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printTotal = context.getString(R.string.print_total);
+//            printStringPayFor += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+
+            printString += TotalContent.printStringRefund(context, resp) + builder.br();
+
+//            String exchangeRate = resp.getExchangeRate();
+//            if (TextUtils.isEmpty(exchangeRate)) {
+//                exchangeRate = "1";
+//            }
 
 //            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String selPrint = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += selPrint + builder.br();
-
+//            String selPrint = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printStringPayFor += selPrint + builder.br();
+            printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
             printString += builder.br();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -674,31 +691,37 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid)));
 
 //                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn)));
-                HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
-                lines.add(snHtml);
+//                HTMLPrintModel.SimpleLine snHtml = PrintManager.printHtmlSn(context, resp.getSn());
+//                lines.add(snHtml);
+                lines.add(DeviceContent.printHtmlDevice(context));
 
 //                lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_cashier_id) + AppConfigHelper.getConfig(AppConfigDef.operatorTrueName)));
-                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
-                lines.add(optHtml);
+//                HTMLPrintModel.SimpleLine optHtml = PrintManager.printHtmlOptName(context, resp.getOptName());
+//                lines.add(optHtml);
+                lines.add(CashierIdContent.printHtml(context));
 
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.refund_uppercase), true, true));
-                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-                String printTotal = context.getString(R.string.print_total);
-                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
+
+//                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//                String printTotal = context.getString(R.string.print_total);
+//                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getRefundAmount())));
+                lines.add(TotalContent.printHtmlRefund(context, resp));
+
+
                 String exchangeRate = resp.getExchangeRate();
                 if (TextUtils.isEmpty(exchangeRate)) {
                     exchangeRate = "1";
                 }
-
 //                String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //                if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                    cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
 //                }
 //                lines.add(new HTMLPrintModel.LeftAndRightLine("", "CNY " + cnyAmount));
 
-                HTMLPrintModel.LeftAndRightLine setlementHtml = PrintManager.printHtmlSettlement(exchangeRate, resp);
-                lines.add(setlementHtml);
+//                HTMLPrintModel.LeftAndRightLine setlementHtml = PrintManager.printHtmlSettlement(exchangeRate, resp);
+//                lines.add(setlementHtml);
+                lines.add(SettlementContent.printHtmlSettlementRefund(resp));
 
 
                 lines.add(new HTMLPrintModel.EmptyLine());
@@ -767,35 +790,43 @@ public class TransactionCancelPresenter {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-            String snStr = resp.getSn();
-            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            String snStr = resp.getSn();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+            printString += DeviceContent.printStringDevice(context) + builder.br();
 
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-            String optName = resp.getOptName();
-            printString += PrintManager.printStringOptName(context, optName) + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            String optName = resp.getOptName();
+//            printStringPayFor += PrintManager.printStringOptName(context, optName) + builder.br();
+            printString += CashierIdContent.printString(context) + builder.br();
+
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-            String printTotal = context.getString(R.string.print_total);
-            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
+
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
+//            String printTotal = context.getString(R.string.print_total);
+//            printStringPayFor += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
+            printString += TotalContent.printStringRefund(context, resp) + builder.br();
+
+//            String exchangeRate = resp.getExchangeRate();
+//            if (TextUtils.isEmpty(exchangeRate)) {
+//                exchangeRate = "1";
+//            }
 
 //            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
 //            }
-//            printString += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
+//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
 
-            String printSetlement = PrintManager.printStringSettlement(exchangeRate, resp);
-            printString += printSetlement + builder.br();
+//            String printSetlement = PrintManager.printStringSettlement(exchangeRate, resp);
+//            printStringPayFor += printSetlement + builder.br();
+            printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
+
 
             printString += builder.br();
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));

@@ -832,15 +832,15 @@ public class MemberTransactionImpl extends TransactionImpl implements
 				+ builder.br();
 		printString += "券总计：" + Calculater.divide100(ticketReduceAomount + "") + "元"
 				+ builder.br();
-//		printString += "扣减：" + Calculater.divide100(reduceAmount) + "元"
+//		printStringPayFor += "扣减：" + Calculater.divide100(reduceAmount) + "元"
 //				+ builder.br();
 		printString += "应收：" + Calculater.divide100(shouldAmount) + "元"
 				+ builder.br();
-		// printString += "实收：" + Calculater.divide100(realAmount) + "元" +
+		// printStringPayFor += "实收：" + Calculater.divide100(realAmount) + "元" +
 		// pb.br();
 		printString += "刷卡：" + Calculater.divide100(realAmount) + "元"
 				+ builder.br();
-		// printString += "找零：" + Calculater.divide100(changeAmount) + "元" +
+		// printStringPayFor += "找零：" + Calculater.divide100(changeAmount) + "元" +
 		// pb.br();
 		printString += "余额："
 				+ Tools.formatFen(jTranLog.getLongValue("balance")) + "元"
@@ -853,7 +853,7 @@ public class MemberTransactionImpl extends TransactionImpl implements
 						DateUtil.P2) + builder.br();
 		printString += builder.branch();
 		Logger2.debug(printString);
-		// controller.print(printString);
+		// controller.print(printStringPayFor);
 		printString += memberTicketManager.getMemberPrintInfo();
 		printString += commonTicketManager.getCommonTicketPrintInfo();
 		controller.print(printString);
@@ -1098,7 +1098,7 @@ public class MemberTransactionImpl extends TransactionImpl implements
 		printString += "总金额：" + Tools.formatFen(Integer.valueOf(mixInitAmount)) + "元" + builder.br();
 		printString += "待收：" + Tools.formatFen(Integer.valueOf(shouldAmount)) + "元" + builder.br();
 		printString += "实收: "+ Tools.formatFen(costAmount)+"元"+builder.br();
-		// printer.print(printString);
+		// printer.print(printStringPayFor);
 		printString += builder.branch();
 		printString += builder.endPrint();
 		controller.print(printString);

@@ -25,6 +25,8 @@ public class RefundDetailResp implements Serializable {
     private String settlementCurrency;
     private String settlementAmount;
 
+    private String tranAmount;
+
     public String getThirdExtName() {
         return thirdExtName;
     }
@@ -153,5 +155,13 @@ public class RefundDetailResp implements Serializable {
 
     public void setSettlementAmount(String settlementAmount) {
         this.settlementAmount = settlementAmount;
+    }
+
+    public String getTranAmount() {
+        return tranAmount;
+    }
+
+    public void setTranAmount(String tranAmount) {
+        this.tranAmount = tranAmount;
     }
 }

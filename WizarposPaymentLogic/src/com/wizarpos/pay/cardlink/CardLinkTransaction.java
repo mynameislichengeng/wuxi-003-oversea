@@ -291,37 +291,37 @@ public class CardLinkTransaction {
         PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
         Q1PrintBuilder builder = new Q1PrintBuilder();
         String printString = "";
-//        printString += builder.center(builder.bold("银行卡消费"));
-//        printString += builder.branch();
-//        printString += "商户号：" + AppConfigHelper.getConfig(AppConfigDef.merchantId) + builder.br();
+//        printStringPayFor += builder.center(builder.bold("银行卡消费"));
+//        printStringPayFor += builder.branch();
+//        printStringPayFor += "商户号：" + AppConfigHelper.getConfig(AppConfigDef.merchantId) + builder.br();
         printString += "慧商户号：" + AppConfigHelper.getConfig(AppConfigDef.mid) + builder.br();
-//        printString += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
-//        printString += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
+//        printStringPayFor += "商户名称：" + AppConfigHelper.getConfig(AppConfigDef.merchantName) + builder.br();
+//        printStringPayFor += "终端号：" + AppConfigHelper.getConfig(AppConfigDef.terminalId) + builder.br();
         printString += "终端设备号：" + AppConfigHelper.getConfig(AppConfigDef.sn) + builder.br();
         printString += "流水号：" + tranLogId + builder.br();
 //        String bankCardNum = bankcardNo;
 //        if (!TextUtils.isEmpty(bankCardNum)) {
-//            printString += "卡号：" + bankcardNo + builder.br();
+//            printStringPayFor += "卡号：" + bankcardNo + builder.br();
 //        }
 //        if (isMixTransaction()) {
-//            printString += "总金额:" + Calculater.divide100(mixInitAmount) + builder.br();
+//            printStringPayFor += "总金额:" + Calculater.divide100(mixInitAmount) + builder.br();
 //        }
-//        printString += "收银：" + Calculater.divide100(amount + "") + "元" + builder.br();
-        // printString += "折扣：" + disCountNeed + "折" + pb.br();
+//        printStringPayFor += "收银：" + Calculater.divide100(amount + "") + "元" + builder.br();
+        // printStringPayFor += "折扣：" + disCountNeed + "折" + pb.br();
 //        if (!TextUtils.isEmpty(discountAmount) && !"0".equals(discountAmount)) {
-//            printString += "折扣减价：" + Calculater.divide100(discountAmount) + "元" + builder.br();
+//            printStringPayFor += "折扣减价：" + Calculater.divide100(discountAmount) + "元" + builder.br();
 //        }
 //        String printReduceAmount = Calculater.subtract(reduceAmount + "", ticketReduceAomount + "");
-//        printString += "扣减：" + Calculater.divide100(printReduceAmount) + "元" + builder.br();
-//        printString += "券总计：" + Calculater.divide100(ticketReduceAomount + "") + "元" + builder.br();
-//        printString += "刷卡：" + Calculater.divide100(amount + "") + "元" + builder.br();
+//        printStringPayFor += "扣减：" + Calculater.divide100(printReduceAmount) + "元" + builder.br();
+//        printStringPayFor += "券总计：" + Calculater.divide100(ticketReduceAomount + "") + "元" + builder.br();
+//        printStringPayFor += "刷卡：" + Calculater.divide100(amount + "") + "元" + builder.br();
 //        if (scorePrint != null) {
-//            printString += "赠送积分：" + scorePrint + builder.br();
+//            printStringPayFor += "赠送积分：" + scorePrint + builder.br();
 //        }
-//        printString += "时间：" + transTime + builder.br();
+//        printStringPayFor += "时间：" + transTime + builder.br();
         printString += builder.branch();
         printString += builder.endPrint();
-//        Logger2.debug(printString);
+//        Logger2.debug(printStringPayFor);
 //        int printNumber = 1;
 //        if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
 //            printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
@@ -329,9 +329,9 @@ public class CardLinkTransaction {
 //        for (int i = 0; i < printNumber; i++) {
         controller.print(printString, true);
 //        }
-//        printString = commonTicketManager.getCommonTicketPrintInfo(); // 打印券
-//        if (TextUtils.isEmpty(printString) == false) {
-//            controller.print(printString);
+//        printStringPayFor = commonTicketManager.getCommonTicketPrintInfo(); // 打印券
+//        if (TextUtils.isEmpty(printStringPayFor) == false) {
+//            controller.print(printStringPayFor);
 //        }
     }
 

@@ -80,17 +80,17 @@ public class MemberTicketManagerImpl extends TicketManagerImpl implements Member
 		// iter.next();
 		// TicketDef ticketDef = entry.getKey();
 		// int count= entry.getValue();
-		// if (TextUtils.isEmpty(printString)) {
-		// printString = builder.center(builder.bold("会员券使用"))
+		// if (TextUtils.isEmpty(printStringPayFor)) {
+		// printStringPayFor = builder.center(builder.bold("会员券使用"))
 		// + builder.br() + builder.branch();
 		// }
-		// printString += "名称:" + ticketDef.getTicketName()
+		// printStringPayFor += "名称:" + ticketDef.getTicketName()
 		// + builder.br();
-		// printString += "金额:"
+		// printStringPayFor += "金额:"
 		// + Tools.formatFen(ticketDef.getBalance())
 		// + builder.br();
-		// printString += "数量:"+ count + builder.br();
-		// printString += builder.branch();
+		// printStringPayFor += "数量:"+ count + builder.br();
+		// printStringPayFor += builder.branch();
 		// }
 
 		for (int i = 0; i < addedTickets.size(); i++) {

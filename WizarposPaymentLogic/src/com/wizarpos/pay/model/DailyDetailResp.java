@@ -32,6 +32,8 @@ public class DailyDetailResp implements Serializable {
     private String cancelKind;
     private String sn;
 
+    private String optName;
+    private String bank_info;
 
     public String getCancelKind() {
         return cancelKind;
@@ -90,8 +92,7 @@ public class DailyDetailResp implements Serializable {
         this.refundAmount = refundAmount;
     }
 
-    private String optName;
-    private String bank_info;
+
 
     public String getDiscountAmount() {
         return discountAmount;

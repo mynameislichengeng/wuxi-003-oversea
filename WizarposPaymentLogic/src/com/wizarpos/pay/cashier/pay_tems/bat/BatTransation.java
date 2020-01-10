@@ -30,7 +30,6 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.GetCommonTicketInfoResp;
 import com.wizarpos.pay.model.OrderDef;
-import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.PrintManager;
@@ -191,19 +190,19 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 //                    lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + totalAmount));
 //                }
 
-                HTMLPrintModel.LeftAndRightLine purchasePrint = PurchaseContent.printHtmlPurchase(context, tipsAmount, totalAmount);
+                HTMLPrintModel.LeftAndRightLine purchasePrint = PurchaseContent.printHtmlPurchasePayFor(context, tipsAmount, totalAmount);
                 lines.add(purchasePrint);
 
 
                 if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                    lines.add(TipsContent.printHtml(context, tipsAmount));
+                    lines.add(TipsContent.printHtmlPayFor(context, tipsAmount));
 //                    String printTip = context.getString(R.string.print_tip);
 //                    lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, transCurrency + Calculater.formotFen(tipsAmount)));
                 }
 
 //                String prinTotal = context.getString(R.string.print_total);
 //                lines.add(new HTMLPrintModel.LeftAndRightLine(prinTotal, transCurrency + totalAmount));
-                lines.add(TotalContent.printHtml(context, totalAmount));
+                lines.add(TotalContent.printHtmlPayFor(context, totalAmount));
 
                 String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
                 if (TextUtils.isEmpty(exchangeRate)) {
@@ -211,9 +210,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
 
                 // 打印
-//                HTMLPrintModel.LeftAndRightLine contentSettlement = PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo);
+//                HTMLPrintModel.LeftAndRightLine contentSettlement = PrintManager.printHtmlSettlementPayFor(totalAmount, exchangeRate, transactionInfo);
 //                lines.add(contentSettlement);
-                lines.add(SettlementContent.printHtmlSettlement(transactionInfo));
+                lines.add(SettlementContent.printHtmlSettlementPayFor(transactionInfo));
 
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
@@ -285,16 +284,16 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
             printString += DeviceContent.printStringDevice(context) + builder.br();
 //            String sn = transactionInfo.getSn();
-//            printString += PrintManager.printStringSn(context, sn) + builder.br();
+//            printStringPayFor += PrintManager.printStringSn(context, sn) + builder.br();
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += CashierIdContent.printString(context) + builder.br();
 //            String cahierId = transactionInfo.getOptName();
-//            printString += PrintManager.printStringOptName(context, cahierId) + builder.br();
+//            printStringPayFor += PrintManager.printStringOptName(context, cahierId) + builder.br();
 
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br() + builder.nBr();
@@ -302,39 +301,39 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 
             String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
             String tipsAmount = transactionInfo.getTips();
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
 
 //            String printPurchase = context.getString(R.string.print_purchase);
 
-            int numsSpaceP = PrintManager.tranZhSpaceNums(31, 1, transactionInfo.getTransCurrency());
+//            int numsSpaceP = PrintManager.tranZhSpaceNums(31, 1, transactionInfo.getTransCurrency());
 //            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                String purchaseAmount = Calculater.formotFen(Calculater.subtract(transactionInfo.getRealAmount(), tipsAmount));
-//                printString += printPurchase + multipleSpaces(numsSpaceP - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+//                printStringPayFor += printPurchase + multipleSpaces(numsSpaceP - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
 //            } else {
-//                printString += printPurchase + multipleSpaces(numsSpaceP - printPurchase.getBytes("GBK").length - totalAmount.length()) + transCurrency + totalAmount + builder.br();
+//                printStringPayFor += printPurchase + multipleSpaces(numsSpaceP - printPurchase.getBytes("GBK").length - totalAmount.length()) + transCurrency + totalAmount + builder.br();
 //            }
 
-            printString += PurchaseContent.printStrPurchase(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
+            printString += PurchaseContent.printStrPurchasePayFor(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
 
 
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                String printTip = context.getString(R.string.print_tip);
-//                printString += printTip + multipleSpaces(numsSpaceP - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
-                printString += TipsContent.printString(context, tipsAmount, transactionInfo) + builder.br();
+//                printStringPayFor += printTip + multipleSpaces(numsSpaceP - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo) + builder.br();
             }
 
 //            String prinTotal = context.getString(R.string.print_total);
 //            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, transactionInfo.getTransCurrency());
-//            printString += prinTotal + multipleSpaces(numTotalSpace - totalAmount.length()) + transCurrency + totalAmount + builder.br();
-            printString += TotalContent.printString(context, totalAmount) + builder.br();
+//            printStringPayFor += prinTotal + multipleSpaces(numTotalSpace - totalAmount.length()) + transCurrency + totalAmount + builder.br();
+            printString += TotalContent.printStringPayFor(context, totalAmount) + builder.br();
 
             String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
             if (TextUtils.isEmpty(exchangeRate)) {
                 exchangeRate = "1";
             }
 
-//            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
-            printString += SettlementContent.printStringSettlement(transactionInfo) + builder.br();
+//            printStringPayFor += PrintManager.printStringSettlementPayFor(totalAmount, exchangeRate, transactionInfo) + builder.br();
+            printString += SettlementContent.printStringSettlementPayFor(transactionInfo) + builder.br();
 
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
@@ -422,7 +421,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 String tipsAmount = transactionInfo.getTips();
 
 
-                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
+//                String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
 //                String printPurchase = context.getString(R.string.print_purchase);
 //                if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                    String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
@@ -430,17 +429,17 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 //                } else {
 //                    lines.add(new HTMLPrintModel.LeftAndRightLine(printPurchase, transCurrency + totalAmount));
 //                }
-                HTMLPrintModel.LeftAndRightLine purcharseHtml = PurchaseContent.printHtmlPurchase(context, tipsAmount, totalAmount);
+                HTMLPrintModel.LeftAndRightLine purcharseHtml = PurchaseContent.printHtmlPurchasePayFor(context, tipsAmount, totalAmount);
                 lines.add(purcharseHtml);
 
                 if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                    String printTip = context.getString(R.string.print_tip);
 //                    lines.add(new HTMLPrintModel.LeftAndRightLine(printTip, transCurrency + Calculater.formotFen(tipsAmount)));
-                    lines.add(TipsContent.printHtml(context, tipsAmount));
+                    lines.add(TipsContent.printHtmlPayFor(context, tipsAmount));
                 }
 //                String printTotal = context.getString(R.string.print_total);
 //                lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + totalAmount));
-                lines.add(TotalContent.printHtml(context, totalAmount));
+                lines.add(TotalContent.printHtmlPayFor(context, totalAmount));
 
                 String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
                 if (TextUtils.isEmpty(exchangeRate)) {
@@ -448,8 +447,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
                 //
 
-//                lines.add(PrintManager.printHtmlSettlement(totalAmount, exchangeRate, transactionInfo));
-                lines.add(SettlementContent.printHtmlSettlement(transactionInfo));
+//                lines.add(PrintManager.printHtmlSettlementPayFor(totalAmount, exchangeRate, transactionInfo));
+                lines.add(SettlementContent.printHtmlSettlementPayFor(transactionInfo));
 
                 String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
                 String printFx = context.getString(R.string.print_fx_rate);
@@ -521,16 +520,16 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 //            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printString += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
             printString += DeviceContent.printStringDevice(context) + builder.br();
 //            String snStr = transactionInfo.getSn();
-//            printString += PrintManager.printStringSn(context, snStr) + builder.br();
+//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
 
 //            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printString += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
+//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
             printString += CashierIdContent.printString(context) + builder.br();
 //            String cahierId = transactionInfo.getOptName();
-//            printString += PrintManager.printStringOptName(context, cahierId) + builder.br();
+//            printStringPayFor += PrintManager.printStringOptName(context, cahierId) + builder.br();
 
 
             printString += builder.br();
@@ -538,29 +537,29 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
             String tipsAmount = transactionInfo.getTips();
 
-            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
-            int numPur = PrintManager.tranZhSpaceNums(31, 1, transactionInfo.getTransCurrency());
+//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transactionInfo.getTransCurrency());
+//            int numPur = PrintManager.tranZhSpaceNums(31, 1, transactionInfo.getTransCurrency());
 
 //            String printPurchase = context.getString(R.string.print_purchase);
 //            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                String purchaseAmount = Calculater.formotFen(Calculater.subtract(transactionInfo.getRealAmount(), tipsAmount));
-//                printString += printPurchase + multipleSpaces(numPur - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
+//                printStringPayFor += printPurchase + multipleSpaces(numPur - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
 //            } else {
-//                printString += printPurchase + multipleSpaces(numPur - printPurchase.getBytes("GBK").length - totalAmount.length()) + transCurrency + totalAmount + builder.br();
+//                printStringPayFor += printPurchase + multipleSpaces(numPur - printPurchase.getBytes("GBK").length - totalAmount.length()) + transCurrency + totalAmount + builder.br();
 //            }
 
-            printString += PurchaseContent.printStrPurchase(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
+            printString += PurchaseContent.printStrPurchasePayFor(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
 
 
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
 //                String printTip = context.getString(R.string.print_tip);
-//                printString += printTip + multipleSpaces(numPur - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
-                printString += TipsContent.printString(context, tipsAmount, transactionInfo) + builder.br();
+//                printStringPayFor += printTip + multipleSpaces(numPur - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
+                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo) + builder.br();
             }
 //            String printTotal = context.getString(R.string.print_total);
 //            int numTotal = PrintManager.tranZhSpaceNums(25, 1, transactionInfo.getTransCurrency());
-//            printString += printTotal + multipleSpaces(numTotal - totalAmount.length()) + transCurrency + totalAmount + builder.br();
-            printString += TotalContent.printString(context, totalAmount) + builder.br();
+//            printStringPayFor += printTotal + multipleSpaces(numTotal - totalAmount.length()) + transCurrency + totalAmount + builder.br();
+            printString += TotalContent.printStringPayFor(context, totalAmount) + builder.br();
 
             String exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
             if (TextUtils.isEmpty(exchangeRate)) {
@@ -568,8 +567,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             }
 
 
-//            printString += PrintManager.printStringSettlement(totalAmount, exchangeRate, transactionInfo) + builder.br();
-            printString += SettlementContent.printStringSettlement(transactionInfo) + builder.br();
+//            printStringPayFor += PrintManager.printStringSettlementPayFor(totalAmount, exchangeRate, transactionInfo) + builder.br();
+            printString += SettlementContent.printStringSettlementPayFor(transactionInfo) + builder.br();
 
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);

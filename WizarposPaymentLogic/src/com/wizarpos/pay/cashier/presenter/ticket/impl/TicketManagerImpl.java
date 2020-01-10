@@ -229,9 +229,9 @@ public class TicketManagerImpl implements TicketManager {
 			}
 			printString += builder.center("截止日期:"
 					+ builder.normal(DateUtil.format(ticket.getExpriyTime(), DateUtil.P1)));
-//			printString += builder.normal(ticket.getTicketDef().getTicketName()) + builder.tab("")
+//			printStringPayFor += builder.normal(ticket.getTicketDef().getTicketName()) + builder.tab("")
 //					+ builder.tab(DateUtil.format(ticket.getExpriyTime(), DateUtil.P1)) + builder.br();
-//			printString += builder.tab(ticket.getTicketNo()) + builder.tab("")
+//			printStringPayFor += builder.tab(ticket.getTicketNo()) + builder.tab("")
 //					+ builder.tab(Tools.formatFen(ticket.getTicketDef().getBalance())) + builder.tab("") + builder.br();
 			printString += builder.branch();
 			controller.print(printString);
