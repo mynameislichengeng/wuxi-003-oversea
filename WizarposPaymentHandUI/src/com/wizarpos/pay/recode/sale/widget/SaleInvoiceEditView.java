@@ -44,8 +44,8 @@ public class SaleInvoiceEditView {
         commonDialog.setLeftBtnText(leftText);
         //中间内容
         commonDialog.setContent(content);
-        //设置最大输入长度,从0开始算的，所以减1，这样常量数字就表示最大长度了
-        commonDialog.getDialog_ed_content().setFilters(new InputFilter[]{new InputFilter.LengthFilter(LENGTH_EDIT_VIEW - 1)});
+        //设置最大输入长度
+        commonDialog.getDialog_ed_content().setFilters(new InputFilter[]{new InputFilter.LengthFilter(LENGTH_EDIT_VIEW)});
 
     }
 

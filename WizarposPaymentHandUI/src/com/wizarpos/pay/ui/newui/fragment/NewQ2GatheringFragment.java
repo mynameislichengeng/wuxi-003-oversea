@@ -23,7 +23,6 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
-import com.wizarpos.pay.recode.sale.widget.SaleInvoiceEditView;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
@@ -33,10 +32,9 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     private final static String TAG_LOG = NewQ2GatheringFragment.class.getName();
     private EditText etAmount;
     private TextView tvShowRMB, tv_invoice;
-    private ImageView ivInvoiceEditIcon;
     private String exchangeRate;
     private InputPad inputPad;
-    private LinearLayout lin_invoice;
+    private LinearLayout lin_invoice_content, lin_invoice_icon;
 
     private OnConfirmListener onConfirmListener;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -63,15 +61,15 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         setMainView(R.layout.fragment_gathering_for_q2);
         etAmount = (EditText) mainView.findViewById(R.id.etAmount);
         tvShowRMB = ((TextView) mainView.findViewById(R.id.tvShowRMB));
-        ivInvoiceEditIcon = mainView.findViewById(R.id.iv_invoice);//编辑图标
-        ivInvoiceEditIcon.setOnClickListener(new View.OnClickListener() {
+        lin_invoice_icon = mainView.findViewById(R.id.lin_invoice_icon);
+        lin_invoice_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 operateEditIconOnclick();
             }
         });
         //invoice
-        lin_invoice = mainView.findViewById(R.id.line_invoice_content);
+        lin_invoice_content = mainView.findViewById(R.id.line_invoice_content);
         tv_invoice = mainView.findViewById(R.id.tv_invoice);
         setLayoutInvoiceTv();
         exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
@@ -95,9 +93,9 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         String invoiceStr = InvoiceServiceImpl.getInstance().gettingInvoice(getContext());
         tv_invoice.setText(invoiceStr);
         if (TextUtils.isEmpty(invoiceStr)) {
-            lin_invoice.setVisibility(View.GONE);
+            lin_invoice_content.setVisibility(View.GONE);
         } else {
-            lin_invoice.setVisibility(View.VISIBLE);
+            lin_invoice_content.setVisibility(View.VISIBLE);
         }
     }
 
