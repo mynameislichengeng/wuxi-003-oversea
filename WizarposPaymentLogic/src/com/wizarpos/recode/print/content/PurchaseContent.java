@@ -8,7 +8,6 @@ import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
-import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -47,7 +46,7 @@ public class PurchaseContent extends PrintBase {
         String transCurrency = resp.getTransCurrency();
         String transCurrencyPrint = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
 
-        String tranAmount = resp.getTrasnAmount();
+        String tranAmount = resp.getTransAmount();
         String tipsAmount = resp.getTipAmount();
         int numSpace = tranZhSpaceNums(31, 1, transCurrency);
         String purchaseAmount;
@@ -67,7 +66,7 @@ public class PurchaseContent extends PrintBase {
             String transCurrency = resp.getTransCurrency();
             String transCurrencyPrint = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
 
-            String tranAmount = resp.getTrasnAmount();
+            String tranAmount = resp.getTransAmount();
             String tipsAmount = resp.getTipAmount();
             String purchaseAmount;
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {

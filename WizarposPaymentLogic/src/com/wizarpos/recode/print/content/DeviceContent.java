@@ -6,7 +6,6 @@ import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
-import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 

@@ -93,7 +93,7 @@ public class AppInfoUtils {
 //        try {
 //            versionCode = mContext.getPackageManager()
 //                    .getPackageInfo(getPackageName(mContext), 0).versionCode;
-//        } catch (PackageManager.NameNotFoundException e) {
+//        } catch (PackageAndroidManager.NameNotFoundException e) {
 //            e.printStackTrace();
 //        }
 //        return versionCode;

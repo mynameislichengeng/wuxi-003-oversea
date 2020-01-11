@@ -199,7 +199,6 @@
     <string name="hello_world">Hello world!</string>
 
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placeHolder">placeHolder</string>
@@ -360,6 +359,7 @@
     <string name="please_invoice_input">请输入invoice值</string>
     <string name="invoice_num">发票号</string>
     <string name="hint_enter_invoice_num">输入发票号</string>
+
 
     <string-array name="refund_adapter_item_title">
 

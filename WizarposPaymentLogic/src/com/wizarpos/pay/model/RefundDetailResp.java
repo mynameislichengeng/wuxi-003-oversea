@@ -24,6 +24,7 @@ public class RefundDetailResp implements Serializable {
     private String optName;
     private String settlementCurrency;
     private String settlementAmount;
+    private String merchantTradeCode;
 
     private String tranAmount;
 
@@ -163,5 +164,13 @@ public class RefundDetailResp implements Serializable {
 
     public void setTranAmount(String tranAmount) {
         this.tranAmount = tranAmount;
+    }
+
+    public String getMerchantTradeCode() {
+        return merchantTradeCode;
+    }
+
+    public void setMerchantTradeCode(String merchantTradeCode) {
+        this.merchantTradeCode = merchantTradeCode;
     }
 }

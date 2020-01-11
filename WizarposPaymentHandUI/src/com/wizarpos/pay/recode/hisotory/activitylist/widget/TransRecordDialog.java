@@ -13,14 +13,14 @@ public class TransRecordDialog {
     /**
      * 点击refund按钮，弹出dialog
      */
-    public static void refundDialog(Context context, DailyDetailResp resp, final SimpleListViewDialog.OnCancleAndSuceClickListener listener) {
+    public static void refundDialog(Context context, String inputAmount, DailyDetailResp resp, final SimpleListViewDialog.OnCancleAndSuceClickListener listener) {
         SimpleListViewDialog simpleListViewDialog = new SimpleListViewDialog(context);
         simpleListViewDialog.show();
         //title
-//        simpleListViewDialog.setDialogTitleVisible(View.GONE);
         simpleListViewDialog.setDialogTitle(R.string.refund);
         //中间
         RefundClickAdapter adapter = new RefundClickAdapter(context, resp);
+        adapter.setInputRefundAmount(inputAmount);//用户输入的当前需要退款的金额
         simpleListViewDialog.setAdapter(adapter);
         simpleListViewDialog.setOnCancleAndSuceClickListener(new SimpleListViewDialog.OnCancleAndSuceClickListener() {
             @Override

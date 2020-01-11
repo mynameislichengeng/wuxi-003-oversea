@@ -57,7 +57,7 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
 
         //显示多少钱
         TextView tvTranAmount = viewHolder.getView(R.id.tvTranAmount);
-        tvTranAmount.setText(Calculater.formotFen(item.getSingleAmount()));
+        tvTranAmount.setText(Calculater.formotFen(item.getTransAmount()));
         //货币类型
         TextView tvTranCurrency = viewHolder.getView(R.id.tvTranCurrency);
         tvTranCurrency.setText(TransRecordConstants.TRANSCURRENCY.getSymbol(item.getTransCurrency()));
@@ -205,26 +205,26 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     private List<DailyDetailResp> changeUpdate(List<DailyDetailResp> list) {
         List<DailyDetailResp> removeList = new ArrayList<DailyDetailResp>();
         for (DailyDetailResp resp : list) {
-            resp.setExpand(false);
-            resp.setSingleAmount(resp.getTrasnAmount());
-            resp.setTransName(resp.getTransKind());
-            resp.setTransTime(resp.getTran_time());
-            resp.setPayTime(resp.getPayTime());
-            resp.setTransName(Constants.TRAN_TYPE.get(resp.getTransType()));
-            resp.setMasterTranLogId(resp.getMasterTranLogId());
-            resp.setTranlogId(resp.getTranLogId());
-            resp.setRefundAmount(resp.getRefundAmount());
-            resp.setOptName(resp.getOptName());
-            resp.setTipAmount(resp.getTipAmount());
-            resp.setThirdTradeNo(resp.getThirdTradeNo());
-            resp.setExchangeRate(resp.getExchangeRate());
-            resp.setCnyAmount(resp.getCnyAmount());
-            if (!TextUtils.isEmpty(resp.getThirdExtName())) {
-                resp.setThirdExtName(resp.getThirdExtName());
-            }
-            if (!TextUtils.isEmpty(resp.getThirdExtId())) {
-                resp.setThirdExtId(resp.getThirdExtId());
-            }
+//            resp.setExpand(false);
+//            resp.setSingleAmount(resp.getTransAmount());
+//            resp.setTransName(resp.getTransKind());
+//            resp.setTranTime(resp.getTran_time());
+//            resp.setPayTime(resp.getPayTime());
+//            resp.setTransName(Constants.TRAN_TYPE.get(resp.getTransType()));
+//            resp.setMasterTranLogId(resp.getMasterTranLogId());
+//            resp.setTranlogId(resp.getTranLogId());
+//            resp.setRefundAmount(resp.getRefundAmount());
+//            resp.setOptName(resp.getOptName());
+//            resp.setTipAmount(resp.getTipAmount());
+//            resp.setThirdTradeNo(resp.getThirdTradeNo());
+//            resp.setExchangeRate(resp.getExchangeRate());
+//            resp.setCnyAmount(resp.getCnyAmount());
+//            if (!TextUtils.isEmpty(resp.getThirdExtName())) {
+//                resp.setThirdExtName(resp.getThirdExtName());
+//            }
+//            if (!TextUtils.isEmpty(resp.getThirdExtId())) {
+//                resp.setThirdExtId(resp.getThirdExtId());
+//            }
             if (TextUtils.isEmpty(resp.getTransName())) {//bugfix 万一返回了本地没有的TranType则不显示此数据 Song
                 removeList.add(resp);
             }
@@ -254,102 +254,8 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         }
     }
 
-    public OnTranLogDetialListener getOnTranLogDetialListener() {
-        return onTranLogDetialListener;
-    }
-
     public void setOnTranLogDetialListener(OnTranLogDetialListener onTranLogDetialListener) {
         this.onTranLogDetialListener = onTranLogDetialListener;
     }
 
-//    public void setmList(List<DailyDetailResp> mList) {
-//        this.mList = mList;
-//    }
-
-
-//    public List<DailyDetailResp> getmList() {
-//        return mList;
-//    }
-
-
-//
-//        static class ViewHolder {
-//
-//            public LinearLayout lin_group;
-//            public TextView groupDate;
-//            public TextView groupMonth;
-//            public TextView groupName;
-//            public TextView gropMoney;
-//
-//
-//            public TextView tvTranType;//类型
-//            public TextView tvTranMode;//交易
-//            public TextView tvTranDate;//日期
-//            public TextView tvTranAmount;//金额
-//            public TextView tvTranLogId;//交易流水
-//            public TextView tvOperatorId;//操作员账号
-//            public TextView tvBelowOperator;//操作员账号
-//            public Button btnPrint;
-//            public Button btnRevoke;
-//
-//            public ImageView iv_star, iv_trash, ivArrowRight, ivBottomLine, ivTranlogIcon, ivLastBottomLine;
-//            public TextView childTitle;
-//            public RelativeLayout rlItemContent;
-//            public LinearLayout llDetail, llItemBtns;
-//            public LinearLayout llBelowOpt;
-//            public LinearLayout llTopOpt;
-//            public LinearLayout llTranLogId;
-//            public TextView tvMasterTranLogId;
-//        }
-
-
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        ViewHolder viewHolder;
-//        if (convertView == null) {
-//            //3.创建完ViewHolder后初始化ViewHolder
-//            viewHolder = new ViewHolder();
-//            //2.如果view是空的,直接填入内容,item完成后就可以创建ViewHolder了.
-//            convertView = LayoutInflater.from(context).inflate(R.layout.recode_item_transaction_records, null);
-//
-//            //group
-//            viewHolder.groupDate = (TextView) convertView.findViewById(R.id.tvDate);
-//            viewHolder.groupMonth = (TextView) convertView.findViewById(R.id.one_status_name);
-//            viewHolder.gropMoney = (TextView) convertView.findViewById(R.id.tvMoney);
-//            viewHolder.lin_group = (LinearLayout) convertView.findViewById(R.id.lin_trans_recorde_month_header);
-//
-//            //children
-//            viewHolder.rlItemContent = (RelativeLayout) convertView.findViewById(R.id.rlItemContent);
-//            viewHolder.llDetail = (LinearLayout) convertView.findViewById(R.id.llDetail);
-//            viewHolder.tvTranAmount = (TextView) convertView.findViewById(R.id.tvTranAmount);
-//            viewHolder.tvTranType = (TextView) convertView.findViewById(R.id.tvTranType);
-//            viewHolder.tvTranMode = (TextView) convertView.findViewById(R.id.tvTranMode);
-//            viewHolder.tvTranDate = (TextView) convertView.findViewById(R.id.tvTranDate);
-//            viewHolder.llTranLogId = ((LinearLayout) convertView.findViewById(R.id.llTranLogId));
-//            viewHolder.tvMasterTranLogId = ((TextView) convertView.findViewById(R.id.tvMasterTranLogId));
-//            viewHolder.tvTranLogId = (TextView) convertView.findViewById(R.id.tvTranLogId);
-//            viewHolder.tvOperatorId = (TextView) convertView.findViewById(R.id.tvOperatorId);
-//            viewHolder.btnPrint = (Button) convertView.findViewById(R.id.btnPrint);
-//            viewHolder.btnRevoke = (Button) convertView.findViewById(R.id.btnRevoke);
-//            viewHolder.ivArrowRight = (ImageView) convertView.findViewById(R.id.ivArrowRight);
-//            viewHolder.ivBottomLine = (ImageView) convertView.findViewById(R.id.ivBottomLine);
-//            viewHolder.ivTranlogIcon = (ImageView) convertView.findViewById(R.id.ivTranlogIcon);
-//            viewHolder.ivLastBottomLine = (ImageView) convertView.findViewById(R.id.ivLastBottomLine);
-//            viewHolder.tvBelowOperator = (TextView) convertView.findViewById(R.id.tvBeloweOptName);
-//            viewHolder.llBelowOpt = (LinearLayout) convertView.findViewById(R.id.llBeloweOptName);
-//            viewHolder.llTopOpt = (LinearLayout) convertView.findViewById(R.id.llTopOptName);
-//            viewHolder.llItemBtns = (LinearLayout) convertView.findViewById(R.id.llItemBtns);
-//            //TODO 卡券核销扣减部分暂不显示
-//            convertView.findViewById(R.id.llTranlogDetailReduce).setVisibility(View.GONE);
-//            convertView.findViewById(R.id.llTranlogDetailReduceAmount).setVisibility(View.GONE);
-//            convertView.setTag(viewHolder);
-//        } else {
-//            viewHolder = (ViewHolder) convertView.getTag();
-//        }
-//
-//        operateGroupView(position, viewHolder);
-//        operateChildView(position, viewHolder);
-//
-//
-//        return convertView;
-//    }
 }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.lc.baseui.widget.dialog.SimpleListViewDialog;
 import com.lc.librefreshlistview.linear.SimpleLinearRecycleView;
 import com.lc.librefreshlistview.listener.RefreshEventListener;
 import com.ui.dialog.DialogHelper;
@@ -41,7 +40,6 @@ import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialLis
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TranRecordStatusDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
-import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
 import com.wizarpos.pay2.lite.R;
@@ -52,7 +50,6 @@ import java.util.List;
 public class NewTranlogActivity extends NewBaseTranlogActivity implements TransRecordConstants, QueryFragment.QueryFragmentListener, View.OnClickListener, RefundDialogFragment.OnSaveListener {
     private static String TAG = NewTranlogActivity.class.getSimpleName();
     private DrawerLayout dlMain;
-//    private String alreadyAmount;
 
     private SimpleLinearRecycleView simpleLinearRecycleView;
     private TranRecoderAdapter adapter;
@@ -244,6 +241,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_INPUT_PASSWORD) {
                 RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), dailyDetailResp);
+                refundDialogFragment.setOnSaveListener(this);
+                refundDialogFragment.setContext(this);
                 refundDialogFragment.show(getFragmentManager(), null);
             } else if (requestCode == REQUEST_PAY_CANCEL) {
 //                getDataNew(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
@@ -305,20 +304,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
     private void operateRefundOnclick(DailyDetailResp resp) {
         dailyDetailResp = resp;
-        // alreadyAmount = String.valueOf(Integer.parseInt(resp.getSingleAmount()) - Integer.parseInt(resp.getRefundAmount()));
-
         toInputPasswordActivity(REQUEST_INPUT_PASSWORD);
-//        TransRecordDialog.refundDialog(NewTranlogActivity.this, dailyDetailResp, new SimpleListViewDialog.OnCancleAndSuceClickListener() {
-//            @Override
-//            public void onSure(View view) {
-//
-//            }
-//
-//            @Override
-//            public void onCancle(View view) {
-//
-//            }
-//        });
+
     }
 
 
@@ -355,8 +342,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         setLayoutRefreshOnComplete();
         ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(responseJson, ResponseTranRecoderListBean.class);
         if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
+            //
             ResponseTranRecoderListBean.ResultBeanX resultBeanX = responseTranRecoderListBean.getResult();
+            //
             setDataActivityStatusHttpOnSuccess(resultBeanX.isHasNext(), resultBeanX.getPageNo());
+            //
             operateListView(resultBeanX);
         } else {
             Response response1 = new Response();
@@ -412,8 +402,6 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void operatePayForCancle() {
         //清空状态数据
         tranRecordStatusParam = TranRecordStatusDataUtil.createDefault();
-        //清空重置
-//        queryFragment.doQueryReset();
         //清空数据
         setLayoutListViewEmpty();
         //
@@ -525,42 +513,42 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void rePrintCustomer() {
         for (final DailyDetailResp detailResp : respList) {
             if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-                detailResp.setSingleAmount(detailResp.getTrasnAmount());
-                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-                detailResp.setPayTime(detailResp.getPayTime());
-                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-                detailResp.setTranlogId(detailResp.getTranLogId());
-                detailResp.setRefundAmount(detailResp.getRefundAmount());
-                detailResp.setOptName(detailResp.getOptName());
-                detailResp.setTipAmount(detailResp.getTipAmount());
-                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-                detailResp.setCnyAmount(detailResp.getCnyAmount());
-                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-                }
-                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-                }
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
+//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
+//                detailResp.setPayTime(detailResp.getPayTime());
+//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
+//                detailResp.setTranlogId(detailResp.getTranLogId());
+//                detailResp.setRefundAmount(detailResp.getRefundAmount());
+//                detailResp.setOptName(detailResp.getOptName());
+//                detailResp.setTipAmount(detailResp.getTipAmount());
+//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
+//                detailResp.setCnyAmount(detailResp.getCnyAmount());
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
+//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
+//                }
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
+//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
+//                }
                 statisticsPresenter.reprintCustomerSale(detailResp);
             }
             if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-                detailResp.setSingleAmount(detailResp.getTrasnAmount());
-                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-                detailResp.setPayTime(detailResp.getPayTime());
-                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-                detailResp.setTranlogId(detailResp.getTranLogId());
-                detailResp.setRefundAmount(detailResp.getRefundAmount());
-                detailResp.setOptName(detailResp.getOptName());
-                detailResp.setTipAmount(detailResp.getTipAmount());
-                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-                detailResp.setCnyAmount(detailResp.getCnyAmount());
-                detailResp.setCnyAmount(detailResp.getCnyAmount());
-                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-                }
-                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-                }
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
+//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
+//                detailResp.setPayTime(detailResp.getPayTime());
+//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
+//                detailResp.setTranlogId(detailResp.getTranLogId());
+//                detailResp.setRefundAmount(detailResp.getRefundAmount());
+//                detailResp.setOptName(detailResp.getOptName());
+//                detailResp.setTipAmount(detailResp.getTipAmount());
+//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
+//                detailResp.setCnyAmount(detailResp.getCnyAmount());
+//                detailResp.setCnyAmount(detailResp.getCnyAmount());
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
+//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
+//                }
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
+//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
+//                }
                 statisticsPresenter.reprintCustomerRefund(detailResp);
             }
         }
@@ -570,41 +558,41 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void rePrintMerchant() {
         for (final DailyDetailResp detailResp : respList) {
             if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-                detailResp.setSingleAmount(detailResp.getTrasnAmount());
-                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-                detailResp.setPayTime(detailResp.getPayTime());
-                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-                detailResp.setTranlogId(detailResp.getTranLogId());
-                detailResp.setRefundAmount(detailResp.getRefundAmount());
-                detailResp.setOptName(detailResp.getOptName());
-                detailResp.setTipAmount(detailResp.getTipAmount());
-                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-                detailResp.setCnyAmount(detailResp.getCnyAmount());
-                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-                }
-                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-                }
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
+//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
+//                detailResp.setPayTime(detailResp.getPayTime());
+//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
+//                detailResp.setTranlogId(detailResp.getTranLogId());
+//                detailResp.setRefundAmount(detailResp.getRefundAmount());
+//                detailResp.setOptName(detailResp.getOptName());
+//                detailResp.setTipAmount(detailResp.getTipAmount());
+//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
+//                detailResp.setCnyAmount(detailResp.getCnyAmount());
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
+//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
+//                }
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
+//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
+//                }
                 statisticsPresenter.reprintMerchantSale(detailResp);
             }
             if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-                detailResp.setSingleAmount(detailResp.getTrasnAmount());
-                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-                detailResp.setPayTime(detailResp.getPayTime());
-                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-                detailResp.setTranlogId(detailResp.getTranLogId());
-                detailResp.setRefundAmount(detailResp.getRefundAmount());
-                detailResp.setOptName(detailResp.getOptName());
-                detailResp.setTipAmount(detailResp.getTipAmount());
-                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-                detailResp.setCnyAmount(detailResp.getCnyAmount());
-                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-                }
-                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-                }
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
+//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
+//                detailResp.setPayTime(detailResp.getPayTime());
+//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
+//                detailResp.setTranlogId(detailResp.getTranLogId());
+//                detailResp.setRefundAmount(detailResp.getRefundAmount());
+//                detailResp.setOptName(detailResp.getOptName());
+//                detailResp.setTipAmount(detailResp.getTipAmount());
+//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
+//                detailResp.setCnyAmount(detailResp.getCnyAmount());
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
+//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
+//                }
+//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
+//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
+//                }
                 statisticsPresenter.reprintMerchantRefund(detailResp);
             }
         }

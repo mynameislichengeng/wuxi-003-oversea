@@ -191,6 +191,7 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
             private String settlementAmount;
             private String settlementCurrency;
             private String sn;
+            private String merchantTradeCode;
 
 
             public int getCnyAmount() {
@@ -359,6 +360,14 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
 
             public void setSn(String sn) {
                 this.sn = sn;
+            }
+
+            public String getMerchantTradeCode() {
+                return merchantTradeCode;
+            }
+
+            public void setMerchantTradeCode(String merchantTradeCode) {
+                this.merchantTradeCode = merchantTradeCode;
             }
         }
     }

@@ -6,15 +6,16 @@ public class DailyDetailResp implements Serializable {
     private String discountAmount;
     private String masterTranLogId;
     private String tranLogId;
-    private String tran_time;
+    //    private String tran_time;
     private String transKind;
     private String transType;
-    private String trasnAmount;
+    private String transAmount;
     private String refundAmount;
     private String thirdTradeNo;
     private String transCurrency;// 结算类型
     private String settlementAmount;
     private String settlementCurrency;
+    private String merchantTradeCode;
 
     private String tipAmount;
     private String thirdExtId;
@@ -26,11 +27,12 @@ public class DailyDetailResp implements Serializable {
     private String tranType;
     private String transName;
     private String singleAmount;
-    private String transTime;
+    private String tranTime;
     private String tranlogId;
     private String payTime;
     private String cancelKind;
     private String sn;
+
 
     private String optName;
     private String bank_info;
@@ -93,7 +95,6 @@ public class DailyDetailResp implements Serializable {
     }
 
 
-
     public String getDiscountAmount() {
         return discountAmount;
     }
@@ -118,13 +119,6 @@ public class DailyDetailResp implements Serializable {
         this.tranLogId = tranLogId;
     }
 
-    public String getTran_time() {
-        return tran_time;
-    }
-
-    public void setTran_time(String tran_time) {
-        this.tran_time = tran_time;
-    }
 
     public String getTransKind() {
         return transKind;
@@ -142,21 +136,21 @@ public class DailyDetailResp implements Serializable {
         this.transType = transType;
     }
 
-    public String getTrasnAmount() {
-        return trasnAmount;
+    public String getTransAmount() {
+        return transAmount;
     }
 
-    public void setTrasnAmount(String trasnAmount) {
-        this.trasnAmount = trasnAmount;
+    public void setTransAmount(String transAmount) {
+        this.transAmount = transAmount;
     }
 
-    public boolean isExpand() {
-        return isExpand;
-    }
-
-    public void setExpand(boolean expand) {
-        isExpand = expand;
-    }
+//    public boolean isExpand() {
+//        return isExpand;
+//    }
+//
+//    public void setExpand(boolean expand) {
+//        isExpand = expand;
+//    }
 
     public String getTranType() {
         return tranType;
@@ -182,12 +176,12 @@ public class DailyDetailResp implements Serializable {
         this.singleAmount = singleAmount;
     }
 
-    public String getTransTime() {
-        return transTime;
+    public String getTranTime() {
+        return tranTime;
     }
 
-    public void setTransTime(String transTime) {
-        this.transTime = transTime;
+    public void setTranTime(String tranTime) {
+        this.tranTime = tranTime;
     }
 
     public String getTranlogId() {
@@ -262,4 +256,11 @@ public class DailyDetailResp implements Serializable {
         this.sn = sn;
     }
 
+    public String getMerchantTradeCode() {
+        return merchantTradeCode;
+    }
+
+    public void setMerchantTradeCode(String merchantTradeCode) {
+        this.merchantTradeCode = merchantTradeCode;
+    }
 }

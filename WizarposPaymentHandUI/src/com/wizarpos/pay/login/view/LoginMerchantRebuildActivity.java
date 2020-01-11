@@ -71,6 +71,7 @@ import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
 import com.wizarpos.pay.view.util.VcodeDialogFragment;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.util.PackageAndroidManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
     private XEditText et_password;
     private TextView tvMerchantId;
     private CheckBox cb_remember_psw;
-    private TextView tvForgetPwd;
+    private TextView tvForgetPwd, tv_version;
     private ImageView ivLoginClose;
     private Button btn_login;
     private boolean isShowPassword = false;
@@ -211,7 +212,10 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         setOnClickListenerById(R.id.btnRegist, this);
         setOnClickListenerById(R.id.btnTest, this);
         setOnClickListenerById(R.id.btnSwitchLanguage, this);
-
+        //版本号
+        tv_version = findViewById(R.id.tv_version);
+        tv_version.setText(PackageAndroidManager.getVersionName(this));
+        //
         initUserEt();
     }
 

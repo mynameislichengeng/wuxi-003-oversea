@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     private ImageView ivInvoiceEditIcon;
     private String exchangeRate;
     private InputPad inputPad;
+    private LinearLayout lin_invoice;
 
     private OnConfirmListener onConfirmListener;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -69,6 +71,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
             }
         });
         //invoice
+        lin_invoice = mainView.findViewById(R.id.line_invoice_content);
         tv_invoice = mainView.findViewById(R.id.tv_invoice);
         setLayoutInvoiceTv();
         exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
@@ -91,6 +94,11 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     private void setLayoutInvoiceTv() {
         String invoiceStr = InvoiceServiceImpl.getInstance().gettingInvoice(getContext());
         tv_invoice.setText(invoiceStr);
+        if (TextUtils.isEmpty(invoiceStr)) {
+            lin_invoice.setVisibility(View.GONE);
+        } else {
+            lin_invoice.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -124,9 +132,9 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
             return;
         }
         //验证invoice是否输入合法
-//        if (!InvoiceServiceImpl.getInstance().validateInvoice(getContext())) {
-//            return;
-//        }
+        if (!InvoiceServiceImpl.getInstance().validateInvoice(getContext())) {
+            return;
+        }
 
         if (onConfirmListener != null) {
             onConfirmListener.onComfirm();

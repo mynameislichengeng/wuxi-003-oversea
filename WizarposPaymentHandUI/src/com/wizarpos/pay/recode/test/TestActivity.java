@@ -40,12 +40,12 @@ public class TestActivity extends AppCompatActivity {
 
 
     public void btnClick(View view) {
-        DailyDetailResp resp = new DailyDetailResp();
-        resp.setSingleAmount("你好");
-        resp.setPayTime("2019-01-03");
-        resp.setTransType("alipay");
-        resp.setTranLogId("p123123");
-        resp.setRefundAmount("123");
+//        DailyDetailResp resp = new DailyDetailResp();
+//        resp.setSingleAmount("你好");
+//        resp.setPayTime("2019-01-03");
+//        resp.setTransType("alipay");
+//        resp.setTranLogId("p123123");
+//        resp.setRefundAmount("123");
 //        TransRecordDialog.refundDialog(this, resp);
     }
 

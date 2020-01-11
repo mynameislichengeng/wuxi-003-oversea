@@ -67,5 +67,6 @@
     <string name="print_reprint">(Re print)</string>
     <string name="print_fx_rate">FX rate:</string>
     <string name="print_total">Total:</string>
+    <string name="print_invoice">发票#</string>
 
 </resources>

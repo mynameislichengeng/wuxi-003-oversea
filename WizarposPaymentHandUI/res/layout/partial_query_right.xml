@@ -247,16 +247,14 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#D8D8D8"
-                    android:visibility="gone" />
+                    android:background="#D8D8D8" />
 
                 <LinearLayout
                     android:id="@+id/linInvoiceNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -289,7 +287,6 @@
                         android:layout_marginRight="10dp"
                         android:background="@drawable/edittext_selector"
                         android:hint="@string/hint_enter_invoice_num"
-                        android:inputType="number"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textColor="#666666"

@@ -19,6 +19,17 @@ public class InvoiceLoginServiceImpl {
         return AppConfigHelper.getConfig(AppConfigDef.invoicenum, "");
     }
 
+
+    /**
+     * 从后台服务后的，账号是否需要invoice标记
+     *
+     * @param flag
+     */
+    public void setAppconfifMandatoryFlag(String flag) {
+        AppConfigHelper.setConfig(AppConfigDef.mandatoryFlag, flag);//invoice码是否强制输入(0 关闭 ，1开启)
+
+    }
+
     protected String getAppconfigMandatoryFlag() {
         return AppConfigHelper.getConfig(AppConfigDef.mandatoryFlag, "");//invoice码是否强制输入(0 关闭 ，1开启)
     }

@@ -2,6 +2,7 @@ package com.wizarpos.pay.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -13,10 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lc.baseui.widget.dialog.SimpleListViewDialog;
 import com.ui.setting.CommonItem;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.constants.IntentConstants;
+import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
+import com.wizarpos.pay.ui.newui.NewTranlogActivity;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
 import com.wizarpos.pay2.lite.R;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
@@ -33,17 +37,15 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
 
     private String amount;
     private String alreadyAmount;
-
-
     private OnSaveListener onSaveListener;
     private CommonItem ciAmount;
     private EditText etAmount;
+    private Context context;
 
 
     public static RefundDialogFragment newInstance(String title, DailyDetailResp dailyDetailResp) {
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-//        bundle.putString("alreadyAmount", alreadyAmount);
         bundle.putSerializable(IntentConstants.TradLogActivity.REFUND_DIALOG_OBJECT.getKey(), dailyDetailResp);
         RefundDialogFragment refundDialogFragment = new RefundDialogFragment();
         refundDialogFragment.setArguments(bundle);
@@ -55,9 +57,9 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         title = bundle.getString("title");
-//        alreadyAmount = bundle.getString("alreadyAmount");
         dailyDetailResp = (DailyDetailResp) bundle.getSerializable(IntentConstants.TradLogActivity.REFUND_DIALOG_OBJECT.getKey());
-        alreadyAmount = String.valueOf(Integer.parseInt(dailyDetailResp.getSingleAmount()) - Integer.parseInt(dailyDetailResp.getRefundAmount()));
+        //transAmount-refundAmount
+        alreadyAmount = String.valueOf(Integer.parseInt(dailyDetailResp.getTransAmount()) - Integer.parseInt(dailyDetailResp.getRefundAmount()));
     }
 
     @Nullable
@@ -77,6 +79,7 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
         view.findViewById(R.id.rvCancel).setOnClickListener(this);
         view.findViewById(R.id.rvCommit).setOnClickListener(this);
         ciAmount = ((CommonItem) view.findViewById(R.id.ciAmount));
+        //
         String trancy = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(dailyDetailResp.getTransCurrency());
         ciAmount.getTvRight().setText(trancy);
         ciAmount.getTvRight().setPadding(0, 0, 0, 0);
@@ -91,26 +94,9 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
         etAmount.addTextChangedListener(new NewCashTextWatcher(etAmount, new NewCashTextWatcher.EditTextChange() {
             @Override
             public void dataChange(String string) {
-                string = etAmount.getText().toString().trim();
+//                string = etAmount.getText().toString().trim();
             }
         }));
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnSaveListener) {
-            onSaveListener = (OnSaveListener) activity;
-        } else {
-            throw new RuntimeException(activity.toString()
-                    + " must implement onSaveListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        onSaveListener = null;
     }
 
     @Override
@@ -120,19 +106,44 @@ public class RefundDialogFragment extends DialogFragment implements View.OnClick
                 this.dismiss();
                 break;
             case R.id.rvCommit:
-                amount = etAmount.getText().toString().trim();
-                if ("0".equals(Calculater.formotYuan(amount))) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.input_cancel_amount), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Integer.parseInt(Calculater.formotYuan(amount)) > Integer.parseInt(alreadyAmount)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.revoke_large), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                onSaveListener.onSave(amount);
-                this.dismiss();
+                operateOnclickSure();
                 break;
         }
+    }
+
+
+    private void operateOnclickSure() {
+        amount = etAmount.getText().toString().trim();
+        if ("0".equals(Calculater.formotYuan(amount))) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.input_cancel_amount), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (Integer.parseInt(Calculater.formotYuan(amount)) > Integer.parseInt(alreadyAmount)) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.revoke_large), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //取消
+        this.dismiss();
+        //弹出确认
+        TransRecordDialog.refundDialog(this.context, amount, dailyDetailResp, new SimpleListViewDialog.OnCancleAndSuceClickListener() {
+            @Override
+            public void onSure(View view) {
+                RefundDialogFragment.this.onSaveListener.onSave(amount);
+            }
+
+            @Override
+            public void onCancle(View view) {
+
+            }
+        });
+    }
+
+    public void setOnSaveListener(OnSaveListener onSaveListener) {
+        this.onSaveListener = onSaveListener;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public interface OnSaveListener {

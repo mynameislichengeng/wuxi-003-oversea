@@ -33,6 +33,7 @@ import com.wizarpos.pay.model.OrderDef;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.PrintManager;
+import com.wizarpos.recode.print.content.InvoiceContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
@@ -218,6 +219,10 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 String printFx = context.getString(R.string.print_fx_rate);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
                 lines.add(new HTMLPrintModel.EmptyLine());
+
+                //invoice
+                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
+
                 String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -339,6 +344,15 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
+
+            //
+            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
+            if (invoiceString != null) {
+                for (String str : invoiceString) {
+                    printString += str + builder.br();
+                }
+            }
+            //
             String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.getBytes("GBK").length) + tranlogId + builder.br();
@@ -454,6 +468,11 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 String printFx = context.getString(R.string.print_fx_rate);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
                 lines.add(new HTMLPrintModel.EmptyLine());
+
+                //invoice
+                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
+
+
                 String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -573,7 +592,17 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
+
+            //invoice
+            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
+            if (invoiceString != null) {
+                for (String str : invoiceString) {
+                    printString += str + builder.br();
+                }
+            }
+
+
             String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.getBytes("GBK").length) + tranlogId + builder.br();
@@ -688,6 +717,8 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                             }
                             transactionInfo.setSettlementCurrency(orderDef.getSettlementCurrency());
                             transactionInfo.setSettlementAmount(orderDef.getSettlementAmount());
+                            transactionInfo.setTransCurrency(orderDef.getTransCurrency());
+                            transactionInfo.setMerchantTradeCode(orderDef.getMerchantTradeCode());
 
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT, getPrintContext());
                             AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT, getCustomerPrintContext());

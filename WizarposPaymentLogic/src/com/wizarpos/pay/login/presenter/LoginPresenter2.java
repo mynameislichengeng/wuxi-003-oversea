@@ -45,6 +45,9 @@ import com.wizarpos.pay.model.LoginedMerchant;
 import com.wizarpos.pay.model.SysParam;
 import com.wizarpos.pay.model.UserEntity;
 import com.wizarpos.pay.test.TestStartMenuActivity;
+import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
+import com.wizarpos.recode.util.PackageAndroidManager;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.text.SimpleDateFormat;
@@ -186,7 +189,7 @@ public class LoginPresenter2 extends BasePresenter {
             terminalUniqNo = android.os.Build.SERIAL;//终端序列号
         } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
             terminalUniqNo = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
-        }else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
+        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
             terminalUniqNo = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
         } else {
             terminalUniqNo = DeviceManager.getImei(context);//IMEI地址
@@ -261,6 +264,7 @@ public class LoginPresenter2 extends BasePresenter {
         if (Constants.APP_VERSION_NAME == Constants.APP_VERSION_LAWSON) {
             params.put("luosenFlag", "1");//1:罗森 0:正常
         }
+        params.put(HttpConstants.API_100_PARAM.TERMINALVERSION.getKey(), PackageAndroidManager.getVersionName(context));
         NetRequest.getInstance().addRequest(Constants.SC_100_MERCHANT_INFO_SUBMIT, params, new ResponseListener() {
 
             @Override
@@ -349,6 +353,7 @@ public class LoginPresenter2 extends BasePresenter {
             params.put("terminalInfo", gson.toJson(info));
 //            Log.i("YS!!", gson.toJson(AppInfoUtils.getAppInfo(context)));
         }
+        params.put(HttpConstants.API_100_PARAM.TERMINALVERSION.getKey(), PackageAndroidManager.getVersionName(context));
         NetRequest.getInstance().addRequest(Constants.SC_100_MERCHANT_INFO_SUBMIT, params, new ResponseListener() {
 
             @Override
@@ -431,8 +436,8 @@ public class LoginPresenter2 extends BasePresenter {
             AppConfigHelper.setConfig(AppConfigDef.collectTips, loginResp.getMerchantDefSuffix().getCollectTips());//是否启用小费  ON启用 OFF禁用
             AppConfigHelper.setConfig(AppConfigDef.tipsPercentageAllow, loginResp.getMerchantDefSuffix().getTipsPercentageAllow());//是否允许手动设置百分比，T允许，F不允许
             AppConfigHelper.setConfig(AppConfigDef.tipsCustomAllow, loginResp.getMerchantDefSuffix().getTipsCustomAllow());//是否允许顾客输入小费金额  T允许  F不允许
-            AppConfigHelper.setConfig(AppConfigDef.mandatoryFlag, loginResp.getMerchantDefSuffix().getMandatoryFlag());//invoice码是否强制输入(0 关闭 ，1开启)
-
+            //invoice码是否强制输入(0 关闭 ，1开启)
+            InvoiceLoginServiceImpl.getInstatnce().setAppconfifMandatoryFlag(loginResp.getMerchantDefSuffix().getMandatoryFlag());
             JSONObject jsonObject = JSONObject.parseObject(loginResp.getMerchantDefSuffix().getTipsPercentage());
             if (null != jsonObject) {
                 AppConfigHelper.setConfig(AppConfigDef.percentP1, jsonObject.getString("p1"));
@@ -863,4 +868,6 @@ public class LoginPresenter2 extends BasePresenter {
     public boolean isOffline() {
         return isOffline;
     }
+
+
 }

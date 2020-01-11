@@ -47,24 +47,9 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
         listview = (RecyclerView) findViewById(R.id.list);
         tv_title = (TextView) findViewById(R.id.tv_dialog_title);
         btnCancle = (Button) findViewById(R.id.dialog_left_btn);
-        btnCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                if (onCancleAndSuceClickListener != null) {
-                    onCancleAndSuceClickListener.onCancle(v);
-                }
-            }
-        });
+        btnCancle.setOnClickListener(this);
         btnOk = (Button) findViewById(R.id.dialog_right_btn);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onCancleAndSuceClickListener != null) {
-                    onCancleAndSuceClickListener.onSure(v);
-                }
-            }
-        });
+        btnOk.setOnClickListener(this);
     }
 
 
@@ -82,12 +67,29 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
 
     @Override
     public void onItemClick(int position, Object o) {
-        String obj = (String) o;
         if (onSelectItemDialog != null) {
             onSelectItemDialog.onSelectItem(position, o);
         }
         dismiss();
     }
+
+    /**
+     *
+     **/
+    @Override
+    public void onClick(View view) {
+        dismiss();
+        if (view.getId() == R.id.dialog_left_btn) {
+            if (onCancleAndSuceClickListener != null) {
+                onCancleAndSuceClickListener.onCancle(view);
+            }
+        } else if (view.getId() == R.id.dialog_right_btn) {
+            if (onCancleAndSuceClickListener != null) {
+                onCancleAndSuceClickListener.onSure(view);
+            }
+        }
+    }
+
 
     public void setDialogTitle(String title) {
         tv_title.setText(title);
@@ -97,7 +99,7 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
         tv_title.setText(res);
     }
 
-    public void setDialogTitleVisible(int visible){
+    public void setDialogTitleVisible(int visible) {
         tv_title.setVisibility(visible);
     }
 
@@ -109,6 +111,7 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
     public void setOnCancleAndSuceClickListener(OnCancleAndSuceClickListener onCancleAndSuceClickListener) {
         this.onCancleAndSuceClickListener = onCancleAndSuceClickListener;
     }
+
 
     public static interface OnCancleAndSuceClickListener {
         void onSure(View view);

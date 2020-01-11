@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.lc.baseui.widget.ed.EditViewUtil;
+import com.wizarpos.atool.tool.EditTextUtil;
 import com.wizarpos.pay.common.DialogHelper;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.ViewHolder;
@@ -146,6 +148,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         }
         //invoice num编辑ui
         etInvoiceNum = view.findViewById(R.id.etInvoiceNo);
+        EditViewUtil.setttingEditNumAndChar(etInvoiceNum);
         etStartTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DialogHelper.showDateDialog(getContext(), etStartTime);
@@ -214,7 +217,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
             if (etInvoiceNum.getText() != null && !TextUtils.isEmpty(etInvoiceNum.getText().toString())) {
                 invoiceNum = etInvoiceNum.getText().toString();
             }
-            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"), tranlogId,invoiceNum);
+            mListener.onQuery(timeRange + "", tranType + "", params.get("startDate"), params.get("endDate"), tranlogId, invoiceNum);
             doQueryReset();
         }
     }
@@ -274,6 +277,6 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
          * @param startDate
          * @param endDate
          */
-        void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId,String invoiceNum);
+        void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId, String invoiceNum);
     }
 }

@@ -53,6 +53,7 @@ public class TransactionInfo implements Serializable {
     private String optName;
     private String settlementAmount;
     private String settlementCurrency;
+    private String merchantTradeCode;
 
     protected List<TicketInfo> tList;//线上支付发行的卡券
     protected String commoncashierOrderId;//销售单Id wu
@@ -471,6 +472,14 @@ public class TransactionInfo implements Serializable {
 
     public void setOptName(String optName) {
         this.optName = optName;
+    }
+
+    public String getMerchantTradeCode() {
+        return merchantTradeCode;
+    }
+
+    public void setMerchantTradeCode(String merchantTradeCode) {
+        this.merchantTradeCode = merchantTradeCode;
     }
 }
 

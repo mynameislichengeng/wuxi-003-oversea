@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.lc.baseui.R;
 import com.lc.baseui.constants.UIStyleEnum;
+import com.lc.baseui.widget.ed.EditViewUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -175,30 +176,8 @@ public class CommonDialog extends Dialog {
      */
     private void settingEditViewNumAndChar() {
         dialog_ed_content.setVisibility(View.VISIBLE);
-        dialog_ed_content.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        EditViewUtil.setttingEditNumAndChar(dialog_ed_content);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String editable = dialog_ed_content.getText().toString();
-                String regEx = "[^a-zA-Z0-9]";  //只能输入字母或数字
-                Pattern p = Pattern.compile(regEx);
-                Matcher m = p.matcher(editable);
-                String str = m.replaceAll("").trim();    //删掉不是字母或数字的字符
-                if (!editable.equals(str)) {
-                    dialog_ed_content.setText(str);  //设置EditText的字符
-                    dialog_ed_content.setSelection(str.length()); //因为删除了字符，要重写设置新的光标所在位置
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
 

@@ -29,6 +29,7 @@ import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
+import com.wizarpos.recode.print.content.InvoiceContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.wizarpospaymentlogic.R;
@@ -234,94 +235,94 @@ public class TransactionCancelPresenter {
         }
     }
 
-    /**
-     * 撤销普通交易
-     */
-    private void cancelCommonTrans(PayTranRsp bean, boolean bankcardpay, String refundAmount, final ResultListener listener) {
-        if (bean == null || bean.getPayTran() == null || bean.getPayTran().isEmpty()) {
-            listener.onFaild(new Response(1, "撤销失败!"));
-            return;
-        }
-        TranLog tran = bean.getPayTran().get(0);
-        String containSale = "0";
-        if (bean.getSaleOrder() != null && !bean.getSaleOrder().isEmpty()) {// 商品列表不为空
-            containSale = "1";
-        }
-        String tranLogId = "";
-        String tranCode = tran.getTran_code();
-        if ("400".equals(tranCode)) {
-            tranLogId = tran.getMaster_tran_log_id();
-        } else if ("402".equals(tranCode)) {
-            tranLogId = tran.getOffline_tran_log_id();
-        } else if ("302".equals(tranCode)) {
-            tranLogId = tran.getMaster_tran_log_id();
-        } else if ("304".equals(tranCode)) {
-            tranLogId = tran.getMaster_tran_log_id();
-        } else if ("401".equals(tranCode)) {
-            tranLogId = tran.getMaster_tran_log_id();
-        } else {
-            tranLogId = tran.getMaster_tran_log_id();
-        }
-        Map<String, Object> params = new HashMap<String, Object>();
-        try {
-            if (!TextUtils.isEmpty(tran.getOrder_no())) {
-                params.put("orderNo", tran.getOrder_no());
-            }
-            params.put("tranLogId", tranLogId);
-            params.put("tranCode", tranCode);
-            params.put("containSale", containSale);
-            params.put("refundAmount", refundAmount);
-            params.put("batFlag", Constants.BAT_FLAG);
-            if (bankcardpay) {
-                params.put("isBankCard", Constants.BANKCARDPAY);
-            }
-            NetRequest.getInstance().addRequest(Constants.SC_955_TRANLOG_CANCEL, params, new ResponseListener() {
+//    /**
+//     * 撤销普通交易
+//     */
+//    private void cancelCommonTrans(PayTranRsp bean, boolean bankcardpay, String refundAmount, final ResultListener listener) {
+//        if (bean == null || bean.getPayTran() == null || bean.getPayTran().isEmpty()) {
+//            listener.onFaild(new Response(1, "撤销失败!"));
+//            return;
+//        }
+//        TranLog tran = bean.getPayTran().get(0);
+//        String containSale = "0";
+//        if (bean.getSaleOrder() != null && !bean.getSaleOrder().isEmpty()) {// 商品列表不为空
+//            containSale = "1";
+//        }
+//        String tranLogId = "";
+//        String tranCode = tran.getTran_code();
+//        if ("400".equals(tranCode)) {
+//            tranLogId = tran.getMaster_tran_log_id();
+//        } else if ("402".equals(tranCode)) {
+//            tranLogId = tran.getOffline_tran_log_id();
+//        } else if ("302".equals(tranCode)) {
+//            tranLogId = tran.getMaster_tran_log_id();
+//        } else if ("304".equals(tranCode)) {
+//            tranLogId = tran.getMaster_tran_log_id();
+//        } else if ("401".equals(tranCode)) {
+//            tranLogId = tran.getMaster_tran_log_id();
+//        } else {
+//            tranLogId = tran.getMaster_tran_log_id();
+//        }
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        try {
+//            if (!TextUtils.isEmpty(tran.getOrder_no())) {
+//                params.put("orderNo", tran.getOrder_no());
+//            }
+//            params.put("tranLogId", tranLogId);
+//            params.put("tranCode", tranCode);
+//            params.put("containSale", containSale);
+//            params.put("refundAmount", refundAmount);
+//            params.put("batFlag", Constants.BAT_FLAG);
+//            if (bankcardpay) {
+//                params.put("isBankCard", Constants.BANKCARDPAY);
+//            }
+//            NetRequest.getInstance().addRequest(Constants.SC_955_TRANLOG_CANCEL, params, new ResponseListener() {
+//
+//                @Override
+//                public void onSuccess(Response response) {
+//                    listener.onSuccess(response);
+//                }
+//
+//                @Override
+//                public void onFaild(Response response) {
+//                    listener.onFaild(response);
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-                @Override
-                public void onSuccess(Response response) {
-                    listener.onSuccess(response);
-                }
-
-                @Override
-                public void onFaild(Response response) {
-                    listener.onFaild(response);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 撤销
-     */
-    public void cancelTrans(DailyDetailResp bean, boolean bankcardpay, String refundAmount, final ResultListener listener) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        try {
-            params.put("tranLogId", bean.getTranLogId());
-            params.put("tranCode", bean.getTransType());
-            params.put("containSale", "0");
-            params.put("refundAmount", refundAmount);
-            params.put("batFlag", Constants.BAT_FLAG);
-            if (bankcardpay) {
-                params.put("isBankCard", Constants.BANKCARDPAY);
-            }
-            NetRequest.getInstance().addRequest(Constants.SC_955_TRANLOG_CANCEL, params, new ResponseListener() {
-
-                @Override
-                public void onSuccess(Response response) {
-                    listener.onSuccess(response);
-                }
-
-                @Override
-                public void onFaild(Response response) {
-                    listener.onFaild(response);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * 撤销
+//     */
+//    public void cancelTrans(DailyDetailResp bean, boolean bankcardpay, String refundAmount, final ResultListener listener) {
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        try {
+//            params.put("tranLogId", bean.getTranLogId());
+//            params.put("tranCode", bean.getTransType());
+//            params.put("containSale", "0");
+//            params.put("refundAmount", refundAmount);
+//            params.put("batFlag", Constants.BAT_FLAG);
+//            if (bankcardpay) {
+//                params.put("isBankCard", Constants.BANKCARDPAY);
+//            }
+//            NetRequest.getInstance().addRequest(Constants.SC_955_TRANLOG_CANCEL, params, new ResponseListener() {
+//
+//                @Override
+//                public void onSuccess(Response response) {
+//                    listener.onSuccess(response);
+//                }
+//
+//                @Override
+//                public void onFaild(Response response) {
+//                    listener.onFaild(response);
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * 获取交易类型
@@ -420,7 +421,6 @@ public class TransactionCancelPresenter {
                 if (response != null) {
                     JSONObject result = (JSONObject) response.getResult();
                     resp.setRefundAmount(result.getString("refundAmount").replace("-", "").trim());
-                    resp.setTransCurrency(result.getString("transCurrency").replace("-", "").trim());
                     resp.setTransKind(result.getString("tranDesc").replace("Refund", "").trim());
                     resp.setMasterTranLogId(result.getString("masterTranLogId"));
                     resp.setTranLogId(result.getString("id"));
@@ -428,11 +428,12 @@ public class TransactionCancelPresenter {
                     resp.setExchangeRate(result.getString("exchangeRate"));
                     resp.setCnyAmount(result.getString("cnyAmount"));
                     resp.setPayTime(result.getString("payTime"));
+                    //交易货币
+                    resp.setTransCurrency(result.getString(HttpConstants.API_955_RESPONSE.TRANSCURRENCY.getKey()).replace("-", "").trim());
                     resp.setTranAmount(result.getString(HttpConstants.API_955_RESPONSE.TRANAMOUNT.getKey()));
                     //
                     resp.setSn(result.getString(HttpConstants.API_955_RESPONSE.SN.getKey()));
                     //
-
                     if (result.getString(HttpConstants.API_955_RESPONSE.OPTNAME.getKey()) != null) {
                         resp.setOptName(result.getString(HttpConstants.API_955_RESPONSE.OPTNAME.getKey()));
                     } else {
@@ -440,6 +441,8 @@ public class TransactionCancelPresenter {
                     }
                     resp.setSettlementCurrency(result.getString(HttpConstants.API_955_RESPONSE.SETTLEMENTCURRENCY.getKey()));
                     resp.setSettlementAmount(result.getString(HttpConstants.API_955_RESPONSE.SETTLEMENTAMOUNT.getKey()));
+                    //发票号
+                    resp.setMerchantTradeCode(result.getString(HttpConstants.API_955_RESPONSE.MERCHANTTRADECODE.getKey()));
 
                     if (result.getString("thirdExtName") != null) {
                         resp.setThirdExtName(result.getString("thirdExtName"));
@@ -520,9 +523,11 @@ public class TransactionCancelPresenter {
 //                HTMLPrintModel.LeftAndRightLine setlePrint = PrintManager.printHtmlSettlement(exchangeRate, resp);
 //                lines.add(setlePrint);
                 lines.add(SettlementContent.printHtmlSettlementRefund(resp));
-
-
                 lines.add(new HTMLPrintModel.EmptyLine());
+
+                //invoice打印
+                InvoiceContent.printHtmlRefund(context, lines, resp);
+
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -624,7 +629,15 @@ public class TransactionCancelPresenter {
 //            printStringPayFor += selPrint + builder.br();
             printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
-            printString += builder.br();
+            printString += builder.br()+builder.nBr();
+
+            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
+            if (invoicePrint != null) {
+                for (String str : invoicePrint) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -725,6 +738,10 @@ public class TransactionCancelPresenter {
 
 
                 lines.add(new HTMLPrintModel.EmptyLine());
+
+                //invoice打印
+                InvoiceContent.printHtmlRefund(context, lines, resp);
+
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -828,7 +845,15 @@ public class TransactionCancelPresenter {
             printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
 
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
+
+            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
+            if (invoicePrint != null) {
+                for (String str : invoicePrint) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();

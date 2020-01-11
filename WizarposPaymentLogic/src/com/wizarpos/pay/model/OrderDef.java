@@ -133,6 +133,8 @@ public class OrderDef implements Serializable {
 
 	private String settlementCurrency;
 	private String settlementAmount;
+	private String merchantTradeCode;
+	private String transCurrency;
 
 	public String getTicketInfo() {
 		return ticketInfo;
@@ -372,5 +374,21 @@ public class OrderDef implements Serializable {
 
 	public void setSettlementAmount(String settlementAmount) {
 		this.settlementAmount = settlementAmount;
+	}
+
+	public String getMerchantTradeCode() {
+		return merchantTradeCode;
+	}
+
+	public void setMerchantTradeCode(String merchantTradeCode) {
+		this.merchantTradeCode = merchantTradeCode;
+	}
+
+	public String getTransCurrency() {
+		return transCurrency;
+	}
+
+	public void setTransCurrency(String transCurrency) {
+		this.transCurrency = transCurrency;
 	}
 }

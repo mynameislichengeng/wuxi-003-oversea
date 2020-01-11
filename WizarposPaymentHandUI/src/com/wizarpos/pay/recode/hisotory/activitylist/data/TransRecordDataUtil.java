@@ -1,7 +1,5 @@
 package com.wizarpos.pay.recode.hisotory.activitylist.data;
 
-import android.text.TextUtils;
-
 import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
@@ -14,18 +12,19 @@ public class TransRecordDataUtil {
 
     public static DailyDetailResp create(ResponseTranRecoderListBean.ResultBeanX.ResultBean resultBean) {
         DailyDetailResp dailyDetailResp = new DailyDetailResp();
-        dailyDetailResp.setTrasnAmount(String.valueOf(resultBean.getTransAmount()));
+        dailyDetailResp.setTransAmount(String.valueOf(resultBean.getTransAmount()));
         dailyDetailResp.setOptName(resultBean.getOptName());
         dailyDetailResp.setPayTime(resultBean.getPayTime());
         dailyDetailResp.setTipAmount(String.valueOf(resultBean.getTipAmount()));
         dailyDetailResp.setTranLogId(resultBean.getTranLogId());
         dailyDetailResp.setDiscountAmount(String.valueOf(resultBean.getDiscountAmount()));
         dailyDetailResp.setThirdExtId(resultBean.getThirdExtId());
-        dailyDetailResp.setTran_time(resultBean.getTranTime());
+        dailyDetailResp.setTranTime(resultBean.getTranTime());
         dailyDetailResp.setTransKind(resultBean.getTransKind());
         dailyDetailResp.setCnyAmount(String.valueOf(resultBean.getCnyAmount()));
         dailyDetailResp.setThirdTradeNo(resultBean.getThirdTradeNo());
         dailyDetailResp.setTransType(resultBean.getTransType());
+        dailyDetailResp.setTransName(Constants.TRAN_TYPE.get(resultBean.getTransType()));
         dailyDetailResp.setThirdExtName(resultBean.getThirdExtName());
         dailyDetailResp.setExchangeRate(resultBean.getExchangeRate());
         dailyDetailResp.setMasterTranLogId(resultBean.getMasterTranLogId());
@@ -34,6 +33,7 @@ public class TransRecordDataUtil {
         dailyDetailResp.setSettlementAmount(resultBean.getSettlementAmount());
         dailyDetailResp.setSettlementCurrency(resultBean.getSettlementCurrency());
         dailyDetailResp.setSn(resultBean.getSn());
+        dailyDetailResp.setMerchantTradeCode(resultBean.getMerchantTradeCode());
         return dailyDetailResp;
     }
 

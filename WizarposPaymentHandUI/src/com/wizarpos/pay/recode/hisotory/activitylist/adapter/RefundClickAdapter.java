@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     private String[] stuName;
+    private String inputRefundAmount;//用户当前输入需要退款的金额
 
     public RefundClickAdapter(Context context, DailyDetailResp itemList) {
         this.context = context;
@@ -48,7 +49,7 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         switch (position) {
             case 0:
                 title = stuName[0];
-                value = Calculater.divide100(refundWarnAdapterParam.getSingleAmount());
+                value = Calculater.divide100(refundWarnAdapterParam.getTransAmount());
                 break;
             case 1:
                 title = stuName[1];
@@ -74,7 +75,7 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
                 break;
             case 4:
                 title = stuName[4];
-                value = Calculater.divide100(refundWarnAdapterParam.getRefundAmount());
+                value = this.inputRefundAmount;
                 break;
             default:
                 break;
@@ -87,4 +88,7 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     }
 
 
+    public void setInputRefundAmount(String inputRefundAmount) {
+        this.inputRefundAmount = inputRefundAmount;
+    }
 }

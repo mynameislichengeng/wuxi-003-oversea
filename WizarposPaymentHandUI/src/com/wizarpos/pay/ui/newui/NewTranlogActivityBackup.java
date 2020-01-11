@@ -120,7 +120,7 @@
 //    private void rePrintCustomer() {
 //        for (final DailyDetailResp detailResp : respList) {
 //            if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTrasnAmount());
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
 //                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
 //                detailResp.setPayTime(detailResp.getPayTime());
 //                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
@@ -139,7 +139,7 @@
 //                statisticsPresenter.reprintCustomerSale(detailResp);
 //            }
 //            if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTrasnAmount());
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
 //                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
 //                detailResp.setPayTime(detailResp.getPayTime());
 //                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
@@ -165,7 +165,7 @@
 //    private void rePrintMerchant() {
 //        for (final DailyDetailResp detailResp : respList) {
 //            if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTrasnAmount());
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
 //                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
 //                detailResp.setPayTime(detailResp.getPayTime());
 //                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
@@ -184,7 +184,7 @@
 //                statisticsPresenter.reprintMerchantSale(detailResp);
 //            }
 //            if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTrasnAmount());
+//                detailResp.setSingleAmount(detailResp.getTransAmount());
 //                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
 //                detailResp.setPayTime(detailResp.getPayTime());
 //                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());

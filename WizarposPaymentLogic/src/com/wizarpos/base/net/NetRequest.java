@@ -45,6 +45,7 @@ public class NetRequest {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+
     private String[] hijackHead = {"<!DOCTYPE", "<html", "<head", "<title", "<link", "<script"};
 
     public static final int NETWORK_ERR = 998899;
@@ -87,6 +88,7 @@ public class NetRequest {
                 final String json = netBundler.bundleMsgRequest(serverCode, params);
                 final Headers headers = netBundler.bundleHeader();
                 Log.d(LOG_TAG, "header:\n" + headers.toString());
+                Log.d(LOG_TAG, "serviceCode:" + serverCode);
                 Log.d(LOG_TAG, "req:" + json);
                 addPostRequest(url, json, headers, tag, new SessionNetListener(serverCode, params, tag, listener));
             }

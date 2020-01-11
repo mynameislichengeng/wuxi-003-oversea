@@ -40,10 +40,11 @@ import com.wizarpos.pay.statistics.model.MixTranLogBean;
 import com.wizarpos.pay.statistics.model.TicketTranLogBean;
 import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.model.TranLogBean;
-import com.wizarpos.recode.constants.TransRecordLogicConstants;
-import com.wizarpos.recode.print.PrintManager;
+import com.wizarpos.recode.constants.HttpConstants;
+
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
+import com.wizarpos.recode.print.content.InvoiceContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
@@ -58,6 +59,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import static com.wizarpos.pay.db.AppConfigHelper.getConfig;
 
@@ -175,6 +177,9 @@ public class StatisticsPresenter extends BasePresenter {
             params.put("tranLogId", "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + tranLogId.substring(1));
             params.remove("transType");
             params.remove("timeRange");
+        }
+        if (!TextUtils.isEmpty(invoiceNum)) {
+            params.put(HttpConstants.API_964_PARAM.INVOICENO.getKey(), invoiceNum);
         }
 
 
@@ -1347,6 +1352,14 @@ public class StatisticsPresenter extends BasePresenter {
             printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
+
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -1462,6 +1475,14 @@ public class StatisticsPresenter extends BasePresenter {
             printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
+
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -1576,6 +1597,10 @@ public class StatisticsPresenter extends BasePresenter {
         lines.add(printSetCurency);
 
         lines.add(new HTMLPrintModel.EmptyLine());
+
+        //invoice内容
+        InvoiceContent.printHtmlActivity(context, lines, resp);
+
         String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
         String printRecepit = context.getString(R.string.print_receipt);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -1661,8 +1686,8 @@ public class StatisticsPresenter extends BasePresenter {
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
-            String totalAmount = resp.getSingleAmount();
-            String tipsAmount = resp.getTipAmount();
+//            String totalAmount = resp.getSingleAmount();
+//            String tipsAmount = resp.getTipAmount();
 
 //            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
 //            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
@@ -1710,7 +1735,15 @@ public class StatisticsPresenter extends BasePresenter {
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
+            //invoice
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -1833,10 +1866,6 @@ public class StatisticsPresenter extends BasePresenter {
             printString += TotalContent.printStringActivity(context, resp) + builder.br();
 
 
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
 //            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
 //                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
@@ -1847,10 +1876,23 @@ public class StatisticsPresenter extends BasePresenter {
 //            printString += settlePrintStr + builder.br();
             printString += SettlementContent.printStringActivity(resp) + builder.br();
 
+            //
+            String exchangeRate = resp.getExchangeRate();
+            if (TextUtils.isEmpty(exchangeRate)) {
+                exchangeRate = "1";
+            }
             String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
+
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -1942,11 +1984,12 @@ public class StatisticsPresenter extends BasePresenter {
 
         lines.add(new HTMLPrintModel.EmptyLine());
         lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_sale), true, true));
-        String totalAmount = resp.getSingleAmount();
-        String tipsAmount = resp.getTipAmount();
+
+//        String totalAmount = resp.getSingleAmount();
+//        String tipsAmount = resp.getTipAmount();
 
 
-        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
 //        String printPurchase = context.getString(R.string.print_purchase);
 //
 //        if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
@@ -1970,10 +2013,6 @@ public class StatisticsPresenter extends BasePresenter {
 //        lines.add(new HTMLPrintModel.LeftAndRightLine(printTotal, transCurrency + Calculater.formotFen(resp.getSingleAmount())));
         lines.add(TotalContent.printHtmlActivity(context, resp));
 
-        String exchangeRate = resp.getExchangeRate();
-        if (TextUtils.isEmpty(exchangeRate)) {
-            exchangeRate = "1";
-        }
 
 //        String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
 //        if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
@@ -1984,11 +2023,16 @@ public class StatisticsPresenter extends BasePresenter {
         HTMLPrintModel.LeftAndRightLine printSettle = SettlementContent.printHtmlActivity(resp);
         lines.add(printSettle);
 
-
+        String exchangeRate = resp.getExchangeRate();
+        if (TextUtils.isEmpty(exchangeRate)) {
+            exchangeRate = "1";
+        }
         String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
         String printFx = context.getString(R.string.print_fx_rate);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
         lines.add(new HTMLPrintModel.EmptyLine());
+        //invoice内容
+        InvoiceContent.printHtmlActivity(context, lines, resp);
         String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
         String printRecepit = context.getString(R.string.print_receipt);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
