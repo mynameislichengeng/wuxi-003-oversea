@@ -1,6 +1,5 @@
 package com.wizarpos.pay.ui.newui;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.lc.baseui.widget.swith.CommonSwitchButton;
+import com.lc.baseui.widget.swith.callback.OnSwitchChangeListener;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.base.ViewHolder;
@@ -23,6 +24,8 @@ import com.wizarpos.pay.setting.activity.TipParameterSettingActivity;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.view.ArrayItem;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
+import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 import java.util.List;
 
@@ -45,10 +48,14 @@ public class NewSettingActivity extends BaseViewActivity {
     LinearLayout llAbout;//关于
     @Bind(R.id.llCancel)
     LinearLayout llCancel;//交易撤销
-    private Dialog cardlinkDialog;
+
+
+    private CommonSwitchButton barCodeSwitchButton;//switch
+
     private TextView tvNumber;
     private String DEFAULTNUMBER = "1";
     private int TIP_SETTING_CODE = 102;
+
 
     BaseLogicAdapter<ArrayItem> printItemAdapter = null;
     MaterialDialog printDialog = null;
@@ -77,6 +84,9 @@ public class NewSettingActivity extends BaseViewActivity {
         }
         ButterKnife.bind(this);
         llChangeCode.setVisibility(View.GONE);
+
+        //recepit按钮
+        settingBarcodeSwitchOnClick();
     }
 
     @Override
@@ -127,6 +137,32 @@ public class NewSettingActivity extends BaseViewActivity {
 
         }
     }
+
+    /**
+     * 设置barcode的switch按钮
+     */
+    private void settingBarcodeSwitchOnClick() {
+        barCodeSwitchButton = findViewById(R.id.swbtn_common);
+        String enumStatus = ReceiptDataManager.gettingBarcodeStatus();
+
+        if (ReceiptBarcodeStatusEnum.OPEN.getStatus().equals(enumStatus)) {
+            barCodeSwitchButton.setViewSwitchCheckedStatus(true);
+        } else {
+            barCodeSwitchButton.setViewSwitchCheckedStatus(false);
+        }
+        barCodeSwitchButton.setOnSwitchChangeListener(new OnSwitchChangeListener() {
+            @Override
+            public void onSwitchCloseClick() {
+                ReceiptDataManager.settingBarcodeStatus(ReceiptBarcodeStatusEnum.CLOSE);
+            }
+
+            @Override
+            public void onSwitchOpenClick() {
+                ReceiptDataManager.settingBarcodeStatus(ReceiptBarcodeStatusEnum.OPEN);
+            }
+        });
+    }
+
 
     private void showPrintItems() {
         final List<ArrayItem> printItems = ItemDataUtils.getPrintNums();

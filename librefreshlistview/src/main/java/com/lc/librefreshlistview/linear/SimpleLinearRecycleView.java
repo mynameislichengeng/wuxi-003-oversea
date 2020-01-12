@@ -49,7 +49,7 @@ public class SimpleLinearRecycleView<T> extends BaseLinearRecycleView<T> {
 
     @Override
     protected int getLayout() {
-        return R.layout.base_xrefresh_recycleview;
+        return R.layout.base_layout_xrefresh_recycleview;
     }
 
 }

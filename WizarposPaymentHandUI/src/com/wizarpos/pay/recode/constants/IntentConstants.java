@@ -15,4 +15,16 @@ public interface IntentConstants {
         }
     }
 
+    enum TradDetailActivty {
+        DETAIL_OBJ("detail_data");
+        private String key;
+
+        TradDetailActivty(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/btSkit"
@@ -10,4 +10,27 @@
         android:layout_height="wrap_content"
         android:text="跳转二维码界面" />
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_zxing_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="submit" />
+
+        <EditText
+            android:id="@+id/ed_zxing_barcode_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入条形码的文本" />
+
+        <ImageView
+            android:id="@+id/iv_zxing_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

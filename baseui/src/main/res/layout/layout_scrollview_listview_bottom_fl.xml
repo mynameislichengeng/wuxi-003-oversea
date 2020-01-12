@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/base_recyclerview"></include>
+            <include layout="@layout/base_layout_recyclerview"></include>
         </RelativeLayout>
 
         <FrameLayout

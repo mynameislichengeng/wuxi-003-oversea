@@ -6,4 +6,6 @@ public interface OnTranLogDetialListener {
     void onPrint(DailyDetailResp resp);
 
     void onRevoke(DailyDetailResp resp);
+
+    void onDetail(DailyDetailResp resp);
 }

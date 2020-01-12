@@ -249,17 +249,16 @@ public class PaySuccessActivity extends TransactionActivity {
                 || transType == TransactionTemsController.TRANSACTION_TYPE_UNION_PAY) {
             ThirdGiveTicketsReq();
         }
-        if(Pay2Application.getInstance().isWemengMerchant()) {
-			isNeedTicket = true;//若是微盟应用 则支持发券 Hwc 2015年12月16日09:28:26
-			TicketInfo wemengTicketInfo = (TicketInfo) getIntent().getSerializableExtra(Constants.wemengTicketInfo);
-			if(wemengTicketInfo != null && wemengTicketInfo.getWeiMengType().equals(TicketInfo.WEIMENT_TYPE_URL)) {
-				if(wemengTicketPublisher == null)
-				{
-					wemengTicketPublisher = new WemengTicketPublisher(this, null);
-					wemengTicketPublisher.printWemobUrl(wemengTicketInfo.getUrl());
-				}
-			}
-		}
+        if (Pay2Application.getInstance().isWemengMerchant()) {
+            isNeedTicket = true;//若是微盟应用 则支持发券 Hwc 2015年12月16日09:28:26
+            TicketInfo wemengTicketInfo = (TicketInfo) getIntent().getSerializableExtra(Constants.wemengTicketInfo);
+            if (wemengTicketInfo != null && wemengTicketInfo.getWeiMengType().equals(TicketInfo.WEIMENT_TYPE_URL)) {
+                if (wemengTicketPublisher == null) {
+                    wemengTicketPublisher = new WemengTicketPublisher(this, null);
+                    wemengTicketPublisher.printWemobUrl(wemengTicketInfo.getUrl());
+                }
+            }
+        }
         if (isNeedTicket() == false) {
             tvRight.setVisibility(View.GONE);
         }
@@ -269,9 +268,9 @@ public class PaySuccessActivity extends TransactionActivity {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-        /*
-		 * case R.id.tvRight: Intent intent = getIntent(); intent.setClass(this, tvRightActivity.class); startActivity(intent); finish(); break;
-		 */
+            /*
+             * case R.id.tvRight: Intent intent = getIntent(); intent.setClass(this, tvRightActivity.class); startActivity(intent); finish(); break;
+             */
             case R.id.btn_cash_back_pay:
                 // setResult(RESULT_CANCELED);
 //			serviceSuccess(getIntent());
@@ -285,27 +284,27 @@ public class PaySuccessActivity extends TransactionActivity {
                     break;
                 }
 
-			if (PaymentApplication.getInstance().isWemengMerchant()) {
-				if (transType == TransactionTemsController.TRANSACTION_TYPE_ALIPAY
-						|| transType == TransactionTemsController.TRANSACTION_TYPE_WEPAY_PAY
-						|| transType == TransactionTemsController.TRANSACTION_TYPE_TEN_PAY
-						|| transType == TransactionTemsController.TRANSACTION_TYPE_BAIDU_PAY) {// 若是微盟第三方支付则请求券接口
-					getWeiMobTicket();
-					break;
-				}
-			}
+                if (PaymentApplication.getInstance().isWemengMerchant()) {
+                    if (transType == TransactionTemsController.TRANSACTION_TYPE_ALIPAY
+                            || transType == TransactionTemsController.TRANSACTION_TYPE_WEPAY_PAY
+                            || transType == TransactionTemsController.TRANSACTION_TYPE_TEN_PAY
+                            || transType == TransactionTemsController.TRANSACTION_TYPE_BAIDU_PAY) {// 若是微盟第三方支付则请求券接口
+                        getWeiMobTicket();
+                        break;
+                    }
+                }
 
-			if (PaymentApplication.getInstance().isWemengMerchant()) {// 若是威萌切不为空则跳到券发行
-				TicketInfo wemengTicketInfo = (TicketInfo) getIntent()
-						.getSerializableExtra(Constants.wemengTicketInfo);
-				if (wemengTicketInfo != null) {
-					skitToTicketPublishactivity();
-				} else {
-					checkBack();
-				}
-				break;
-			}
-                
+                if (PaymentApplication.getInstance().isWemengMerchant()) {// 若是威萌切不为空则跳到券发行
+                    TicketInfo wemengTicketInfo = (TicketInfo) getIntent()
+                            .getSerializableExtra(Constants.wemengTicketInfo);
+                    if (wemengTicketInfo != null) {
+                        skitToTicketPublishactivity();
+                    } else {
+                        checkBack();
+                    }
+                    break;
+                }
+
                 //发送请求查询券
                 presenter = new PublishTicketPresenter(this);
                 presenter.handleIntent(getIntent());
@@ -329,41 +328,38 @@ public class PaySuccessActivity extends TransactionActivity {
             back();
         }
     }
-    
+
     /**
-	 * 
-	 * @Author: Huangweicai
-	 * @date 2015-12-16 上午11:30:10  
-	 * @Description:
-	 */
-	private void getWeiMobTicket() {
-		progresser.showProgress();
-		wemengTicketPublisher = new WemengTicketPublisher(this,null);
-		String amount = Calculater.formotFen(getIntent().getStringExtra("realAmount"));
-		wemengTicketPublisher.getTicketForThirdPay(Tools.toIntMoney(amount) + "", new ResponseListener() {
-			
-			@Override
-			public void onSuccess(Response response) {
-				progresser.showContent();
-				TicketInfo wemengTicketInfo = (TicketInfo) response.getResult();
-				getIntent().putExtra(Constants.wemengTicketInfo, wemengTicketInfo);
-				if(wemengTicketInfo != null)
-				{
-					skitToTicketPublishactivity();
-				}else
-				{
-					checkBack();
-				}
-			}
-			
-			@Override
-			public void onFaild(Response response) {
-				progresser.showContent();
-				UIHelper.ToastMessage(PaySuccessActivity.this, response.msg);
-				checkBack();
-			}
-		});
-	}
+     * @Author: Huangweicai
+     * @date 2015-12-16 上午11:30:10
+     * @Description:
+     */
+    private void getWeiMobTicket() {
+        progresser.showProgress();
+        wemengTicketPublisher = new WemengTicketPublisher(this, null);
+        String amount = Calculater.formotFen(getIntent().getStringExtra("realAmount"));
+        wemengTicketPublisher.getTicketForThirdPay(Tools.toIntMoney(amount) + "", new ResponseListener() {
+
+            @Override
+            public void onSuccess(Response response) {
+                progresser.showContent();
+                TicketInfo wemengTicketInfo = (TicketInfo) response.getResult();
+                getIntent().putExtra(Constants.wemengTicketInfo, wemengTicketInfo);
+                if (wemengTicketInfo != null) {
+                    skitToTicketPublishactivity();
+                } else {
+                    checkBack();
+                }
+            }
+
+            @Override
+            public void onFaild(Response response) {
+                progresser.showContent();
+                UIHelper.ToastMessage(PaySuccessActivity.this, response.msg);
+                checkBack();
+            }
+        });
+    }
 
 
     /**

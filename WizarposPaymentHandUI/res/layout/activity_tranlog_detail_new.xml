@@ -57,7 +57,7 @@
                         android:scrollbars="none"
                         android:visibility="gone" />
 
-                    <include layout="@layout/base_simplelinear_recycleview"></include>
+                    <include layout="@layout/base_customer_simplelinear_refreshreview"></include>
                 </RelativeLayout>
             </com.wizarpos.pay.ui.ProgressLayout>
         </LinearLayout>

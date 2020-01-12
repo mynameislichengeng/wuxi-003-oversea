@@ -33,6 +33,7 @@ import com.wizarpos.pay.fragment.RefundDialogFragment;
 import com.wizarpos.pay.manage.activity.InputPassWordActivity;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.SendTransInfo;
+import com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.TranRecordStatusParam;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
@@ -109,6 +110,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             @Override
             public void onRevoke(DailyDetailResp resp) {
                 operateRefundOnclick(resp);
+            }
+
+            @Override
+            public void onDetail(DailyDetailResp resp) {
+                operateDetailActivity(resp);
             }
         });
     }
@@ -308,6 +314,9 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
     }
 
+    private void operateDetailActivity(DailyDetailResp resp) {
+        TranLogDetailActivity.startOpenActivity(this, resp);
+    }
 
     /**
      * 操作listView

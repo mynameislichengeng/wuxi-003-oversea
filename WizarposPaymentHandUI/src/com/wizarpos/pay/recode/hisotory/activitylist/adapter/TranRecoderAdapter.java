@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-交易界面的adapter
+交易界面list的adapter
  */
 public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
 
@@ -171,6 +171,15 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
             public void onClick(View view) {
                 if (onTranLogDetialListener != null) {
                     onTranLogDetialListener.onRevoke(item);
+                }
+            }
+        });
+        Button btn_detail = viewHolder.getView(R.id.btn_detail);
+        btn_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onTranLogDetialListener != null) {
+                    onTranLogDetialListener.onDetail(item);
                 }
             }
         });

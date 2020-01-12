@@ -11,13 +11,12 @@ import android.widget.TextView;
 
 import com.ui.dialog.DialogHelper;
 import com.ui.dialog.NoticeDialogFragment;
-import com.wizarpos.device.printer.html.WebPrintActivity;
 import com.wizarpos.device.printer.html.WebPrintHelper;
-import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
+import com.wizarpos.pay.recode.sale.widget.BarcodeView;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.Tools;
 import com.wizarpos.pay2.lite.R;
@@ -28,10 +27,14 @@ import com.wizarpos.pay2.lite.R;
 public class NewPaySuccessActivity extends BaseViewActivity {
     ImageView ivPaySuccess;
     TextView tvAmount;
+    private BarcodeView barcodeView;
+
+
     private String payDes = "";
 
     public static final String EXTRA_PAY_TYPE = "payType";
     public static final String EXTRA_PAY_AMOUNT = "realAmount";
+    public static final String EXTRA_TRANLOGID = "tranLogId";
 
     public static Intent getStartIntent(Context context, String payType, String amount) {
         Intent intent = new Intent(context, NewPaySuccessActivity.class);
@@ -55,6 +58,7 @@ public class NewPaySuccessActivity extends BaseViewActivity {
         findViewById(R.id.btnContiuePay).setOnClickListener(this);
         ivPaySuccess = (ImageView) findViewById(R.id.ivPaySuccess);
         tvAmount = (TextView) findViewById(R.id.tvAmount);
+        barcodeView = findViewById(R.id.barcodeview);
     }
 
     @Override
@@ -93,7 +97,7 @@ public class NewPaySuccessActivity extends BaseViewActivity {
             } else if ("BANK".equals(payTypeUpCase)) {
                 payDes = "银行卡支付";
                 ivPaySuccess.setImageResource(R.drawable.success_yinghangka);
-            }else if ("UNS".equals(payTypeUpCase)) {
+            } else if ("UNS".equals(payTypeUpCase)) {
                 payDes = "银联支付";
                 ivPaySuccess.setImageResource(R.drawable.ic_pay_union);
             }
@@ -107,6 +111,10 @@ public class NewPaySuccessActivity extends BaseViewActivity {
                 e.printStackTrace();
                 Log.e("error", "Long.parseLong(String) error");
             }
+        }
+        String transLog = payIntent.getStringExtra(EXTRA_TRANLOGID);
+        if (!TextUtils.isEmpty(transLog)) {
+            barcodeView.setBarcodePayFor(transLog);
         }
     }
 
@@ -200,7 +208,8 @@ public class NewPaySuccessActivity extends BaseViewActivity {
                                     WebPrintHelper.getInstance().print(AppConfigHelper.getConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT));
                                 } else {
                                     controller.print(AppConfigHelper.getConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT));
-                                };
+                                }
+                                ;
                             }
 
                             @Override

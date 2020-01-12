@@ -70,7 +70,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#d8d8d8" />
+                android:background="#d8d8d8"
+                android:visibility="gone" />
 
 
             <LinearLayout
@@ -90,13 +91,14 @@
                     android:gravity="left|center_vertical"
                     android:paddingLeft="15dp"
                     android:text="@string/changeSecurityCode"
-                    android:textSize="@dimen/txt_size_en_title"/>
+                    android:textSize="@dimen/txt_size_en_title" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#d8d8d8" />
+                android:background="#d8d8d8"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/llAuthCode"
@@ -123,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#d8d8d8"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/llKeyDownload"
@@ -199,6 +201,39 @@
                     android:text="@string/employee_management"
                     android:textSize="18sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#d8d8d8" />
+
+            <RelativeLayout
+                android:id="@+id/ll_receipt_barcode"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/receipt_barcode"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/receipt_bar_code"
+                    android:textSize="@dimen/txt_size_en_title" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp">
+
+                    <include layout="@layout/widget_custom_switch" />
+                </RelativeLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

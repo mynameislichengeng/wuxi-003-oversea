@@ -180,6 +180,10 @@
     <string name="invoice_num">Invoice Number</string>
     <string name="hint_enter_invoice_num">Enter invoice number</string>
 
+    <string name="receipt_bar_code">RECEIPT BARCODE</string>
+    <string name="tran_detail_info">Transaction Details</string>
+    <string name="tran_detail">Detail</string>
+
     <string-array name="refund_adapter_item_title">
 
         <item>Sale Amount:</item>
@@ -191,6 +195,19 @@
         <item>Time:</item>
 
         <item>Refund Amount:</item>
+
+    </string-array>
+
+    <string-array name="tran_detail_adapter_item_title">
+
+        <item>Sale Amount:</item>
+
+        <item>Payment Type:</item>
+
+        <item>Receipt#:</item>
+
+        <item>Time:</item>
+
 
     </string-array>
 </resources>

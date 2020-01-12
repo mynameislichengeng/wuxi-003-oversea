@@ -220,8 +220,6 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
                 lines.add(new HTMLPrintModel.EmptyLine());
 
-                //invoice
-                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
 
                 String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
@@ -238,6 +236,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                     lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
                     lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
                 }
+                //invoice
+                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
+
                 String acctName = transactionInfo.getThirdExtName();
                 if (!TextUtils.isEmpty(acctName)) {
                     String printAcctName = context.getString(R.string.print_acctName);
@@ -345,13 +346,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
 
-            //
-            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
-            if (invoiceString != null) {
-                for (String str : invoiceString) {
-                    printString += str + builder.br();
-                }
-            }
+
             //
             String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -372,6 +367,15 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+
+            //
+            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
+            if (invoiceString != null) {
+                for (String str : invoiceString) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = transactionInfo.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -469,8 +473,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
                 lines.add(new HTMLPrintModel.EmptyLine());
 
-                //invoice
-                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
+
 
 
                 String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -488,6 +491,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                     lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
                     lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
                 }
+                //invoice
+                InvoiceContent.printHtmlPayfor(context, lines, transactionInfo);
+
                 String acctName = transactionInfo.getThirdExtName();
                 if (!TextUtils.isEmpty(acctName)) {
                     String printAcctName = context.getString(R.string.print_acctName);
@@ -594,13 +600,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
 
-            //invoice
-            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
-            if (invoiceString != null) {
-                for (String str : invoiceString) {
-                    printString += str + builder.br();
-                }
-            }
+
 
 
             String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -620,6 +620,14 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+            //invoice
+            String[] invoiceString = InvoiceContent.printStringPayfor(context, transactionInfo);
+            if (invoiceString != null) {
+                for (String str : invoiceString) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = transactionInfo.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);

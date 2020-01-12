@@ -96,9 +96,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/icon_down"
                 android:focusable="false"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_down" />
 
             <TextView
                 android:id="@+id/tvTranAmount"
@@ -352,10 +352,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_blue_corner"
+                    android:background="@drawable/selector_bg_blue_press_grey_shen"
                     android:text="@string/refund"
                     android:textColor="@color/white" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-1dp">
+
+                <Button
+                    android:id="@+id/btn_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_blue_or_white"
+                    android:gravity="center"
+                    android:text="@string/tran_detail"
+                    android:textColor="#0084FF" />
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>

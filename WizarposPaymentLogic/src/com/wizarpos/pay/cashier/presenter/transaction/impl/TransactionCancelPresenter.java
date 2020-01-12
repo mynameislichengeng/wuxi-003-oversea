@@ -525,8 +525,7 @@ public class TransactionCancelPresenter {
                 lines.add(SettlementContent.printHtmlSettlementRefund(resp));
                 lines.add(new HTMLPrintModel.EmptyLine());
 
-                //invoice打印
-                InvoiceContent.printHtmlRefund(context, lines, resp);
+
 
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
@@ -542,6 +541,10 @@ public class TransactionCancelPresenter {
                     lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
                     lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
                 }
+
+                //invoice打印
+                InvoiceContent.printHtmlRefund(context, lines, resp);
+
                 String acctName = resp.getThirdExtName();
                 if (!TextUtils.isEmpty(acctName)) {
                     String printAcctName = context.getString(R.string.print_acctName);
@@ -631,12 +634,7 @@ public class TransactionCancelPresenter {
 
             printString += builder.br()+builder.nBr();
 
-            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
-            if (invoicePrint != null) {
-                for (String str : invoicePrint) {
-                    printString += str + builder.br();
-                }
-            }
+
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -655,6 +653,13 @@ public class TransactionCancelPresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
+            if (invoicePrint != null) {
+                for (String str : invoicePrint) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -739,8 +744,7 @@ public class TransactionCancelPresenter {
 
                 lines.add(new HTMLPrintModel.EmptyLine());
 
-                //invoice打印
-                InvoiceContent.printHtmlRefund(context, lines, resp);
+
 
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
@@ -756,6 +760,10 @@ public class TransactionCancelPresenter {
                     lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
                     lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
                 }
+
+                //invoice打印
+                InvoiceContent.printHtmlRefund(context, lines, resp);
+
                 String acctName = resp.getThirdExtName();
                 if (!TextUtils.isEmpty(acctName)) {
                     String printAcctName = context.getString(R.string.print_acctName);
@@ -847,12 +855,7 @@ public class TransactionCancelPresenter {
 
             printString += builder.br() + builder.nBr();
 
-            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
-            if (invoicePrint != null) {
-                for (String str : invoicePrint) {
-                    printString += str + builder.br();
-                }
-            }
+
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -871,6 +874,13 @@ public class TransactionCancelPresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+            String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
+            if (invoicePrint != null) {
+                for (String str : invoicePrint) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);

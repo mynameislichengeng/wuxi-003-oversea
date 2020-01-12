@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_ed">
 
-        <include layout="@layout/base_simplelinear_recycleview"></include>
+        <include layout="@layout/base_customer_simplelinear_refreshreview"></include>
     </RelativeLayout>
 
 </RelativeLayout>

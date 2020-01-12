@@ -585,8 +585,11 @@
 
         <activity
             android:name="com.wizarpos.pay.recode.test.TestActivity"
-            android:screenOrientation="portrait"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name="com.wizarpos.pay.broadcastreceiver.Alarmreceiver">
             <intent-filter>

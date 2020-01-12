@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
 
-        <include layout="@layout/base_recyclerview"></include>
+        <include layout="@layout/base_layout_recyclerview"></include>
     </RelativeLayout>
 
     <View

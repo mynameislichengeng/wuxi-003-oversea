@@ -32,7 +32,7 @@
         android:layout_height="300dp"
         android:background="@color/bg_main_white">
 
-        <include layout="@layout/base_recyclerview_wrap"></include>
+        <include layout="@layout/base_layout_recyclerview_wrap"></include>
     </RelativeLayout>
 
     <View

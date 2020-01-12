@@ -1353,12 +1353,6 @@ public class StatisticsPresenter extends BasePresenter {
 
             printString += builder.br() + builder.nBr();
 
-            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
-            if (printInvoice != null) {
-                for (String str : printInvoice) {
-                    printString += str + builder.br();
-                }
-            }
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1377,6 +1371,13 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.length()) + thirdTransOrder + builder.br();
             }
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -1476,12 +1477,6 @@ public class StatisticsPresenter extends BasePresenter {
 
             printString += builder.br() + builder.nBr();
 
-            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
-            if (printInvoice != null) {
-                for (String str : printInvoice) {
-                    printString += str + builder.br();
-                }
-            }
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1500,6 +1495,13 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.length()) + thirdTransOrder + builder.br();
             }
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -1598,8 +1600,6 @@ public class StatisticsPresenter extends BasePresenter {
 
         lines.add(new HTMLPrintModel.EmptyLine());
 
-        //invoice内容
-        InvoiceContent.printHtmlActivity(context, lines, resp);
 
         String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
         String printRecepit = context.getString(R.string.print_receipt);
@@ -1617,6 +1617,9 @@ public class StatisticsPresenter extends BasePresenter {
             lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
             lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
         }
+        //invoice内容
+        InvoiceContent.printHtmlActivity(context, lines, resp);
+
         String acctName = resp.getThirdExtName();
         if (!TextUtils.isEmpty(acctName)) {
             String printAcctName = context.getString(R.string.print_acctName);
@@ -1736,13 +1739,7 @@ public class StatisticsPresenter extends BasePresenter {
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
-            //invoice
-            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
-            if (printInvoice != null) {
-                for (String str : printInvoice) {
-                    printString += str + builder.br();
-                }
-            }
+
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1761,6 +1758,14 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+            //invoice
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -1886,12 +1891,6 @@ public class StatisticsPresenter extends BasePresenter {
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
 
-            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
-            if (printInvoice != null) {
-                for (String str : printInvoice) {
-                    printString += str + builder.br();
-                }
-            }
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1910,6 +1909,14 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += context.getString(R.string.print_trans) + builder.br();
                 printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
             }
+
+            String[] printInvoice = InvoiceContent.printStringActivity(context, resp);
+            if (printInvoice != null) {
+                for (String str : printInvoice) {
+                    printString += str + builder.br();
+                }
+            }
+
             String acctName = resp.getThirdExtName();
             if (!TextUtils.isEmpty(acctName)) {
                 String printAcctName = context.getString(R.string.print_acctName);
@@ -1929,7 +1936,12 @@ public class StatisticsPresenter extends BasePresenter {
             printString += builder.center(builder.bold(context.getString(R.string.print_hint2)));
             printString += builder.branch() + builder.endPrint();
             controller.print(printString);
+            //
             controller.cutPaper();
+
+//            PrintServiceControllerProxy controller1 = new PrintServiceControllerProxy(context);
+//            Q1PrintBuilder builder1 = new Q1PrintBuilder();
+//            controller1.print("11");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2031,8 +2043,8 @@ public class StatisticsPresenter extends BasePresenter {
         String printFx = context.getString(R.string.print_fx_rate);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printFx, showCNY));
         lines.add(new HTMLPrintModel.EmptyLine());
-        //invoice内容
-        InvoiceContent.printHtmlActivity(context, lines, resp);
+
+
         String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
         String printRecepit = context.getString(R.string.print_receipt);
         lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -2048,6 +2060,10 @@ public class StatisticsPresenter extends BasePresenter {
             lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_trans)));
             lines.add(new HTMLPrintModel.LeftAndRightLine("", thirdTransOrder));
         }
+
+        //invoice内容
+        InvoiceContent.printHtmlActivity(context, lines, resp);
+
         String acctName = resp.getThirdExtName();
         if (!TextUtils.isEmpty(acctName)) {
             String printAcctName = context.getString(R.string.print_acctName);

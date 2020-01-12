@@ -17,7 +17,7 @@ import com.wizarpos.pay2.lite.R;
 import org.w3c.dom.Text;
 
 public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
-    private String[] stuName;
+    protected String[] stuName;
     private String inputRefundAmount;//用户当前输入需要退款的金额
 
     public RefundClickAdapter(Context context, DailyDetailResp itemList) {

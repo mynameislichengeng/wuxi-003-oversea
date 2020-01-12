@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include layout="@layout/base_recyclerview_wrap" />
+            <include layout="@layout/base_layout_recyclerview_wrap" />
 
         </RelativeLayout>
 
