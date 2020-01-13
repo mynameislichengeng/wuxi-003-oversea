@@ -5,13 +5,13 @@ import android.content.Context;
 import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.device.printer.html.model.HtmlLine;
 import com.wizarpos.pay.model.TransactionInfo;
-import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.data.TranLogIdDataUtil;
-import com.wizarpos.wizarpospaymentlogic.R;
+import com.wizarpos.recode.print.base.PrintBase;
+import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 import java.util.List;
 
-public class BarcodeTextContent {
+public class BarcodeTextContent extends PrintBase {
 
 
     public static void printHtmlPayfor(List<HtmlLine> lines, TransactionInfo transactionInfo) {
@@ -27,11 +27,21 @@ public class BarcodeTextContent {
         if (transactionInfo == null) {
             return null;
         }
-        String transLogId = getTranLogId(transactionInfo);
-        return transLogId;
 
+        if (isOpenStatus()) {
+            String transLogId = getTranLogId(transactionInfo);
+            String barcode = formatForBC(transLogId);
+            String result = formatForC(barcode);
+            return result;
+        }
+
+        return null;
     }
 
+
+    protected static boolean isOpenStatus() {
+        return ReceiptDataManager.isOpenStatus();
+    }
 
     private static String getTranLogId(TransactionInfo transactionInfo) {
 

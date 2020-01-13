@@ -8,12 +8,17 @@ import android.widget.Toast;
 import com.nexgo.oaf.apiv3.device.printer.AlignEnum;
 import com.nexgo.oaf.apiv3.device.printer.OnPrintListener;
 import com.nexgo.oaf.apiv3.device.printer.Printer;
+import com.nexgo.oaf.apiv3.device.printer.BarcodeFormatEnum;
 import com.wizarpos.atool.log.Logger;
 import com.wizarpos.jni.PrinterInterface;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.common.device.DeviceManager;
+import com.wizarpos.recode.print.constants.PrintTypeEnum;
+import com.wizarpos.recode.print.data.SpixContent;
+import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class PrinterHelper {
 
@@ -22,6 +27,7 @@ public class PrinterHelper {
     private static final int WIDTH = 48;
     private static final int GSV_HEAD = 8;
     private static final int FONT_SIZE_NORMAL = 24;
+
 
     private static String[] keywords = {
             "<b>", "</b>",        // 加粗
@@ -129,6 +135,10 @@ public class PrinterHelper {
             trigger.parse();
         } else {
             try {
+//                List<SpixContent.PrintType> printTypes = SpixContent.splitFromBC(text);
+//                for (SpixContent.PrintType printContent : printTypes) {
+//
+//                }
                 PrinterInterface.open();
                 PrinterInterface.begin();
                 printerWrite(PrinterCommand.init());
@@ -149,8 +159,7 @@ public class PrinterHelper {
     static class PrinterKeywordTriggerHandle extends KeywordTrigger.KeywordTriggerHandle {
         private boolean isBoldFont;
         private AlignEnum align;
-        private int count;
-
+        private PrintTypeEnum printTypeEnum = PrintTypeEnum.TEXT;
 
         public PrinterKeywordTriggerHandle() {
         }
@@ -166,9 +175,31 @@ public class PrinterHelper {
         @Override
         public void contentTrigger(String str) {
             if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-                printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+                switch (printTypeEnum) {
+                    case BC://1维码
+//                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+                        //第1个参数表示内容，第2个表示宽度
+                        //第3个参数表示边距离
+                        printerN3N5.appendBarcode(str, 60, 5, 2, BarcodeFormatEnum.CODE_128, AlignEnum.CENTER);
+                        break;
+                    default:
+                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+                        break;
+                }
+
+
             } else {
-                printText(str);
+                switch (printTypeEnum) {
+                    case BC://一维码
+                        printerBarcode(str);
+                        //文字
+                        printText(str);
+                        break;
+                    default:
+                        printText(str);
+                        break;
+                }
+
             }
         }
 
@@ -202,9 +233,9 @@ public class PrinterHelper {
                 } else if (keyword.equals("</r>")) {
                     align = AlignEnum.LEFT;
                 } else if (keyword.equals("<bc>")) {
-
+                    setPrintTypeEnum(PrintTypeEnum.BC);
                 } else if (keyword.equals("</bc>")) { // 一维码
-
+                    setPrintTypeEnum(PrintTypeEnum.TEXT);
                 } else if (keyword.equals("<ul>")) {
 
                 } else if (keyword.equals("</ul>")) { // 下划线
@@ -269,9 +300,9 @@ public class PrinterHelper {
                     write(PrinterCommand.linefeed());
                     write(PrinterCommand.setAlignMode(2));
                 } else if (keyword.equals("<bc>")) {
-
+                    setPrintTypeEnum(PrintTypeEnum.BC);
                 } else if (keyword.equals("</bc>")) { // 一维码
-
+                    setPrintTypeEnum(PrintTypeEnum.TEXT);
                 } else if (keyword.equals("<ul>")) {
 
                 } else if (keyword.equals("</ul>")) { // 下划线
@@ -291,6 +322,12 @@ public class PrinterHelper {
                 }
             }
         }
+
+        public void setPrintTypeEnum(PrintTypeEnum printTypeEnum) {
+            this.printTypeEnum = printTypeEnum;
+        }
+
+
     }
 
     private static void write(byte[] data) {
@@ -308,6 +345,14 @@ public class PrinterHelper {
 
     public static void printerWrite(byte[] data) {
         PrinterInterface.write(data, data.length);
+    }
+
+    private static void printerBarcode(String barcode) {
+        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(barcode, 400, 60);
+        byte[] result = generateBitmapArrayGSV_MSB(bitmap, 7, 5);
+        int lines = (result.length - GSV_HEAD) / WIDTH;
+        System.arraycopy(new byte[]{0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, (byte) (lines & 0xff), (byte) ((lines >> 8) & 0xff)}, 0, result, 0, GSV_HEAD);
+        printerWrite(result);
     }
 
 }

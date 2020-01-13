@@ -20,7 +20,6 @@ import com.wizarpos.pay.common.base.BasePresenter;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.recode.constants.HttpConstants;
-import com.wizarpos.recode.print.result.payfor.PayForPrintResultManager;
 import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -191,13 +190,6 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
 
                 AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT, getPrintContext());
                 AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT, getCustomerPrintContext());
-
-//                String printCxtString = JSON.toJSONString(PayForPrintResultManager.getPrintContext(context, transactionInfo));
-//                String customprintCxtString = JSON.toJSONString(PayForPrintResultManager.getCustomerPrintContext(context, transactionInfo));
-//                AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT_ARRAY, printCxtString);
-//                AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT_ARRAY, customprintCxtString);
-
-
                 resultListener.onSuccess(new Response(0, "支付成功", bundleResult()));
 //                printTransInfoWithListener(result, resultListener);
 //                resultListener.onSuccess(result);

@@ -1,9 +1,12 @@
 package com.wizarpos.recode.print.base;
 
+import com.wizarpos.pay.common.device.printer.Q1PrintBuilder;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 public class PrintBase {
+
+    protected static Q1PrintBuilder q1PrintBuilder = new Q1PrintBuilder();
 
     protected static String multipleSpaces(int n) {
         String output = "";
@@ -29,5 +32,13 @@ public class PrintBase {
             result = result - 1 * zhCount;
         }
         return result;
+    }
+
+    protected static String formatForC(String txt) {
+        return q1PrintBuilder.center(txt);
+    }
+
+    protected static String formatForBC(String txt){
+        return q1PrintBuilder.barcode(txt);
     }
 }
