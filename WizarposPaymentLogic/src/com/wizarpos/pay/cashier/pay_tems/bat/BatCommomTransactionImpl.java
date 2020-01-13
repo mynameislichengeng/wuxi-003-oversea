@@ -3,13 +3,13 @@ package com.wizarpos.pay.cashier.pay_tems.bat;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.base.net.ResponseListener;
-import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatMicroRsp;
 import com.wizarpos.pay.cashier.pay_tems.bat.entities.BatNewReq;
@@ -20,6 +20,7 @@ import com.wizarpos.pay.common.base.BasePresenter;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.print.result.payfor.PayForPrintResultManager;
 import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -187,8 +188,16 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
                 if (!TextUtils.isEmpty(tranIdObj.getString("thirdExtName"))) {
                     transactionInfo.setThirdExtName(tranIdObj.getString("thirdExtName"));
                 }
+
                 AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT, getPrintContext());
                 AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT, getCustomerPrintContext());
+
+//                String printCxtString = JSON.toJSONString(PayForPrintResultManager.getPrintContext(context, transactionInfo));
+//                String customprintCxtString = JSON.toJSONString(PayForPrintResultManager.getCustomerPrintContext(context, transactionInfo));
+//                AppConfigHelper.setConfig(AppConfigDef.PRINT_CONTEXT_ARRAY, printCxtString);
+//                AppConfigHelper.setConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT_ARRAY, customprintCxtString);
+
+
                 resultListener.onSuccess(new Response(0, "支付成功", bundleResult()));
 //                printTransInfoWithListener(result, resultListener);
 //                resultListener.onSuccess(result);

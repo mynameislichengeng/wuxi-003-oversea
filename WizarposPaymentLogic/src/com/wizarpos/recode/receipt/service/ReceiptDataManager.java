@@ -17,4 +17,11 @@ public class ReceiptDataManager {
     }
 
 
+    public static boolean isOpenStatus() {
+        String status = gettingBarcodeStatus();
+        if (ReceiptBarcodeStatusEnum.OPEN.getStatus().equals(status)) {
+            return true;
+        }
+        return false;
+    }
 }

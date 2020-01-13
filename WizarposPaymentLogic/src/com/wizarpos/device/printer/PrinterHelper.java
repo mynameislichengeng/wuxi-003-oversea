@@ -52,16 +52,25 @@ public class PrinterHelper {
 
     public static void printBitmap(Bitmap bitmap) {
         try {
-            PrinterInterface.open();
-            PrinterInterface.begin();
-            printerWrite(PrinterCommand.init());
-            printerWrite(PrinterCommand.setHeatTime(180));
+            if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
+                printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
+                printerN3N5.setTypeface(Typeface.DEFAULT);
+                printerN3N5.initPrinter();
+                printerN3N5.setLetterSpacing(5);
 
-            byte[] result = generateBitmapArrayGSV_MSB(bitmap, 0, 0);
-            int lines = (result.length - GSV_HEAD) / WIDTH;
-            System.arraycopy(new byte[]{0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, (byte) (lines & 0xff), (byte) ((lines >> 8) & 0xff)}, 0, result, 0, GSV_HEAD);
+            } else {
+                PrinterInterface.open();
+                PrinterInterface.begin();
+                printerWrite(PrinterCommand.init());
+                printerWrite(PrinterCommand.setHeatTime(180));
 
-            printerWrite(result);
+                byte[] result = generateBitmapArrayGSV_MSB(bitmap, 0, 0);
+                int lines = (result.length - GSV_HEAD) / WIDTH;
+                System.arraycopy(new byte[]{0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, (byte) (lines & 0xff), (byte) ((lines >> 8) & 0xff)}, 0, result, 0, GSV_HEAD);
+
+                printerWrite(result);
+            }
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } finally {
@@ -141,6 +150,7 @@ public class PrinterHelper {
         private boolean isBoldFont;
         private AlignEnum align;
         private int count;
+
 
         public PrinterKeywordTriggerHandle() {
         }

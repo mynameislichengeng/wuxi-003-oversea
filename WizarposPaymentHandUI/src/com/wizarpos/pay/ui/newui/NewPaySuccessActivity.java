@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ui.dialog.DialogHelper;
 import com.ui.dialog.NoticeDialogFragment;
 import com.wizarpos.device.printer.html.WebPrintHelper;
+import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
 import com.wizarpos.pay.db.AppConfigDef;
@@ -20,6 +21,12 @@ import com.wizarpos.pay.recode.sale.widget.BarcodeView;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.Tools;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.print.result.payfor.PayForPrintResultManager;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
+import java.util.List;
+
 
 /**
  * Created by blue_sky on 2016/3/23.
@@ -153,7 +160,16 @@ public class NewPaySuccessActivity extends BaseViewActivity {
 //                    PaymentApplication.getInstance().startActivity(WebPrintActivity.getStartIntent(PaymentApplication.getInstance(), AppConfigHelper.getConfig(AppConfigDef.PRINT_CONTEXT)));
                     WebPrintHelper.getInstance().print(AppConfigHelper.getConfig(AppConfigDef.PRINT_CONTEXT));
                 } else {
+
                     controller.print(AppConfigHelper.getConfig(AppConfigDef.PRINT_CONTEXT));
+//                    Constants.HANDUI_IS_BLOCK_UI = true;
+//                    PrintServiceControllerProxy controller1 = new PrintServiceControllerProxy(this);
+//                    String printCtxString = AppConfigHelper.getConfig(AppConfigDef.PRINT_CONTEXT_ARRAY);
+//                    String customprintCxtString = AppConfigHelper.getConfig(AppConfigDef.PRINT_CUSTOMER_CONTEXT_ARRAY);
+//                    List<String> values = JSON.parseArray(printCtxString, String.class);
+//                    for (String str : values) {
+//                        controller1.print(str, true);
+//                    }clea
                 }
                 break;
             case 2:

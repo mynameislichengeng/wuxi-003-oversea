@@ -8,7 +8,6 @@ import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
-import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 

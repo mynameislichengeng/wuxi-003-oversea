@@ -212,38 +212,7 @@ public abstract class PaymentApplication extends ImageLoadApp {
 //        DisplayHelper.getInstance().setBottomstring("上海慧银信息科技有限公司 ");
     }
 
-    /**
-     * 初始化网络请求
-     */
-    protected void initNetRequest() {
-        /* 拼凑请求地址 */
-        // String serverUrl = "http://" +
-        // AppConfigHelper.getConfig(AppConfigDef.ip) + ":" +
-        // AppConfigHelper.getConfig(AppConfigDef.port) +
-        // Constants.SUFFIX_URL;
-        // NetRequest.getInstance().setServerUrl(serverUrl);
 
-//		String ip = FileUtil.getFromAssets(this, "ip"); //从assets获取配置信息 wu
-//		if(TextUtils.isEmpty(ip)){
-//			ip = Constants.DEFAULT_IP;
-//		}else{
-//			LogEx.d("read form assets : ip", ip);
-//		}
-//		AppConfigHelper.setConfig(AppConfigDef.ip, ip);
-//		String port = FileUtil.getFromAssets(this, "port");
-//		if(TextUtils.isEmpty(port)){
-//			port = Constants.DEFAULT_PORT;
-//		}else{
-//			LogEx.d("read form assets : port", port);
-//		}
-//		AppConfigHelper.setConfig(AppConfigDef.port, port);
-    }
-
-    // @Override
-    // public void onLowMemory() {
-    // super.onLowMemory();
-    // System.gc();
-    // }
 
     public DbUtils getDbController() {
         return dbController;
@@ -254,27 +223,6 @@ public abstract class PaymentApplication extends ImageLoadApp {
     }
 
 
-//	public void addActivity(Activity activity) { //不再维护activity队列 如有需要,注意使用软引用 wu@[20150810]
-//		activities.add(activity);
-//		Log.d("activity manager", "add activity : " + activity.getClass().getName() + " size:" + activities.size());
-//	}
-//
-//	public void removeActivity(Activity activity) {
-//		activities.remove(activity);
-//		Log.d("activity manager", "remove activity : " + activity.getClass().getName() + " size:" + activities.size());
-//	}
-//
-//	public void killAllActivites() {
-//		for (Activity activity : activities) {
-//			activity.finish();
-//		}
-//		activities.clear();
-//		Log.d("activity manager", "kill all activitys, size:" + activities.size());
-//		try {
-//			System.exit(0);
-//		} catch (Exception e) {
-//		}
-//	}
 
     //获取IMEI地址
     public String getImei() {

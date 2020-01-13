@@ -17,7 +17,7 @@ import java.io.File;
  *
  * @author wu
  */
-public class   PrintService extends IntentService {
+public class  PrintService extends IntentService {
 
     private static final String LOG_TAG = PrintService.class.getSimpleName();
 

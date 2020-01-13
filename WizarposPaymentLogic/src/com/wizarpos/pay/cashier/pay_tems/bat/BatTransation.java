@@ -32,7 +32,6 @@ import com.wizarpos.pay.model.GetCommonTicketInfoResp;
 import com.wizarpos.pay.model.OrderDef;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
-import com.wizarpos.recode.print.PrintManager;
 import com.wizarpos.recode.print.content.InvoiceContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.SettlementContent;
@@ -60,21 +59,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
     private PrintListener printListener;
     private ResultListener resultListener;
     private Response response;
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            if (msg.what == PRINT) {
-//                if (printListener != null) {
-//                    int printNumber = 1;
-//                    if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
-//                        printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
-//                    }
-//                    printListener.onPrint(printNumber, currentSize);
-//                }
-//            }
-//        }
-//    };
+
 
     public BatTransation(Context context) {
         super(context);
@@ -113,37 +98,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 
     @Override
     public void printTransInfo() {
-//        if (transactionInfo.isNeedPrint()) {
-//            return;
-//        }
-//        int printNumber = 1;
-//        if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
-//            printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
-//        }
-//        if (printNumber > 0) {
-//            PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
-//            controller.print(getPrintContext());
-//            currentSize++;
-//            if (currentSize >= printNumber) {
-//                this.resultListener.onSuccess(response);
-//                return;
-//            }
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    handler.sendEmptyMessage(PRINT);
-//                }
-//            }, 2000L);
-//        } else {
-//            this.resultListener.onSuccess(response);
-//        }
     }
 
-    public void printTransInfoWithListener(Response response, ResultListener resultListener) {
-        this.resultListener = resultListener;
-        this.response = response;
-        printTransInfo();
-    }
+
 
     public String getPrintContext() {
         String printString = null;
@@ -250,6 +207,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                     lines.add(new HTMLPrintModel.LeftAndRightLine(printAcct, acct));
                 }
                 lines.add(new HTMLPrintModel.EmptyLine());
+
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_approved), true, true));
                 lines.add(new HTMLPrintModel.EmptyLine());
                 lines.add(new HTMLPrintModel.SimpleLine(context.getString(R.string.print_merchant_copy), true, true));
@@ -474,8 +432,6 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 lines.add(new HTMLPrintModel.EmptyLine());
 
 
-
-
                 String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -599,8 +555,6 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             String printFx = context.getString(R.string.print_fx_rate);
             printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
             printString += builder.br() + builder.nBr();
-
-
 
 
             String tranlogId = Tools.deleteMidTranLog(transactionInfo.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));

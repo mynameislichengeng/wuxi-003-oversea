@@ -1,6 +1,7 @@
 package com.wizarpos.pay.statistics.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
@@ -49,6 +50,7 @@ import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
 import com.wizarpos.recode.print.content.TotalContent;
+import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -1707,7 +1709,7 @@ public class StatisticsPresenter extends BasePresenter {
 
 
             String printTips = TipsContent.printStringActivity(context, resp);
-            if (!TextUtils.isEmpty(printString)) {
+            if (!TextUtils.isEmpty(printTips)) {
                 printString += printTips + builder.br();
             }
 //            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
@@ -1797,6 +1799,7 @@ public class StatisticsPresenter extends BasePresenter {
             return;
         }
         try {
+//            Constants.HANDUI_IS_BLOCK_UI = true;
             PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
             Q1PrintBuilder builder = new Q1PrintBuilder();
             String printString = "";
@@ -1859,7 +1862,7 @@ public class StatisticsPresenter extends BasePresenter {
 //                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
 //            }
             String printTips = TipsContent.printStringActivity(context, resp);
-            if (!TextUtils.isEmpty(printString)) {
+            if (!TextUtils.isEmpty(printTips)) {
                 printString += printTips + builder.br();
             }
 
@@ -1935,13 +1938,16 @@ public class StatisticsPresenter extends BasePresenter {
             printString += builder.center(builder.bold(context.getString(R.string.print_hint1)));
             printString += builder.center(builder.bold(context.getString(R.string.print_hint2)));
             printString += builder.branch() + builder.endPrint();
+
             controller.print(printString);
             //
             controller.cutPaper();
 
 //            PrintServiceControllerProxy controller1 = new PrintServiceControllerProxy(context);
 //            Q1PrintBuilder builder1 = new Q1PrintBuilder();
-//            controller1.print("11");
+//            Bitmap bitmap = ZxingBarcodeManager.creatBarcode("1234567890123456789012345678", 200, 40);
+//            controller.print(bitmap);
+//            controller.print("11" + builder.endPrint());
         } catch (Exception e) {
             e.printStackTrace();
         }

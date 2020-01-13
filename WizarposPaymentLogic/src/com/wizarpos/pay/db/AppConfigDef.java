@@ -231,12 +231,20 @@ public class AppConfigDef {
     public static final String TERMCAP = "TERMCAP";//终端能力
 
     public static final String PRINT_CONTEXT = "PRINT_CONTEXT";//打印商户小票内容
+    public static final String PRINT_CONTEXT_ARRAY= "PRINT_CONTEXT_ARRAY";//打印商户小票内容
     public static final String PRINT_CUSTOMER_CONTEXT = "PRINT_CUSTOMER_CONTEXT";//打印顾客小票内容
+    public static final String PRINT_CUSTOMER_CONTEXT_ARRAY = "PRINT_CUSTOMER_CONTEXT_ARRAY";//打印顾客小票内容
+
+
+
+
     public static final String PRINT_SALE_REFUND_CONTEXT = "PRINT_SALE_REFUND_CONTEXT";//打印商户撤销小票内容
     public static final String PRINT_CUSTOMER_REFUND_CONTEXT = "PRINT_CUSTOMER_REFUND_CONTEXT";//打印顾客撤销小票内容
 
     public static final String CNY_AMOUNT = "CNY_AMOUNT";//由于支付时有轮询情况，不在同一个类及接口中返回数据，用于临时存储
 
     public static final String CLIENT_ID = "CLIENT_ID";//个推连接成功后的clientid
+
+
 
 }

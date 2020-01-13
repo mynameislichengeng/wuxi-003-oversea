@@ -2,6 +2,8 @@ package com.wizarpos.recode.constants;
 
 public interface TransRecordLogicConstants {
 
+    String TRANLOGSTART_PRFIX = "P";
+
 
     enum PrintTextType {
         HTML, STRING
