@@ -175,8 +175,9 @@
 
     <string name="refresh_last_page">Already the last page</string>
     <string name="all">All</string>
-    <string name="pay_invoice">invoice</string>
-    <string name="please_invoice_input">Please enter an invoice value</string>
+    <string name="pay_invoice">Invoice#</string>
+    <string name="invoice_title_input">Enter Invoice Number</string>
+    <string name="please_invoice_input">Please enter an invoice number.</string>
     <string name="invoice_num">Invoice Number</string>
     <string name="hint_enter_invoice_num">Enter invoice number</string>
 
@@ -205,6 +206,8 @@
         <item>Payment Type:</item>
 
         <item>Receipt#:</item>
+
+        <item>Device#:</item>
 
         <item>Time:</item>
 

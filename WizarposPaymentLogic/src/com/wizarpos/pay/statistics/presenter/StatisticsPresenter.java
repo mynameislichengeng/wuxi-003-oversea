@@ -50,6 +50,7 @@ import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
 import com.wizarpos.recode.print.content.TotalContent;
+import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -1391,6 +1392,12 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br();
+            
+            String barcodePrint = BarcodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.print_customer_copy)));
@@ -1515,6 +1522,12 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br() + builder.nBr();
+
+            String barcodePrint = BarcodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.print_merchant_copy)));
@@ -1779,6 +1792,12 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br();
+
+            String barcodePrint = BarcodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_merchant_copy)));
@@ -1931,6 +1950,12 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br();
+
+            String barcodePrint = BarcodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_customer_copy)));

@@ -232,7 +232,7 @@ public class NewDailySumActivity extends BaseViewActivity {
             public void onFaild(Response response) {
                 Log.i("tag", "请求失败");
                 progresser.showContent();
-                Toast.makeText(NewDailySumActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewDailySumActivity.this, response.msg, Toast.LENGTH_SHORT).showFromDialog();
             }
         });*/
     }

@@ -16,6 +16,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.adapter.RefundWarnAdapterParam;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 import org.w3c.dom.Text;
 
@@ -31,7 +32,7 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
 
     @Override
     protected int getLayout() {
-        return R.layout.adapter_left_tv_right_tv;
+        return R.layout.adapter_left_tv_right_tv_2_ends_aligned;
     }
 
     @Override
@@ -48,14 +49,17 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         String title = null;
         String value = null;
         DailyDetailResp refundWarnAdapterParam = getT();
-
+        String sympol = null;
         switch (position) {
             case 0:
                 title = stuName[0];
-                value = Calculater.divide100(refundWarnAdapterParam.getTransAmount());
+                sympol = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(refundWarnAdapterParam.getTransCurrency());
+
+                value = sympol + Calculater.divide100(refundWarnAdapterParam.getTransAmount());
                 break;
             case 1:
                 title = stuName[1];
+
                 value = refundWarnAdapterParam.getTransName();
                 break;
             case 2:
@@ -70,7 +74,9 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
                 break;
             case 4:
                 title = stuName[4];
-                value = this.inputRefundAmount;
+                sympol = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(refundWarnAdapterParam.getTransCurrency());
+
+                value = sympol + this.inputRefundAmount;
                 break;
             default:
                 break;

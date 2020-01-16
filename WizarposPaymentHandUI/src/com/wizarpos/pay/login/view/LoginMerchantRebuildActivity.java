@@ -459,7 +459,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
                 if (TextUtils.isEmpty(vcode)) {
                     CommonToastUtil.showMsgAbove(LoginMerchantRebuildActivity.this, CommonToastUtil.LEVEL_WARN, "输入信息不能为空");
 //                    fragment.dismiss();
-//                    fragment.show(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
+//                    fragment.showFromDialog(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
                     return;
                 }
                 loginpresenter.setVerifeCode(vcode);
@@ -470,7 +470,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
                         if (loginpresenter.isNeedResetPassword() && !TextUtils.isEmpty(newPwd) && newPwd.length() < 6) {
                             CommonToastUtil.showMsgAbove(LoginMerchantRebuildActivity.this, CommonToastUtil.LEVEL_WARN, "新密码不得小于6位");
 //                            fragment.dismiss();
-//                            fragment.show(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
+//                            fragment.showFromDialog(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
                             return;
                         } else {
                             loginpresenter.setNewPassword2Reset(newPwd);
@@ -479,7 +479,7 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
                     } else {
                         UIHelper.ToastMessage(LoginMerchantRebuildActivity.this, TextUtils.isEmpty(newPwd) ? "输入信息不能为空" : "两次密码输入不一致");
 //                        fragment.dismiss();
-//                        fragment.show(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
+//                        fragment.showFromDialog(LoginMerchantRebuildActivity.this.getSupportFragmentManager(), "showVcodeDialogFragment");
                     }
                 }
             }

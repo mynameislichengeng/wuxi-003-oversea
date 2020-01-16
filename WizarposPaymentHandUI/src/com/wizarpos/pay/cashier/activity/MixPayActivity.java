@@ -325,7 +325,7 @@ public class MixPayActivity extends TransactionActivity implements OnClickListen
 //		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //		transaction.setCustomAnimations(R.anim.popup_enter, R.anim.popup_exit);
 //		if (mixPayListFragment.isAdded()) {
-//			transaction.show(mixPayListFragment).commit();
+//			transaction.showFromDialog(mixPayListFragment).commit();
 //		} else {
 //			transaction.add(R.id.flMixDiscount, mixPayListFragment).commit();
 //		}

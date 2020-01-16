@@ -110,7 +110,7 @@ public class NewSettleActivity extends BaseViewActivity implements CardLinkListe
     public void onTransSucceed(EnumCommand cmd) {
         showMsg("交易成功!", LEVEL_SUCCESS);
         CommonToastUtil.showMsgBelow(this, CommonToastUtil.LEVEL_SUCCESS, "交易成功!");
-//            Toast.makeText(this, "交易成功!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "交易成功!", Toast.LENGTH_SHORT).showFromDialog();
         settleProxy.endTrans();
         this.finish();
     }

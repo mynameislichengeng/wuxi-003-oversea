@@ -475,7 +475,6 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             String tipsAmount = transactionInfo.getTips();
 
 
-
             printString += PurchaseContent.printStrPurchasePayFor(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
 
 
@@ -534,6 +533,12 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br();
+            
+            String barcodePrint = BarcodeTextContent.printStringPayfor(transactionInfo);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_customer_copy)));

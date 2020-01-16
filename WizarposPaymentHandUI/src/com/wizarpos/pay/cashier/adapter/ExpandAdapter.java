@@ -161,7 +161,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter implements
 //					// DO SOMETHING
 //
 //					Toast.makeText(context, "GET DIRECTIONS",
-//							Toast.LENGTH_SHORT).show();
+//							Toast.LENGTH_SHORT).showFromDialog();
 //
 //				}
 //
@@ -176,7 +176,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter implements
 //					// DO SOMETHING
 //
 //					Toast.makeText(context, "GET DETAILS", Toast.LENGTH_SHORT)
-//							.show();
+//							.showFromDialog();
 //				}
 //
 //			});

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -268,6 +269,13 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("activity", "onDestroy()");
     }
 
     public interface QueryFragmentListener {

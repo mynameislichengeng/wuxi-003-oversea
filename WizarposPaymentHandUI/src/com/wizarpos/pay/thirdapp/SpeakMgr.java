@@ -200,7 +200,7 @@ public class SpeakMgr{
 		// 本地安装方式
 		if (!ApkInstaller.installFromAssets(context,
 				assetsApk)) {
-//			Toast.makeText(this, "安装语音引擎失败!", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "安装语音引擎失败!", Toast.LENGTH_SHORT).showFromDialog();
 			return false;
 		}
 		return true;

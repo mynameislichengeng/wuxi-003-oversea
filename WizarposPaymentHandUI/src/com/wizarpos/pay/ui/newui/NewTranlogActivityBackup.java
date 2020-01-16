@@ -217,7 +217,7 @@
 //        if (resultCode == RESULT_OK) {
 //            if (requestCode == REQUEST_INPUT_PASSWORD) {
 //                RefundDialogFragment refundDialogFragment = RefundDialogFragment.newInstance(getString(R.string.refund), alreadyAmount);
-//                refundDialogFragment.show(getFragmentManager(), null);
+//                refundDialogFragment.showFromDialog(getFragmentManager(), null);
 //            } else if (requestCode == REQUEST_PAY_CANCEL) {
 //                getData(THISWEEK, UNRECHARGEON, null, "", DEFAULTNUM, "", "");
 //                printRefund();
@@ -265,7 +265,7 @@
 //                        dialogFragment.dismiss();
 //                    }
 //                });
-//                dialogFragment.show(getSupportFragmentManager(), "SimpleMsgDialogFragment");
+//                dialogFragment.showFromDialog(getSupportFragmentManager(), "SimpleMsgDialogFragment");
 //                break;
 //            case 3:
 //                if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
@@ -301,7 +301,7 @@
 //                                dialog.dismiss();
 //                            }
 //                        });
-//                        dialog.show(getSupportFragmentManager(), "SimpleMsgDialogFragment2");
+//                        dialog.showFromDialog(getSupportFragmentManager(), "SimpleMsgDialogFragment2");
 //                    }
 //
 //                    @Override
@@ -309,7 +309,7 @@
 //                        fragmentDialog.dismiss();
 //                    }
 //                });
-//                fragmentDialog.show(getSupportFragmentManager(), "SimpleMsgDialogFragment1");
+//                fragmentDialog.showFromDialog(getSupportFragmentManager(), "SimpleMsgDialogFragment1");
 //                break;
 //        }
 //    }
@@ -407,7 +407,7 @@
 //                            rePrintMerchant();
 //                        }
 //                    });
-//                    dialogFragment.show(getSupportFragmentManager(), "SimpleMsgDialogFragment");
+//                    dialogFragment.showFromDialog(getSupportFragmentManager(), "SimpleMsgDialogFragment");
 //                }
 //            }
 //

@@ -1,11 +1,14 @@
 package com.wizarpos.pay.recode.sale.widget;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.InputFilter;
 import android.view.View;
+import android.widget.EditText;
 
 import com.lc.baseui.constants.UIStyleEnum;
+import com.lc.baseui.tools.keyBoradManager;
 import com.lc.baseui.widget.dialog.CommonDialog;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay2.lite.R;
@@ -17,11 +20,11 @@ public class SaleInvoiceEditView {
 
     private static final int LENGTH_EDIT_VIEW = 25;//最大输入长度
 
-    public static void show(Context context, String content ,final InvoiceUIClickListener invoiceUIClickListener) {
+    public static void show(Context context, String content, final InvoiceUIClickListener invoiceUIClickListener) {
         final CommonDialog commonDialog = new CommonDialog(context, UIStyleEnum.EDITVIEW_NUM_ZIMU);
         commonDialog.show();
         //主题
-        String title = context.getString(R.string.pay_invoice);
+        String title = context.getString(R.string.invoice_title_input);
         commonDialog.setCommonTitle(title);
         //右边按钮
         String rightText = context.getString(R.string.ok);
@@ -45,7 +48,10 @@ public class SaleInvoiceEditView {
         //中间内容
         commonDialog.setContent(content);
         //设置最大输入长度
-        commonDialog.getDialog_ed_content().setFilters(new InputFilter[]{new InputFilter.LengthFilter(LENGTH_EDIT_VIEW)});
+        EditText editText = commonDialog.getDialog_ed_content();
+        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(LENGTH_EDIT_VIEW)});
+        keyBoradManager.showFromDialog((Activity) context);
+
 
     }
 

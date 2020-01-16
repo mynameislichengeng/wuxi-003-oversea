@@ -68,7 +68,7 @@ public class ContentLoadingSmoothProgressBar extends SmoothProgressBar {
 	}
 
 	/**
-	 * Hide the progress view if it is visible. The progress view will not be hidden until it has been shown for at least a minimum show time. If the progress
+	 * Hide the progress view if it is visible. The progress view will not be hidden until it has been shown for at least a minimum showFromDialog time. If the progress
 	 * view was not yet visible, cancels showing the progress view.
 	 */
 	public void hide() {

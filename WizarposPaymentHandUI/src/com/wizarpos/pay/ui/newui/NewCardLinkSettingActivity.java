@@ -79,7 +79,7 @@ public class NewCardLinkSettingActivity extends BaseViewActivity {
                 updateView();
 //                AppMsg appMsg = AppMsg.makeText(NewCardLinkSettingActivity.this, "配置发生变更后请重新下载收单秘钥并签到", AppMsg.STYLE_INFO);
 //                appMsg.setParent(R.id.rlMain);
-//                appMsg.show();
+//                appMsg.showFromDialog();
             }
 
             @Override
@@ -88,7 +88,7 @@ public class NewCardLinkSettingActivity extends BaseViewActivity {
                 Toast.makeText(NewCardLinkSettingActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
 //                AppMsg appMsg = AppMsg.makeText(NewCardLinkSettingActivity.this, "配置发生变更后请重新下载收单秘钥并签到", AppMsg.STYLE_INFO);
 //                appMsg.setParent(R.id.rlMain);
-//                appMsg.show();
+//                appMsg.showFromDialog();
                 updateView();
             }
         });

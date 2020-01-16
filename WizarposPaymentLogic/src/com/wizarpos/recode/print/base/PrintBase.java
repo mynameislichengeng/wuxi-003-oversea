@@ -41,4 +41,8 @@ public class PrintBase {
     protected static String formatForBC(String txt){
         return q1PrintBuilder.barcode(txt);
     }
+
+    protected static String formatForBr(){
+        return q1PrintBuilder.br();
+    }
 }

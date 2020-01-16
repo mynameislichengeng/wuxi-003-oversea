@@ -975,11 +975,11 @@ public class Constants {
         TRAN_TYPE.put(SC_504_TICKET_CANCEL, "券作废");
         TRAN_TYPE.put(SC_830_MERCHANT_CARD_CHANGE, "会员卡换卡");
         TRAN_TYPE.put(SC_813_ALIPAY, "Alipay");
-        TRAN_TYPE.put(SC_814_TENPAY, "Wechat");
+        TRAN_TYPE.put(SC_814_TENPAY, "Wechat Pay");
 //        TRAN_TYPE.put(SC_814_TENPAY, "Wechat" + PaymentApplication.getInstance().getString(R.string.pay_tag));
 //        TRAN_TYPE.put(SC_820_ORDER_DEF_DETAIL, "Wechat" + " " + PaymentApplication.getInstance().getString(R.string.pay_tag) + " " + PaymentApplication.getInstance().getString(R.string.refund_tag));
 //        TRAN_TYPE.put(SC_809_CANCEL_ALIPAY, "Alipay" + " " + PaymentApplication.getInstance().getString(R.string.refund_tag));
-        TRAN_TYPE.put(SC_820_ORDER_DEF_DETAIL, "Wechat");
+        TRAN_TYPE.put(SC_820_ORDER_DEF_DETAIL, "Wechat Pay");
         TRAN_TYPE.put(SC_809_CANCEL_ALIPAY, "Alipay");
         TRAN_TYPE.put(SC_815_ALIPAY_ORDER_NO, "生成支付宝订单");
         TRAN_TYPE.put(SC_816_WEIXIN_ORDER_NO, "生成微信订单");

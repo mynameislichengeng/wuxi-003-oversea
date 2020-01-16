@@ -76,7 +76,7 @@ public class VoidTransActivity extends BaseViewActivity {
                             response.setMsg("success");
                         }
                         CommonToastUtil.showMsgBelow(VoidTransActivity.this, CommonToastUtil.LEVEL_SUCCESS, response.getMsg());
-//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).showFromDialog();
                         setResult(RESULT_OK);
                         finish();
                     }
@@ -95,7 +95,7 @@ public class VoidTransActivity extends BaseViewActivity {
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                         //      CommonToastUtil.showMsgBelow(VoidTransActivity.this, CommonToastUtil.LEVEL_ERROR, response.getMsg());
-//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).showFromDialog();
 
                     }
                 });

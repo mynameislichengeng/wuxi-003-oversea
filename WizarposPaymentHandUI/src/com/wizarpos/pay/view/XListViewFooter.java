@@ -91,7 +91,7 @@ public class XListViewFooter extends LinearLayout {
 	}
 
 	/**
-	 * show footer
+	 * showFromDialog footer
 	 */
 	public void show() {
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContentView.getLayoutParams();

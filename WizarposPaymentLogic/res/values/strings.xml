@@ -67,6 +67,14 @@
     <string name="print_reprint">(Re print)</string>
     <string name="print_fx_rate">FX rate:</string>
     <string name="print_total">Total:</string>
-    <string name="print_invoice">发票#</string>
+    <string name="print_invoice">发票#:</string>
+
+
+    <string-array name="barcode">
+        <item>code39</item>
+        <item>code93 </item>
+        <item>code128</item>
+        <item>ean13</item>
+    </string-array>
 
 </resources>

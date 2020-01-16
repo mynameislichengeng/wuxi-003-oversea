@@ -302,7 +302,7 @@ public class PieChart01View extends DemoView implements Runnable{
 		Toast.makeText(this.getContext(),								
 				" key:" +  pData.getKey() +
 				" Label:" + pData.getLabel() ,
-				Toast.LENGTH_SHORT).show(); 
+				Toast.LENGTH_SHORT).showFromDialog();
 		*/
 		
 		//用于处理点击时弹开，再点时弹回的效果

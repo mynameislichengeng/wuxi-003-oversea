@@ -354,9 +354,10 @@
     <string name="go_pay">确认</string>
 
     <string name="refresh_last_page">已经最后一页了</string>
-    <string name="pay_invoice">发票</string>
+    <string name="pay_invoice">发票#</string>
+    <string name="invoice_title_input">输入发票编号</string>
 
-    <string name="please_invoice_input">请输入invoice值</string>
+    <string name="please_invoice_input">请输入发票编号.</string>
     <string name="invoice_num">发票号</string>
     <string name="hint_enter_invoice_num">输入发票号</string>
     <string name="receipt_bar_code">收据条码</string>
@@ -383,7 +384,9 @@
 
         <item>交易流水号:</item>
 
+        <item>设备号:</item>
+
         <item>交易时间:</item>
-        
+
     </string-array>
 </resources>

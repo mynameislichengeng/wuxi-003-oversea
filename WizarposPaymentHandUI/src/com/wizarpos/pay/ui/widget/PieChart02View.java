@@ -150,7 +150,7 @@ public class PieChart02View extends DemoView implements Runnable{
 			legend.hide();
 			//显示图例
 //			PlotLegend legend = chart.getPlotLegend();
-//			legend.show();
+//			legend.showFromDialog();
 //			legend.setType(XEnum.LegendType.COLUMN);
 //			legend.setHorizontalAlign(XEnum.HorizontalAlign.RIGHT);
 //			legend.setVerticalAlign(XEnum.VerticalAlign.MIDDLE);

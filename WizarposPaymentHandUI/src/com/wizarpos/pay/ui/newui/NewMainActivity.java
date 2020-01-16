@@ -205,7 +205,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                             Toast.makeText(NewMainActivity.this, "暂不支持卡券核销", Toast.LENGTH_SHORT).show();
                         } else if (TRANSACTION_RECORD == item.getRealValue()) {//交易记录
                             startNewActivity(NewTranlogActivity.class);
-//                            Toast.makeText(NewMainActivity.this, "transaction record", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(NewMainActivity.this, "transaction record", Toast.LENGTH_SHORT).showFromDialog();
                         } else if (TICKET_USE_RECORD == item.getRealValue()) {//卡券核销记录
                             Toast.makeText(NewMainActivity.this, "暂不支持卡券核销", Toast.LENGTH_SHORT).show();
                         } else if (TODAY_RECORD == item.getRealValue()) {//今日汇总

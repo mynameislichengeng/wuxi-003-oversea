@@ -42,7 +42,7 @@ import com.wizarpos.pay2.lite.R;
  * view should add an OnRefreshListener to be notified whenever the swipe to refresh gesture is completed. The SwipeRefreshLayout will notify the listener each
  * and every time the gesture is completed again; the listener is responsible for correctly determining when to actually initiate a refresh of its content. If
  * the listener determines there should not be a refresh, it must call setRefreshing(false) to cancel any visual indication of a refresh. If an activity wishes
- * to show just the progress animation, it should call setRefreshing(true). To disable the gesture and progress animation, call setEnabled(false) on the view.
+ * to showFromDialog just the progress animation, it should call setRefreshing(true). To disable the gesture and progress animation, call setEnabled(false) on the view.
  * <p>
  * This layout should be made the parent of the view that will be refreshed as a result of the gesture and can only support one direct child. This view will
  * also be made the target of the gesture and will be forced to match both the width and the height supplied in this layout. The SwipeRefreshLayout does not
@@ -325,11 +325,11 @@ public class SwipyRefreshLayout extends ViewGroup {
 	 * Notify the widget that refresh state has changed. Do not call this when refresh is triggered by a swipe gesture.
 	 * 
 	 * @param refreshing
-	 *            Whether or not the view should show refresh progress.
+	 *            Whether or not the view should showFromDialog refresh progress.
 	 */
 	public void setRefreshing(boolean refreshing) {
 		if (refreshing && mRefreshing != refreshing) {
-			// scale and show
+			// scale and showFromDialog
 			mRefreshing = refreshing;
 			int endTarget = 0;
 			if (!mUsingCustomStart) {
@@ -356,7 +356,7 @@ public class SwipyRefreshLayout extends ViewGroup {
 	private void startScaleUpAnimation(AnimationListener listener) {
 		mCircleView.setVisibility(View.VISIBLE);
 		if (android.os.Build.VERSION.SDK_INT >= 11) {
-			// Pre API 11, alpha is used in place of scale up to show the
+			// Pre API 11, alpha is used in place of scale up to showFromDialog the
 			// progress circle appearing.
 			// Don't adjust the alpha during appearance otherwise.
 			mProgress.setAlpha(MAX_ALPHA);
@@ -425,7 +425,7 @@ public class SwipyRefreshLayout extends ViewGroup {
 
 	private Animation startAlphaAnimation(final int startingAlpha, final int endingAlpha) {
 		// Pre API 11, alpha is used in place of scale. Don't also use it to
-		// show the trigger point.
+		// showFromDialog the trigger point.
 		if (mScale && isAlphaUsedForScale()) { return null; }
 		Animation alpha = new Animation() {
 			@Override

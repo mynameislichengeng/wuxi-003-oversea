@@ -227,7 +227,7 @@ public class NewVoidCardLinkActivity extends BaseViewActivity implements CardLin
     public void onTransFailed(EnumCommand cmd, String message) {
         getIntent().putExtra(VoidTransActivity.EXTRA_TRANS_VOID_FAILD, message);
         CommonToastUtil.showMsgBelow(NewVoidCardLinkActivity.this, CommonToastUtil.LEVEL_ERROR, message);
-//        Toast.makeText(NewVoidCardLinkActivity.this, message, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(NewVoidCardLinkActivity.this, message, Toast.LENGTH_SHORT).showFromDialog();
         this.finish();
     }
 

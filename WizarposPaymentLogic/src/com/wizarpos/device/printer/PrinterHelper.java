@@ -3,6 +3,7 @@ package com.wizarpos.device.printer;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.nexgo.oaf.apiv3.device.printer.AlignEnum;
@@ -14,6 +15,7 @@ import com.wizarpos.jni.PrinterInterface;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
+import com.wizarpos.recode.print.data.BarcodeDataManager;
 import com.wizarpos.recode.print.data.SpixContent;
 import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 
@@ -59,10 +61,7 @@ public class PrinterHelper {
     public static void printBitmap(Bitmap bitmap) {
         try {
             if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-                printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
-                printerN3N5.setTypeface(Typeface.DEFAULT);
-                printerN3N5.initPrinter();
-                printerN3N5.setLetterSpacing(5);
+
 
             } else {
                 PrinterInterface.open();
@@ -124,35 +123,41 @@ public class PrinterHelper {
 
 
     public static void print(String text) {
+        Log.d("print", "打印的内容:" + text);
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
             printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
             printerN3N5.setTypeface(Typeface.DEFAULT);
             printerN3N5.initPrinter();
             printerN3N5.setLetterSpacing(5);
+//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
             KeywordTrigger trigger = new KeywordTrigger(keywords);
             trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
             trigger.setSource(text);
             trigger.parse();
         } else {
             try {
-//                List<SpixContent.PrintType> printTypes = SpixContent.splitFromBC(text);
-//                for (SpixContent.PrintType printContent : printTypes) {
-//
-//                }
-                PrinterInterface.open();
-                PrinterInterface.begin();
-                printerWrite(PrinterCommand.init());
-                printerWrite(PrinterCommand.setHeatTime(180));
-                KeywordTrigger trigger = new KeywordTrigger(keywords);
-                trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
-                trigger.setSource(text);
-                trigger.parse();
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } finally {
-                PrinterInterface.end();
-                PrinterInterface.close();
+                List<SpixContent.PrintType> printTypes = SpixContent.splitFromBC(text);
+                for (SpixContent.PrintType printContent : printTypes) {
+                    try {
+                        PrinterInterface.open();
+                        PrinterInterface.begin();
+                        printerWrite(PrinterCommand.init());
+                        printerWrite(PrinterCommand.setHeatTime(300));
+                        KeywordTrigger trigger = new KeywordTrigger(keywords);
+                        trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
+                        trigger.setSource(printContent.getTxt());
+                        trigger.parse();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        PrinterInterface.end();
+                        PrinterInterface.close();
+                    }
+                }
+            } catch (Exception e) {
+
             }
+
         }
     }
 
@@ -177,10 +182,16 @@ public class PrinterHelper {
             if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
                 switch (printTypeEnum) {
                     case BC://1维码
-//                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+                        str = str.replace(" ", "");
                         //第1个参数表示内容，第2个表示宽度
                         //第3个参数表示边距离
-                        printerN3N5.appendBarcode(str, 60, 5, 2, BarcodeFormatEnum.CODE_128, AlignEnum.CENTER);
+                        //格式1
+                        BarcodeFormatEnum current = BarcodeDataManager.getCurrentFormat().getN3Value();
+                        printerN3N5.appendBarcode(str, 60, 35, 2, current, AlignEnum.CENTER);
+                        Log.d("print", "打印barcode使用的格式:" + BarcodeDataManager.getCurrentFormat().getName());
+//                        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(str, 400, 60);
+//                        printerN3N5.appendImage(bitmap, AlignEnum.CENTER);
+//                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
                         break;
                     default:
                         printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
@@ -191,7 +202,8 @@ public class PrinterHelper {
             } else {
                 switch (printTypeEnum) {
                     case BC://一维码
-                        printerBarcode(str);
+                        String txt = str.replace(" ", "");
+                        printerBarcode(txt);
                         //文字
                         printText(str);
                         break;

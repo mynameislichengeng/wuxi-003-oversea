@@ -241,7 +241,7 @@ public final class CameraManager {
 	}
 
 	/**
-	 * Calculates the framing rect which the UI should draw to show the user
+	 * Calculates the framing rect which the UI should draw to showFromDialog the user
 	 * where to place the barcode. This target helps with alignment as well as
 	 * forces the user to hold the device far enough away to ensure the image
 	 * will be in focus.

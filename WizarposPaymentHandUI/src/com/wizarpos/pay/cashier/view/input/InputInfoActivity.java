@@ -50,12 +50,12 @@ public class InputInfoActivity extends BaseViewActivity implements InputInfoList
         }
         transaction.commit();
         if(isUseSwipe()){
-//        	transaction.show(inputInfoSwipeFragment);
+//        	transaction.showFromDialog(inputInfoSwipeFragment);
 //        	transaction.hide(inputInfoTextFragment);
         	showSwipeFragment();
         }else{
         	showTextFragment();
-//        	transaction.show(inputInfoTextFragment);
+//        	transaction.showFromDialog(inputInfoTextFragment);
         }
         
 		if(DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_M0 

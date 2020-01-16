@@ -8,7 +8,8 @@
         android:id="@+id/btSkit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳转二维码界面" />
+        android:text="跳转二维码界面"
+        android:visibility="gone" />
 
 
     <LinearLayout
@@ -16,21 +17,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_zxing_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="submit" />
 
         <EditText
             android:id="@+id/ed_zxing_barcode_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请输入条形码的文本" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:hint="请输入条形码的文本"
+            android:text="1000001230100001001001234001" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/barcode" />
+
+        <Button
+            android:id="@+id/btn_zxing_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="submit" />
 
         <ImageView
             android:id="@+id/iv_zxing_test"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>

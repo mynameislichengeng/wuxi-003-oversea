@@ -20,6 +20,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.presenter.StartupPresenter;
+import com.wizarpos.pay.recode.test.TestActivity;
 import com.wizarpos.pay.setting.util.LanguageUtils;
 import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
@@ -118,14 +119,13 @@ public class StartupActivity extends BaseViewActivity {
     private void go() {
         if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
             Log.d("tagtagtag", "进入home界面");
-//			startActivity(new Intent(this, MainFragmentActivity2.class));
             startActivity(new Intent(this, NewMainActivity.class));
         } else {
             Log.d("tagtagtag", "进入登陆界面");
             startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
         }
+//        TestActivity.startActivtyUp(this);
         this.finish();
-        // startActivity(new Intent(this, TestBaiduMicroPayActivity.class));
     }
 
     private void doRequestPermissions() {
@@ -162,7 +162,7 @@ public class StartupActivity extends BaseViewActivity {
             // 用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权。
             if (AndPermission.hasAlwaysDeniedPermission(StartupActivity.this, deniedPermissions)) {
                 // 第一种：用默认的提示语。
-//                AndPermission.defaultSettingDialog(LoginActivity.this, REQUEST_CODE_SETTING).show();
+//                AndPermission.defaultSettingDialog(LoginActivity.this, REQUEST_CODE_SETTING).showFromDialog();
                 // 第二种：用自定义的提示语。
                 AndPermission.defaultSettingDialog(StartupActivity.this, REQUEST_CODE_SETTING)
                         .setTitle("权限申请失败")

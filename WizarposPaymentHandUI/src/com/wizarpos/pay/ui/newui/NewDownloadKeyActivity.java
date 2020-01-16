@@ -152,7 +152,7 @@ public class NewDownloadKeyActivity extends BaseViewActivity implements CardLink
     public void onTransSucceed(EnumCommand cmd) {
         canEndTrans = false;
         showMsg("下载成功!", LEVEL_SUCCESS);
-//        Toast.makeText(this, "下载成功!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "下载成功!", Toast.LENGTH_SHORT).showFromDialog();
         downloadKeyProxy.endTrans();
         CommonToastUtil.showMsgBelow(NewDownloadKeyActivity.this, CommonToastUtil.LEVEL_SUCCESS, "密钥下载成功");
         NewDownloadKeyActivity.this.finish();
@@ -169,7 +169,7 @@ public class NewDownloadKeyActivity extends BaseViewActivity implements CardLink
     public void onTransFailed(EnumCommand cmd, String message) {
         canEndTrans = false;
         showMsg("下载失败!\n" + message, LEVEL_ERROR);
-//        Toast.makeText(this, "下载失败!\n" + message, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "下载失败!\n" + message, Toast.LENGTH_SHORT).showFromDialog();
         CommonToastUtil.showMsgBelow(NewDownloadKeyActivity.this, CommonToastUtil.LEVEL_ERROR, "下载失败！");
 //        downloadKeyProxy.endTrans();
 //        this.finish();
@@ -229,7 +229,7 @@ public class NewDownloadKeyActivity extends BaseViewActivity implements CardLink
                 }
 //                AppMsg appMsg = AppMsg.makeText(NewCardLinkSettingActivity.this, "配置发生变更后请重新下载收单秘钥并签到", AppMsg.STYLE_INFO);
 //                appMsg.setParent(R.id.rlMain);
-//                appMsg.show();
+//                appMsg.showFromDialog();
             }
 
             @Override
@@ -237,10 +237,10 @@ public class NewDownloadKeyActivity extends BaseViewActivity implements CardLink
                 progresser.showContent();
                 showMsg(response.getMsg(), LEVEL_ERROR);
                 CommonToastUtil.showMsgBelow(NewDownloadKeyActivity.this, CommonToastUtil.LEVEL_ERROR, response.getMsg());
-//                Toast.makeText(NewDownloadKeyActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NewDownloadKeyActivity.this, response.getMsg(), Toast.LENGTH_SHORT).showFromDialog();
 //                AppMsg appMsg = AppMsg.makeText(NewCardLinkSettingActivity.this, "配置发生变更后请重新下载收单秘钥并签到", AppMsg.STYLE_INFO);
 //                appMsg.setParent(R.id.rlMain);
-//                appMsg.show();
+//                appMsg.showFromDialog();
 //                updateView();
             }
         });

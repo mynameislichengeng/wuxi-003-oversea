@@ -28,6 +28,7 @@ import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TotalContent;
+import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -522,7 +523,6 @@ public class TransactionCancelPresenter {
                 lines.add(new HTMLPrintModel.EmptyLine());
 
 
-
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                 String printRecepit = context.getString(R.string.print_receipt);
                 lines.add(new HTMLPrintModel.LeftAndRightLine(printRecepit + "#", tranlogId));
@@ -628,8 +628,7 @@ public class TransactionCancelPresenter {
 //            printStringPayFor += selPrint + builder.br();
             printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
-            printString += builder.br()+builder.nBr();
-
+            printString += builder.br() + builder.nBr();
 
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -668,6 +667,12 @@ public class TransactionCancelPresenter {
             }
 
             printString += builder.br();
+
+            String barcodePrint = BarcodeTextContent.printStringRefund(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_customer_copy)));
@@ -739,7 +744,6 @@ public class TransactionCancelPresenter {
 
 
                 lines.add(new HTMLPrintModel.EmptyLine());
-
 
 
                 String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
@@ -852,7 +856,6 @@ public class TransactionCancelPresenter {
             printString += builder.br() + builder.nBr();
 
 
-
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
             printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
@@ -889,6 +892,12 @@ public class TransactionCancelPresenter {
             }
 
             printString += builder.br();
+
+            String barcodePrint = BarcodeTextContent.printStringRefund(resp);
+            if (!TextUtils.isEmpty(barcodePrint)) {
+                printString += barcodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_merchant_copy)));

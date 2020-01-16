@@ -8,15 +8,16 @@ public class TranLogIdDataUtil {
 
     /**
      * 移除P
+     *
      * @param tranLogId
      * @return
      */
     public static String removeCharPForTranLogId(String tranLogId) {
         if (!TextUtils.isEmpty(tranLogId)) {
             if (tranLogId.startsWith(TransRecordLogicConstants.TRANLOGSTART_PRFIX)) {
-                tranLogId.substring(1);
+                return tranLogId.substring(1);
             }
         }
-        return null;
+        return tranLogId;
     }
 }

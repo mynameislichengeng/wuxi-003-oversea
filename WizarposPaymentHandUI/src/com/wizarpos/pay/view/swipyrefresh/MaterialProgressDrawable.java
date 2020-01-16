@@ -650,7 +650,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @param show Set to true to show the arrow head on the progress spinner.
+         * @param show Set to true to showFromDialog the arrow head on the progress spinner.
          */
         public void setShowArrow(boolean show) {
             if (mShowArrow != show) {

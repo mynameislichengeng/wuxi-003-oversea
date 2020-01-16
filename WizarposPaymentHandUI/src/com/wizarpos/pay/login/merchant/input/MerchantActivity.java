@@ -268,7 +268,7 @@
 //
 //	@Override
 //	public void onLoginFaild(Response response) {
-//		Toast.makeText(this, response.msg, 0).show();
+//		Toast.makeText(this, response.msg, 0).showFromDialog();
 //		progresser.showContent();
 //	}
 //

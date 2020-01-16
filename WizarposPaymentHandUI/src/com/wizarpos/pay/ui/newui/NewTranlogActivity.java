@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.lc.baseui.tools.keyBoradManager;
 import com.lc.librefreshlistview.linear.SimpleLinearRecycleView;
 import com.lc.librefreshlistview.listener.RefreshEventListener;
 import com.ui.dialog.DialogHelper;
@@ -160,11 +162,15 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                Log.d("activity", "onDrawerClosed");
+                //关闭键盘
+                keyBoradManager.closeKeyBorad(NewTranlogActivity.this);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                Log.d("activity", "onDrawerOpened");
             }
 
         });
@@ -385,6 +391,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
      * @param tranlogId
      */
     private void operateFragmentOnQuery(String tranType, String timeRange, String startDate, String endDate, String tranlogId, String invoiceNum) {
+        //关闭键盘
+//        keyBoradManager.closeKeyBorad(this);
         //设置状态值
         tranRecordStatusParam.setPageNo(0);
         tranRecordStatusParam.setNextPage(true);
@@ -402,6 +410,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         if (dlMain.isDrawerOpen(Gravity.RIGHT)) {
             dlMain.closeDrawer(Gravity.RIGHT);
         }
+
         // 请求数据
         getDataNew();
 
