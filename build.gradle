@@ -27,5 +27,8 @@ allprojects {
     repositories {
         jcenter()
         google()
+        flatDir {
+            dirs project(':libsn3n5printsdk').file('libs')
+        }
     }
 }

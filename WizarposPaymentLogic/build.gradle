@@ -7,6 +7,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'android:UI:1.1.50'
     compile 'com.yanzhenjie:permission:1.0.5'
+    compile project(path: ':libsn3n5printsdk')
+
 }
 
 android {
@@ -50,5 +52,6 @@ android {
     lintOptions{
         abortOnError false
     }
+
 
 }

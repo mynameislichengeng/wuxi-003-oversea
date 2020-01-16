@@ -29,6 +29,7 @@ import com.wizarpos.pay.db.MerchantCardDef;
 import com.wizarpos.pay.db.TicketCardDef;
 import com.wizarpos.pay.db.UserBean;
 import com.wizarpos.pay.model.UserEntity;
+import com.wizarpos.recode.print.n3n5.N3N5PrintManager;
 
 public abstract class PaymentApplication extends ImageLoadApp {
 
@@ -75,7 +76,8 @@ public abstract class PaymentApplication extends ImageLoadApp {
 //        initNetRequest();// 初始化网络请求
 //		initPrintNetwork();//初始化网络打印
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-            deviceEngine = APIProxy.getDeviceEngine();
+
+            deviceEngine =  N3N5PrintManager.getInstance().initEngine(this);
         }
     }
 
@@ -200,7 +202,8 @@ public abstract class PaymentApplication extends ImageLoadApp {
 //        if (DeviceManager.getInstance().isWizarDevice() && !Constants.FALSE.equals(AppConfigHelper.getConfig(AppConfigDef.test_use_printer))) {
         PrinterManager.getInstance().setPrinter(new MidFilterPrinterBuilder());
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-            deviceEngine = APIProxy.getDeviceEngine();
+
+            deviceEngine = N3N5PrintManager.getInstance().initEngine(this);
         } else if (DeviceManager.getInstance().getDeviceType() != DeviceManager.DEVICE_TYPE_WIZARHAND_Q1) {
             ToHTMLUtil.fontSize = ToHTMLUtil.FONT_SIZE_Q2;
         }
