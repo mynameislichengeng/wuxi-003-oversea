@@ -75,7 +75,6 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
             case 4:
                 title = stuName[4];
                 sympol = TransRecordLogicConstants.TRANSCURRENCY.getSymbol(refundWarnAdapterParam.getTransCurrency());
-
                 value = sympol + this.inputRefundAmount;
                 break;
             default:

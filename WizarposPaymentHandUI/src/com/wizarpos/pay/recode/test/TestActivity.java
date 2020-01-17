@@ -83,17 +83,17 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private String getBarcodeText() {
 
         String str = ed_zxing_barcode_test.getText().toString();
-//        if (TextUtils.isEmpty(str)) {
-//            return null;
-//        }
-//        String result = "<c><b>Alipay Merchant Demo(Re print)</b></c>";
-//
-//        TransactionInfo transactionInfo = new TransactionInfo();
-//        transactionInfo.setTranLogId(str);
-//        String barcode = BarcodeTextContent.printStringPayfor(transactionInfo);
-//        result += barcode;
-//
-//        result += "<end/>";
-        return str;
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        String result = "<c><b>Alipay Merchant Demo(Re print)</b></c>";
+
+        TransactionInfo transactionInfo = new TransactionInfo();
+        transactionInfo.setTranLogId(str);
+        String barcode = BarcodeTextContent.printStringPayfor(transactionInfo);
+        result += barcode;
+
+        result += "<end/>";
+        return result;
     }
 }
