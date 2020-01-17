@@ -20,7 +20,6 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.presenter.StartupPresenter;
-import com.wizarpos.pay.recode.test.TestActivity;
 import com.wizarpos.pay.setting.util.LanguageUtils;
 import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
@@ -124,7 +123,7 @@ public class StartupActivity extends BaseViewActivity {
             Log.d("tagtagtag", "进入登陆界面");
             startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
         }
-//        TestActivity.startActivtyUp(this);
+//        TestBarCodeFormatActivity.startActivtyUp(this);
         this.finish();
     }
 

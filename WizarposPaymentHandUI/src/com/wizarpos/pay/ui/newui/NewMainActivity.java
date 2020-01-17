@@ -41,7 +41,6 @@ import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.view.LoginMerchantRebuildActivity;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
-import com.wizarpos.pay.recode.test.TestActivity;
 import com.wizarpos.pay.ui.newui.entity.ItemBean;
 import com.wizarpos.pay.ui.newui.fragment.NewGatheringFragment;
 import com.wizarpos.pay.ui.newui.fragment.NewQ2GatheringFragment;
@@ -50,7 +49,6 @@ import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
-import com.wizarpos.pay.view.util.Tools;
 import com.wizarpos.pay2.lite.R;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
@@ -213,7 +211,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                             startNewActivity(NewDailySumActivityPlus.class);
 
                             //test todo
-//                            TestActivity.startAc(NewMainActivity.this);
+//                            TestBarCodeFormatActivity.startAc(NewMainActivity.this);
                         } else if (SETTING == item.getRealValue()) {//设置
                             startActivity(new Intent(NewMainActivity.this, NewSettingActivity.class));
                             NewMainActivity.this.finish();

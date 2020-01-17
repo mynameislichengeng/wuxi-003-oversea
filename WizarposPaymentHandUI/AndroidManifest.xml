@@ -566,7 +566,11 @@
         <activity android:name="com.wizarpos.pay.setting.activity.TipParameterSettingActivity" />
 
         <activity
-            android:name="com.wizarpos.pay.recode.test.TestActivity"
+            android:name="com.wizarpos.pay.recode.test.TestBarCodeFormatActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.wizarpos.pay.recode.test.TestPrintActivity"
             android:exported="true"
             android:screenOrientation="portrait"></activity>
         <activity

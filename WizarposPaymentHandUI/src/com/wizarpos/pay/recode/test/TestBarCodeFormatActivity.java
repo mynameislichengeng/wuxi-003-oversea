@@ -13,26 +13,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.wizarpos.device.printer.PrinterHelper;
-import com.wizarpos.log.util.StringUtil;
-import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
-import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.pay2.lite.R;
 import com.wizarpos.recode.print.constants.BarFormat;
-import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.recode.print.data.BarcodeDataManager;
 import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 
-public class TestActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestBarCodeFormatActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String TAG = TestActivity.class.getName();
+    private String TAG = TestBarCodeFormatActivity.class.getName();
 
 
     public static void startActivtyUp(Context context) {
-        Intent intent = new Intent(context, TestActivity.class);
+        Intent intent = new Intent(context, TestBarCodeFormatActivity.class);
         context.startActivity(intent);
     }
 
@@ -58,7 +53,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                 BarFormat format = BarFormat.getEnum(pos);
                 BarcodeDataManager.settingCurrentFormat(format);
-                Toast.makeText(TestActivity.this, "选择了" + format.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TestBarCodeFormatActivity.this, "选择了" + format.getName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
