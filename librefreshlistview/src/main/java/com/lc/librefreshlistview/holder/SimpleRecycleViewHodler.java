@@ -3,6 +3,7 @@ package com.lc.librefreshlistview.holder;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.LinearLayout;
 
 /**
  * recycleViewHolder
@@ -31,4 +32,17 @@ public class SimpleRecycleViewHodler extends RecyclerView.ViewHolder {
         return view;
     }
 
+    public void setVisibility(boolean isVisible) {
+        RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+        if (isVisible) {
+            param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            itemView.setVisibility(View.VISIBLE);
+        } else {
+            itemView.setVisibility(View.GONE);
+            param.height = 0;
+            param.width = 0;
+        }
+        itemView.setLayoutParams(param);
+    }
 }

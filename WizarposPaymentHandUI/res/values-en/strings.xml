@@ -202,13 +202,10 @@
     <string-array name="tran_detail_adapter_item_title">
 
         <item>Sale Amount:</item>
-
         <item>Payment Type:</item>
-
         <item>Receipt#:</item>
-
         <item>Device#:</item>
-
+        <item>Invoice#:</item>
         <item>Time:</item>
 
 

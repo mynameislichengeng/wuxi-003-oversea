@@ -127,9 +127,18 @@ public class PrinterHelper {
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
             printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
             printerN3N5.initPrinter();
+<<<<<<< HEAD
             printerN3N5.setTypeface(Typeface.DEFAULT);
             printerN3N5.setLetterSpacing(6);
             printerN3N5.setGray(GrayLevelEnum.LEVEL_4);
+||||||| parent of be68841... 添加invoice号
+            printerN3N5.setLetterSpacing(5);
+//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
+=======
+            printerN3N5.setTypeface(Typeface.DEFAULT);
+            printerN3N5.setLetterSpacing(5);
+//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
+>>>>>>> be68841... 添加invoice号
             KeywordTrigger trigger = new KeywordTrigger(keywords);
             trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
             trigger.setSource(text);
@@ -188,7 +197,7 @@ public class PrinterHelper {
                         //格式1
 
                         BarcodeFormatEnum current = BarcodeDataManager.getCurrentFormat().getN3Value();
-                        printerN3N5.appendBarcode(str, 60, 35, 2, current, AlignEnum.CENTER);
+                        printerN3N5.appendBarcode(str, 60, 20, 2, current, AlignEnum.CENTER);
                         Log.d("print", "打印barcode使用的格式:" + BarcodeDataManager.getCurrentFormat().getName());
 //                        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(str, 400, 60);
 //                        printerN3N5.appendImage(bitmap, AlignEnum.CENTER);
