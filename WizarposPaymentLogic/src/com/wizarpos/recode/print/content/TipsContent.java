@@ -23,7 +23,7 @@ public class TipsContent extends PrintBase {
 
     public static String printStringPayFor(Context context, String tipsAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
         String printTip = context.getString(R.string.print_tip);
-        return printTip + multipleSpaces(31 - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + "$" + Calculater.formotFen(tipsAmount);
+        return printTip + multipleSpaces(getTipsSpaceCount() - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + "$" + Calculater.formotFen(tipsAmount);
 
     }
 
@@ -31,7 +31,7 @@ public class TipsContent extends PrintBase {
         if (!TextUtils.isEmpty(resp.getTipAmount()) && !resp.getTipAmount().equals("0")) {
             String printTip = context.getString(R.string.print_tip);
             String tips = divide100(resp.getTipAmount());
-            int numSpace = tranZhSpaceNums(31, 1, resp.getTransCurrency());
+            int numSpace = tranZhSpaceNums(getTipsSpaceCount(), 1, resp.getTransCurrency());
             String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
             return printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length()) + printTrancurrency + tips;
         }
@@ -46,5 +46,13 @@ public class TipsContent extends PrintBase {
             return new HTMLPrintModel.LeftAndRightLine(printTip, printTrancurrency + tips);
         }
         return null;
+    }
+
+    private static int getTipsSpaceCount() {
+        if (getDeviceTypeForN3N5()) {
+            return 31 + 15;
+        } else {
+            return 31;
+        }
     }
 }

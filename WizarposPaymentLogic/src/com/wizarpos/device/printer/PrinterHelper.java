@@ -4,12 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.nexgo.oaf.apiv3.device.printer.AlignEnum;
+import com.nexgo.oaf.apiv3.device.printer.BarcodeFormatEnum;
+import com.nexgo.oaf.apiv3.device.printer.GrayLevelEnum;
 import com.nexgo.oaf.apiv3.device.printer.OnPrintListener;
 import com.nexgo.oaf.apiv3.device.printer.Printer;
-import com.nexgo.oaf.apiv3.device.printer.BarcodeFormatEnum;
 import com.wizarpos.atool.log.Logger;
 import com.wizarpos.jni.PrinterInterface;
 import com.wizarpos.pay.app.PaymentApplication;
@@ -126,10 +126,10 @@ public class PrinterHelper {
         Log.d("print", "打印的内容:" + text);
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
             printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
-            printerN3N5.setTypeface(Typeface.DEFAULT);
             printerN3N5.initPrinter();
-            printerN3N5.setLetterSpacing(5);
-//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
+            printerN3N5.setTypeface(Typeface.DEFAULT);
+            printerN3N5.setLetterSpacing(6);
+            printerN3N5.setGray(GrayLevelEnum.LEVEL_4);
             KeywordTrigger trigger = new KeywordTrigger(keywords);
             trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
             trigger.setSource(text);
@@ -186,6 +186,7 @@ public class PrinterHelper {
                         //第1个参数表示内容，第2个表示宽度
                         //第3个参数表示边距离
                         //格式1
+
                         BarcodeFormatEnum current = BarcodeDataManager.getCurrentFormat().getN3Value();
                         printerN3N5.appendBarcode(str, 60, 35, 2, current, AlignEnum.CENTER);
                         Log.d("print", "打印barcode使用的格式:" + BarcodeDataManager.getCurrentFormat().getName());
@@ -221,7 +222,7 @@ public class PrinterHelper {
                 if (keyword.equals("<b>")) {
                     isBoldFont = true;
                 } else if (keyword.equals("</b>")) {
-                    isBoldFont = true;
+                    isBoldFont = false;
                 } else if (keyword.equals("<c>")) {
                     align = AlignEnum.CENTER;
                 } else if (keyword.equals("</c>")) {

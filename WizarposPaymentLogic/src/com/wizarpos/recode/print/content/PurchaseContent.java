@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 public class PurchaseContent extends PrintBase {
 
+
     public static HTMLPrintModel.LeftAndRightLine printHtmlPurchasePayFor(Context context, String tipsAmount, String totalAmount) {
         HTMLPrintModel.LeftAndRightLine purchase = null;
         String printPurchase = context.getString(R.string.print_purchase);
@@ -32,9 +33,9 @@ public class PurchaseContent extends PrintBase {
         String printPurchase = context.getString(R.string.print_purchase);
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
             String purchaseAmount = Calculater.formotFen(Calculater.subtract(transactionInfo.getRealAmount(), tipsAmount));
-            pur = printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + "$" + purchaseAmount;
+            pur = printPurchase + multipleSpaces(getPurchaseSpaceCount() - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + "$" + purchaseAmount;
         } else {
-            pur = printPurchase + multipleSpaces(31 - printPurchase.getBytes("GBK").length - totalAmount.length()) + "$" + totalAmount;
+            pur = printPurchase + multipleSpaces(getPurchaseSpaceCount() - printPurchase.getBytes("GBK").length - totalAmount.length()) + "$" + totalAmount;
         }
         return pur;
     }
@@ -48,7 +49,7 @@ public class PurchaseContent extends PrintBase {
 
         String tranAmount = resp.getTransAmount();
         String tipsAmount = resp.getTipAmount();
-        int numSpace = tranZhSpaceNums(31, 1, transCurrency);
+        int numSpace = tranZhSpaceNums(getPurchaseSpaceCount(), 1, transCurrency);
         String purchaseAmount;
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
             purchaseAmount = divide100(Calculater.subtract(tranAmount, tipsAmount));
@@ -81,4 +82,14 @@ public class PurchaseContent extends PrintBase {
         }
         return null;
     }
+
+
+    private static int getPurchaseSpaceCount() {
+        if (getDeviceTypeForN3N5()) {
+            return 31 + 15;
+        } else {
+            return 31;
+        }
+    }
+
 }

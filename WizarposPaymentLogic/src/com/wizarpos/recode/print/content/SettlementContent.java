@@ -17,25 +17,6 @@ public class SettlementContent extends PrintBase {
 
     public static HTMLPrintModel.LeftAndRightLine printHtmlSettlementPayFor(TransactionInfo transactionInfo) {
 
-//        String tranCurrency = transactionInfo.getTransCurrency();
-//        String settlementCurrency = transactionInfo.getSettlementCurrency();
-//        String tempAmount;
-//        String tempCurrency;
-//        if (tranCurrency.equals(settlementCurrency)) {
-//            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-//            }
-//            tempAmount = cnyAmount;
-//            tempCurrency = "CNY";
-//        } else {
-//        String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
-//        if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
-//            settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-//        }
-//        tempAmount = settlementAmount;
-//        tempCurrency = settlementCurrency;
-//        }
         String amount = divide100(transactionInfo.getSettlementAmount());
         HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", transactionInfo.getSettlementCurrency() + " " + amount);
         return leftAndRightLine;
@@ -43,27 +24,8 @@ public class SettlementContent extends PrintBase {
 
     public static String printStringSettlementPayFor(TransactionInfo transactionInfo) {
 
-//        String tranCurrency = transactionInfo.getTransCurrency();
-//        String settlementCurrency = transactionInfo.getSettlementCurrency();
-//        String tempAmount;
-//        String tempCurrency;
-//        if (tranCurrency.equals(settlementCurrency)) {
-//            String cnyAmount = Calculater.formotFen(AppConfigHelper.getConfig(AppConfigDef.CNY_AMOUNT)).trim();
-//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-//            }
-//            tempAmount = cnyAmount;
-//            tempCurrency = "CNY";
-//        } else {
-//            String settlementAmount = Calculater.formotFen(transactionInfo.getSettlementAmount()).trim();
-//            if (TextUtils.isEmpty(settlementAmount) || "0.00".equals(settlementAmount)) {
-//                settlementAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(totalAmount, exchangeRate)));
-//            }
-//            tempAmount = settlementAmount;
-//            tempCurrency = settlementCurrency;
-//        }
         String amount = divide100(transactionInfo.getSettlementAmount());
-        String str = multipleSpaces(28 - amount.length()) + transactionInfo.getSettlementCurrency() + " " + amount;
+        String str = multipleSpaces(getSettlementSpaceCount() - amount.length()) + transactionInfo.getSettlementCurrency() + " " + amount;
         return str;
     }
 
@@ -97,7 +59,7 @@ public class SettlementContent extends PrintBase {
             tempAmount = divide100(resp.getRefundAmount()).trim();
         }
         tempAmount = removeFuhao(tempAmount);
-        String s = multipleSpaces(28 - tempAmount.length()) + tempCurrency + " " + tempAmount;
+        String s = multipleSpaces(getSettlementSpaceCount() - tempAmount.length()) + tempCurrency + " " + tempAmount;
         return s;
     }
 
@@ -114,7 +76,15 @@ public class SettlementContent extends PrintBase {
         String settlementCurrency = resp.getSettlementCurrency();
         String settlementAmount = divide100(resp.getSettlementAmount());
         settlementAmount = removeFuhao(settlementAmount);
-        String str = multipleSpaces(28 - settlementAmount.length()) + settlementCurrency + " " + settlementAmount;
+        String str = multipleSpaces(getSettlementSpaceCount() - settlementAmount.length()) + settlementCurrency + " " + settlementAmount;
         return str;
+    }
+
+    private static int getSettlementSpaceCount() {
+        if (getDeviceTypeForN3N5()) {
+            return 28 + 15;
+        } else {
+            return 28;
+        }
     }
 }

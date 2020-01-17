@@ -18,7 +18,7 @@ public class TotalContent extends PrintBase {
 
     public static String printStringPayFor(Context context, String totalAmount) {
         String total = context.getResources().getString(R.string.print_total);
-        return total + multipleSpaces(25 - totalAmount.length()) + "$" + totalAmount;
+        return total + multipleSpaces(getTotalSpaceCount() - totalAmount.length()) + "$" + totalAmount;
     }
 
 
@@ -32,7 +32,7 @@ public class TotalContent extends PrintBase {
 
     public static String printStringRefund(Context context, RefundDetailResp resp) {
         String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-        int numTotalSpace = tranZhSpaceNums(25, 1, resp.getTransCurrency());
+        int numTotalSpace = tranZhSpaceNums(getTotalSpaceCount(), 1, resp.getTransCurrency());
         String printTotal = context.getString(R.string.print_total);
         String tranAmount = divide100(resp.getTranAmount());
         tranAmount = removeFuhao(tranAmount);
@@ -46,7 +46,7 @@ public class TotalContent extends PrintBase {
         String tranAmount = divide100(resp.getTransAmount());
         tranAmount = removeFuhao(tranAmount);
 
-        int numSpaceTotal = tranZhSpaceNums(25, 1, tranCurrency);
+        int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(), 1, tranCurrency);
         return printTotal + multipleSpaces(numSpaceTotal - tranAmount.length()) + printTranCurrency + tranAmount;
 
     }
@@ -60,5 +60,12 @@ public class TotalContent extends PrintBase {
         return new HTMLPrintModel.LeftAndRightLine(printTotal, printTranCurrency + tranAmount);
     }
 
+    private static int getTotalSpaceCount() {
+        if (getDeviceTypeForN3N5()) {
+            return 25 + 15;
+        } else {
+            return 25;
+        }
+    }
 
 }

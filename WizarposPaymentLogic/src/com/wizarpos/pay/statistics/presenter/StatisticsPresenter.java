@@ -43,6 +43,7 @@ import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.model.TranLogBean;
 import com.wizarpos.recode.constants.HttpConstants;
 
+import com.wizarpos.recode.print.content.CADContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
@@ -1392,7 +1393,7 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
             }
             printString += builder.br();
-            
+
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
@@ -1818,7 +1819,6 @@ public class StatisticsPresenter extends BasePresenter {
             return;
         }
         try {
-//            Constants.HANDUI_IS_BLOCK_UI = true;
             PrintServiceControllerProxy controller = new PrintServiceControllerProxy(context);
             Q1PrintBuilder builder = new Q1PrintBuilder();
             String printString = "";
@@ -1844,75 +1844,39 @@ public class StatisticsPresenter extends BasePresenter {
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
-//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-//            String snStr = resp.getSn();
-//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
             printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
 
-
-//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-//            String optNameStr = resp.getOptName();
-//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
             printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
 
 
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
 
-//            String totalAmount = resp.getSingleAmount();
-//            String tipsAmount = resp.getTipAmount();
-//            int numSpace = PrintManager.tranZhSpaceNums(31, 1, resp.getTransCurrency());
-
-//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//            String printPurchase = context.getString(R.string.print_purchase);
-//            //
-//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-//                String purchaseAmount = Calculater.formotFen(Calculater.subtract(totalAmount, tipsAmount));
-//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrency + purchaseAmount + builder.br();
-//            } else {
-//                printStringPayFor += printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
-//            }
             printString += PurchaseContent.printStringActivity(context, resp) + builder.br();
 
-//            if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-//                String printTip = context.getString(R.string.print_tip);
-//                printString += printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - Calculater.formotFen(tipsAmount).length()) + transCurrency + Calculater.formotFen(tipsAmount) + builder.br();
-//            }
+
             String printTips = TipsContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(printTips)) {
                 printString += printTips + builder.br();
             }
 
 
-//            int numSpaceTotal = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-//            String printTotal = context.getString(R.string.print_total);
-//            printString += printTotal + multipleSpaces(numSpaceTotal - Calculater.formotFen(resp.getSingleAmount()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount()) + builder.br();
-
             printString += TotalContent.printStringActivity(context, resp) + builder.br();
 
 
-//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getSingleAmount()), exchangeRate)));
-//            }
-//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
-
-//            String settlePrintStr = PrintManager.printStringSettlement(exchangeRate, resp);
-//            printString += settlePrintStr + builder.br();
             printString += SettlementContent.printStringActivity(resp) + builder.br();
 
             //
-            String exchangeRate = resp.getExchangeRate();
-            if (TextUtils.isEmpty(exchangeRate)) {
-                exchangeRate = "1";
-            }
-            String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
-            String printFx = context.getString(R.string.print_fx_rate);
-            printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
-            printString += builder.br() + builder.nBr();
+//            String exchangeRate = resp.getExchangeRate();
+//            if (TextUtils.isEmpty(exchangeRate)) {
+//                exchangeRate = "1";
+//            }
+//            String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
+//            String printFx = context.getString(R.string.print_fx_rate);
+//            printString += printFx + multipleSpaces(32 - printFx.getBytes("GBK").length - showCNY.length()) + showCNY + builder.br();
+//            printString += builder.br() + builder.nBr();
 
+            printString += CADContent.printStringActivity(context, resp);
 
             String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
             String printRecepit = context.getString(R.string.print_receipt);
@@ -1968,11 +1932,6 @@ public class StatisticsPresenter extends BasePresenter {
             //
             controller.cutPaper();
 
-//            PrintServiceControllerProxy controller1 = new PrintServiceControllerProxy(context);
-//            Q1PrintBuilder builder1 = new Q1PrintBuilder();
-//            Bitmap bitmap = ZxingBarcodeManager.creatBarcode("1234567890123456789012345678", 200, 40);
-//            controller.print(bitmap);
-//            controller.print("11" + builder.endPrint());
         } catch (Exception e) {
             e.printStackTrace();
         }

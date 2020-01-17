@@ -70,11 +70,11 @@ public class InvoiceContent extends PrintBase {
         String title = getTitle(context);
         if (inVoiceValue.length() < PART_LENGTH) {
             aray = new String[1];
-            aray[0] = title + multipleSpaces(32 - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            aray[0] = title + multipleSpaces(getInvoiceSpaceCount() - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
         } else {
             aray = new String[2];
             aray[0] = title;
-            aray[1] = multipleSpaces(32 - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            aray[1] = multipleSpaces(getInvoiceSpaceCount() - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
         }
         return aray;
     }
@@ -83,5 +83,12 @@ public class InvoiceContent extends PrintBase {
     private static String getTitle(Context context) {
         String titleInvoice = context.getString(R.string.print_invoice);
         return titleInvoice;
+    }
+    private static int getInvoiceSpaceCount() {
+        if (getDeviceTypeForN3N5()) {
+            return 32 + 15;
+        } else {
+            return 32;
+        }
     }
 }
