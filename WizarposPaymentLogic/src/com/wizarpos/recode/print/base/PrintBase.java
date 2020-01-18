@@ -7,6 +7,8 @@ import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 public class PrintBase {
 
+    protected final static int PART_LENGTH = 20;//当长度大于14的时候，就分割一下
+
     protected static Q1PrintBuilder q1PrintBuilder = new Q1PrintBuilder();
 
     protected static String multipleSpaces(int n) {

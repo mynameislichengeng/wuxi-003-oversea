@@ -127,18 +127,10 @@ public class PrinterHelper {
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
             printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
             printerN3N5.initPrinter();
-<<<<<<< HEAD
-            printerN3N5.setTypeface(Typeface.DEFAULT);
-            printerN3N5.setLetterSpacing(6);
-            printerN3N5.setGray(GrayLevelEnum.LEVEL_4);
-||||||| parent of be68841... 添加invoice号
-            printerN3N5.setLetterSpacing(5);
-//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
-=======
             printerN3N5.setTypeface(Typeface.DEFAULT);
             printerN3N5.setLetterSpacing(5);
-//            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
->>>>>>> be68841... 添加invoice号
+            printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
+
             KeywordTrigger trigger = new KeywordTrigger(keywords);
             trigger.setHandle(new PrinterHelper.PrinterKeywordTriggerHandle());
             trigger.setSource(text);

@@ -62,7 +62,7 @@ public class TotalContent extends PrintBase {
 
     private static int getTotalSpaceCount() {
         if (getDeviceTypeForN3N5()) {
-            return 25 + 15;
+            return 25 + 20 + 1;
         } else {
             return 25;
         }

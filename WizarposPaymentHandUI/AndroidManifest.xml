@@ -569,10 +569,7 @@
             android:name="com.wizarpos.pay.recode.test.TestBarCodeFormatActivity"
             android:exported="true"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.wizarpos.pay.recode.test.TestPrintActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity"
             android:screenOrientation="portrait" />

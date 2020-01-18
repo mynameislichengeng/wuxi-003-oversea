@@ -14,8 +14,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
+import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.pay2.lite.R;
 import com.wizarpos.recode.print.constants.BarFormat;
+import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.recode.print.data.BarcodeDataManager;
 import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
@@ -45,7 +47,7 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
         btn.setOnClickListener(this);
         ed_zxing_barcode_test = (EditText) findViewById(R.id.ed_zxing_barcode_test);
         spinner = findViewById(R.id.spinner);
-        BarcodeDataManager.settingCurrentFormat(BarFormat.getEnum(0));
+//        BarcodeDataManager.settingCurrentFormat(BarFormat.getEnum(0));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -81,14 +83,14 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
         if (TextUtils.isEmpty(str)) {
             return null;
         }
-        String result = "<c><b>Alipay Merchant Demo(Re print)</b></c>";
-
-        TransactionInfo transactionInfo = new TransactionInfo();
-        transactionInfo.setTranLogId(str);
-        String barcode = BarcodeTextContent.printStringPayfor(transactionInfo);
-        result += barcode;
-
-        result += "<end/>";
-        return result;
+//        String result = "<c><b>Alipay Merchant Demo(Re print)</b></c>";
+//
+//        TransactionInfo transactionInfo = new TransactionInfo();
+//        transactionInfo.setTranLogId(str);
+//        String barcode = BarcodeTextContent.printStringPayfor(transactionInfo);
+//        result += barcode;
+//
+//        result += "<end/>";
+        return str;
     }
 }

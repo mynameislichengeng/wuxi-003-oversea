@@ -23,11 +23,17 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.print.content.AcctContent;
+import com.wizarpos.recode.print.content.AcctNameContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.PayTimeContent;
+import com.wizarpos.recode.print.content.ReceiptContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TotalContent;
+import com.wizarpos.recode.print.content.TransNumContent;
+import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -591,63 +597,50 @@ public class TransactionCancelPresenter {
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
-//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-//            String snStr = resp.getSn();
-//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+
             printString += DeviceContent.printStringDevice(context) + builder.br();
 
-//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-//            String optNameStr = resp.getOptName();
-//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
+
             printString += CashierIdContent.printString(context) + builder.br();
 
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-            //
-//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-//            String printTotal = context.getString(R.string.print_total);
-//            printStringPayFor += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
 
             printString += TotalContent.printStringRefund(context, resp) + builder.br();
 
-//            String exchangeRate = resp.getExchangeRate();
-//            if (TextUtils.isEmpty(exchangeRate)) {
-//                exchangeRate = "1";
-//            }
-
-//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-//            }
-//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
-
-//            String selPrint = PrintManager.printStringSettlement(exchangeRate, resp);
-//            printStringPayFor += selPrint + builder.br();
             printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
             printString += builder.br() + builder.nBr();
 
 
-            String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-            String printRecepit = context.getString(R.string.print_receipt);
-            printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
-            printString += resp.getPayTime().substring(0, 10) + multipleSpaces(22 - resp.getPayTime().substring(10).length()) + resp.getPayTime().substring(10) + builder.br();
-            String payType = resp.getTransKind();
-            if ("WechatPay".equals(payType)) {
-                payType = "Wechat Pay";
-            } else if (payType.contains("Union")) {
-                payType = "Union Pay QR";
+            printString += ReceiptContent.printStringRefund(context, resp);
+
+
+            printString += PayTimeContent.printStringRefund(resp);
+
+//            String payType = resp.getTransKind();
+//            if ("WechatPay".equals(payType)) {
+//                payType = "Wechat Pay";
+//            } else if (payType.contains("Union")) {
+//                payType = "Union Pay QR";
+//            }
+//            String printType = context.getString(R.string.print_type);
+//            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
+
+            printString += TransTypeContent.printStringRefund(context, resp);
+
+//            String thirdTransOrder = resp.getThirdTradeNo();
+//            if (!TextUtils.isEmpty(thirdTransOrder)) {
+//                printString += context.getString(R.string.print_trans) + builder.br();
+//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
+//            }
+
+            String transNumPrintString = TransNumContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(transNumPrintString)) {
+                printString += transNumPrintString;
             }
-            String printType = context.getString(R.string.print_type);
-            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
-            String thirdTransOrder = resp.getThirdTradeNo();
-            if (!TextUtils.isEmpty(thirdTransOrder)) {
-                printString += context.getString(R.string.print_trans) + builder.br();
-                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-            }
+
+
             String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
             if (invoicePrint != null) {
                 for (String str : invoicePrint) {
@@ -655,16 +648,28 @@ public class TransactionCancelPresenter {
                 }
             }
 
-            String acctName = resp.getThirdExtName();
-            if (!TextUtils.isEmpty(acctName)) {
-                String printAcctName = context.getString(R.string.print_acctName);
-                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
+//            String acctName = resp.getThirdExtName();
+//            if (!TextUtils.isEmpty(acctName)) {
+//                String printAcctName = context.getString(R.string.print_acctName);
+//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
+//            }
+
+            String accNamePrintString = AcctNameContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(accNamePrintString)) {
+                printString += accNamePrintString;
             }
-            String acct = resp.getThirdExtId();
-            if (!TextUtils.isEmpty(acct)) {
-                String printAcct = context.getString(R.string.print_acct);
-                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
+
+//            String acct = resp.getThirdExtId();
+//            if (!TextUtils.isEmpty(acct)) {
+//                String printAcct = context.getString(R.string.print_acct);
+//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
+//            }
+
+            String acctPrintString = AcctContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(acctPrintString)) {
+                printString += acctPrintString;
             }
+
 
             printString += builder.br();
 
@@ -814,65 +819,57 @@ public class TransactionCancelPresenter {
             String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
             printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
-//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-//            String snStr = resp.getSn();
-//            printStringPayFor += PrintManager.printStringSn(context, snStr) + builder.br();
+
             printString += DeviceContent.printStringDevice(context) + builder.br();
 
 
-//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-//            String optName = resp.getOptName();
-//            printStringPayFor += PrintManager.printStringOptName(context, optName) + builder.br();
             printString += CashierIdContent.printString(context) + builder.br();
 
 
-            printString += builder.br();
+            printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
 
-//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-//            String printTotal = context.getString(R.string.print_total);
-//            printStringPayFor += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getRefundAmount()).length()) + transCurrency + Calculater.formotFen(resp.getRefundAmount()) + builder.br();
             printString += TotalContent.printStringRefund(context, resp) + builder.br();
 
-//            String exchangeRate = resp.getExchangeRate();
-//            if (TextUtils.isEmpty(exchangeRate)) {
-//                exchangeRate = "1";
-//            }
 
-//            String cnyAmount = Calculater.formotFen(resp.getCnyAmount()).replace("-", "").trim();
-//            if (TextUtils.isEmpty(cnyAmount) || "0.00".equals(cnyAmount)) {
-//                cnyAmount = String.format("%.2f", Float.parseFloat(Calculater.multiply(Calculater.formotFen(resp.getRefundAmount()), exchangeRate)));
-//            }
-//            printStringPayFor += multipleSpaces(28 - cnyAmount.length()) + "CNY " + cnyAmount + builder.br();
-
-//            String printSetlement = PrintManager.printStringSettlement(exchangeRate, resp);
-//            printStringPayFor += printSetlement + builder.br();
             printString += SettlementContent.printStringSettlementRefund(resp) + builder.br();
 
 
             printString += builder.br() + builder.nBr();
 
 
-            String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-            String printRecepit = context.getString(R.string.print_receipt);
-            printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
-            printString += resp.getPayTime().substring(0, 10) + multipleSpaces(22 - resp.getPayTime().substring(10).length()) + resp.getPayTime().substring(10) + builder.br();
-            String payType = resp.getTransKind();
-            if ("WechatPay".equals(payType)) {
-                payType = "Wechat Pay";
-            } else if (payType.contains("Union")) {
-                payType = "Union Pay QR";
+//            String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+//            String printRecepit = context.getString(R.string.print_receipt);
+//            printString += printRecepit + "#" + multipleSpaces(31 - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId + builder.br();
+
+            printString += ReceiptContent.printStringRefund(context, resp);
+
+
+            printString += PayTimeContent.printStringRefund(resp);
+
+//            String payType = resp.getTransKind();
+//            if ("WechatPay".equals(payType)) {
+//                payType = "Wechat Pay";
+//            } else if (payType.contains("Union")) {
+//                payType = "Union Pay QR";
+//            }
+//            String printType = context.getString(R.string.print_type);
+//            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
+
+            printString += TransTypeContent.printStringRefund(context, resp);
+
+
+//            String thirdTransOrder = resp.getThirdTradeNo();
+//            if (!TextUtils.isEmpty(thirdTransOrder)) {
+//                printString += context.getString(R.string.print_trans) + builder.br();
+//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
+//            }
+
+            String transNumPrintString = TransNumContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(transNumPrintString)) {
+                printString += transNumPrintString;
             }
-            String printType = context.getString(R.string.print_type);
-            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
-            String thirdTransOrder = resp.getThirdTradeNo();
-            if (!TextUtils.isEmpty(thirdTransOrder)) {
-                printString += context.getString(R.string.print_trans) + builder.br();
-                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-            }
+
             String[] invoicePrint = InvoiceContent.printStringRefund(context, resp);
             if (invoicePrint != null) {
                 for (String str : invoicePrint) {
@@ -880,15 +877,27 @@ public class TransactionCancelPresenter {
                 }
             }
 
-            String acctName = resp.getThirdExtName();
-            if (!TextUtils.isEmpty(acctName)) {
-                String printAcctName = context.getString(R.string.print_acctName);
-                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
+//            String acctName = resp.getThirdExtName();
+//            if (!TextUtils.isEmpty(acctName)) {
+//                String printAcctName = context.getString(R.string.print_acctName);
+//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
+//            }
+
+            String accNamePrintString = AcctNameContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(accNamePrintString)) {
+                printString += accNamePrintString;
             }
-            String acct = resp.getThirdExtId();
-            if (!TextUtils.isEmpty(acct)) {
-                String printAcct = context.getString(R.string.print_acct);
-                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
+
+
+//            String acct = resp.getThirdExtId();
+//            if (!TextUtils.isEmpty(acct)) {
+//                String printAcct = context.getString(R.string.print_acct);
+//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
+//            }
+
+            String acctPrintString = AcctContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(acctPrintString)) {
+                printString += acctPrintString;
             }
 
             printString += builder.br();

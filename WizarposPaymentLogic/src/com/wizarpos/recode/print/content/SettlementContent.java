@@ -82,7 +82,7 @@ public class SettlementContent extends PrintBase {
 
     private static int getSettlementSpaceCount() {
         if (getDeviceTypeForN3N5()) {
-            return 28 + 15;
+            return 28 + 15+7;
         } else {
             return 28;
         }

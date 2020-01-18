@@ -1,8 +1,10 @@
 package com.wizarpos.recode.print.content;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.wizarpos.device.printer.html.model.HTMLPrintModel;
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
@@ -21,6 +23,14 @@ public class DeviceContent extends PrintBase {
         return new HTMLPrintModel.SimpleLine(context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn));
     }
 
+    public static HTMLPrintModel.SimpleLine printHtmlDeviceActivity(Context context, DailyDetailResp resp) {
+        String devicetitle = context.getString(R.string.print_terminal_id);
+        String snStr = resp.getSn();
+        HTMLPrintModel.SimpleLine simpleLine = new HTMLPrintModel.SimpleLine(devicetitle + snStr);
+        return simpleLine;
+    }
+
+
     /**
      * 【953、 954,955】 使用
      *
@@ -29,19 +39,26 @@ public class DeviceContent extends PrintBase {
      */
     public static String printStringDevice(Context context) {
         String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-        return context.getString(R.string.print_terminal_id) + terminalId;
+        return printStringBase(context, terminalId);
     }
 
     public static String printStringDeviceActivity(Context context, DailyDetailResp resp) {
-        String devicetitle = context.getString(R.string.print_terminal_id);
-        String snStr = resp.getSn();
-        return devicetitle + snStr;
+
+        return printStringBase(context, resp.getSn());
     }
 
-    public static HTMLPrintModel.SimpleLine printHtmlDeviceActivity(Context context, DailyDetailResp resp) {
+    private static String printStringBase(Context context, String snStr) {
         String devicetitle = context.getString(R.string.print_terminal_id);
-        String snStr = resp.getSn();
-        HTMLPrintModel.SimpleLine simpleLine = new HTMLPrintModel.SimpleLine(devicetitle + snStr);
-        return simpleLine;
+        if (TextUtils.isEmpty(snStr)) {
+            snStr = "";
+        }
+        if (snStr.length() > PART_LENGTH) {
+            devicetitle += formatForBr();
+            devicetitle += multipleSpaces(33 - snStr.length()) + snStr;
+
+        } else {
+            devicetitle += snStr;
+        }
+        return devicetitle;
     }
 }

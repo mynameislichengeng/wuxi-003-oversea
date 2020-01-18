@@ -86,7 +86,7 @@ public class PurchaseContent extends PrintBase {
 
     private static int getPurchaseSpaceCount() {
         if (getDeviceTypeForN3N5()) {
-            return 31 + 15;
+            return 31 + 15 + 1;
         } else {
             return 31;
         }

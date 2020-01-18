@@ -18,8 +18,6 @@ import java.util.List;
 
 public class InvoiceContent extends PrintBase {
 
-    private final static int PART_LENGTH = 20;//当长度大于14的时候，就分割一下
-
 
     public static void printHtmlPayfor(Context context, List<HtmlLine> lines, TransactionInfo transactionInfo) {
         String inVoiceValue = transactionInfo.getMerchantTradeCode();
@@ -84,9 +82,10 @@ public class InvoiceContent extends PrintBase {
         String titleInvoice = context.getString(R.string.print_invoice);
         return titleInvoice;
     }
+
     private static int getInvoiceSpaceCount() {
         if (getDeviceTypeForN3N5()) {
-            return 32 + 15;
+            return 32 + 10 + 10;
         } else {
             return 32;
         }

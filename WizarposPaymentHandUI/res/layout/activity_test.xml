@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:hint="请输入条形码的文本"
-            android:text="1000001230100001001001234001" />
+            android:hint="请输入条形码的文本" />
 
         <Spinner
             android:id="@+id/spinner"
