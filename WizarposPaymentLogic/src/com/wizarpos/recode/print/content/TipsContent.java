@@ -21,22 +21,6 @@ public class TipsContent extends PrintBase {
         return new HTMLPrintModel.LeftAndRightLine(printTip, "$" + Calculater.formotFen(tipsAmount));
     }
 
-    public static String printStringPayFor(Context context, String tipsAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
-        String printTip = context.getString(R.string.print_tip);
-        return printTip + multipleSpaces(getTipsSpaceCount() - printTip.getBytes("GBK").length - Calculater.formotFen(transactionInfo.getRealAmount()).length()) + "$" + Calculater.formotFen(tipsAmount);
-
-    }
-
-    public static String printStringActivity(Context context, DailyDetailResp resp) throws UnsupportedEncodingException {
-        if (!TextUtils.isEmpty(resp.getTipAmount()) && !resp.getTipAmount().equals("0")) {
-            String printTip = context.getString(R.string.print_tip);
-            String tips = divide100(resp.getTipAmount());
-            int numSpace = tranZhSpaceNums(getTipsSpaceCount(), 1, resp.getTransCurrency());
-            String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-            return printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length()) + printTrancurrency + tips;
-        }
-        return null;
-    }
 
     public static HTMLPrintModel.LeftAndRightLine printHtmlActivity(Context context, DailyDetailResp resp) {
         if (!TextUtils.isEmpty(resp.getTipAmount()) && !resp.getTipAmount().equals("0")) {
@@ -48,9 +32,110 @@ public class TipsContent extends PrintBase {
         return null;
     }
 
-    private static int getTipsSpaceCount() {
+
+    public static String printStringPayFor(Context context, String tipsAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
+//        String printTip = context.getString(R.string.print_tip);
+//        String value = Calculater.formotFen(tipsAmount);
+
+//        return printTip + multipleSpaces(getTipsSpaceCount() - printTip.getBytes("GBK").length - value.length()) + "$" + value;
+        return printStringBase(context, tipsAmount, TransRecordLogicConstants.TRANSCURRENCY.CAD.getType());
+    }
+
+    public static String printStringActivity(Context context, DailyDetailResp resp) throws UnsupportedEncodingException {
+        if (!TextUtils.isEmpty(resp.getTipAmount()) && !resp.getTipAmount().equals("0")) {
+//            String printTip = context.getString(R.string.print_tip);
+//            String tips = divide100(resp.getTipAmount());
+//            int numSpace = tranZhSpaceNums(getTipsSpaceCount(), 1, resp.getTransCurrency());
+//            String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
+//            return printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length()) + printTrancurrency + tips;
+
+            return printStringBase(context, resp.getTipAmount(), resp.getTransCurrency());
+        }
+        return null;
+    }
+
+
+    private static String printStringBase(Context context, String tipAmount, String transCurrency) throws UnsupportedEncodingException {
+        StringBuffer sb = new StringBuffer();
+        String printTip = context.getString(R.string.print_tip);
+        sb.append(printTip);
+        String tips = divide100(tipAmount);
+
+
+        int numSpace = tranZhSpaceNums(getTipsSpaceCount(tips), 1, transCurrency);
+        String space = multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length());
+        sb.append(space);
+        //
+        String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
+        sb.append(printTrancurrency);
+        //
+        sb.append(tips);
+
+        return sb.toString();
+
+    }
+
+
+    private static int getTipsSpaceCount(String value) {
+        int length = value.length();
         if (getDeviceTypeForN3N5()) {
-            return 31 + 15;
+            int countTr = 0;
+            switch (length) {
+                case 1:
+                    countTr = 0;
+                    break;
+                case 2:
+                    countTr = 0;
+                    break;
+                case 3:
+                    countTr = 0;
+                    break;
+                case 4:
+                    countTr = 0;
+                    break;
+                case 5:
+                    countTr = -1;
+                    break;
+                case 6:
+                    countTr = -2;
+                    break;
+                case 7:
+                    countTr = -3;
+                    break;
+                case 8:
+                    countTr = -5;
+                    break;
+                case 9:
+                    countTr = -6;
+                    break;
+                case 10:
+                    countTr = -7;
+                    break;
+                case 11:
+                    countTr = -9;
+                    break;
+                case 12:
+                    countTr = -10;
+                    break;
+                case 13:
+                    countTr = -11;
+                    break;
+                case 14:
+                    countTr = -13;
+                    break;
+                case 15:
+                    countTr = -14;
+                    break;
+                case 16:
+                    countTr = -15;
+                    break;
+                case 17:
+                    countTr = -17;
+                    break;
+            }
+
+
+            return 54 + countTr;
         } else {
             return 31;
         }

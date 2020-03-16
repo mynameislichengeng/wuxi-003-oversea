@@ -22,20 +22,13 @@ public class SettlementContent extends PrintBase {
         return leftAndRightLine;
     }
 
-    public static String printStringSettlementPayFor(TransactionInfo transactionInfo) {
-
-        String amount = divide100(transactionInfo.getSettlementAmount());
-        String str = multipleSpaces(getSettlementSpaceCount() - amount.length()) + transactionInfo.getSettlementCurrency() + " " + amount;
-        return str;
-    }
-
 
     public static HTMLPrintModel.LeftAndRightLine printHtmlSettlementRefund(RefundDetailResp resp) {
 
         String tranCurrency = resp.getTransCurrency();
 
         String tempCurrency = resp.getSettlementCurrency();
-        ;
+
         String tempAmount;
         if (TransRecordLogicConstants.TRANSCURRENCY.CNY.getType().equals(tranCurrency)) {
             tempAmount = divide100(resp.getSettlementAmount()).trim();
@@ -46,6 +39,26 @@ public class SettlementContent extends PrintBase {
         HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", tempCurrency + " " + tempAmount);
         return leftAndRightLine;
     }
+
+
+    public static HTMLPrintModel.LeftAndRightLine printHtmlActivity(DailyDetailResp resp) {
+
+        String settlementCurrency = resp.getSettlementCurrency();
+        String settlementAmount = divide100(resp.getSettlementAmount());
+        settlementAmount = removeFuhao(settlementAmount);
+        HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", settlementCurrency + " " + settlementAmount);
+        return leftAndRightLine;
+    }
+
+    public static String printStringSettlementPayFor(TransactionInfo transactionInfo) {
+
+        String amount = divide100(transactionInfo.getSettlementAmount());
+//        String str = multipleSpaces(getSettlementSpaceCount() - amount.length()) + transactionInfo.getSettlementCurrency() + " " + amount;
+//        return str;
+
+        return printStringBase(transactionInfo.getSettlementCurrency(), amount);
+    }
+
 
     public static String printStringSettlementRefund(RefundDetailResp resp) {
 
@@ -59,30 +72,92 @@ public class SettlementContent extends PrintBase {
             tempAmount = divide100(resp.getRefundAmount()).trim();
         }
         tempAmount = removeFuhao(tempAmount);
-        String s = multipleSpaces(getSettlementSpaceCount() - tempAmount.length()) + tempCurrency + " " + tempAmount;
-        return s;
+//        String s = multipleSpaces(getSettlementSpaceCount() - tempAmount.length()) + tempCurrency + " " + tempAmount;
+//        return s;
+
+        return printStringBase(tempCurrency, tempAmount);
     }
 
-    public static HTMLPrintModel.LeftAndRightLine printHtmlActivity(DailyDetailResp resp) {
-
-        String settlementCurrency = resp.getSettlementCurrency();
-        String settlementAmount = divide100(resp.getSettlementAmount());
-        settlementAmount = removeFuhao(settlementAmount);
-        HTMLPrintModel.LeftAndRightLine leftAndRightLine = new HTMLPrintModel.LeftAndRightLine("", settlementCurrency + " " + settlementAmount);
-        return leftAndRightLine;
-    }
 
     public static String printStringActivity(DailyDetailResp resp) {
         String settlementCurrency = resp.getSettlementCurrency();
         String settlementAmount = divide100(resp.getSettlementAmount());
         settlementAmount = removeFuhao(settlementAmount);
-        String str = multipleSpaces(getSettlementSpaceCount() - settlementAmount.length()) + settlementCurrency + " " + settlementAmount;
-        return str;
+//        String str = multipleSpaces(getSettlementSpaceCount() - settlementAmount.length()) + settlementCurrency + " " + settlementAmount;
+//        return str;
+
+        return printStringBase(settlementCurrency, settlementAmount);
     }
 
-    private static int getSettlementSpaceCount() {
+
+    private static String printStringBase(String settlementCurrency, String settlementAmount) {
+        StringBuffer sb = new StringBuffer();
+        String space = multipleSpaces(getSettlementSpaceCount(settlementCurrency + settlementAmount) - settlementCurrency.length() - settlementAmount.length());
+        sb.append(space);
+        sb.append(settlementCurrency);
+        sb.append(" ");
+        sb.append(settlementAmount);
+        return sb.toString();
+    }
+
+
+    private static int getSettlementSpaceCount(String content) {
+        int length = content.length();
         if (getDeviceTypeForN3N5()) {
-            return 28 + 15+7;
+
+            int countTr = 0;
+            switch (length) {
+                case 1:
+                    countTr = 0;
+                    break;
+                case 2:
+                    countTr = 0;
+                    break;
+                case 3:
+                    countTr = 0;
+                    break;
+                case 4:
+                    countTr = 0;
+                    break;
+                case 5:
+                    countTr = 0;
+                    break;
+                case 6:
+                    countTr = 0;
+                    break;
+                case 7:
+                    countTr = 0;
+                    break;
+                case 8:
+                    countTr = -1;
+                    break;
+                case 9:
+                    countTr = -2;
+                    break;
+                case 10:
+                    countTr = -3;
+                    break;
+                case 11:
+                    countTr = -5;
+                    break;
+                case 12:
+                    countTr = -6;
+                    break;
+                case 13:
+                    countTr = -7;
+                    break;
+                case 14:
+                    countTr = -9;
+                    break;
+                case 15:
+                    countTr = -10;
+                    break;
+                case 16:
+                    countTr = -11;
+                    break;
+            }
+
+            return 53 + countTr;
         } else {
             return 28;
         }

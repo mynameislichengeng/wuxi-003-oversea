@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wizarpos.base.net.Response;
+import com.wizarpos.base.net.ResponseListener;
 import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.app.Pay2Application;
 import com.wizarpos.pay.broadcastreceiver.Alarmreceiver;
@@ -23,10 +26,13 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
+import com.wizarpos.pay.setting.presenter.RateUpdate;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
 import com.wizarpos.pay2.lite.R;
+import com.alibaba.fastjson.JSONObject;
+
 
 public class NewQ2GatheringFragment extends BaseViewFragment {
     private final static String TAG_LOG = NewQ2GatheringFragment.class.getName();
@@ -40,13 +46,18 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (null != progresser) {
-                progresser.showContent();
+            try {
+                if (null != progresser) {
+                    progresser.showContent();
+                }
+                if (null != exchangeRate) {
+                    exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
+                }
+                LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (null != exchangeRate) {
-                exchangeRate = AppConfigHelper.getConfig(AppConfigDef.exchangeRate);
-            }
-            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+
         }
     };
 
@@ -76,6 +87,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         if (TextUtils.isEmpty(exchangeRate)) {
             progresser.showProgress();
             LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter(Alarmreceiver.ACTION_GET_EXCHANGE));
+            broadcast();
         }
         initInputPad();
         etAmount.addTextChangedListener(new NewCashTextWatcher(etAmount, new NewCashTextWatcher.EditTextChange() {
@@ -172,5 +184,35 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
 
     public interface OnConfirmListener {
         void onComfirm();
+    }
+
+    private void broadcast() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RateUpdate rateUpdate = new RateUpdate();
+                rateUpdate.rateUpdate(new ResponseListener() {
+                    @Override
+                    public void onSuccess(Response response) {
+                        JSONObject jsonObject = (JSONObject) response.getResult();
+                        if (null != jsonObject) {
+                            String exchangeRate = jsonObject.getString("rate");
+                            if (!TextUtils.isEmpty(exchangeRate)) {
+                                AppConfigHelper.setConfig(AppConfigDef.exchangeRate, exchangeRate);
+                                Intent intent1 = new Intent();
+                                intent1.setAction(Alarmreceiver.ACTION_GET_EXCHANGE);
+                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent1);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFaild(Response response) {
+                        Toast.makeText(getContext(), response.msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }, 200);
+
     }
 }

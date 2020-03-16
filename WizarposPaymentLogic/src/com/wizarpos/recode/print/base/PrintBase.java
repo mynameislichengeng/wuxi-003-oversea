@@ -7,7 +7,10 @@ import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 public class PrintBase {
 
+    private static int COUNTSPACE = 0;
+
     protected final static int PART_LENGTH = 20;//当长度大于14的时候，就分割一下
+    protected static final int PART_NUM_13 = 13;
 
     protected static Q1PrintBuilder q1PrintBuilder = new Q1PrintBuilder();
 
@@ -17,6 +20,7 @@ public class PrintBase {
             output += " ";
         return output;
     }
+
 
     protected static String divide100(String originStr) {
         return Calculater.divide100(originStr);
@@ -32,7 +36,12 @@ public class PrintBase {
     protected static int tranZhSpaceNums(int origin, int zhCount, String type) {
         int result = origin;
         if (TransRecordLogicConstants.TRANSCURRENCY.CNY.getType().equals(type)) {
-            result = result - 1 * zhCount;
+            if (getDeviceTypeForN3N5()) {
+                result = result - 2 * zhCount;
+            } else {
+                result = result - 1 * zhCount;
+            }
+
         }
         return result;
     }
@@ -58,7 +67,16 @@ public class PrintBase {
     protected static String formatForBr() {
         return q1PrintBuilder.br();
     }
-    protected static String formatForNBr(){
+
+    protected static String formatForNBr() {
         return q1PrintBuilder.nBr();
+    }
+
+    public static int getCOUNTSPACE() {
+        return COUNTSPACE;
+    }
+
+    public static void setCOUNTSPACE(int COUNTSPACE) {
+        PrintBase.COUNTSPACE = COUNTSPACE;
     }
 }

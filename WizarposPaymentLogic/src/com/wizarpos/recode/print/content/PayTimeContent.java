@@ -42,7 +42,7 @@ public class PayTimeContent extends PrintBase {
 
     private static int getPaytimeSpaceCount() {
         if (getDeviceTypeForN3N5()) {
-            return 22 + 10 + 3;
+            return 35;
         } else {
             return 22;
         }

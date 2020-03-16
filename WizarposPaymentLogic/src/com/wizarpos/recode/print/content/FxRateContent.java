@@ -39,19 +39,64 @@ public class FxRateContent extends PrintBase {
             exchangeRate = "1";
         }
 
-        String showCNY = "CAD 1.00=CNY " + Calculater.multiply("1", exchangeRate);
+        String exchangeRateString = Calculater.multiply("1", exchangeRate);
+
+        String showCNY = "CAD 1.00=CNY " + exchangeRateString;
         String printFx = context.getString(R.string.print_fx_rate);
         result += printFx;
         result += formatForBr();
-        result += multipleSpaces(getCADSpaceCount() - showCNY.length()) + showCNY + formatForBr();
+        result += multipleSpaces(getCADSpaceCount(exchangeRateString) - showCNY.length()) + showCNY + formatForBr();
         result += formatForBr() + formatForNBr();
         return result;
     }
 
 
-    private static int getCADSpaceCount() {
+    private static int getCADSpaceCount(String content) {
+        int length = content.length();
         if (getDeviceTypeForN3N5()) {
-            return 32 + 3;
+            int countTr = 0;
+            switch (length) {
+                case 1:
+                    countTr = 0;
+                    break;
+                case 2:
+                    countTr = -2;
+                    break;
+                case 3:
+                    countTr = -3;
+                    break;
+                case 4:
+                    countTr = -4;
+                    break;
+                case 5:
+                    countTr = -6;
+                    break;
+                case 6:
+                    countTr = -7;
+                    break;
+                case 7:
+                    countTr = -8;
+                    break;
+                case 8:
+                    countTr = -9;
+                    break;
+                case 9:
+                    countTr = -11;
+                    break;
+                case 10:
+                    countTr = -12;
+                    break;
+                case 11:
+                    countTr = -14;
+                    break;
+                case 12:
+                    countTr = -15;
+                    break;
+                case 13:
+                    countTr = -16;
+                    break;
+            }
+            return 47 + countTr;
         } else {
             return 32;
         }

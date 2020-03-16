@@ -54,12 +54,15 @@ public class AcctContent extends PrintBase {
             String printAcct = context.getString(R.string.print_acct);
             sb.append(printAcct);
 
-            if (acct.length() > PART_LENGTH) {
+            if (acct.length() < PART_NUM_13) {
+                String space = multipleSpaces(getAcctSpaceCount(acct) - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length);
+                sb.append(space);
+            } else {
                 sb.append(formatForBr());
+                String space = multipleSpaces(getAcctSpaceCountArray(acct) - acct.getBytes("GBK").length);
+                sb.append(space);
             }
             //
-            String space = multipleSpaces(getAcctSpaceCount() - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length);
-            sb.append(space);
             sb.append(acct);
             sb.append(formatForBr());
             sb.append(formatForBr());
@@ -69,13 +72,101 @@ public class AcctContent extends PrintBase {
     }
 
 
-    private static int getAcctSpaceCount() {
+    private static int getAcctSpaceCount(String content) {
         if (getDeviceTypeForN3N5()) {
-            return 32 + 6;
+            int length = content.length();
+            int countTr = 0;
+            switch (length) {
+                case 1:
+                    countTr = 0;
+                    break;
+                case 2:
+                    countTr = -3;
+                    break;
+                case 3:
+                    countTr = -5;
+                    break;
+                case 4:
+                    countTr = -7;
+                    break;
+                case 5:
+                    countTr = -10;
+                    break;
+                case 6:
+                    countTr = -13;
+                    break;
+                case 7:
+                    countTr = -15;
+                    break;
+                case 8:
+                    countTr = -18;
+                    break;
+                case 9:
+                    countTr = -21;
+                    break;
+                case 10:
+                    countTr = -23;
+                    break;
+                case 11:
+                    countTr = -26;
+                    break;
+                case 12:
+                    countTr = -28;
+                    break;
+
+
+            }
+
+            return 57 + getCOUNTSPACE();
+
         } else {
             return 32;
         }
     }
 
+    private static int getAcctSpaceCountArray(String content) {
+        if (getDeviceTypeForN3N5()) {
+            int length = content.length();
+            int countTr = 0;
+            switch (length) {
 
+                case 13:
+                    countTr = 0;
+                    break;
+                case 14:
+                    countTr = 0;
+                    break;
+                case 15:
+                    countTr = -2;
+                    break;
+                case 16:
+                    countTr = -4;
+                    break;
+                case 17:
+                    countTr = -6;
+                    break;
+                case 18:
+                    countTr = -7;
+                    break;
+                case 19:
+                    countTr = -8;
+                    break;
+                case 20:
+                    countTr = -9;
+                    break;
+                case 21:
+                    countTr = -10;
+                    break;
+                case 22:
+                    countTr = -11;
+                    break;
+
+            }
+
+            return 30 + countTr;
+
+        } else {
+            return 32 - 5;
+        }
+    }
 }

@@ -90,7 +90,7 @@ public class TransTypeContent extends PrintBase {
         StringBuffer sb = new StringBuffer();
         String title = getTitle(context);
         sb.append(title);
-        String space = multipleSpaces(getTranTypeSpaceCount() - title.getBytes("GBK").length - payType.length());
+        String space = multipleSpaces(getTranTypeSpaceCount(payType) - title.getBytes("GBK").length - payType.length());
         sb.append(space);
         sb.append(payType);
         sb.append(formatForBr());
@@ -101,9 +101,26 @@ public class TransTypeContent extends PrintBase {
         return context.getString(R.string.print_type);
     }
 
-    private static int getTranTypeSpaceCount() {
+    private static int getTranTypeSpaceCount(String content) {
+
         if (getDeviceTypeForN3N5()) {
-            return 32 + 20;
+            int length = content.length();
+            int countTr = 0;
+            switch (length) {
+                case 6:
+                    countTr = 2;
+                    break;
+                case 10:
+                    countTr = -5;
+                    break;
+
+                case 12:
+                    countTr = -7;
+                    break;
+
+
+            }
+            return 52 + countTr;
         } else {
             return 32;
         }

@@ -188,15 +188,23 @@ public class PrinterHelper {
                         //第3个参数表示边距离
                         //格式1
 
-                        BarcodeFormatEnum current = BarcodeDataManager.getCurrentFormat().getN3Value();
-                        printerN3N5.appendBarcode(str, 60, 20, 2, current, AlignEnum.CENTER);
+//                        BarcodeFormatEnum current = BarcodeDataManager.getCurrentFormat().getN3Value();
+                        printerN3N5.appendBarcode(str, 50, 0, 2, BarcodeFormatEnum.CODE_128, AlignEnum.CENTER);
                         Log.d("print", "打印barcode使用的格式:" + BarcodeDataManager.getCurrentFormat().getName());
 //                        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(str, 400, 60);
 //                        printerN3N5.appendImage(bitmap, AlignEnum.CENTER);
 //                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
                         break;
                     default:
-                        printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+//                        if (str.contains("Invoice#:")) {
+//                            String lefttile = "Invoice#:";
+//                            String rightValue = str.substring(lefttile.length()).replaceAll(" ", "").trim();
+//                            printerN3N5.appendPrnStr(lefttile, FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
+//                            printerN3N5.appendPrnStr(rightValue, FONT_SIZE_NORMAL, AlignEnum.RIGHT, false);
+//                        } else {
+//
+                            printerN3N5.appendPrnStr(str, FONT_SIZE_NORMAL, getAlign(), getBoldFont());
+//                        }
                         break;
                 }
 

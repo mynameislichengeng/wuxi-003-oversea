@@ -13,14 +13,28 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
+import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.recode.print.constants.BarFormat;
+import com.wizarpos.recode.print.content.AcctContent;
+import com.wizarpos.recode.print.content.FxRateContent;
+import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.PurchaseContent;
+import com.wizarpos.recode.print.content.ReceiptContent;
+import com.wizarpos.recode.print.content.SettlementContent;
+import com.wizarpos.recode.print.content.TipsContent;
+import com.wizarpos.recode.print.content.TotalContent;
+import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.recode.print.data.BarcodeDataManager;
 import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
+
+import java.io.UnsupportedEncodingException;
 
 
 public class TestBarCodeFormatActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,7 +50,7 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
 
     private Button btn;
 
-    private EditText ed_zxing_barcode_test;
+    private EditText ed_zxing_barcode_test, ed_space;
     private Spinner spinner;
 
     @Override
@@ -46,6 +60,7 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
         btn = (Button) findViewById(R.id.btn_zxing_test);
         btn.setOnClickListener(this);
         ed_zxing_barcode_test = (EditText) findViewById(R.id.ed_zxing_barcode_test);
+        ed_space = findViewById(R.id.ed_space);
         spinner = findViewById(R.id.spinner);
 //        BarcodeDataManager.settingCurrentFormat(BarFormat.getEnum(0));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -68,29 +83,56 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View v) {
-        String str = getBarcodeText();
+        String str = null;
+        try {
+            str = getBarcodeText();
+//            str = getHtml();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         if (TextUtils.isEmpty(str)) {
             Toast.makeText(this, "请输入打印内容", Toast.LENGTH_SHORT).show();
             return;
         }
+
+
         PrintServiceControllerProxy controller = new PrintServiceControllerProxy(this);
         controller.print(str);
     }
 
-    private String getBarcodeText() {
+    private String getBarcodeText() throws UnsupportedEncodingException {
 
         String str = ed_zxing_barcode_test.getText().toString();
         if (TextUtils.isEmpty(str)) {
             return null;
         }
-//        String result = "<c><b>Alipay Merchant Demo(Re print)</b></c>";
-//
-//        TransactionInfo transactionInfo = new TransactionInfo();
-//        transactionInfo.setTranLogId(str);
-//        String barcode = BarcodeTextContent.printStringPayfor(transactionInfo);
-//        result += barcode;
-//
-//        result += "<end/>";
+        String result = "<c><b>A</b></c>";
+
+        DailyDetailResp dailyDetailResp = new DailyDetailResp();
+
+//        dailyDetailResp.setTransCurrency("CNY");
+//        dailyDetailResp.setMerchantTradeCode(str);
+        dailyDetailResp.setThirdExtId(str);
+
+        int count = 0;
+        String space = ed_space.getText().toString();
+        if (!TextUtils.isEmpty(space)) {
+            count = Integer.valueOf(space);
+        }
+        PrintBase.setCOUNTSPACE(count);
+        String totals = AcctContent.printStringActivity(this, dailyDetailResp);
+
+        result += totals;
+
+        result += "<end/>";
+        return result;
+    }
+
+
+    private String getHtml() {
+        String str = ed_zxing_barcode_test.getText().toString();
         return str;
     }
 }
