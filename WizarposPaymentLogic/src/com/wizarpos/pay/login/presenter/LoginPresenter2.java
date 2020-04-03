@@ -191,6 +191,8 @@ public class LoginPresenter2 extends BasePresenter {
             terminalUniqNo = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
         } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
             terminalUniqNo = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
+        }else if(DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920){
+            terminalUniqNo = android.os.Build.SERIAL;//终端序列号
         } else {
             terminalUniqNo = DeviceManager.getImei(context);//IMEI地址
         }

@@ -85,6 +85,8 @@ public class NetBundler {
                 defaultSn = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
             } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
                 defaultSn = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
+            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+                defaultSn = android.os.Build.SERIAL;//终端序列号
             } else {
                 defaultSn = DeviceManager.getImei(PaymentApplication.getInstance());//IMEI地址
             }

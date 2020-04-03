@@ -311,6 +311,10 @@ public class DeviceManager {
     public static final int DEVICE_TYPE_WIZARHAND_Q2 = 8;
     public static final int DEVICE_TYPE_WIZARHAND_K2 = 9;
     public static final int DEVICE_TYPE_N3_OR_N5 = 10;
+    public static final int DEVICE_TYPE_PAX_A920 = 11;
+
+
+    public static final String PRODUCT_MODEL_PAX_A920 = "a920";
 
     /**
      * 判断设备类型
@@ -318,15 +322,16 @@ public class DeviceManager {
     public int getDeviceType() {
         /*
          * 1.wizarHAND_Q1
-		 * 2.WIZARPOS 1
-		 * 3. wizarHAND_M0
-		 * 
-		 * */
+         * 2.WIZARPOS 1
+         * 3. wizarHAND_M0
+         *
+         * */
         String systemPropertie = getSystemPropertie("ro.product.model");
         if (TextUtils.isEmpty(systemPropertie)) {
             return DEVICE_TYPE_OTHER;
         }
         LogEx.d("deviceType", systemPropertie);
+        Log.d("deviceType", systemPropertie);
         String upperCaseDeviceType = systemPropertie.toUpperCase();
         if (upperCaseDeviceType.contains("WIZARPOS")) {
             return DEVICE_TYPE_WIZARPOS;
@@ -348,9 +353,11 @@ public class DeviceManager {
             return DEVICE_TYPE_SHENGTENG_M10;
         } else if (upperCaseDeviceType.contains("PL-I107")) {
             return DEVICE_TYPE_PULAN;
-        }else if (upperCaseDeviceType.contains("N3") || upperCaseDeviceType.contains("N5")) {
+        } else if (upperCaseDeviceType.contains("N3") || upperCaseDeviceType.contains("N5")) {
             return DEVICE_TYPE_N3_OR_N5;
-        } else {
+        } else if(upperCaseDeviceType.contains(PRODUCT_MODEL_PAX_A920)){
+            return DEVICE_TYPE_PAX_A920;
+        }else {
             return DEVICE_TYPE_OTHER;
         }
     }
