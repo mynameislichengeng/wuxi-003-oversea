@@ -40,12 +40,12 @@
         "source": "/Users/licheng/.android/build-cache/184d5653b474fc41e6b692df6b7e4cd380662989/output/res/drawable-hdpi-v4/abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "/Users/licheng/ws/as/post_ji/a03-20191029/app_adapter/libsn3n5printsdk/build/intermediates/res/merged/release/drawable-hdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png",
-        "source": "/Users/licheng/.android/build-cache/184d5653b474fc41e6b692df6b7e4cd380662989/output/res/drawable-hdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/licheng/ws/as/post_ji/a03-20191029/app_adapter/libsn3n5printsdk/build/intermediates/res/merged/release/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png",
         "source": "/Users/licheng/.android/build-cache/184d5653b474fc41e6b692df6b7e4cd380662989/output/res/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/licheng/ws/as/post_ji/a03-20191029/app_adapter/libsn3n5printsdk/build/intermediates/res/merged/release/drawable-hdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "/Users/licheng/.android/build-cache/184d5653b474fc41e6b692df6b7e4cd380662989/output/res/drawable-hdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/licheng/ws/as/post_ji/a03-20191029/app_adapter/libsn3n5printsdk/build/intermediates/res/merged/release/drawable-hdpi-v4/notification_bg_normal_pressed.9.png",

@@ -314,7 +314,7 @@ public class DeviceManager {
     public static final int DEVICE_TYPE_PAX_A920 = 11;
 
 
-    public static final String PRODUCT_MODEL_PAX_A920 = "a920";
+    public static final String PRODUCT_MODEL_PAX_A920 = "A920";
 
     /**
      * 判断设备类型
@@ -355,9 +355,9 @@ public class DeviceManager {
             return DEVICE_TYPE_PULAN;
         } else if (upperCaseDeviceType.contains("N3") || upperCaseDeviceType.contains("N5")) {
             return DEVICE_TYPE_N3_OR_N5;
-        } else if(upperCaseDeviceType.contains(PRODUCT_MODEL_PAX_A920)){
+        } else if (upperCaseDeviceType.contains(PRODUCT_MODEL_PAX_A920)) {
             return DEVICE_TYPE_PAX_A920;
-        }else {
+        } else {
             return DEVICE_TYPE_OTHER;
         }
     }
