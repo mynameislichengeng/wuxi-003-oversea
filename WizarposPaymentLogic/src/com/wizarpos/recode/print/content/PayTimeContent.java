@@ -29,13 +29,19 @@ public class PayTimeContent extends PrintBase {
         StringBuffer sb = new StringBuffer();
         String leftTime = payTime.substring(0, 10);
         String rightTime = payTime.substring(10);
-        //
-        sb.append(leftTime);
-        //
-        String space = multipleSpaces(getPaytimeSpaceCount() - rightTime.length());
-        sb.append(space);
-        sb.append(rightTime);
-        sb.append(formatForBr());
+
+        if (isComputerSpaceForLeftRight()) {
+            sb.append(createTextLineForLeftAndRight(leftTime, rightTime));
+        } else {
+            //
+            sb.append(leftTime);
+            //
+            String space = multipleSpaces(getPaytimeSpaceCount() - rightTime.length());
+            sb.append(space);
+            sb.append(rightTime);
+            sb.append(formatForBr());
+        }
+
         return sb.toString();
     }
 

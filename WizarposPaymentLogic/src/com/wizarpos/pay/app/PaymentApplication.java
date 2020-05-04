@@ -6,8 +6,10 @@ import android.text.TextUtils;
 
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
-import com.nexgo.oaf.apiv3.APIProxy;
 import com.nexgo.oaf.apiv3.DeviceEngine;
+import com.pax.poslink.POSLinkAndroid;
+import com.pos.device.SDKManager;
+import com.pos.device.SDKManagerCallback;
 import com.wizarpos.device.printer.PrinterManager;
 import com.wizarpos.device.printer.html.ToHTMLUtil;
 import com.wizarpos.hspos.api.HuashiApi;
@@ -29,7 +31,8 @@ import com.wizarpos.pay.db.MerchantCardDef;
 import com.wizarpos.pay.db.TicketCardDef;
 import com.wizarpos.pay.db.UserBean;
 import com.wizarpos.pay.model.UserEntity;
-import com.wizarpos.recode.print.n3n5.N3N5PrintManager;
+import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
+import com.wizarpos.recode.print.devicesdk.n3n5.N3N5PrintManager;
 
 public abstract class PaymentApplication extends ImageLoadApp {
 
@@ -49,11 +52,7 @@ public abstract class PaymentApplication extends ImageLoadApp {
     public void onCreate() {
         super.onCreate();
         application = this;
-        // Stetho.initialize(
-        // Stetho.newInitializerBuilder(this)
-        // .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-        // .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-        // .build());
+
         init();
     }
 
@@ -69,16 +68,14 @@ public abstract class PaymentApplication extends ImageLoadApp {
             initDb();// 建库建表
         }
         initConfig();// 初始化配置项
-//        initState();// 初始化运行时状态
-//        setConfig();// 子类实现 初始化DB参数
-//        initDevice();// 初始化驱动
-//        initPushId();
-//        initNetRequest();// 初始化网络请求
-//		initPrintNetwork();//初始化网络打印
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-
-            deviceEngine =  N3N5PrintManager.getInstance().initEngine(this);
+            deviceEngine = N3N5PrintManager.getInstance().initEngine(this);
         }
+        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+            POSLinkAndroid.init(getApplicationContext());
+        }
+
+
     }
 
     private void initPosApi() {
@@ -192,14 +189,8 @@ public abstract class PaymentApplication extends ImageLoadApp {
     private void initDevice() {
         DeviceManager deviceManager = DeviceManager.getInstance();
         deviceManager.setDisplayer(new DefaultDisplayerImpl(this));
-//		if (Constants.TRUE.equals(AppConfigHelper.getConfig(AppConfigDef.test_load_bank_mode))) {
-        deviceManager.setCardListener(new DefaultCardListenerImpl());// wizarpos刷卡
-//			deviceManager.setCardListener(new DefaultXinLanCardListenerImpl(this));// 鑫蓝刷卡
-//		} else {
-//			deviceManager.setCardListener(new TestCardListenerImpl());
-//		}
 
-//        if (DeviceManager.getInstance().isWizarDevice() && !Constants.FALSE.equals(AppConfigHelper.getConfig(AppConfigDef.test_use_printer))) {
+        deviceManager.setCardListener(new DefaultCardListenerImpl());// wizarpos刷卡
         PrinterManager.getInstance().setPrinter(new MidFilterPrinterBuilder());
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
 
@@ -207,14 +198,8 @@ public abstract class PaymentApplication extends ImageLoadApp {
         } else if (DeviceManager.getInstance().getDeviceType() != DeviceManager.DEVICE_TYPE_WIZARHAND_Q1) {
             ToHTMLUtil.fontSize = ToHTMLUtil.FONT_SIZE_Q2;
         }
-//        } else {
-//            PrinterManager.getInstance().setPrinter(new PrinterTestImpl());
-//        }
-////			PrinterManager.getInstance().setPrinter(new NetWorkPrinterBuilder());
 
-//        DisplayHelper.getInstance().setBottomstring("上海慧银信息科技有限公司 ");
     }
-
 
 
     public DbUtils getDbController() {
@@ -224,7 +209,6 @@ public abstract class PaymentApplication extends ImageLoadApp {
     public boolean isWemengMerchant() {
         return Constants.merchantType_weimeng.equals(AppConfigHelper.getConfig(AppConfigDef.merchantType));
     }
-
 
 
     //获取IMEI地址

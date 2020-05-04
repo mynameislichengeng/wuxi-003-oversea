@@ -37,33 +37,21 @@ public class TotalContent extends PrintBase {
 
 
     public static String printStringPayFor(Context context, String totalAmount) {
-//        String total = context.getResources().getString(R.string.print_total);
-//        return total + multipleSpaces(getTotalSpaceCount() - totalAmount.length()) + "$" + totalAmount;
-
         return printStringBase(context, totalAmount, TransRecordLogicConstants.TRANSCURRENCY.CAD.getType());
     }
 
     public static String printStringRefund(Context context, RefundDetailResp resp) {
-//        String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//        int numTotalSpace = tranZhSpaceNums(getTotalSpaceCount(), 1, resp.getTransCurrency());
-//        String printTotal = context.getString(R.string.print_total);
+
         String tranAmount = divide100(resp.getTranAmount());
         tranAmount = removeFuhao(tranAmount);
-//        return printTotal + multipleSpaces(numTotalSpace - tranAmount.length()) + transCurrency + tranAmount;
 
         return printStringBase(context, tranAmount, resp.getTransCurrency());
     }
 
     public static String printStringActivity(Context context, DailyDetailResp resp) {
-//        String printTotal = context.getString(R.string.print_total);
-//        String tranCurrency = resp.getTransCurrency();
-//        String printTranCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(tranCurrency);
+
         String tranAmount = divide100(resp.getTransAmount());
         tranAmount = removeFuhao(tranAmount);
-
-//        int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(), 1, tranCurrency);
-//        return printTotal + multipleSpaces(numSpaceTotal - tranAmount.length()) + printTranCurrency + tranAmount;
-
         return printStringBase(context, tranAmount, resp.getTransCurrency());
 
     }
@@ -71,16 +59,25 @@ public class TotalContent extends PrintBase {
     private static String printStringBase(Context context, String totalAmount, String tranCurrency) {
         StringBuffer sb = new StringBuffer();
         String printTotal = context.getString(R.string.print_total);
-        sb.append(printTotal);
-        //
-        int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(totalAmount), 1, tranCurrency);
-        String space = multipleSpaces(numSpaceTotal - totalAmount.length());
-        sb.append(space);
-        //
+        //货币符号
         String printTranCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(tranCurrency);
-        sb.append(printTranCurrency);
-        //
-        sb.append(totalAmount);
+
+        if (isComputerSpaceForLeftRight()) {
+            String right = printTranCurrency + totalAmount;
+            sb.append(createTextLineForLeftAndRight(printTotal, right));
+        } else {
+            sb.append(printTotal);
+            //
+            int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(totalAmount), 1, tranCurrency);
+            String space = multipleSpaces(numSpaceTotal - totalAmount.length());
+            sb.append(space);
+            //
+            sb.append(printTranCurrency);
+            //
+            sb.append(totalAmount);
+        }
+
+
         return sb.toString();
     }
 

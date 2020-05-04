@@ -47,9 +47,12 @@ import com.wizarpos.recode.print.content.FxRateContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
+import com.wizarpos.recode.print.content.RefundContent;
+import com.wizarpos.recode.print.content.SaleContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
 import com.wizarpos.recode.print.content.TotalContent;
@@ -1317,17 +1320,18 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+
+            printString += MerchantIdContent.printStringActivity(context);
+
+            printString += DeviceContent.printStringDeviceActivity(context, resp);
 
 
-            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp);
 
-
-            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
-
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+            printString += RefundContent.printStringActivity(context);
             //
 
             printString += TotalContent.printStringActivity(context, resp) + builder.br();
@@ -1394,7 +1398,7 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -1443,31 +1447,18 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
-//            String terminalId = AppConfigHelper.getConfig(AppConfigDef.sn);
-//            printStringPayFor += context.getString(R.string.print_terminal_id) + terminalId + builder.br();
-//            String snStr = resp.getSn();
-//            printStringPayFor += PrintManager.printStringSn(context, snStr);
-            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
+            printString += MerchantIdContent.printStringActivity(context);
+            printString += DeviceContent.printStringDeviceActivity(context, resp);
 
 
-//            String cahierId = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);
-//            printStringPayFor += context.getString(R.string.print_cashier_id) + cahierId + builder.br();
-
-//            String optNameStr = resp.getOptName();
-//            printStringPayFor += PrintManager.printStringOptName(context, optNameStr) + builder.br();
-            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp);
 
 
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
-
-//            String transCurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//            int numTotalSpace = PrintManager.tranZhSpaceNums(25, 1, resp.getTransCurrency());
-//            String printTotal = context.getString(R.string.print_total);
-//            printString += printTotal + multipleSpaces(numTotalSpace - Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()).length()) + transCurrency + Calculater.formotFen(resp.getSingleAmount().replace("-", "").trim()) + builder.br();
+            printString += RefundContent.printStringActivity(context);
+//            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
 
             printString += TotalContent.printStringActivity(context, resp) + builder.br();
 
@@ -1534,7 +1525,7 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -1698,25 +1689,26 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+
+            printString += MerchantIdContent.printStringActivity(context);
+            printString += DeviceContent.printStringDeviceActivity(context, resp) ;
 
 
-            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
+            printString += CashierIdContent.printStringActivity(context, resp);
 
 
-            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
 
-
-            printString += builder.br()+builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
+            printString += SaleContent.printStringActivity(context);
 
             printString += PurchaseContent.printStringActivity(context, resp) + builder.br();
 
 
             String printTips = TipsContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(printTips)) {
-                printString += printTips + builder.br();
+                printString += printTips;
             }
 
             printString += TotalContent.printStringActivity(context, resp) + builder.br();
@@ -1783,7 +1775,7 @@ public class StatisticsPresenter extends BasePresenter {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -1832,23 +1824,26 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
-            printString += DeviceContent.printStringDeviceActivity(context, resp) + builder.br();
+            printString += MerchantIdContent.printStringActivity(context);
 
-            printString += CashierIdContent.printStringActivity(context, resp) + builder.br();
+            printString += DeviceContent.printStringDeviceActivity(context, resp);
+
+            printString += CashierIdContent.printStringActivity(context, resp);
 
 
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
+
+            printString += SaleContent.printStringActivity(context);
 
             printString += PurchaseContent.printStringActivity(context, resp) + builder.br();
 
 
             String printTips = TipsContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(printTips)) {
-                printString += printTips + builder.br();
+                printString += printTips;
             }
 
 
@@ -1890,28 +1885,20 @@ public class StatisticsPresenter extends BasePresenter {
                 }
             }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
+
             String accNamePrintString = AcctNameContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
 
             String acctPrintString = AcctContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {

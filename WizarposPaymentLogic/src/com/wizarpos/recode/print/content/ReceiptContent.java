@@ -53,13 +53,22 @@ public class ReceiptContent extends PrintBase {
     }
 
     private static String printStringBase(Context context, String tranLogId) throws UnsupportedEncodingException {
-        String tranlogId = Tools.deleteMidTranLog(tranLogId, AppConfigHelper.getConfig(AppConfigDef.mid));
-        String printRecepit = getTitle(context);
         String result = "";
-        result += printRecepit;
-        result += "#";
-        result += multipleSpaces(getRecepitSpaceCount(tranlogId) - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId;
-        result += formatForBr();
+        String printRecepit = getTitle(context);
+        String tranlogId = Tools.deleteMidTranLog(tranLogId, AppConfigHelper.getConfig(AppConfigDef.mid));
+        if (isComputerSpaceForLeftRight()) {
+            StringBuffer sb = new StringBuffer();
+            String left = printRecepit + "#";
+            sb.append(createTextLineForLeftAndRight(left, tranlogId));
+            return sb.toString();
+        } else {
+
+            result += printRecepit;
+            result += "#";
+            result += multipleSpaces(getRecepitSpaceCount(tranlogId) - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId;
+            result += formatForBr();
+        }
+
         return result;
     }
 

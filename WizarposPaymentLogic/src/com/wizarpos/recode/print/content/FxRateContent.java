@@ -33,20 +33,38 @@ public class FxRateContent extends PrintBase {
     }
 
 
+    /**
+     * FX rate:<br/>         CAD 1.00=CNY 5.05290000<br/><br/><nbr/>
+     *
+     * @param context
+     * @param exchangeRate
+     * @return
+     */
     public static String printStringBase(Context context, String exchangeRate) {
         String result = "";
+
+        String printFx = context.getString(R.string.print_fx_rate);
+
         if (TextUtils.isEmpty(exchangeRate)) {
             exchangeRate = "1";
         }
-
         String exchangeRateString = Calculater.multiply("1", exchangeRate);
-
         String showCNY = "CAD 1.00=CNY " + exchangeRateString;
-        String printFx = context.getString(R.string.print_fx_rate);
-        result += printFx;
-        result += formatForBr();
-        result += multipleSpaces(getCADSpaceCount(exchangeRateString) - showCNY.length()) + showCNY + formatForBr();
-        result += formatForBr() + formatForNBr();
+
+
+        if (isComputerSpaceForLeftRight()) {
+            StringBuffer sb = new StringBuffer();
+            sb.append(createTextLineForLeftAndRight(printFx, showCNY));
+            sb.append(formartForLineSpace());
+            result = sb.toString();
+        } else {
+            result += printFx;
+            result += formatForBr();
+            result += multipleSpaces(getCADSpaceCount(exchangeRateString) - showCNY.length()) + showCNY + formatForBr();
+            result += formatForBr() + formatForNBr();
+        }
+
+
         return result;
     }
 

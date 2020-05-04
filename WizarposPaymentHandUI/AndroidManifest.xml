@@ -154,6 +154,8 @@
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <!-- 个推3.0电子围栏功能所需权限 -->
+        <uses-library android:name="com.pos.device"></uses-library>
         <activity
             android:name="com.wizarpos.pay.login.view.StartupActivity"
             android:label="@string/app_name"
@@ -569,7 +571,10 @@
             android:name="com.wizarpos.pay.recode.test.TestBarCodeFormatActivity"
             android:exported="true"
             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name="com.wizarpos.pay.recode.test.TestPrintActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity"
             android:screenOrientation="portrait" />

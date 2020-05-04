@@ -51,15 +51,21 @@ public class AcctNameContent extends PrintBase {
         String acctName = thirdExtName;
         if (!TextUtils.isEmpty(acctName)) {
             StringBuffer sb = new StringBuffer();
-
             String printAcctName = context.getString(R.string.print_acctName);
-            sb.append(printAcctName);
-            //
-            String space = multipleSpaces(getAccNameSpaceCount() - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length);
-            sb.append(space);
-            //
-            sb.append(acctName);
-            sb.append(formatForBr());
+
+            if (isComputerSpaceForLeftRight()) {
+                sb.append(formartForLeftAndRight(printAcctName, acctName));
+            } else {
+                sb.append(printAcctName);
+                //
+                String space = multipleSpaces(getAccNameSpaceCount() - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length);
+                sb.append(space);
+                //
+                sb.append(acctName);
+                sb.append(formatForBr());
+            }
+
+
             return sb.toString();
         }
         return null;

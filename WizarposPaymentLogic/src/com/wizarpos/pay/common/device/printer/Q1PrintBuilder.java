@@ -1,5 +1,7 @@
 package com.wizarpos.pay.common.device.printer;
 
+import com.wizarpos.recode.print.constants.HtmlRemarkConstans;
+
 /**
  * 打印帮助类 </br> 拓展于atool中的PrinterBuilder
  *
@@ -10,9 +12,11 @@ public class Q1PrintBuilder {
     public int getResizeBitmapSize() {
         return 380;
     }
+
     public int getResizeBitmapSize(int qrCodeLength) {//@hong 自定义二维码大小2015-12-17 09:56:34
         return qrCodeLength;
     }
+
     /**
      * 分割线
      *
@@ -68,13 +72,7 @@ public class Q1PrintBuilder {
     public static final String empty = "                                                              ";
 
     public String center(String s) {
-//		try {
-//			if(TextUtils.isEmpty(s)){
-//				return "<c></c>";
-//			}
-//			return "<c>" + empty.substring(0, (33-s.length())/2)+s + "</c>";	
-//		} catch (Exception e) {
-//		}
+
         return "<c>" + s + "</c>";
     }
 
@@ -96,6 +94,11 @@ public class Q1PrintBuilder {
      */
     public String right(String s) {
         return "<r>" + s + "</r>";
+    }
+
+    public String leftAndright(String s) {
+        return HtmlRemarkConstans.LEFT_RIGHT_START.getValue() + s + HtmlRemarkConstans.LEFT_RIGHT_END.getValue();
+
     }
 
     /**
@@ -156,11 +159,31 @@ public class Q1PrintBuilder {
     public String br() {
         return "<br/>";
     }
+
     public String end() {
         return "<end/>";
     }
+
     public String nBr() {
         return "<nbr/>";
+    }
+
+    /**
+     * 换行
+     *
+     * @return
+     */
+    public String lineTag() {
+        return HtmlRemarkConstans.LINE_TAG_NEW.getValue();
+    }
+
+    /**
+     * 空格行
+     *
+     * @return
+     */
+    public String lineSpace() {
+        return HtmlRemarkConstans.LINE_SPACE_NEW.getValue();
     }
 
     /**

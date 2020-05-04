@@ -1,6 +1,6 @@
 //include ':atool'
 //include ':appcompat'
-include ':WizarposPaymentLogic', ':librefreshlistview', ':baseui', ':libviewpagerindicator', ':libsn3n5printsdk'
+include ':WizarposPaymentLogic', ':librefreshlistview', ':baseui', ':libviewpagerindicator', ':libsn3n5printsdk', ':libsa920sdk'
 //HAND
 include ':WizarposPaymentHandUI'
 //include ':WizarposPaymentLogic:PulltorefreshLib'

@@ -312,9 +312,11 @@ public class DeviceManager {
     public static final int DEVICE_TYPE_WIZARHAND_K2 = 9;
     public static final int DEVICE_TYPE_N3_OR_N5 = 10;
     public static final int DEVICE_TYPE_PAX_A920 = 11;
+    public static final int DEVICE_TYPE_AMP8 = 12;
 
 
     public static final String PRODUCT_MODEL_PAX_A920 = "A920";
+    public static final String PRODUCT_MODEL_AMP8 = "AMP8SERIES";
 
     /**
      * 判断设备类型
@@ -357,6 +359,8 @@ public class DeviceManager {
             return DEVICE_TYPE_N3_OR_N5;
         } else if (upperCaseDeviceType.contains(PRODUCT_MODEL_PAX_A920)) {
             return DEVICE_TYPE_PAX_A920;
+        } else if (upperCaseDeviceType.contains(PRODUCT_MODEL_AMP8)) {
+            return DEVICE_TYPE_AMP8;
         } else {
             return DEVICE_TYPE_OTHER;
         }

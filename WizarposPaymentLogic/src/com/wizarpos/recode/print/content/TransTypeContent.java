@@ -15,14 +15,6 @@ public class TransTypeContent extends PrintBase {
 
 
     public static String printStringPayfor(Context context, TransactionInfo transactionInfo) {
-//        String printType = context.getString(R.string.print_type);
-//        if (Constants.ALIPAYFLAG.equals(transactionInfo.getPayType())) {
-//            printString += printType + multipleSpaces(26 - printType.getBytes("GBK").length) + "Alipay" + builder.br();
-//        } else if (Constants.WEPAYFLAG.equals(transactionInfo.getPayType())) {
-//            printString += printType + multipleSpaces(22 - printType.getBytes("GBK").length) + "Wechat Pay" + builder.br();
-//        } else if (Constants.UNION.equals(transactionInfo.getPayType())) {
-//            printString += printType + multipleSpaces(20 - printType.getBytes("GBK").length) + "Union Pay QR" + builder.br();
-//        }
 
         String payType = "";
         if (Constants.ALIPAYFLAG.equals(transactionInfo.getPayType())) {
@@ -89,11 +81,18 @@ public class TransTypeContent extends PrintBase {
     private static String printStringBase(Context context, String payType) throws UnsupportedEncodingException {
         StringBuffer sb = new StringBuffer();
         String title = getTitle(context);
-        sb.append(title);
-        String space = multipleSpaces(getTranTypeSpaceCount(payType) - title.getBytes("GBK").length - payType.length());
-        sb.append(space);
-        sb.append(payType);
-        sb.append(formatForBr());
+
+        if (isComputerSpaceForLeftRight()) {
+            sb.append(createTextLineForLeftAndRight(title, payType));
+        } else {
+            sb.append(title);
+            String space = multipleSpaces(getTranTypeSpaceCount(payType) - title.getBytes("GBK").length - payType.length());
+            sb.append(space);
+            sb.append(payType);
+            sb.append(formatForBr());
+        }
+
+
         return sb.toString();
     }
 

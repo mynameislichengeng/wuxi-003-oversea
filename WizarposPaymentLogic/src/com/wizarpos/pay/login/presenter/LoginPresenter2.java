@@ -46,6 +46,7 @@ import com.wizarpos.pay.model.SysParam;
 import com.wizarpos.pay.model.UserEntity;
 import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 import com.wizarpos.recode.util.PackageAndroidManager;
 import com.wizarpos.wizarpospaymentlogic.R;
@@ -191,8 +192,11 @@ public class LoginPresenter2 extends BasePresenter {
             terminalUniqNo = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
         } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
             terminalUniqNo = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
-        }else if(DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920){
+        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
             terminalUniqNo = android.os.Build.SERIAL;//终端序列号
+        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_AMP8) {
+
+            terminalUniqNo = AMPPrintManager.getInstance().getSN();
         } else {
             terminalUniqNo = DeviceManager.getImei(context);//IMEI地址
         }

@@ -53,11 +53,19 @@ public class BarcodeTextContent extends PrintBase {
 
     private static String printStringBase(String transactionInfo) {
         if (isOpenStatus()) {
-            String transLogId = TranLogIdDataUtil.removeCharPForTranLogId(transactionInfo);
-            String content = multipleSpaces(2) + transLogId;
-            String barcode = formatForBC(content) + formatForBr();
 
-            return barcode;
+            String transLogId = TranLogIdDataUtil.removeCharPForTranLogId(transactionInfo);
+
+            if (isComputerSpaceForLeftRight()) {
+                String s = formatForBC(transLogId) + formatForBr();
+                return s;
+            } else {
+                String content = multipleSpaces(2) + transLogId;
+                String barcode = formatForBC(content) + formatForBr();
+
+                return barcode;
+            }
+
         }
 
         return null;

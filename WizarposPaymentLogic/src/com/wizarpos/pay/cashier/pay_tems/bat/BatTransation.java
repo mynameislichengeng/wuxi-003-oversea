@@ -36,9 +36,11 @@ import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.FxRateContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
+import com.wizarpos.recode.print.content.SaleContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
 import com.wizarpos.recode.print.content.TotalContent;
@@ -233,16 +235,15 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+            
+            printString += MerchantIdContent.printStringPayfor(context);
 
-            printString += DeviceContent.printStringDevice(context) + builder.br();
+            printString += DeviceContent.printStringDevice(context);
 
-            printString += CashierIdContent.printString(context) + builder.br();
+            printString += CashierIdContent.printString(context);
 
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br() + builder.nBr();
 
+            printString += SaleContent.printStringPayFor(context);
 
             String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
             String tipsAmount = transactionInfo.getTips();
@@ -252,7 +253,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 
 
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo) + builder.br();
+                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo);
             }
 
             printString += TotalContent.printStringPayFor(context, totalAmount) + builder.br();
@@ -269,22 +270,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString += PayTimeContent.printStringPayfor(transactionInfo);
 
 
-//            String printType = context.getString(R.string.print_type);
-//            if (Constants.ALIPAYFLAG.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(26 - printType.getBytes("GBK").length) + "Alipay" + builder.br();
-//            } else if (Constants.WEPAYFLAG.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(22 - printType.getBytes("GBK").length) + "Wechat Pay" + builder.br();
-//            } else if (Constants.UNION.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(20 - printType.getBytes("GBK").length) + "Union Pay QR" + builder.br();
-//            }
-
             printString += TransTypeContent.printStringPayfor(context, transactionInfo);
 
-//            String thirdTransOrder = transactionInfo.getThirdTradeNo();
-//            if (!TextUtils.isEmpty(thirdTransOrder)) {
-//                printString += context.getString(R.string.print_trans) + builder.br();
-//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-//            }
+
             String transNumPrintString = TransNumContent.printStringPayfor(context, transactionInfo);
             if (!TextUtils.isEmpty(transNumPrintString)) {
                 printString += transNumPrintString;
@@ -308,7 +296,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringPayfor(transactionInfo);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -467,25 +455,27 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+            printString += MerchantIdContent.printStringPayfor(context);
 
-            printString += DeviceContent.printStringDevice(context) + builder.br();
+//            printString += DeviceContent.printStringDevice(context) + builder.br();
 
-            printString += CashierIdContent.printString(context) + builder.br();
+            printString += DeviceContent.printStringDevice(context);
 
+            printString += CashierIdContent.printString(context);
 
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.print_sale))) + builder.br();
+            printString += SaleContent.printStringPayFor(context);
+
             String totalAmount = Calculater.formotFen(transactionInfo.getRealAmount());
             String tipsAmount = transactionInfo.getTips();
-
 
             printString += PurchaseContent.printStrPurchasePayFor(context, tipsAmount, totalAmount, transactionInfo) + builder.br();
 
 
             if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
-                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo) + builder.br();
+                printString += TipsContent.printStringPayFor(context, tipsAmount, transactionInfo);
             }
             printString += TotalContent.printStringPayFor(context, totalAmount) + builder.br();
 
@@ -501,22 +491,9 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
 
             printString += PayTimeContent.printStringPayfor(transactionInfo);
 
-//            String printType = context.getString(R.string.print_type);
-//            if (Constants.ALIPAYFLAG.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(26 - printType.getBytes("GBK").length) + "Alipay" + builder.br();
-//            } else if (Constants.WEPAYFLAG.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(22 - printType.getBytes("GBK").length) + "Wechat Pay" + builder.br();
-//            } else if (Constants.UNION.equals(transactionInfo.getPayType())) {
-//                printString += printType + multipleSpaces(20 - printType.getBytes("GBK").length) + "Union Pay QR" + builder.br();
-//            }
+
             printString += TransTypeContent.printStringPayfor(context, transactionInfo);
 
-
-//            String thirdTransOrder = transactionInfo.getThirdTradeNo();
-//            if (!TextUtils.isEmpty(thirdTransOrder)) {
-//                printString += context.getString(R.string.print_trans) + builder.br();
-//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-//            }
 
             String transNumPrintString = TransNumContent.printStringPayfor(context, transactionInfo);
             if (!TextUtils.isEmpty(transNumPrintString)) {
@@ -531,29 +508,18 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 }
             }
 
-//            String acctName = transactionInfo.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
 
             String accNamePrintString = AcctNameContent.printStringPayfor(context, transactionInfo);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-//            String acct = transactionInfo.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
             String acctPrintString = AcctContent.printStringPayfor(context, transactionInfo);
             if (!TextUtils.isEmpty(acctPrintString)) {
                 printString += acctPrintString;
             }
 
-
-            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringPayfor(transactionInfo);
             if (!TextUtils.isEmpty(barcodePrint)) {

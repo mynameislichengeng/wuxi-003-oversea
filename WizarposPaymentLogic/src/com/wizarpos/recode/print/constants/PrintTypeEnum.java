@@ -2,5 +2,5 @@ package com.wizarpos.recode.print.constants;
 
 public enum PrintTypeEnum {
 
-    TEXT, BC
+    TEXT, BC, LEFT_RIGHT
 }

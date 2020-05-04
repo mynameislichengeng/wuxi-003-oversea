@@ -1,12 +1,14 @@
 package com.wizarpos.device.printer;
 
+import com.wizarpos.recode.print.service.PrintHandleService;
+
 import java.util.Arrays;
 
 public class KeywordTrigger {
 
     private String[] keywords = null;
     private char[] cs = new char[0];
-    private KeywordTriggerHandle handle = null;
+    private PrintHandleService handle = null;
 
     private int maxKeywordLength = 0;
 
@@ -91,13 +93,9 @@ public class KeywordTrigger {
 
 
 
-    public void setHandle(KeywordTriggerHandle handle) {
+    public void setHandle(PrintHandleService handle) {
         this.handle = handle;
     }
 
-    public static abstract class KeywordTriggerHandle {
-        public abstract void contentTrigger(String str);
 
-        public abstract void keywordTrigger(String keyword);
-    }
 }

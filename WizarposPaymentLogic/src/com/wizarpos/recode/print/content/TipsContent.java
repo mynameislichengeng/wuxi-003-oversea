@@ -34,20 +34,11 @@ public class TipsContent extends PrintBase {
 
 
     public static String printStringPayFor(Context context, String tipsAmount, TransactionInfo transactionInfo) throws UnsupportedEncodingException {
-//        String printTip = context.getString(R.string.print_tip);
-//        String value = Calculater.formotFen(tipsAmount);
-
-//        return printTip + multipleSpaces(getTipsSpaceCount() - printTip.getBytes("GBK").length - value.length()) + "$" + value;
         return printStringBase(context, tipsAmount, TransRecordLogicConstants.TRANSCURRENCY.CAD.getType());
     }
 
     public static String printStringActivity(Context context, DailyDetailResp resp) throws UnsupportedEncodingException {
         if (!TextUtils.isEmpty(resp.getTipAmount()) && !resp.getTipAmount().equals("0")) {
-//            String printTip = context.getString(R.string.print_tip);
-//            String tips = divide100(resp.getTipAmount());
-//            int numSpace = tranZhSpaceNums(getTipsSpaceCount(), 1, resp.getTransCurrency());
-//            String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(resp.getTransCurrency());
-//            return printTip + multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length()) + printTrancurrency + tips;
 
             return printStringBase(context, resp.getTipAmount(), resp.getTransCurrency());
         }
@@ -58,18 +49,25 @@ public class TipsContent extends PrintBase {
     private static String printStringBase(Context context, String tipAmount, String transCurrency) throws UnsupportedEncodingException {
         StringBuffer sb = new StringBuffer();
         String printTip = context.getString(R.string.print_tip);
-        sb.append(printTip);
+
         String tips = divide100(tipAmount);
-
-
-        int numSpace = tranZhSpaceNums(getTipsSpaceCount(tips), 1, transCurrency);
-        String space = multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length());
-        sb.append(space);
-        //
         String printTrancurrency = TransRecordLogicConstants.TRANSCURRENCY.getPrintStr(transCurrency);
-        sb.append(printTrancurrency);
-        //
-        sb.append(tips);
+
+        if (isComputerSpaceForLeftRight()) {
+            String right = printTrancurrency + tips;
+            sb.append(createTextLineForLeftAndRight(printTip, right));
+        } else {
+            sb.append(printTip);
+            int numSpace = tranZhSpaceNums(getTipsSpaceCount(tips), 1, transCurrency);
+            String space = multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length());
+            sb.append(space);
+            //
+
+            sb.append(printTrancurrency);
+            //
+            sb.append(tips);
+            sb.append(formatForBr());
+        }
 
         return sb.toString();
 

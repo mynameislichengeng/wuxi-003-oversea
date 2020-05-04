@@ -19,6 +19,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
+import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,7 +88,10 @@ public class NetBundler {
                 defaultSn = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
             } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
                 defaultSn = android.os.Build.SERIAL;//终端序列号
-            } else {
+            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_AMP8) {
+//                defaultSn = android.os.Build.SERIAL;//终端序列号
+                defaultSn = AMPPrintManager.getInstance().getSN();
+            }  else {
                 defaultSn = DeviceManager.getImei(PaymentApplication.getInstance());//IMEI地址
             }
         String sn = AppConfigHelper.getConfig(AppConfigDef.sn);

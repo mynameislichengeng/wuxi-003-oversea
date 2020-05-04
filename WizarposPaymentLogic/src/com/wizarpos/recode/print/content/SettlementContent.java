@@ -53,9 +53,6 @@ public class SettlementContent extends PrintBase {
     public static String printStringSettlementPayFor(TransactionInfo transactionInfo) {
 
         String amount = divide100(transactionInfo.getSettlementAmount());
-//        String str = multipleSpaces(getSettlementSpaceCount() - amount.length()) + transactionInfo.getSettlementCurrency() + " " + amount;
-//        return str;
-
         return printStringBase(transactionInfo.getSettlementCurrency(), amount);
     }
 
@@ -92,11 +89,18 @@ public class SettlementContent extends PrintBase {
 
     private static String printStringBase(String settlementCurrency, String settlementAmount) {
         StringBuffer sb = new StringBuffer();
-        String space = multipleSpaces(getSettlementSpaceCount(settlementCurrency + settlementAmount) - settlementCurrency.length() - settlementAmount.length());
-        sb.append(space);
-        sb.append(settlementCurrency);
-        sb.append(" ");
-        sb.append(settlementAmount);
+
+        if (isComputerSpaceForLeftRight()) {
+            sb.append(formartForRight(settlementCurrency + " " + settlementAmount));
+        } else {
+            String space = multipleSpaces(getSettlementSpaceCount(settlementCurrency + settlementAmount) - settlementCurrency.length() - settlementAmount.length());
+            sb.append(space);
+            sb.append(settlementCurrency);
+            sb.append(" ");
+            sb.append(settlementAmount);
+        }
+
+
         return sb.toString();
     }
 

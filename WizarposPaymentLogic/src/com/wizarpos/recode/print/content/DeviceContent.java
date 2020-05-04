@@ -52,12 +52,17 @@ public class DeviceContent extends PrintBase {
         if (TextUtils.isEmpty(snStr)) {
             snStr = "";
         }
-        if (snStr.length() > PART_LENGTH) {
-            devicetitle += formatForBr();
-            devicetitle += multipleSpaces(33 - snStr.length()) + snStr;
-
+        if (isComputerSpaceForLeftRight()) {
+            devicetitle = createTextLineForLeft(devicetitle, snStr);
         } else {
-            devicetitle += snStr;
+            if (snStr.length() > PART_LENGTH) {
+                devicetitle += formatForBr();
+                devicetitle += multipleSpaces(33 - snStr.length()) + snStr;
+
+            } else {
+                devicetitle += snStr;
+            }
+            devicetitle += formatForBr();
         }
         return devicetitle;
     }

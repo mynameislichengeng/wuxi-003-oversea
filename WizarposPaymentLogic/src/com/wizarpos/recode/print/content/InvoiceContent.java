@@ -19,7 +19,6 @@ import java.util.List;
 public class InvoiceContent extends PrintBase {
 
 
-
     public static void printHtmlPayfor(Context context, List<HtmlLine> lines, TransactionInfo transactionInfo) {
         String inVoiceValue = transactionInfo.getMerchantTradeCode();
         printHtmlBase(context, lines, inVoiceValue);
@@ -67,16 +66,21 @@ public class InvoiceContent extends PrintBase {
         }
         String[] aray;
         String title = getTitle(context);
-
-
-        if (inVoiceValue.length() < PART_NUM_13) {
+        if (isComputerSpaceForLeftRight()) {
             aray = new String[1];
-            aray[0] = title + multipleSpaces(getInvoiceSpaceCount(inVoiceValue) - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            aray[0] = createTextLineForLeftAndRight(title, inVoiceValue);
+            return aray;
         } else {
-            aray = new String[2];
-            aray[0] = title;
-            aray[1] = multipleSpaces(getInvoiceSpaceCountArray(inVoiceValue) - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            if (inVoiceValue.length() < PART_NUM_13) {
+                aray = new String[1];
+                aray[0] = title + multipleSpaces(getInvoiceSpaceCount(inVoiceValue) - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            } else {
+                aray = new String[2];
+                aray[0] = title;
+                aray[1] = multipleSpaces(getInvoiceSpaceCountArray(inVoiceValue) - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+            }
         }
+
 
         return aray;
     }

@@ -1,4 +1,4 @@
-package com.wizarpos.recode.print.n3n5;
+package com.wizarpos.recode.print.devicesdk.n3n5;
 
 import android.content.Context;
 

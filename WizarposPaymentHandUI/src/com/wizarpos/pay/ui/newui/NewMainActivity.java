@@ -50,6 +50,7 @@ import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
 
@@ -237,12 +238,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         //清除登出标记
         AppStateManager.setState(AppStateDef.IS_SIGN_OUT_EXIT, Constants.FALSE);
 //        //TODO testprinter
-//        if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
-//            for (int i = 0; i < 10; i++) {
-//                WebPrintHelper.getInstance().print(AppConfigHelper.getConfig(AppConfigDef.PRINT_CUSTOMER_REFUND_CONTEXT));
-////                PaymentApplication.getInstance().startActivity(WebPrintActivity.getStartIntent(PaymentApplication.getInstance(), AppConfigHelper.getConfig(AppConfigDef.PRINT_CUSTOMER_REFUND_CONTEXT)));
-//            }
-//        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.wizarpos.recode.print.data;
 
+import com.wizarpos.recode.print.constants.HtmlRemarkConstans;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
 
 import java.util.ArrayList;
@@ -7,8 +8,9 @@ import java.util.List;
 
 public class SpixContent {
 
-    private final static String CHAR_BC_START = "<bc>";
-    private final static String CHAR_BC_END = "</bc>";
+    private final static String CHAR_BC_START = HtmlRemarkConstans.BARCODE_START.getValue();
+
+    private final static String CHAR_BC_END = HtmlRemarkConstans.BARCODE_END.getValue();
 
 
     public static List<PrintType> splitFromBC(String content) {

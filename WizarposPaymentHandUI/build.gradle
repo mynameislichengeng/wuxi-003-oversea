@@ -26,6 +26,8 @@ dependencies {
     //
     compile 'com.github.open-android:PullToRefresh:v1.0'
     compile project(path: ':baseui')
+    //amp包引入
+    provided files('external-libs/sdk.jar')
 }
 
 android {

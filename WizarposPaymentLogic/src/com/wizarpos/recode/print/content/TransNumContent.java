@@ -52,12 +52,18 @@ public class TransNumContent extends PrintBase {
         if (!TextUtils.isEmpty(thirdTransOrder)) {
             StringBuffer sb = new StringBuffer();
             String tilte = context.getString(R.string.print_trans);
-            sb.append(tilte);
-            sb.append(formatForBr());
-            String space = multipleSpaces(getTranNumSpaceCount() - thirdTransOrder.getBytes("GBK").length);
-            sb.append(space);
-            sb.append(thirdTransOrder);
-            sb.append(formatForBr());
+            if (isComputerSpaceForLeftRight()) {
+                sb.append(createTextLineForLeftAndRight(tilte, thirdTransOrder));
+            } else {
+                sb.append(tilte);
+                sb.append(formatForBr());
+                String space = multipleSpaces(getTranNumSpaceCount() - thirdTransOrder.getBytes("GBK").length);
+                sb.append(space);
+                sb.append(thirdTransOrder);
+                sb.append(formatForBr());
+            }
+
+
             return sb.toString();
         }
         return null;

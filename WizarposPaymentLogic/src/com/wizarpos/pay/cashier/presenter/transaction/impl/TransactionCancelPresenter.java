@@ -28,8 +28,10 @@ import com.wizarpos.recode.print.content.AcctNameContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
+import com.wizarpos.recode.print.content.RefundContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.recode.print.content.TransNumContent;
@@ -594,17 +596,20 @@ public class TransactionCancelPresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
 
-            printString += DeviceContent.printStringDevice(context) + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+            printString += MerchantIdContent.printStringRefund(context);
 
+//            printString += DeviceContent.printStringDevice(context) + builder.br();
+            printString += DeviceContent.printStringDevice(context);
 
-            printString += CashierIdContent.printString(context) + builder.br();
+            printString += CashierIdContent.printString(context);
 
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+
+            printString += RefundContent.printStringPayFor(context);
 
             printString += TotalContent.printStringRefund(context, resp) + builder.br();
 
@@ -671,7 +676,7 @@ public class TransactionCancelPresenter {
             }
 
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringRefund(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -816,18 +821,17 @@ public class TransactionCancelPresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
+//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+            printString += MerchantIdContent.printStringRefund(context);
 
+//            printString += DeviceContent.printStringDevice(context) + builder.br();
+            printString += DeviceContent.printStringDevice(context);
 
-            printString += DeviceContent.printStringDevice(context) + builder.br();
+            printString += CashierIdContent.printString(context);
 
-
-            printString += CashierIdContent.printString(context) + builder.br();
-
-
-            printString += builder.br() + builder.nBr();
-            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+//            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
+            printString += RefundContent.printStringPayFor(context);
 
             printString += TotalContent.printStringRefund(context, resp) + builder.br();
 
@@ -900,7 +904,7 @@ public class TransactionCancelPresenter {
                 printString += acctPrintString;
             }
 
-            printString += builder.br();
+//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringRefund(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {

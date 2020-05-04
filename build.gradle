@@ -29,6 +29,8 @@ allprojects {
         google()
         flatDir {
             dirs project(':libsn3n5printsdk').file('libs')
+            dirs project(':libsa920sdk').file('libs')
+
         }
     }
 }

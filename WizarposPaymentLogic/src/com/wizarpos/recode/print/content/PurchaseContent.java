@@ -86,18 +86,23 @@ public class PurchaseContent extends PrintBase {
     }
 
     private static String printStringBase(Context context, String value, String transCurrencyPrint, int numSpace) throws UnsupportedEncodingException {
-
         StringBuffer sb = new StringBuffer();
-        //
         String printPurchase = context.getString(R.string.print_purchase);
-        sb.append(printPurchase);
-        //
-        String space = multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - value.length());
-        sb.append(space);
-        //
-        sb.append(transCurrencyPrint);
-        //
-        sb.append(value);
+
+        if (isComputerSpaceForLeftRight()) {
+            String temp = createTextLineForLeftAndRight(printPurchase, transCurrencyPrint + value);
+            sb.append(temp);
+        } else {
+            //
+            sb.append(printPurchase);
+            //
+            String space = multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - value.length());
+            sb.append(space);
+            //
+            sb.append(transCurrencyPrint);
+            //
+            sb.append(value);
+        }
         return sb.toString();
     }
 

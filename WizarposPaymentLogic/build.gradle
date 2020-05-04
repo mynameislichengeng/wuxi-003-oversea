@@ -8,6 +8,9 @@ dependencies {
     compile 'android:UI:1.1.50'
     compile 'com.yanzhenjie:permission:1.0.5'
     compile project(path: ':libsn3n5printsdk')
+    compile project(path: ':libsa920sdk')
+    //amp包引入
+    provided files('external-libs/sdk.jar')
 
 }
 
