@@ -21,6 +21,10 @@ public class MerchantIdContent extends PrintBase {
         return printBase(context);
     }
 
+    public static String printStringDialy(Context context){
+        return printBase(context);
+    }
+
     private static String printBase(Context context) {
         String title = context.getString(R.string.print_merchant_id);
         String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);

@@ -73,7 +73,6 @@
     <!-- 扫描权限 开始 -->
 
 
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- 扫描权限 结束 -->
@@ -154,8 +153,8 @@
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <!-- 个推3.0电子围栏功能所需权限 -->
-        <uses-library android:name="com.pos.device"></uses-library>
+        <!-- amp设备专用 -->
+<!--        <uses-library android:name="com.pos.device"></uses-library>-->
         <activity
             android:name="com.wizarpos.pay.login.view.StartupActivity"
             android:label="@string/app_name"

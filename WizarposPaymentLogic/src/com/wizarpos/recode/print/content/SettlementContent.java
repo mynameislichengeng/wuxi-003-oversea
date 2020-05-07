@@ -106,64 +106,7 @@ public class SettlementContent extends PrintBase {
 
 
     private static int getSettlementSpaceCount(String content) {
-        int length = content.length();
-        if (getDeviceTypeForN3N5()) {
 
-            int countTr = 0;
-            switch (length) {
-                case 1:
-                    countTr = 0;
-                    break;
-                case 2:
-                    countTr = 0;
-                    break;
-                case 3:
-                    countTr = 0;
-                    break;
-                case 4:
-                    countTr = 0;
-                    break;
-                case 5:
-                    countTr = 0;
-                    break;
-                case 6:
-                    countTr = 0;
-                    break;
-                case 7:
-                    countTr = 0;
-                    break;
-                case 8:
-                    countTr = -1;
-                    break;
-                case 9:
-                    countTr = -2;
-                    break;
-                case 10:
-                    countTr = -3;
-                    break;
-                case 11:
-                    countTr = -5;
-                    break;
-                case 12:
-                    countTr = -6;
-                    break;
-                case 13:
-                    countTr = -7;
-                    break;
-                case 14:
-                    countTr = -9;
-                    break;
-                case 15:
-                    countTr = -10;
-                    break;
-                case 16:
-                    countTr = -11;
-                    break;
-            }
-
-            return 53 + countTr;
-        } else {
-            return 28;
-        }
+        return 28;
     }
 }

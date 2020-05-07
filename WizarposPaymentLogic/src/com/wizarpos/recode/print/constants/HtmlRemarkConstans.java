@@ -21,7 +21,7 @@ public enum HtmlRemarkConstans {
 
     LINE("<br/>"),
     LINE_N("<nbr/>"),
-    LINE_TAG_NEW("<line/>"),//换行
+//    LINE_TAG_NEW("<line/>"),//换行
     LINE_SPACE_NEW("<linsp/>"),//空行
     END("<end/>"),
     ;

@@ -75,67 +75,7 @@ public class TipsContent extends PrintBase {
 
 
     private static int getTipsSpaceCount(String value) {
-        int length = value.length();
-        if (getDeviceTypeForN3N5()) {
-            int countTr = 0;
-            switch (length) {
-                case 1:
-                    countTr = 0;
-                    break;
-                case 2:
-                    countTr = 0;
-                    break;
-                case 3:
-                    countTr = 0;
-                    break;
-                case 4:
-                    countTr = 0;
-                    break;
-                case 5:
-                    countTr = -1;
-                    break;
-                case 6:
-                    countTr = -2;
-                    break;
-                case 7:
-                    countTr = -3;
-                    break;
-                case 8:
-                    countTr = -5;
-                    break;
-                case 9:
-                    countTr = -6;
-                    break;
-                case 10:
-                    countTr = -7;
-                    break;
-                case 11:
-                    countTr = -9;
-                    break;
-                case 12:
-                    countTr = -10;
-                    break;
-                case 13:
-                    countTr = -11;
-                    break;
-                case 14:
-                    countTr = -13;
-                    break;
-                case 15:
-                    countTr = -14;
-                    break;
-                case 16:
-                    countTr = -15;
-                    break;
-                case 17:
-                    countTr = -17;
-                    break;
-            }
 
-
-            return 54 + countTr;
-        } else {
-            return 31;
-        }
+        return 31;
     }
 }

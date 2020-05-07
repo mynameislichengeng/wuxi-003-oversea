@@ -168,14 +168,7 @@ public class Q1PrintBuilder {
         return "<nbr/>";
     }
 
-    /**
-     * 换行
-     *
-     * @return
-     */
-    public String lineTag() {
-        return HtmlRemarkConstans.LINE_TAG_NEW.getValue();
-    }
+
 
     /**
      * 空格行

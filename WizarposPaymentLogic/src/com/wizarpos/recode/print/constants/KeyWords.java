@@ -29,7 +29,7 @@ public class KeyWords {
 
             HtmlRemarkConstans.LINE.getValue(),            // 换行
             HtmlRemarkConstans.LINE_N.getValue(),           //N3或者N5的换行
-            HtmlRemarkConstans.LINE_TAG_NEW.getValue(),  //新的换行
+//            HtmlRemarkConstans.LINE_TAG_NEW.getValue(),  //新的换行
             HtmlRemarkConstans.LINE_SPACE_NEW.getValue(),  //新的空格行
 
 

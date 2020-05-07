@@ -18,6 +18,7 @@ import com.wizarpos.device.printer.html.WebPrintHelper;
 import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.device.printer.html.model.HtmlLine;
 import com.wizarpos.log.util.LogEx;
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.cashier.model.TicketTotalRespBean;
 import com.wizarpos.pay.common.Constants;
@@ -41,12 +42,14 @@ import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.model.TranLogBean;
 import com.wizarpos.recode.constants.HttpConstants;
 
+import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.recode.print.content.AcctContent;
 import com.wizarpos.recode.print.content.AcctNameContent;
 import com.wizarpos.recode.print.content.FxRateContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantAddrContent;
 import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
@@ -59,6 +62,16 @@ import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.recode.print.content.TransNumContent;
 import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
+import com.wizarpos.recode.print.content.daily.AliSalesContent;
+import com.wizarpos.recode.print.content.daily.BeginTimeContent;
+import com.wizarpos.recode.print.content.daily.EndTimeContent;
+import com.wizarpos.recode.print.content.daily.GrossSalesContent;
+import com.wizarpos.recode.print.content.daily.NetSalesContent;
+import com.wizarpos.recode.print.content.daily.RefundDailyContent;
+import com.wizarpos.recode.print.content.daily.TipDialyContent;
+import com.wizarpos.recode.print.content.daily.TotalCollectContent;
+import com.wizarpos.recode.print.content.daily.UnionPaySalesContent;
+import com.wizarpos.recode.print.content.daily.WechatSalesContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -1303,19 +1316,25 @@ public class StatisticsPresenter extends BasePresenter {
             String printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant + context.getString(R.string.print_reprint)));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+
+            String address = MerchantAddrContent.getPrintContent();
             if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+                printString += address;
             }
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
@@ -1430,19 +1449,25 @@ public class StatisticsPresenter extends BasePresenter {
             String printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant + context.getString(R.string.print_reprint)));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+
+            String address = MerchantAddrContent.getPrintContent();
             if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+                printString += address;
             }
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
@@ -1672,19 +1697,26 @@ public class StatisticsPresenter extends BasePresenter {
             String printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant + context.getString(R.string.print_reprint)));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+
+            String address = MerchantAddrContent.getPrintContent();
             if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+                printString += address;
             }
+
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
@@ -1693,7 +1725,7 @@ public class StatisticsPresenter extends BasePresenter {
 //            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
 
             printString += MerchantIdContent.printStringActivity(context);
-            printString += DeviceContent.printStringDeviceActivity(context, resp) ;
+            printString += DeviceContent.printStringDeviceActivity(context, resp);
 
 
             printString += CashierIdContent.printStringActivity(context, resp);
@@ -1807,19 +1839,26 @@ public class StatisticsPresenter extends BasePresenter {
             String printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant + context.getString(R.string.print_reprint)));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+
+            String address = MerchantAddrContent.getPrintContent();
             if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+                printString += address;
             }
+
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
@@ -1890,7 +1929,6 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
-
 
 
             String acctPrintString = AcctContent.printStringActivity(context, resp);
@@ -2237,15 +2275,33 @@ public class StatisticsPresenter extends BasePresenter {
         String printString = "";
         printString += builder.center(builder.bold("DAILY REPORT"));
         printString += builder.center(builder.bold("SALES"));
+
         printString += builder.center(AppConfigHelper.getConfig(AppConfigDef.merchantName, ""));
-        printString += builder.center(AppConfigHelper.getConfig(AppConfigDef.merchantAddr, ""));
+
+
+//        printString += builder.center(AppConfigHelper.getConfig(AppConfigDef.merchantAddr, ""));
+
+        String address = MerchantAddrContent.getPrintContent();
+        if (!TextUtils.isEmpty(address)) {
+            printString += address;
+        }
+
+
         printString += builder.center(DateUtil.formatInternationalDate(new Date()));
+
         printString += "Summary Period:" + builder.br();
-        printString += "" + multipleSpaces(32 - tranLogVo.getBeginTime().length()) + tranLogVo.getBeginTime() + builder.br();
-        printString += "" + multipleSpaces(32 - tranLogVo.getEndTime().length()) + tranLogVo.getEndTime() + builder.br();
+
+        printString += BeginTimeContent.printContent(tranLogVo);
+//        printString += "" + multipleSpaces(32 - tranLogVo.getBeginTime().length()) + tranLogVo.getBeginTime() + builder.br();
+        printString += EndTimeContent.printContent(tranLogVo);
+//        printString += "" + multipleSpaces(32 - tranLogVo.getEndTime().length()) + tranLogVo.getEndTime() + builder.br();
+
+        printString += builder.lineSpace();
         printString += builder.br();
 
-        printString += context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid, "") + builder.br();
+//        printString += context.getString(R.string.print_merchant_id) + AppConfigHelper.getConfig(AppConfigDef.mid, "") + builder.br();
+        printString += MerchantIdContent.printStringDialy(context);
+
         printString += context.getString(R.string.print_emplayee) + "All" + builder.br();
         if ("4".equals(getConfig(AppConfigDef.authFlag))) {
             printString += context.getString(R.string.print_terminal_id) + AppConfigHelper.getConfig(AppConfigDef.sn, "") + builder.br();
@@ -2253,27 +2309,42 @@ public class StatisticsPresenter extends BasePresenter {
             printString += context.getString(R.string.print_terminal_id) + "All" + builder.br();
         }
 
-
+        printString += builder.lineSpace();
         printString += builder.br();
 
         printString += builder.center(builder.bold("SUMMARY"));
-        printString += "Gross Sales x " + tranLogVo.getGrossSalesNumber() + multipleSpaces(31 - (("Gross Sales x " + tranLogVo.getGrossSalesNumber()) + Tools.formatFen(tranLogVo.getGrossSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getGrossSalesAmount())) + builder.br();
-        printString += "Refunds x " + tranLogVo.getRefundsNumber() + multipleSpaces(31 - (("Refunds x " + tranLogVo.getRefundsNumber()) + Tools.formatFen(tranLogVo.getRefundsAmount())).length()) + "$" + Tools.formatFen(tranLogVo.getRefundsAmount()) + builder.br();
-        printString += "Net Sales x " + tranLogVo.getNetSalesNumber() + multipleSpaces(31 - (("Net Sales x " + tranLogVo.getNetSalesNumber()) + Tools.formatFen(tranLogVo.getNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getNetSalesAmount())) + builder.br();
-        printString += "Tips x " + tranLogVo.getTipsNumber() + multipleSpaces(31 - (("Tips x " + tranLogVo.getTipsNumber()) + Tools.formatFen(tranLogVo.getTipsAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getTipsAmount())) + builder.br();
-        printString += "Total Collected" + multipleSpaces(16 - Tools.formatFen(tranLogVo.getTotalCollected()).length()) + ("$" + Tools.formatFen(tranLogVo.getTotalCollected())) + builder.br();
+
+        printString += GrossSalesContent.printContent(tranLogVo);
+//        printString += "Gross Sales x " + tranLogVo.getGrossSalesNumber() + multipleSpaces(31 - (("Gross Sales x " + tranLogVo.getGrossSalesNumber()) + Tools.formatFen(tranLogVo.getGrossSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getGrossSalesAmount())) + builder.br();
+        printString += RefundDailyContent.printContent(tranLogVo);
+//        printString += "Refunds x " + tranLogVo.getRefundsNumber() + multipleSpaces(31 - (("Refunds x " + tranLogVo.getRefundsNumber()) + Tools.formatFen(tranLogVo.getRefundsAmount())).length()) + "$" + Tools.formatFen(tranLogVo.getRefundsAmount()) + builder.br();
+        printString += NetSalesContent.printContent(tranLogVo);
+//        printString += "Net Sales x " + tranLogVo.getNetSalesNumber() + multipleSpaces(31 - (("Net Sales x " + tranLogVo.getNetSalesNumber()) + Tools.formatFen(tranLogVo.getNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getNetSalesAmount())) + builder.br();
+        printString += TipDialyContent.printContent(tranLogVo);
+//        printString += "Tips x " + tranLogVo.getTipsNumber() + multipleSpaces(31 - (("Tips x " + tranLogVo.getTipsNumber()) + Tools.formatFen(tranLogVo.getTipsAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getTipsAmount())) + builder.br();
+
+        printString += TotalCollectContent.printContent(tranLogVo);
+//        printString += "Total Collected" + multipleSpaces(16 - Tools.formatFen(tranLogVo.getTotalCollected()).length()) + ("$" + Tools.formatFen(tranLogVo.getTotalCollected())) + builder.br();
+
+        printString += builder.lineSpace();
         printString += builder.br();
 
         printString += builder.center(builder.bold("WECHAT PAY SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getWechatNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getWechatNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())) + builder.br();
+        printString += WechatSalesContent.printContent(tranLogVo);
+//        printString += "Net Sales x " + tranLogVo.getWechatNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getWechatNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getWechatNetSalesAmount())) + builder.br();
+        printString += builder.lineSpace();
         printString += builder.br();
 
         printString += builder.center(builder.bold("ALIPAY SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getAlipayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getAlipayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())) + builder.br();
+        printString += AliSalesContent.printContent(tranLogVo);
+//        printString += "Net Sales x " + tranLogVo.getAlipayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getAlipayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())) + builder.br();
+        printString += builder.lineSpace();
         printString += builder.br();
 
         printString += builder.center(builder.bold("Union Pay QR SUMMARY"));
-        printString += "Net Sales x " + tranLogVo.getUnionPayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())) + builder.br();
+        printString += UnionPaySalesContent.printContent(tranLogVo);
+        printString += builder.lineSpace();
+//        printString += "Net Sales x " + tranLogVo.getUnionPayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())) + builder.br();
         printString += builder.br();
 
         printString += builder.center("END OF REPORT") + builder.br();

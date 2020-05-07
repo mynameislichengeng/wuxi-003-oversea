@@ -75,9 +75,9 @@ public abstract class PrintHandleService {
         return keyword.equals(HtmlRemarkConstans.LINE_N.getValue());
     }
 
-    public boolean isNewLineKeyWords(String keyword) {
-        return keyword.equals(HtmlRemarkConstans.LINE_TAG_NEW.getValue());
-    }
+//    public boolean isNewLineKeyWords(String keyword) {
+//        return keyword.equals(HtmlRemarkConstans.LINE_TAG_NEW.getValue());
+//    }
 
     public boolean isNewLineSpaceKeyWords(String keyword) {
         return keyword.equals(HtmlRemarkConstans.LINE_SPACE_NEW.getValue());

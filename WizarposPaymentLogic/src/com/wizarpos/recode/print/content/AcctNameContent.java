@@ -72,10 +72,7 @@ public class AcctNameContent extends PrintBase {
     }
 
     private static int getAccNameSpaceCount() {
-        if (getDeviceTypeForN3N5()) {
-            return 32 + 6;
-        } else {
-            return 32;
-        }
+
+        return 32;
     }
 }

@@ -51,7 +51,7 @@ public class InvoiceContent extends PrintBase {
             return;
         }
         String title = getTitle(context);
-        if (inVoiceValue.length() < PART_NUM_13) {
+        if (inVoiceValue.length() < PART_LENGTH) {
             lines.add(new HTMLPrintModel.LeftAndRightLine(title, inVoiceValue));
         } else {
             lines.add(new HTMLPrintModel.SimpleLine(title));
@@ -71,7 +71,7 @@ public class InvoiceContent extends PrintBase {
             aray[0] = createTextLineForLeftAndRight(title, inVoiceValue);
             return aray;
         } else {
-            if (inVoiceValue.length() < PART_NUM_13) {
+            if (inVoiceValue.length() < PART_LENGTH) {
                 aray = new String[1];
                 aray[0] = title + multipleSpaces(getInvoiceSpaceCount(inVoiceValue) - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
             } else {
@@ -93,106 +93,13 @@ public class InvoiceContent extends PrintBase {
 
 
     private static int getInvoiceSpaceCount(String content) {
-        if (getDeviceTypeForN3N5()) {
 
-            int length = content.length();
-            int countTr = 0;
-            switch (length) {
-                case 1:
-                    countTr = 0;
-                    break;
-                case 2:
-                    countTr = -2;
-                    break;
-                case 3:
-                    countTr = -6;
-                    break;
-                case 4:
-                    countTr = -9;
-                    break;
-                case 5:
-                    countTr = -11;
-                    break;
-                case 6:
-                    countTr = -14;
-                    break;
-                case 7:
-                    countTr = -17;
-                    break;
-                case 8:
-                    countTr = -19;
-                    break;
-                case 9:
-                    countTr = -22;
-                    break;
-                case 10:
-                    countTr = -25;
-                    break;
-                case 11:
-                    countTr = -27;
-                    break;
-                case 12:
-                    countTr = -30;
-                    break;
-            }
-
-            return 54 + countTr;
-        } else {
-            return 32;
-        }
+        return 32;
     }
 
     private static int getInvoiceSpaceCountArray(String content) {
-        if (getDeviceTypeForN3N5()) {
 
-            int length = content.length();
-            int countTr = 0;
-            switch (length) {
-                case 13:
-                    countTr = 0;
-                    break;
-                case 14:
-                    countTr = -2;
-                    break;
-                case 15:
-                    countTr = -4;
-                    break;
-                case 16:
-                    countTr = -5;
-                    break;
-                case 17:
-                    countTr = -7;
-                    break;
-                case 18:
-                    countTr = -10;
-                    break;
-                case 19:
-                    countTr = -12;
-                    break;
-                case 20:
-                    countTr = -14;
-                    break;
-                case 21:
-                    countTr = -16;
-                    break;
-                case 22:
-                    countTr = -19;
-                    break;
-                case 23:
-                    countTr = -22;
-                    break;
-                case 24:
-                    countTr = -25;
-                    break;
-                case 25:
-                    countTr = -25;
-                    break;
-            }
-
-            return 28 + countTr;
-        } else {
-            return 32;
-        }
+        return 32;
     }
 
 }

@@ -78,76 +78,8 @@ public class ReceiptContent extends PrintBase {
     }
 
     private static int getRecepitSpaceCount(String content) {
-        int length = content.length();
-        if (getDeviceTypeForN3N5()) {
 
-            int countTr = 0;
-            switch (length) {
-                case 1:
-                    countTr = 0;
-                    break;
-                case 2:
-                    countTr = -1;
-                    break;
-                case 3:
-                    countTr = -3;
-                    break;
-                case 4:
-                    countTr = -4;
-                    break;
-                case 5:
-                    countTr = -5;
-                    break;
-                case 6:
-                    countTr = -7;
-                    break;
-                case 7:
-                    countTr = -8;
-                    break;
-                case 8:
-                    countTr = -9;
-                    break;
-                case 9:
-                    countTr = -11;
-                    break;
-                case 10:
-                    countTr = -12;
-                    break;
-                case 11:
-                    countTr = -13;
-                    break;
-                case 12:
-                    countTr = -15;
-                    break;
-                case 13:
-                    countTr = -16;
-                    break;
-                case 14:
-                    countTr = -17;
-                    break;
-                case 15:
-                    countTr = -19;
-                    break;
-                case 16:
-                    countTr = -20;
-                    break;
-                case 17:
-                    countTr = -21;
-                    break;
-                case 18:
-                    countTr = -23;
-                    break;
-                case 19:
-                    countTr = -24;
-                    break;
-                case 20:
-                    countTr = -25;
-                    break;
-            }
 
-            return 53 + countTr;
-        } else {
-            return 31;
-        }
+        return 31;
     }
 }

@@ -55,20 +55,10 @@ public class AcctContent extends PrintBase {
 
             if (isComputerSpaceForLeftRight()) {
                 sb.append(createTextLineForLeftAndRight(printAcct, acct));
-            } else if (getDeviceTypeForN3N5()) {
-
-                if (acct.length() < PART_NUM_13) {
-                    sb.append(formartForLeftAndRight(printAcct, acct));
-                } else {
-                    sb.append(formartForLeft(printAcct));
-                    sb.append(formatForBr());
-                    sb.append(formartForRight(acct));
-                }
-                sb.append(formatForBr());
-
+                sb.append(formartForLineSpace());
             } else {
                 sb.append(printAcct);
-                if (acct.length() < PART_NUM_13) {
+                if (acct.length() < PART_LENGTH) {
                     String space = multipleSpaces(getAcctSpaceCount(acct) - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length);
                     sb.append(space);
                 } else {

@@ -8,10 +8,10 @@ import com.wizarpos.recode.print.constants.PrintConstants;
 
 public class PrintBase {
 
-    private static int COUNTSPACE = 0;
+//    private static int COUNTSPACE = 0;
 
-    protected final static int PART_LENGTH = 20;//当长度大于14的时候，就分割一下
-    protected static final int PART_NUM_13 = 13;
+    protected final static int PART_LENGTH = 18;//当长度大于14的时候，就分割一下
+//    protected static final int PART_NUM_13 = 13;
 
     protected static Q1PrintBuilder q1PrintBuilder = new Q1PrintBuilder();
 
@@ -36,11 +36,8 @@ public class PrintBase {
     protected static int tranZhSpaceNums(int origin, int zhCount, String type) {
         int result = origin;
         if (TransRecordLogicConstants.TRANSCURRENCY.CNY.getType().equals(type)) {
-            if (getDeviceTypeForN3N5()) {
-                result = result - 2 * zhCount;
-            } else {
-                result = result - 1 * zhCount;
-            }
+            result = result - 1 * zhCount;
+
         }
         return result;
     }
@@ -83,6 +80,9 @@ public class PrintBase {
         if (getDeviceTypeForPaxA920()) {
             return true;
         }
+        if (getDeviceTypeForN3N5()) {
+            return true;
+        }
         return false;
     }
 
@@ -97,13 +97,13 @@ public class PrintBase {
         StringBuffer sb = new StringBuffer();
         if (rightText.length() > PART_LENGTH) {
             sb.append(formartForLeft(leftText));
-            sb.append(formartForLineNew());
+//            sb.append(formartForLineNew());
             sb.append(formartForRight(rightText));
         } else {
             sb.append(formartForLeft(leftText + rightText));
         }
 
-        sb.append(formartForLineNew());
+//        sb.append(formartForLineNew());
         return sb.toString();
     }
 
@@ -118,12 +118,12 @@ public class PrintBase {
         StringBuffer sb = new StringBuffer();
         if (rightText.length() > PART_LENGTH) {
             sb.append(formartForLeft(leftText));
-            sb.append(formartForLineNew());
+//            sb.append(formartForLineNew());
             sb.append(formartForRight(rightText));
         } else {
             sb.append(formartForLeftAndRight(leftText, rightText));
         }
-        sb.append(formartForLineNew());
+//        sb.append(formartForLineNew());
         return sb.toString();
     }
 
@@ -161,19 +161,16 @@ public class PrintBase {
         return q1PrintBuilder.nBr();
     }
 
-    protected static String formartForLineNew() {
-        return q1PrintBuilder.lineTag();
-    }
 
     protected static String formartForLineSpace() {
         return q1PrintBuilder.lineSpace();
     }
 
-    public static int getCOUNTSPACE() {
-        return COUNTSPACE;
-    }
+//    public static int getCOUNTSPACE() {
+//        return COUNTSPACE;
+//    }
 
-    public static void setCOUNTSPACE(int COUNTSPACE) {
-        PrintBase.COUNTSPACE = COUNTSPACE;
-    }
+//    public static void setCOUNTSPACE(int COUNTSPACE) {
+//        PrintBase.COUNTSPACE = COUNTSPACE;
+//    }
 }

@@ -102,26 +102,6 @@ public class TransTypeContent extends PrintBase {
 
     private static int getTranTypeSpaceCount(String content) {
 
-        if (getDeviceTypeForN3N5()) {
-            int length = content.length();
-            int countTr = 0;
-            switch (length) {
-                case 6:
-                    countTr = 2;
-                    break;
-                case 10:
-                    countTr = -5;
-                    break;
-
-                case 12:
-                    countTr = -7;
-                    break;
-
-
-            }
-            return 52 + countTr;
-        } else {
-            return 32;
-        }
+        return 32;
     }
 }

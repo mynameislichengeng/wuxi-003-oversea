@@ -130,13 +130,7 @@ public class TestPrintActivity extends Activity implements View.OnClickListener 
         });
     }
 
-    private void printN3N5() {
-        PrintDeviceForN3N5HandleImpl printDeviceForN3N5Handle = new PrintDeviceForN3N5HandleImpl();
-//        printDeviceForN3N5Handle.getPrinterN3N5().appendPrnStr("12", 24, AlignEnum.LEFT, false);
 
-        printDeviceForN3N5Handle.getPrinterN3N5().appendPrnStr("123", "rigth", 24, false);
-        printDeviceForN3N5Handle.keywordTrigger(HtmlRemarkConstans.END.getValue());
-    }
 
     private void log(String msg) {
         Log.d("tag", TAG + ">>" + msg);

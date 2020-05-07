@@ -28,6 +28,7 @@ import com.wizarpos.recode.print.content.AcctNameContent;
 import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantAddrContent;
 import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
@@ -579,35 +580,38 @@ public class TransactionCancelPresenter {
             printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
-            if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+
+            String address = MerchantAddrContent.getPrintContent();
+            if(!TextUtils.isEmpty(address)){
+                printString += address;
             }
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
 
 
-//            String merchantId = AppConfigHelper.getConfig(AppConfigDef.mid);
-//            printString += context.getString(R.string.print_merchant_id) + merchantId + builder.br();
+
             printString += MerchantIdContent.printStringRefund(context);
 
-//            printString += DeviceContent.printStringDevice(context) + builder.br();
             printString += DeviceContent.printStringDevice(context);
 
             printString += CashierIdContent.printString(context);
 
-//            printString += builder.center(builder.bold(context.getString(R.string.refund_uppercase))) + builder.br();
 
             printString += RefundContent.printStringPayFor(context);
 
@@ -623,22 +627,10 @@ public class TransactionCancelPresenter {
 
             printString += PayTimeContent.printStringRefund(resp);
 
-//            String payType = resp.getTransKind();
-//            if ("WechatPay".equals(payType)) {
-//                payType = "Wechat Pay";
-//            } else if (payType.contains("Union")) {
-//                payType = "Union Pay QR";
-//            }
-//            String printType = context.getString(R.string.print_type);
-//            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
 
             printString += TransTypeContent.printStringRefund(context, resp);
 
-//            String thirdTransOrder = resp.getThirdTradeNo();
-//            if (!TextUtils.isEmpty(thirdTransOrder)) {
-//                printString += context.getString(R.string.print_trans) + builder.br();
-//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-//            }
+
 
             String transNumPrintString = TransNumContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(transNumPrintString)) {
@@ -653,22 +645,14 @@ public class TransactionCancelPresenter {
                 }
             }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
+
 
             String accNamePrintString = AcctNameContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
 
             String acctPrintString = AcctContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
@@ -676,7 +660,6 @@ public class TransactionCancelPresenter {
             }
 
 
-//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringRefund(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
@@ -804,19 +787,25 @@ public class TransactionCancelPresenter {
             printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
-            if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+
+            String address = MerchantAddrContent.getPrintContent();
+            if(!TextUtils.isEmpty(address)){
+                printString += address;
             }
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);

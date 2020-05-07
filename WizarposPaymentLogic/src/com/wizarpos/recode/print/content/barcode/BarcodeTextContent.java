@@ -57,7 +57,7 @@ public class BarcodeTextContent extends PrintBase {
             String transLogId = TranLogIdDataUtil.removeCharPForTranLogId(transactionInfo);
 
             if (isComputerSpaceForLeftRight()) {
-                String s = formatForBC(transLogId) + formatForBr();
+                String s = formatForBC(transLogId);
                 return s;
             } else {
                 String content = multipleSpaces(2) + transLogId;

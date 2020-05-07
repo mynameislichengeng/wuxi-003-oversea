@@ -1,6 +1,7 @@
 package com.wizarpos.recode.print.service.impl;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.pax.poslink.peripheries.POSLinkPrinter;
@@ -27,10 +28,14 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
 
     @Override
     public void contentTrigger(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return;
+        }
         switch (printTypeEnum) {
             case BC://条形码
-                String barCodeStr = String.format("\\$BARD,2,1,8,%s", str);
-                printDataFormatter.addContent(barCodeStr);
+//                String barCodeStr = String.format("\\$BARD,2,1,8,%s", str);
+//                printDataFormatter.addContent(barCodeStr);
+//                printDataFormatter.addLineSeparator();
                 break;
             case LEFT_RIGHT:
                 String[] indexs = str.split(PrintConstants.LEFT_RIGHT_MARK);
@@ -38,9 +43,11 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
                 printDataFormatter.addLeftAlign().addContent(leftText);
                 String rightText = indexs[1];
                 printDataFormatter.addRightAlign().addContent(rightText);
+                printDataFormatter.addLineSeparator();
                 break;
             default:
                 printDataFormatter.addContent(str);
+                printDataFormatter.addLineSeparator();
                 break;
         }
     }
@@ -55,7 +62,7 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
             printDataFormatter
                     .addCenterAlign();
         } else if (isCenterEndKeyWords(keyword)) {
-            printDataFormatter.addLineSeparator();
+
         } else if (isRightStartKeyWords(keyword)) {//右对齐
             printDataFormatter.addRightAlign();
         } else if (isRightEndKeyWords(keyword)) {
@@ -68,12 +75,14 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
             setPrintTypeEnum(PrintTypeEnum.BC);
         } else if (isBCEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
-        } else if (isLineKeyWords(keyword)) {//换行
+        } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
             printDataFormatter.addLineSeparator();
-        } else if (isNLineKeyWords(keyword)) {//换行
-//            printDataFormatter.addLineSeparator();
         } else if (isEndKeyWords(keyword)) {//结束，打印
             Context context = PaymentApplication.getInstance().getApplicationContext();
+            printDataFormatter.addLineSeparator();
+            printDataFormatter.addLineSeparator();
+            printDataFormatter.addLineSeparator();
+//            printDataFormatter.addLineSeparator();
             String s = printDataFormatter.build();
             int cutmode = POSLinkPrinter.CutMode.DO_NOT_CUT;
             log("A920打印的内容: " + s);

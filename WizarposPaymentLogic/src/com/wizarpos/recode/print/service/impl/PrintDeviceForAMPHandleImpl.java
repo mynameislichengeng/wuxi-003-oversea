@@ -1,16 +1,20 @@
 package com.wizarpos.recode.print.service.impl;
 
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.pos.device.printer.PrintCanvas;
 import com.pos.device.printer.PrintTask;
 import com.pos.device.printer.Printer;
 import com.pos.device.printer.PrinterCallback;
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
 import com.wizarpos.recode.print.service.PrintHandleService;
+import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 
 /**
  * AMP 设置打印的类
@@ -25,9 +29,12 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
 
     private Typeface typeface = Typeface.DEFAULT;//粗细
 
-    int TEXT_SIZE_COMMON = 20;
+    int TEXT_SIZE_COMMON = 24;
+    int TEXT_SIZE_SAMLL_TIPS = 18;
 
-    private Paint textPaint = new Paint();
+    private Paint textPaint = new Paint();//用来做文本的
+    private Paint bitmapPaint = new Paint();//用来做二维码的
+    private Paint samllTipsTextPaint = new Paint();
 
 
     private final String TEXT_SPACE = " ";
@@ -41,14 +48,27 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
         printCanvas = new PrintCanvas();
         //文本
         textPaint.setTextSize(TEXT_SIZE_COMMON);
+        samllTipsTextPaint.setTextSize(TEXT_SIZE_SAMLL_TIPS);
 
     }
 
     @Override
     public void contentTrigger(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return;
+        }
         switch (printTypeEnum) {
             case BC://条形码
 
+                //显示条形码
+                Bitmap bitmap = ZxingBarcodeManager.creatBarcode(str, getPrinterWidth() + 36, 60);
+//                int scaledHeight = (getPrinterWidth() * bitmap.getHeight()) / bitmap.getWidth();
+//                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, getPrinterWidth(), scaledHeight, false);
+                printCanvas.drawBitmap(bitmap, bitmapPaint);
+
+                //显示文本
+                str = getTextForCenter(samllTipsTextPaint, str);
+                printCanvas.drawText(str, samllTipsTextPaint);
                 break;
             case LEFT_RIGHT://需要左右的
                 String[] indexs = str.split(PrintConstants.LEFT_RIGHT_MARK);
@@ -68,6 +88,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
                     default:
                         break;
                 }
+                log(str);
                 printCanvas.drawText(str, textPaint);
                 break;
         }
@@ -95,8 +116,6 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
             setPrintTypeEnum(PrintTypeEnum.BC);
         } else if (isBCEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
-        } else if (isNewLineKeyWords(keyword)) {//换行
-
         } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
             paintSpaceLine();
         } else if (isEndKeyWords(keyword)) {//结束，打印
@@ -124,7 +143,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
      * 滑一个空格行
      */
     private void paintSpaceLine() {
-        printCanvas.drawText(TEXT_SPACE, textPaint);
+        printCanvas.drawText(TEXT_SPACE, samllTipsTextPaint);
     }
 
     /**
@@ -141,7 +160,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
             return text;
         } else {
             float remain = (printerWidth - textWidth) / 2;
-            float spaceSize = remain / getSpaceWidth();
+            float spaceSize = remain / getSpaceWidth(textPaint);
             return getSpaceText((int) spaceSize) + text;
         }
     }
@@ -160,7 +179,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
             return text;
         } else {
             float remain = printerWidth - textWidth;
-            float spaceSize = remain / getSpaceWidth();
+            float spaceSize = remain / getSpaceWidth(textPaint);
             return getSpaceText((int) spaceSize) + text;
         }
     }
@@ -186,7 +205,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
             return leftText + rightText;
         } else {
             float remain = printerWidth - leftTextWidth - rightTextWidth;
-            float spaceSize = remain / getSpaceWidth();
+            float spaceSize = remain / getSpaceWidth(textPaint);
             return leftText + getSpaceText((int) spaceSize) + rightText;
         }
     }
@@ -197,7 +216,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
      *
      * @return
      */
-    private float getSpaceWidth() {
+    private float getSpaceWidth(Paint textPaint) {
         return textPaint.measureText(TEXT_SPACE);
     }
 

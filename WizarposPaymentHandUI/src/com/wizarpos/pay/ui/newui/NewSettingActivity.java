@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,6 +17,7 @@ import com.lc.baseui.widget.swith.callback.OnSwitchChangeListener;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.base.ViewHolder;
+import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.manage.activity.InputPassWordActivity;
@@ -48,6 +50,9 @@ public class NewSettingActivity extends BaseViewActivity {
     LinearLayout llAbout;//关于
     @Bind(R.id.llCancel)
     LinearLayout llCancel;//交易撤销
+
+    @Bind(R.id.ll_receipt_barcode)
+    RelativeLayout ll_receipt_barcode;//条形码根布局
 
 
     private CommonSwitchButton barCodeSwitchButton;//switch
@@ -142,6 +147,11 @@ public class NewSettingActivity extends BaseViewActivity {
      * 设置barcode的switch按钮
      */
     private void settingBarcodeSwitchOnClick() {
+        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+            ll_receipt_barcode.setVisibility(View.GONE);
+            return;
+        }
+
         barCodeSwitchButton = findViewById(R.id.swbtn_common);
         String enumStatus = ReceiptDataManager.gettingBarcodeStatus();
 

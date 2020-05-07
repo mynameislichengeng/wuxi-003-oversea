@@ -68,50 +68,28 @@ public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
             isBoldFont = true;
         } else if (keyword.equals("</b>")) {
             isBoldFont = false;
-        } else if (keyword.equals("<c>")) {
+        } else if (keyword.equals("<c>")) {//居中
             align = AlignEnum.CENTER;
         } else if (keyword.equals("</c>")) {
             align = AlignEnum.LEFT;
-        } else if (keyword.equals("<w>")) {
-        } else if (keyword.equals("</w>")) {
-        } else if (keyword.equals("<h>")) {
-        } else if (keyword.equals("</h>")) {
-        } else if (keyword.equals("<s>")) {
-        } else if (keyword.equals("</s>")) {
-        } else if (keyword.equals("<i>")) {
-
-        } else if (keyword.equals("</i>")) {
-
-        } else if (keyword.equals("<l>")) {
+        } else if (keyword.equals("<l>")) {//左对齐
             align = AlignEnum.LEFT;
         } else if (keyword.equals("</l>")) {
 
-        } else if (keyword.equals("<r>")) {
+        } else if (keyword.equals("<r>")) {//右对齐
             align = AlignEnum.RIGHT;
         } else if (keyword.equals("</r>")) {
             align = AlignEnum.LEFT;
-        } else if (isLeftAndRightStartKeyWords(keyword)) {
+        } else if (isLeftAndRightStartKeyWords(keyword)) {//2端对齐
             setPrintTypeEnum(PrintTypeEnum.LEFT_RIGHT);
         } else if (isLeftAndRightEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
-        } else if (keyword.equals("<bc>")) {
+        } else if (keyword.equals("<bc>")) {//条形码
             setPrintTypeEnum(PrintTypeEnum.BC);
-        } else if (keyword.equals("</bc>")) { // 一维码
+        } else if (keyword.equals("</bc>")) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
-        } else if (keyword.equals("<ul>")) {
-
-        } else if (keyword.equals("</ul>")) { // 下划线
-
-        } else if (keyword.equals("<img>")) {
-
-        } else if (keyword.equals("</img>")) {
-
-        } else if (keyword.equals("<nbr/>")) {
-            printerN3N5.appendPrnStr("\n", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
-        } else if (keyword.equals("<t/>")) {
-
-        } else if (keyword.equals("<sls>")) {
-        } else if (keyword.equals("</sls>")) {
+        } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
+            printLine();
         } else if (keyword.equals("<end/>")) {
             printerN3N5.startPrint(true, new OnPrintListener() {
                 @Override
@@ -123,7 +101,8 @@ public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
         }
     }
 
-    public Printer getPrinterN3N5() {
-        return printerN3N5;
+
+    private void printLine() {
+        printerN3N5.appendPrnStr("\n", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
     }
 }

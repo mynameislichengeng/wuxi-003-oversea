@@ -121,7 +121,7 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
         if (!TextUtils.isEmpty(space)) {
             count = Integer.valueOf(space);
         }
-        PrintBase.setCOUNTSPACE(count);
+//        PrintBase.setCOUNTSPACE(count);
         String totals = AcctContent.printStringActivity(this, dailyDetailResp);
 
         result += totals;

@@ -13,6 +13,7 @@ import com.wizarpos.device.printer.html.ToHTMLUtil;
 import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.device.printer.html.model.HtmlLine;
 import com.wizarpos.log.util.LogEx;
+import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.cashier.model.TicketDef;
 import com.wizarpos.pay.cashier.model.TicketInfo;
 import com.wizarpos.pay.cashier.pay_tems.LooperQueryerTransactionState;
@@ -36,6 +37,7 @@ import com.wizarpos.recode.print.content.CashierIdContent;
 import com.wizarpos.recode.print.content.DeviceContent;
 import com.wizarpos.recode.print.content.FxRateContent;
 import com.wizarpos.recode.print.content.InvoiceContent;
+import com.wizarpos.recode.print.content.MerchantAddrContent;
 import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
@@ -218,24 +220,31 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
-            if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+
+            String address = MerchantAddrContent.getPrintContent();
+            if(!TextUtils.isEmpty(address)){
+                printString += address;
             }
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
+
+
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-            
+
             printString += MerchantIdContent.printStringPayfor(context);
 
             printString += DeviceContent.printStringDevice(context);
@@ -438,19 +447,25 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             printString = "";
             String merchant = AppConfigHelper.getConfig(AppConfigDef.merchantName);
             printString += builder.center(builder.bold(merchant));
-            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
-            if (!TextUtils.isEmpty(address)) {
-                if (address.getBytes("GBK").length <= 32) {
-                    printString += builder.center(address);
-                } else if (address.getBytes("GBK").length <= 64) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32));
-                } else if (address.getBytes("GBK").length <= 96) {
-                    printString += builder.center(address.substring(0, 32));
-                    printString += builder.center(address.substring(32, 64));
-                    printString += builder.center(address.substring(64));
-                }
+
+            String address = MerchantAddrContent.getPrintContent();
+            if(!TextUtils.isEmpty(address)){
+                printString += address;
             }
+//
+//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
+//            if (!TextUtils.isEmpty(address)) {
+//                if (address.getBytes("GBK").length <= 32) {
+//                    printString += builder.center(address);
+//                } else if (address.getBytes("GBK").length <= 64) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32));
+//                } else if (address.getBytes("GBK").length <= 96) {
+//                    printString += builder.center(address.substring(0, 32));
+//                    printString += builder.center(address.substring(32, 64));
+//                    printString += builder.center(address.substring(64));
+//                }
+//            }
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);

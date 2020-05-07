@@ -70,10 +70,7 @@ public class TransNumContent extends PrintBase {
     }
 
     private static int getTranNumSpaceCount() {
-        if (getDeviceTypeForN3N5()) {
-            return 32 - 5;
-        } else {
-            return 32;
-        }
+
+        return 32;
     }
 }

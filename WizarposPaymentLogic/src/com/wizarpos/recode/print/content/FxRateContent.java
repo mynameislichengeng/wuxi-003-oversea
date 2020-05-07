@@ -70,53 +70,7 @@ public class FxRateContent extends PrintBase {
 
 
     private static int getCADSpaceCount(String content) {
-        int length = content.length();
-        if (getDeviceTypeForN3N5()) {
-            int countTr = 0;
-            switch (length) {
-                case 1:
-                    countTr = 0;
-                    break;
-                case 2:
-                    countTr = -2;
-                    break;
-                case 3:
-                    countTr = -3;
-                    break;
-                case 4:
-                    countTr = -4;
-                    break;
-                case 5:
-                    countTr = -6;
-                    break;
-                case 6:
-                    countTr = -7;
-                    break;
-                case 7:
-                    countTr = -8;
-                    break;
-                case 8:
-                    countTr = -9;
-                    break;
-                case 9:
-                    countTr = -11;
-                    break;
-                case 10:
-                    countTr = -12;
-                    break;
-                case 11:
-                    countTr = -14;
-                    break;
-                case 12:
-                    countTr = -15;
-                    break;
-                case 13:
-                    countTr = -16;
-                    break;
-            }
-            return 47 + countTr;
-        } else {
-            return 32;
-        }
+
+        return 32;
     }
 }
