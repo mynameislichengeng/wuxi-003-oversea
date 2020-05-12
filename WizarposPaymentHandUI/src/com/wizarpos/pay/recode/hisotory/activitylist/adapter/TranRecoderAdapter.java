@@ -85,8 +85,10 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         }
         TextView tvTranDate = (TextView) viewHolder.getView(R.id.tvTranDate);
         tvTranDate.setText(item.getPayTime());
-        String masterTranLogId = Tools.deleteMidTranLog(item.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-        String tranlogId = Tools.deleteMidTranLog(item.getMasterTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+
+        String tranLogId = Tools.deleteMidTranLog(item.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+
+        String masterTranlogId = Tools.deleteMidTranLog(item.getMasterTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
 
         LinearLayout llTranLogId = ((LinearLayout) viewHolder.getView(R.id.llTranLogId));
         TextView tvTranLogId = (TextView) viewHolder.getView(R.id.tvTranLogId);
@@ -94,10 +96,10 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
             llTranLogId.setVisibility(View.GONE);
         } else {
             llTranLogId.setVisibility(View.VISIBLE);
-            tvTranLogId.setText(masterTranLogId);
+            tvTranLogId.setText(tranLogId);
         }
         TextView tvMasterTranLogId = ((TextView) viewHolder.getView(R.id.tvMasterTranLogId));
-        tvMasterTranLogId.setText(tranlogId);
+        tvMasterTranLogId.setText(masterTranlogId);
 
         LinearLayout llTopOpt = (LinearLayout) viewHolder.getView(R.id.llTopOptName);
         LinearLayout llBelowOpt = (LinearLayout) viewHolder.getView(R.id.llBeloweOptName);

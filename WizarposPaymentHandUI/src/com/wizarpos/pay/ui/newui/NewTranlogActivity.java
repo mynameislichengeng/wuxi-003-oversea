@@ -94,15 +94,13 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             public void onPrint(final DailyDetailResp resp) {
                 if (Constants.SC_700_BANK_CARD_PAY.equals(resp.getTransType())) {
                     // TODO: 2016/4/27 调用收单查询数据
-//                    Log.d("BANKCARD", "onPrint: "+resp.getBank_info().getMid());
-//                    startActivity(NewQueryCardLinkActivity.getStartIntent(NewTranlogActivity.this,resp));
+
                     SendTransInfo sendTransInfo = JSON.parseObject(resp.getBank_info(), SendTransInfo.class);
                     TransInfo transInfo = new TransInfo();
                     if (sendTransInfo != null) {
                         transInfo.setOldTrace(sendTransInfo.getTrace());
                     }
                     cardLinkProxy.queryAnyTrans(transInfo);
-//                    statisticsPresenter.printDetial(resp);
                 } else {
                     String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
                     getDetailData(tranlogId);
