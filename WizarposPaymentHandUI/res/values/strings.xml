@@ -361,6 +361,7 @@
     <string name="invoice_num">发票号</string>
     <string name="hint_enter_invoice_num">输入发票号</string>
     <string name="receipt_bar_code">收据条码</string>
+    <string name="receipt_qr_code">收据二维码</string>
     <string name="tran_detail_info">交易详情</string>
     <string name="tran_detail">详情</string>
 

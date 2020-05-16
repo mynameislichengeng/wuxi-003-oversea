@@ -1,11 +1,8 @@
 package com.wizarpos.recode.print.content.barcode;
 
-import android.content.Context;
 import android.text.TextUtils;
 
-import com.wizarpos.device.printer.html.model.HTMLPrintModel;
 import com.wizarpos.device.printer.html.model.HtmlLine;
-import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
@@ -73,7 +70,7 @@ public class BarcodeTextContent extends PrintBase {
 
 
     protected static boolean isOpenStatus() {
-        return ReceiptDataManager.isOpenStatus();
+        return ReceiptDataManager.isOpenBarcodeStatus();
     }
 
 

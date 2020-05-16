@@ -181,7 +181,8 @@
     <string name="invoice_num">Invoice Number</string>
     <string name="hint_enter_invoice_num">Enter invoice number</string>
 
-    <string name="receipt_bar_code">RECEIPT BARCODE</string>
+    <string name="receipt_bar_code">RECEIPT # BARCODE</string>
+    <string name="receipt_qr_code">RECEIPT # QR CODE</string>
     <string name="tran_detail_info">Transaction Details</string>
     <string name="tran_detail">Detail</string>
 

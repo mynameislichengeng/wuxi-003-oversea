@@ -13,25 +13,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.common.print.PrintServiceControllerProxy;
 import com.wizarpos.pay.model.DailyDetailResp;
-import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.pay2.lite.R;
-import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.recode.print.constants.BarFormat;
 import com.wizarpos.recode.print.content.AcctContent;
-import com.wizarpos.recode.print.content.FxRateContent;
-import com.wizarpos.recode.print.content.InvoiceContent;
-import com.wizarpos.recode.print.content.PurchaseContent;
-import com.wizarpos.recode.print.content.ReceiptContent;
-import com.wizarpos.recode.print.content.SettlementContent;
-import com.wizarpos.recode.print.content.TipsContent;
-import com.wizarpos.recode.print.content.TotalContent;
-import com.wizarpos.recode.print.content.TransTypeContent;
-import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
 import com.wizarpos.recode.print.data.BarcodeDataManager;
-import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
+import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 import java.io.UnsupportedEncodingException;
@@ -78,7 +66,7 @@ public class TestBarCodeFormatActivity extends AppCompatActivity implements View
                 // Another interface callback
             }
         });
-        ReceiptDataManager.settingBarcodeStatus(ReceiptBarcodeStatusEnum.OPEN);
+        ReceiptDataManager.settingBarcodeStatus(ReceiptStatusEnum.OPEN);
     }
 
     @Override

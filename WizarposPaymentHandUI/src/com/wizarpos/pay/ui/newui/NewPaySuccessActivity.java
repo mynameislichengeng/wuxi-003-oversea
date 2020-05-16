@@ -21,6 +21,7 @@ import com.wizarpos.pay.recode.sale.widget.BarcodeView;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.Tools;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 
 
 import java.util.List;
@@ -147,10 +148,8 @@ public class NewPaySuccessActivity extends BaseViewActivity {
     }
 
     private void print() {
-        int printNumber = 1;
-        if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
-            printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
-        }
+
+        int printNumber = Integer.valueOf(SettingPrinterModeManager.getCachePrintMode());
         final PrintServiceControllerProxy controller = new PrintServiceControllerProxy(this);
         switch (printNumber) {
             case 1:

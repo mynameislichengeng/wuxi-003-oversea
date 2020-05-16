@@ -26,7 +26,9 @@ import com.wizarpos.pay.setting.activity.TipParameterSettingActivity;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.view.ArrayItem;
 import com.wizarpos.pay2.lite.R;
-import com.wizarpos.recode.receipt.constants.ReceiptBarcodeStatusEnum;
+import com.wizarpos.recode.print.constants.SettingPrintModeEnum;
+import com.wizarpos.recode.print.data.SettingPrinterModeManager;
+import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 import java.util.List;
@@ -54,11 +56,14 @@ public class NewSettingActivity extends BaseViewActivity {
     @Bind(R.id.ll_receipt_barcode)
     RelativeLayout ll_receipt_barcode;//条形码根布局
 
+    @Bind(R.id.ll_receipt_qrcode)
+    RelativeLayout ll_receipt_qrcode;//条形码根布局
 
     private CommonSwitchButton barCodeSwitchButton;//switch
+    private CommonSwitchButton qrCodeSwitchButton;
 
     private TextView tvNumber;
-    private String DEFAULTNUMBER = "1";
+
     private int TIP_SETTING_CODE = 102;
 
 
@@ -81,17 +86,17 @@ public class NewSettingActivity extends BaseViewActivity {
         setTitleText(getResources().getString(R.string.setting));
         tvNumber = (TextView) findViewById(R.id.tvNumber);
         LinearLayout llChangeCode = (LinearLayout) findViewById(R.id.llChangeCode);
-        String number = AppConfigHelper.getConfig(AppConfigDef.print_number);
-        if (!TextUtils.isEmpty(number)) {
-            tvNumber.setText(number);
-        } else {
-            tvNumber.setText(DEFAULTNUMBER);
-        }
+
+        String number = SettingPrinterModeManager.getLayoutShowPrintMode();
+        tvNumber.setText(number);
+
         ButterKnife.bind(this);
         llChangeCode.setVisibility(View.GONE);
 
-        //recepit按钮
+        //条形码按钮
         settingBarcodeSwitchOnClick();
+        //二维码
+        settingQRCodeSwitchOnClick();
     }
 
     @Override
@@ -152,23 +157,49 @@ public class NewSettingActivity extends BaseViewActivity {
             return;
         }
 
-        barCodeSwitchButton = findViewById(R.id.swbtn_common);
-        String enumStatus = ReceiptDataManager.gettingBarcodeStatus();
+        barCodeSwitchButton = ll_receipt_barcode.findViewById(R.id.swbtn_common);
 
-        if (ReceiptBarcodeStatusEnum.OPEN.getStatus().equals(enumStatus)) {
+
+        if (ReceiptDataManager.isOpenBarcodeStatus()) {
             barCodeSwitchButton.setViewSwitchCheckedStatus(true);
         } else {
             barCodeSwitchButton.setViewSwitchCheckedStatus(false);
         }
+
         barCodeSwitchButton.setOnSwitchChangeListener(new OnSwitchChangeListener() {
             @Override
             public void onSwitchCloseClick() {
-                ReceiptDataManager.settingBarcodeStatus(ReceiptBarcodeStatusEnum.CLOSE);
+                ReceiptDataManager.settingBarcodeStatus(ReceiptStatusEnum.CLOSE);
             }
 
             @Override
             public void onSwitchOpenClick() {
-                ReceiptDataManager.settingBarcodeStatus(ReceiptBarcodeStatusEnum.OPEN);
+                ReceiptDataManager.settingBarcodeStatus(ReceiptStatusEnum.OPEN);
+            }
+        });
+    }
+
+    private void settingQRCodeSwitchOnClick() {
+        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+            ll_receipt_barcode.setVisibility(View.GONE);
+            return;
+        }
+
+        qrCodeSwitchButton = ll_receipt_qrcode.findViewById(R.id.swbtn_common);
+        if (ReceiptDataManager.isOpenQRCodeStatus()) {
+            qrCodeSwitchButton.setViewSwitchCheckedStatus(true);
+        } else {
+            qrCodeSwitchButton.setViewSwitchCheckedStatus(false);
+        }
+        qrCodeSwitchButton.setOnSwitchChangeListener(new OnSwitchChangeListener() {
+            @Override
+            public void onSwitchCloseClick() {
+                ReceiptDataManager.settingQRCodeStatus(ReceiptStatusEnum.CLOSE);
+            }
+
+            @Override
+            public void onSwitchOpenClick() {
+                ReceiptDataManager.settingQRCodeStatus(ReceiptStatusEnum.OPEN);
             }
         });
     }
@@ -180,16 +211,23 @@ public class NewSettingActivity extends BaseViewActivity {
 
             @Override
             public void convert(ViewHolder helper, final ArrayItem item, final int position) {
-                helper.setText(R.id.tvPrintItem, item.getShowValue());
+                //当前显示的指
+                final String showCurrentPrintModeValue = item.getShowValue();
+                helper.setText(R.id.tvPrintItem, showCurrentPrintModeValue);
                 final ImageView ivPrintItem = helper.getView(R.id.ivPrintItem);
-                String num = AppConfigHelper.getConfig(AppConfigDef.print_number, "1");
-                ivPrintItem.setPressed(item.getShowValue().equals(num));
-                helper.getView(R.id.ivPrintItemDivider).setPressed(item.getShowValue().equals(num));
+
+                //当前
+                String num = SettingPrinterModeManager.getLayoutShowPrintMode();
+                boolean isFlag = showCurrentPrintModeValue.equals(num);
+                //圆按钮
+                ivPrintItem.setPressed(isFlag);
+                //蓝色线
+                helper.getView(R.id.ivPrintItemDivider).setPressed(isFlag);
                 helper.getView(R.id.llPrintItem).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tvNumber.setText(printItems.get(position).getShowValue());
-                        AppConfigHelper.setConfig(AppConfigDef.print_number, printItems.get(position).getShowValue());
+                        tvNumber.setText(showCurrentPrintModeValue);
+                        SettingPrinterModeManager.settingCachePrintModeFromShowValue(showCurrentPrintModeValue);
                         if (null != printItemAdapter) {
                             printItemAdapter.notifyDataSetChanged();
                         }

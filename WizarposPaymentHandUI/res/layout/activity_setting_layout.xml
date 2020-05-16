@@ -231,7 +231,42 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp">
 
-                    <include layout="@layout/widget_custom_switch" />
+                    <include
+                        layout="@layout/widget_custom_switch" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#d8d8d8" />
+
+            <RelativeLayout
+                android:id="@+id/ll_receipt_qrcode"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/receipt_qrcode"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/receipt_qr_code"
+                    android:textSize="@dimen/txt_size_en_title" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp">
+
+                    <include
+                        layout="@layout/widget_custom_switch" />
                 </RelativeLayout>
             </RelativeLayout>
 

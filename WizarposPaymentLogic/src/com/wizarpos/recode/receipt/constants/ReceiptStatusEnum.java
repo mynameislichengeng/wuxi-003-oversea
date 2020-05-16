@@ -1,12 +1,12 @@
 package com.wizarpos.recode.receipt.constants;
 
-public enum ReceiptBarcodeStatusEnum {
+public enum ReceiptStatusEnum {
 
     OPEN("1"),
     CLOSE("0");
     private String status;
 
-    ReceiptBarcodeStatusEnum(String status) {
+    ReceiptStatusEnum(String status) {
         this.status = status;
     }
 

@@ -46,6 +46,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -622,10 +623,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
 
 
     private void printRefund() {
-        int printNumber = 1;
-        if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
-            printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
-        }
+//        int printNumber = 1;
+//        if (!TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.print_number))) {
+//            printNumber = Integer.parseInt(AppConfigHelper.getConfig(AppConfigDef.print_number));
+//        }
+        int printNumber = Integer.valueOf(SettingPrinterModeManager.getCachePrintMode());
         final PrintServiceControllerProxy controller = new PrintServiceControllerProxy(this);
         switch (printNumber) {
             case 1:
