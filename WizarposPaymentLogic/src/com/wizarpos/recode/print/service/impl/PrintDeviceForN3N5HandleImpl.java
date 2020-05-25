@@ -12,11 +12,10 @@ import com.wizarpos.atool.log.Logger;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
-import com.wizarpos.recode.print.data.BarcodeDataManager;
 import com.wizarpos.recode.print.service.PrintHandleService;
 
 public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
-    private static final int FONT_SIZE_NORMAL = 24;
+    private static final int FONT_SIZE_NORMAL = 23;
 
 
     private Printer printerN3N5;
@@ -27,7 +26,7 @@ public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
         printerN3N5 = PaymentApplication.getInstance().deviceEngine.getPrinter();
         printerN3N5.initPrinter();
         printerN3N5.setTypeface(Typeface.DEFAULT);
-        printerN3N5.setLetterSpacing(5);
+        printerN3N5.setLetterSpacing(2);
         printerN3N5.setGray(GrayLevelEnum.LEVEL_2);
     }
 
@@ -49,7 +48,9 @@ public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
                 //第3个参数表示边距离
                 //格式1
                 printerN3N5.appendBarcode(str, 50, 0, 2, BarcodeFormatEnum.CODE_128, AlignEnum.CENTER);
-                Log.d("print", "打印barcode使用的格式:" + BarcodeDataManager.getCurrentFormat().getName());
+                break;
+            case QC:
+                printerN3N5.appendQRcode(str, 200, AlignEnum.CENTER);
                 break;
             case LEFT_RIGHT:
 
@@ -84,10 +85,19 @@ public class PrintDeviceForN3N5HandleImpl extends PrintHandleService {
             setPrintTypeEnum(PrintTypeEnum.LEFT_RIGHT);
         } else if (isLeftAndRightEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
-        } else if (keyword.equals("<bc>")) {//条形码
+
+        } else if (isBCStartKeyWords(keyword)) {//条形码
             setPrintTypeEnum(PrintTypeEnum.BC);
-        } else if (keyword.equals("</bc>")) {
+
+        } else if (isBCEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
+
+        } else if (isQCStartKeyWords(keyword)) {//条形码
+            setPrintTypeEnum(PrintTypeEnum.QC);
+
+        } else if (isQCEndKeyWords(keyword)) {
+            setPrintTypeEnum(PrintTypeEnum.TEXT);
+
         } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
             printLine();
         } else if (keyword.equals("<end/>")) {

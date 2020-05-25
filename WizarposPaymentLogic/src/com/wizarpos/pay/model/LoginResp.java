@@ -31,6 +31,8 @@ public class LoginResp implements Serializable {
 	private UserEntity muser;
 	private List<UserEntity> userList ;
 	private String sessionId;
+
+    private List<String> refundRelationMids;
 	
     public List<MerchantLabelEntity> getMerchantLabel() {
 		return merchantLabel;
@@ -222,5 +224,13 @@ public class LoginResp implements Serializable {
 
     public void setMerchantDefSuffix(MerchantDefSuffix merchantDefSuffix) {
         this.merchantDefSuffix = merchantDefSuffix;
+    }
+
+    public List<String> getRefundRelationMids() {
+        return refundRelationMids;
+    }
+
+    public void setRefundRelationMids(List<String> refundRelationMids) {
+        this.refundRelationMids = refundRelationMids;
     }
 }

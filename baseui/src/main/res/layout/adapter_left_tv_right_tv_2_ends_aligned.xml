@@ -33,8 +33,9 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
-            android:maxWidth="200dp"
-            android:text=""
+            android:gravity="right"
+            android:maxWidth="210dp"
+            android:text="dasdasdasdasdasdasd"
             android:textColor="@color/text_main_black"
             android:textSize="20sp" />
     </RelativeLayout>

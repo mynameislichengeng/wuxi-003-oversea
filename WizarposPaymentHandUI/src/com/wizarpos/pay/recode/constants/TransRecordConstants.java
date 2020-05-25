@@ -5,7 +5,7 @@ import com.wizarpos.recode.constants.TransRecordLogicConstants;
 public interface TransRecordConstants extends TransRecordLogicConstants {
 
     int PAGENO_DEFAULT = 0;//默认启始页
-    int PAGE_SIZE = 20;//每1页数目
+    int PAGE_SIZE = 10;//每1页数目
 
     int ALL_PAGE_SIZE = 50;// 这是用在打印发票的时候
 
@@ -35,6 +35,7 @@ public interface TransRecordConstants extends TransRecordLogicConstants {
     }
 
     enum TimeRange {
+        DEFAULT("-1"),//默认
         TODAY("0"),
         YESTERDAY("1"),
         THIS_WEEK("2"),
@@ -57,8 +58,6 @@ public interface TransRecordConstants extends TransRecordLogicConstants {
             this.type = type;
         }
     }
-
-
 
 
 }

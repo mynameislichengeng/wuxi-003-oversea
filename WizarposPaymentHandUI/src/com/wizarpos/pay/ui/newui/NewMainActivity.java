@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.hspos.api.EnumCommand;
 import com.wizarpos.hspos.api.TransInfo;
+import com.wizarpos.pay.ContentActivity;
 import com.wizarpos.pay.app.ImageLoadApp;
 import com.wizarpos.pay.cardlink.CardLinkListener;
 import com.wizarpos.pay.cardlink.CardLinkPresenter;
@@ -50,7 +51,6 @@ import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay2.lite.R;
-import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
 
@@ -216,6 +216,10 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                         } else if (SETTING == item.getRealValue()) {//设置
                             startActivity(new Intent(NewMainActivity.this, NewSettingActivity.class));
                             NewMainActivity.this.finish();
+
+
+//                            startNewActivity(TestZZZPrintActivity.class);
+//                            startNewActivity(ContentActivity.class);
 //                        } else if (TIP_SETTING == item.getRealValue()) {//小费设置
 //                            startActivityForResult(new Intent(NewMainActivity.this, InputPassWordActivity.class), TIP_SETTING_CODE);
 //                            startActivity(new Intent(NewMainActivity.this, TipParameterSettingActivity.class));

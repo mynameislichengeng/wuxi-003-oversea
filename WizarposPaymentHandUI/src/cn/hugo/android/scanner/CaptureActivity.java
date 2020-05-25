@@ -89,7 +89,7 @@ public class CaptureActivity extends BaseViewActivity implements SurfaceHolder.C
 	private boolean isFlashlightOpen;
 
 	/**
-	 * 【辅助解码的参数(用作MultiFormatReader的参数)】 编码类型，该参数告诉扫描器采用何种编码方式解码，即EAN-13，QR Code等等 对应于DecodeHintType.POSSIBLE_FORMATS类型
+	 * 【辅助解码的参数(用作MultiFormatReader的参数)】 编码类型，该参数告诉扫描器采用何种编码方式解码，即EAN-13，QC Code等等 对应于DecodeHintType.POSSIBLE_FORMATS类型
 	 * 参考DecodeThread构造函数中如下代码：hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
 	 */
 	private Collection<BarcodeFormat> decodeFormats;

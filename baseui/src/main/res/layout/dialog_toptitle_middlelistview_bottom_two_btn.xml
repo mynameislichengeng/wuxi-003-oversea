@@ -58,9 +58,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_radius6dp_bg_grey_press_blue"
+            android:background="@drawable/selector_radius6dp_bg_grey_press_white"
             android:text="@string/cancle_str"
-            android:textColor="@color/text_main_white"
+            android:textColor="@color/text_main_blue"
             android:textSize="20sp" />
 
 

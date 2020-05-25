@@ -55,7 +55,7 @@ public final class Intents {
     public static final String ONE_D_MODE = "ONE_D_MODE";
 
     /**
-     * Decode only QR codes.
+     * Decode only QC codes.
      */
     public static final String QR_CODE_MODE = "QR_CODE_MODE";
 
@@ -184,7 +184,7 @@ public final class Intents {
 
   public static final class Encode {
     /**
-     * Send this intent to encode a piece of data as a QR code and display it full screen, so
+     * Send this intent to encode a piece of data as a QC code and display it full screen, so
      * that another person can scan the barcode from your screen.
      */
     public static final String ACTION = "com.google.zxing.client.android.ENCODE";
@@ -192,20 +192,20 @@ public final class Intents {
     /**
      * The data to encode. Use {@link android.content.Intent#putExtra(String, String)} or
      * {@link android.content.Intent#putExtra(String, android.os.Bundle)}, 
-     * depending on the type and format specified. Non-QR Code formats should
-     * just use a String here. For QR Code, see Contents for details.
+     * depending on the type and format specified. Non-QC Code formats should
+     * just use a String here. For QC Code, see Contents for details.
      */
     public static final String DATA = "ENCODE_DATA";
 
     /**
-     * The type of data being supplied if the format is QR Code. Use
+     * The type of data being supplied if the format is QC Code. Use
      * {@link android.content.Intent#putExtra(String, String)} with one of {@link Contents.Type}.
      */
     public static final String TYPE = "ENCODE_TYPE";
 
     /**
      * The barcode format to be displayed. If this isn't specified or is blank,
-     * it defaults to QR Code. Use {@link android.content.Intent#putExtra(String, String)}, where
+     * it defaults to QC Code. Use {@link android.content.Intent#putExtra(String, String)}, where
      * format is one of {@link com.google.zxing.BarcodeFormat}.
      */
     public static final String FORMAT = "ENCODE_FORMAT";
@@ -267,7 +267,7 @@ public final class Intents {
 
   public static final class Share {
     /**
-     * Give the user a choice of items to encode as a barcode, then render it as a QR Code and
+     * Give the user a choice of items to encode as a barcode, then render it as a QC Code and
      * display onscreen for a friend to scan with their phone.
      */
     public static final String ACTION = "com.google.zxing.client.android.SHARE";

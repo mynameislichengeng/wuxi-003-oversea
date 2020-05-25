@@ -12,6 +12,8 @@ public abstract class PrintHandleService {
 
     protected PrintTypeEnum printTypeEnum = PrintTypeEnum.TEXT;
 
+    protected final String TEXT_SPACE = " ";
+
     public void setPrintTypeEnum(PrintTypeEnum printTypeEnum) {
         this.printTypeEnum = printTypeEnum;
     }
@@ -50,11 +52,11 @@ public abstract class PrintHandleService {
     }
 
     public boolean isBoldStartKeyWords(String keyword) {
-        return keyword.equals(HtmlRemarkConstans.LEFT_RIGHT_START.getValue());
+        return keyword.equals(HtmlRemarkConstans.BOLD_START.getValue());
     }
 
     public boolean isBoldEndKeyWords(String keyword) {
-        return keyword.equals(HtmlRemarkConstans.LEFT_RIGHT_END.getValue());
+        return keyword.equals(HtmlRemarkConstans.BOLD_END.getValue());
     }
 
 
@@ -66,6 +68,13 @@ public abstract class PrintHandleService {
         return keyword.equals(HtmlRemarkConstans.BARCODE_END.getValue());
     }
 
+    public boolean isQCStartKeyWords(String keyword) {
+        return keyword.equals(HtmlRemarkConstans.QRCODE_START.getValue());
+    }
+
+    public boolean isQCEndKeyWords(String keyword) {
+        return keyword.equals(HtmlRemarkConstans.QRCODE_END.getValue());
+    }
 
     public boolean isLineKeyWords(String keyword) {
         return keyword.equals(HtmlRemarkConstans.LINE.getValue());
@@ -75,9 +84,6 @@ public abstract class PrintHandleService {
         return keyword.equals(HtmlRemarkConstans.LINE_N.getValue());
     }
 
-//    public boolean isNewLineKeyWords(String keyword) {
-//        return keyword.equals(HtmlRemarkConstans.LINE_TAG_NEW.getValue());
-//    }
 
     public boolean isNewLineSpaceKeyWords(String keyword) {
         return keyword.equals(HtmlRemarkConstans.LINE_SPACE_NEW.getValue());
@@ -85,5 +91,16 @@ public abstract class PrintHandleService {
 
     public boolean isEndKeyWords(String keyword) {
         return keyword.equals(HtmlRemarkConstans.END.getValue());
+    }
+
+    protected String getSpaceText(int count) {
+        if (count <= 0) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < count; i++) {
+            sb.append(TEXT_SPACE);
+        }
+        return sb.toString();
     }
 }

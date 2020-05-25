@@ -73,11 +73,11 @@ public class InvoiceContent extends PrintBase {
         } else {
             if (inVoiceValue.length() < PART_LENGTH) {
                 aray = new String[1];
-                aray[0] = title + multipleSpaces(getInvoiceSpaceCount(inVoiceValue) - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+                aray[0] = title + multipleSpaces(getInvoiceSpaceCount() - title.getBytes("GBK").length - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
             } else {
                 aray = new String[2];
                 aray[0] = title;
-                aray[1] = multipleSpaces(getInvoiceSpaceCountArray(inVoiceValue) - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
+                aray[1] = multipleSpaces(getInvoiceSpaceCountArray() - inVoiceValue.getBytes("GBK").length) + inVoiceValue;
             }
         }
 
@@ -92,12 +92,12 @@ public class InvoiceContent extends PrintBase {
     }
 
 
-    private static int getInvoiceSpaceCount(String content) {
+    private static int getInvoiceSpaceCount( ) {
 
         return 32;
     }
 
-    private static int getInvoiceSpaceCountArray(String content) {
+    private static int getInvoiceSpaceCountArray( ) {
 
         return 32;
     }

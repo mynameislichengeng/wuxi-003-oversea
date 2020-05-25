@@ -57,4 +57,7 @@
     <string name="print_fx_rate">FX rate:</string>
     <string name="print_total">Total:</string>
     <string name="print_invoice">Invoice#:</string>
+    <string name="print_remark">Remark:</string>
+
+    <string name="scan_qr_code_result_null">No QR code found</string>
 </resources>

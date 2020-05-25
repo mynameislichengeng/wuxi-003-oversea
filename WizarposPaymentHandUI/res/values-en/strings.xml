@@ -26,6 +26,7 @@
     <string name="serial_num">Receipt Number:</string>
     <string name="revoke">ISSUE REFUND</string>
     <string name="cancle">cancle</string>
+    <string name="cancle_one">Cancle</string>
     <string name="cancle_success">Refund Approved</string>
     <string name="cancle_fails">Refund Failed</string>
     <string name="version_num">Version</string>
@@ -73,7 +74,7 @@
     <string name="type">TYPE</string>
     <string name="date">DATE</string>
     <string name="custom">Custom</string>
-    <string name="enter_receipt_number">Enter a receipt number</string>
+    <string name="enter_receipt_number">Enter Receipt number suffix</string>
     <string name="reset">Reset</string>
     <string name="search">Search</string>
     <string name="daily_summary_international">DAILY SUMMARY</string>
@@ -179,13 +180,18 @@
     <string name="invoice_title_input">Enter Invoice Number</string>
     <string name="please_invoice_input">Please enter an invoice number.</string>
     <string name="invoice_num">Invoice Number</string>
-    <string name="hint_enter_invoice_num">Enter invoice number</string>
+    <string name="hint_enter_invoice_num">Enter an invoice number</string>
 
     <string name="receipt_bar_code">RECEIPT # BARCODE</string>
     <string name="receipt_qr_code">RECEIPT # QR CODE</string>
     <string name="tran_detail_info">Transaction Details</string>
     <string name="tran_detail">Detail</string>
-
+    <string name="tranlog_tag">P</string>
+    <string name="acti_tran_issue_title">REPRINT</string>
+    <string name="acti_tran_issue_btn_customer_copy">Customer Copy</string>
+    <string name="acti_tran_issue_btn_merchant_copy">Merchant Copy</string>
+    <string name="query_qr_scan">Scan QR # Search</string>
+    <string name="btn_cancle_big">CANCLE</string>
     <string-array name="refund_adapter_item_title">
 
         <item>Sale Amount:</item>
@@ -197,6 +203,8 @@
         <item>Time:</item>
 
         <item>Refund Amount:</item>
+        <item>Invoice#:</item>
+        <item>Remark:</item>
 
     </string-array>
 
@@ -208,6 +216,7 @@
         <item>Device#:</item>
         <item>Invoice#:</item>
         <item>Time:</item>
+        <item>Remark:</item>
 
 
     </string-array>

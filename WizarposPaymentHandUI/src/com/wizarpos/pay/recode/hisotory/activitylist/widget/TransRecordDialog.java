@@ -3,9 +3,12 @@ package com.wizarpos.pay.recode.hisotory.activitylist.widget;
 import android.content.Context;
 import android.view.View;
 
+import com.lc.baseui.constants.UIStyleEnum;
+import com.lc.baseui.widget.dialog.CommonDialog;
 import com.lc.baseui.widget.dialog.SimpleListViewDialog;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.RefundClickAdapter;
+import com.wizarpos.pay.recode.hisotory.widget.IssueDialog;
 import com.wizarpos.pay2.lite.R;
 
 public class TransRecordDialog {
@@ -37,6 +40,37 @@ public class TransRecordDialog {
                 }
             }
         });
+        simpleListViewDialog.setBtnLeftText(R.string.btn_cancle_big);
+    }
+
+    public static void issueReceiptDialog(Context context, final View.OnClickListener leftcustomOnclick, final View.OnClickListener rightmerchantOnclick) {
+
+        final IssueDialog commonDialog = new IssueDialog(context, UIStyleEnum.NULLVIEW);
+        commonDialog.show();
+        //
+        commonDialog.setRightBtnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commonDialog.dismiss();
+                rightmerchantOnclick.onClick(v);
+            }
+        });
+        //
+        commonDialog.setLeftBtnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commonDialog.dismiss();
+                leftcustomOnclick.onClick(v);
+            }
+        });
+        //
+        commonDialog.setThreeBtnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commonDialog.dismiss();
+            }
+        });
+
 
     }
 }

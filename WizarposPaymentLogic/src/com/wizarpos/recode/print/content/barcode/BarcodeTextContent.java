@@ -15,15 +15,6 @@ import java.util.List;
 public class BarcodeTextContent extends PrintBase {
 
 
-    public static void printHtmlPayfor(List<HtmlLine> lines, TransactionInfo transactionInfo) {
-
-        if (transactionInfo == null) {
-            return;
-        }
-//        String transLogId = getTranLogId(transactionInfo.getTranLogId());
-//        lines.add(new HTMLPrintModel.SimpleLine(transLogId, true, true));
-    }
-
     public static String printStringPayfor(TransactionInfo transactionInfo) {
         if (transactionInfo == null || TextUtils.isEmpty(transactionInfo.getTranLogId())) {
             return null;
@@ -49,13 +40,19 @@ public class BarcodeTextContent extends PrintBase {
 
 
     private static String printStringBase(String transactionInfo) {
-        if (isOpenStatus()) {
+        if (isOpenBarCodeStatus()) {
 
-            String transLogId = TranLogIdDataUtil.removeCharPForTranLogId(transactionInfo);
+//            String transLogId = TranLogIdDataUtil.removeCharPForTranLogId(transactionInfo);
+            String transLogId = transactionInfo;
 
             if (isComputerSpaceForLeftRight()) {
+                StringBuffer sb = new StringBuffer();
+
+                //条形码
                 String s = formatForBC(transLogId);
-                return s;
+                sb.append(s);
+
+                return sb.toString();
             } else {
                 String content = multipleSpaces(2) + transLogId;
                 String barcode = formatForBC(content) + formatForBr();
@@ -69,9 +66,7 @@ public class BarcodeTextContent extends PrintBase {
     }
 
 
-    protected static boolean isOpenStatus() {
-        return ReceiptDataManager.isOpenBarcodeStatus();
-    }
+
 
 
 }

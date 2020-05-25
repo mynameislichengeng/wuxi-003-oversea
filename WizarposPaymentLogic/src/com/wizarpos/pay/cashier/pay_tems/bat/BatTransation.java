@@ -49,6 +49,7 @@ import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.recode.print.content.TransNumContent;
 import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
+import com.wizarpos.recode.print.content.barcode.QrCodeTextContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -312,6 +313,11 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
                 printString += barcodePrint;
             }
 
+            String qrCodePrint = QrCodeTextContent.printStringPayfor(transactionInfo);
+            if(!TextUtils.isEmpty(qrCodePrint)){
+                printString += qrCodePrint;
+            }
+
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br() + builder.nBr();
             printString += builder.center(builder.bold(context.getString(R.string.print_merchant_copy)));
@@ -540,6 +546,12 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
             }
+
+            String qrCodePrint = QrCodeTextContent.printStringPayfor(transactionInfo);
+            if(!TextUtils.isEmpty(qrCodePrint)){
+                printString += qrCodePrint;
+            }
+
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();

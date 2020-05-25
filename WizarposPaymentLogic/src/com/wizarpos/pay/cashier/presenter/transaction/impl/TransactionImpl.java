@@ -268,29 +268,29 @@ public abstract class TransactionImpl extends BasePresenter implements Transacti
 		}
 	}
 
-	/**
-	 * 根据流水号查询交易明细
-	 */
-	public void getTransDetial(String tranLogId, final ResultListener listener) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("tranLogId", tranLogId);
-		if (TextUtils.isEmpty(tranLogId.trim())) {
-			listener.onFaild(new Response(1, "输入的终端流水号不正确"));
-			return;
-		}
-		NetRequest.getInstance().addRequest(Constants.SC_958_TERMINAL_TRANLOG_ID, params, new ResponseListener() {
-
-			@Override
-			public void onSuccess(Response response) {
-				listener.onSuccess(response);
-			}
-
-			@Override
-			public void onFaild(Response response) {
-				listener.onFaild(response);
-			}
-		});
-	}
+//	/**
+//	 * 根据流水号查询交易明细
+//	 */
+//	public void getTransDetial(String tranLogId, final ResultListener listener) {
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("tranLogId", tranLogId);
+//		if (TextUtils.isEmpty(tranLogId.trim())) {
+//			listener.onFaild(new Response(1, "输入的终端流水号不正确"));
+//			return;
+//		}
+//		NetRequest.getInstance().addRequest(Constants.SC_958_TERMINAL_TRANLOG_ID, params, new ResponseListener() {
+//
+//			@Override
+//			public void onSuccess(Response response) {
+//				listener.onSuccess(response);
+//			}
+//
+//			@Override
+//			public void onFaild(Response response) {
+//				listener.onFaild(response);
+//			}
+//		});
+//	}
 	/**
 	 * 根据流水号查询交易明细
 	 */

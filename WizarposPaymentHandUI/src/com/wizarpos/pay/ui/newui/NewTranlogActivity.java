@@ -38,14 +38,17 @@ import com.wizarpos.pay.model.SendTransInfo;
 import com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranRecoderAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.TranRecordStatusParam;
+import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.RespTranRecItemByDayPageBean;
 import com.wizarpos.pay.recode.hisotory.activitylist.bean.http.ResponseTranRecoderListBean;
 import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TranRecordStatusDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
+import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.activi.http.TranRecordHttpManager;
 import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 
 import java.util.ArrayList;
@@ -82,6 +85,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         initView();
         getDataNew();
         initDrawerLayout();
+
     }
 
     private void initData() {
@@ -103,8 +107,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                     }
                     cardLinkProxy.queryAnyTrans(transInfo);
                 } else {
-                    String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-                    getDetailData(tranlogId);
+//                    String tranlogId = Tools.deleteMidTranLog(resp.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+                    getDetailData(resp.getTranLogId());
                 }
             }
 
@@ -118,6 +122,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                 operateDetailActivity(resp);
             }
         });
+        //这里是，更新一下商户列表，商户列表是用在，右边抽屉中的
+        TranRecordHttpManager.doRefunmidInfo(this);
     }
 
     private void initView() {
@@ -354,7 +360,9 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void operateOnSuccess(String responseJson) {
         //刷新完成
         setLayoutRefreshOnComplete();
-        ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(responseJson, ResponseTranRecoderListBean.class);
+        RespTranRecItemByDayPageBean re = JSON.parseObject(responseJson, RespTranRecItemByDayPageBean.class);
+        ResponseTranRecoderListBean responseTranRecoderListBean = TransRecordDataUtil.createBeanAdapterFromDay(re);
+
         if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
             //
             ResponseTranRecoderListBean.ResultBeanX resultBeanX = responseTranRecoderListBean.getResult();
@@ -454,7 +462,9 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         String rechargeOn = TransRecordConstants.UNRECHARGEON;
         int pageSize = TransRecordConstants.PAGE_SIZE;
 
-        statisticsPresenter.getQueryDetailNew(rechargeOn, pageSize, pageNumber, timeRange, transType, startTime, endTime, tranlogId, invoiceNum, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+
+
+        TranRecordHttpManager.getQueryDetailNew(rechargeOn, pageSize, pageNumber, timeRange, transType, startTime, endTime, tranlogId, invoiceNum, Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
@@ -467,6 +477,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                 operateOnFaild(response);
             }
         });
+
     }
 
 
@@ -477,13 +488,15 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         progresser.showProgress();
         int pageSize = TransRecordConstants.ALL_PAGE_SIZE;
         String pageNum = "1";
-        statisticsPresenter.getQueryDetailNew("", pageSize, pageNum, "", "", "", "", tranlogId, "", Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
+
+        TranRecordHttpManager.getQueryDetailNew("", pageSize, pageNum, "", "", "", "", tranlogId, "", Constants.TRANLOG_DETAIL_TAG, new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 progresser.showContent();
-                ResponseTranRecoderListBean responseTranRecoderListBean = JSON.parseObject(response.getResult().toString(), ResponseTranRecoderListBean.class);
+                RespTranRecItemByDayPageBean respTranRecItemByDayPageBean = JSON.parseObject(response.getResult().toString(), RespTranRecItemByDayPageBean.class);
+                ResponseTranRecoderListBean responseTranRecoderListBean = TransRecordDataUtil.createBeanAdapterFromDay(respTranRecItemByDayPageBean);
 
-                if (responseTranRecoderListBean.getResult() != null) {
+                if (responseTranRecoderListBean != null && responseTranRecoderListBean.getResult() != null) {
                     ResponseTranRecoderListBean.ResultBeanX tmpResult = responseTranRecoderListBean.getResult();
                     if (tmpResult.getResult() != null) {
                         List<DailyDetailResp> m = transProtocol(tmpResult);
@@ -493,19 +506,18 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
                 }
 
                 if (respList.size() > 0) {
-                    NoticeDialogFragment dialogFragment = NoticeDialogFragment.newInstance("REPRINT", "Make your choice", "Customer Copy", "Merchant Copy");
-                    dialogFragment.setListener(new DialogHelper.DialogCallbackAndNo() {
+
+                    TransRecordDialog.issueReceiptDialog(NewTranlogActivity.this, new View.OnClickListener() {
                         @Override
-                        public void callback() {
+                        public void onClick(View v) {
                             rePrintCustomer();
                         }
-
+                    }, new View.OnClickListener() {
                         @Override
-                        public void callbackNo() {
+                        public void onClick(View v) {
                             rePrintMerchant();
                         }
                     });
-                    dialogFragment.show(getSupportFragmentManager(), "SimpleMsgDialogFragment");
                 }
             }
 
@@ -530,42 +542,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void rePrintCustomer() {
         for (final DailyDetailResp detailResp : respList) {
             if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTransAmount());
-//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-//                detailResp.setPayTime(detailResp.getPayTime());
-//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-//                detailResp.setTranlogId(detailResp.getTranLogId());
-//                detailResp.setRefundAmount(detailResp.getRefundAmount());
-//                detailResp.setOptName(detailResp.getOptName());
-//                detailResp.setTipAmount(detailResp.getTipAmount());
-//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-//                detailResp.setCnyAmount(detailResp.getCnyAmount());
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-//                }
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-//                }
+
                 statisticsPresenter.reprintCustomerSale(detailResp);
             }
             if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTransAmount());
-//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-//                detailResp.setPayTime(detailResp.getPayTime());
-//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-//                detailResp.setTranlogId(detailResp.getTranLogId());
-//                detailResp.setRefundAmount(detailResp.getRefundAmount());
-//                detailResp.setOptName(detailResp.getOptName());
-//                detailResp.setTipAmount(detailResp.getTipAmount());
-//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-//                detailResp.setCnyAmount(detailResp.getCnyAmount());
-//                detailResp.setCnyAmount(detailResp.getCnyAmount());
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-//                }
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-//                }
+
                 statisticsPresenter.reprintCustomerRefund(detailResp);
             }
         }
@@ -575,41 +556,11 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
     private void rePrintMerchant() {
         for (final DailyDetailResp detailResp : respList) {
             if (getString(R.string.pay_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTransAmount());
-//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-//                detailResp.setPayTime(detailResp.getPayTime());
-//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-//                detailResp.setTranlogId(detailResp.getTranLogId());
-//                detailResp.setRefundAmount(detailResp.getRefundAmount());
-//                detailResp.setOptName(detailResp.getOptName());
-//                detailResp.setTipAmount(detailResp.getTipAmount());
-//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-//                detailResp.setCnyAmount(detailResp.getCnyAmount());
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-//                }
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-//                }
+
                 statisticsPresenter.reprintMerchantSale(detailResp);
             }
             if (getString(R.string.refund_tag).equals(detailResp.getTransKind())) {
-//                detailResp.setSingleAmount(detailResp.getTransAmount());
-//                detailResp.setTransName(Constants.TRAN_TYPE.get(detailResp.getTransType()));
-//                detailResp.setPayTime(detailResp.getPayTime());
-//                detailResp.setMasterTranLogId(detailResp.getMasterTranLogId());
-//                detailResp.setTranlogId(detailResp.getTranLogId());
-//                detailResp.setRefundAmount(detailResp.getRefundAmount());
-//                detailResp.setOptName(detailResp.getOptName());
-//                detailResp.setTipAmount(detailResp.getTipAmount());
-//                detailResp.setThirdTradeNo(detailResp.getThirdTradeNo());
-//                detailResp.setCnyAmount(detailResp.getCnyAmount());
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtName())) {
-//                    detailResp.setThirdExtName(detailResp.getThirdExtName());
-//                }
-//                if (!TextUtils.isEmpty(detailResp.getThirdExtId())) {
-//                    detailResp.setThirdExtId(detailResp.getThirdExtId());
-//                }
+
                 statisticsPresenter.reprintMerchantRefund(detailResp);
             }
         }
@@ -630,6 +581,8 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
         int printNumber = Integer.valueOf(SettingPrinterModeManager.getCachePrintMode());
         final PrintServiceControllerProxy controller = new PrintServiceControllerProxy(this);
         switch (printNumber) {
+            case 0:
+                break;
             case 1:
                 if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
                     WebPrintHelper.getInstance().print(AppConfigHelper.getConfig(AppConfigDef.PRINT_SALE_REFUND_CONTEXT));

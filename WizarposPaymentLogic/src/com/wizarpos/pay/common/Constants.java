@@ -566,9 +566,15 @@ public class Constants {
 
     /**
      * 交易记录查询（根据时间范围查询  ）--与924的功能一致
-     * 含有分页查询
+     * 含有分页查询，这里按记录分页
      */
     public static final String SC_964_TRAN_DETAIL_PAGE = "964";
+
+    /**
+     * 交易记录查询（根据时间范围查询  ）--与924，964的功能一致
+     * 含有分页查询，这里是按天分页,
+     */
+    public static final String SC_965_TRAN_DETAIL_PAGE = "965";
 
     /**
      * 券的详情
@@ -998,8 +1004,8 @@ public class Constants {
         TRAN_TYPE.put("827", "鑫蓝微信支付");
         TRAN_TYPE.put("828", "鑫蓝微信支付撤销");
 
-        TRAN_TYPE.put("873", "Union Pay QR");
-        TRAN_TYPE.put("874", "Union Pay QR");//银联支付撤销
+        TRAN_TYPE.put("873", "Union Pay QC");
+        TRAN_TYPE.put("874", "Union Pay QC");//银联支付撤销
     }
 
 

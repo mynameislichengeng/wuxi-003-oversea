@@ -58,7 +58,7 @@ public class TipsContent extends PrintBase {
             sb.append(createTextLineForLeftAndRight(printTip, right));
         } else {
             sb.append(printTip);
-            int numSpace = tranZhSpaceNums(getTipsSpaceCount(tips), 1, transCurrency);
+            int numSpace = tranZhSpaceNums(getTipsSpaceCount(), 1, transCurrency);
             String space = multipleSpaces(numSpace - printTip.getBytes("GBK").length - tips.length());
             sb.append(space);
             //
@@ -74,7 +74,7 @@ public class TipsContent extends PrintBase {
     }
 
 
-    private static int getTipsSpaceCount(String value) {
+    private static int getTipsSpaceCount( ) {
 
         return 31;
     }

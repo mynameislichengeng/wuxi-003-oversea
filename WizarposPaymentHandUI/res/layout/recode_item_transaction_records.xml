@@ -5,5 +5,7 @@
     android:orientation="vertical">
 
 
+    <include layout="@layout/item_transaction_records_header" />
+
     <include layout="@layout/item_transaction_records" />
 </LinearLayout>

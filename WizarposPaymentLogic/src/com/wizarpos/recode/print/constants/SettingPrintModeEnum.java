@@ -1,9 +1,10 @@
 package com.wizarpos.recode.print.constants;
 
 public enum SettingPrintModeEnum {
-    MODE_0("1", "0"),
-    MODE_1("2", "1"),
-    MODE_2("3", "2"),
+    MODE_0("0", "0"),
+    MODE_1("1", "1"),
+    MODE_2("2", "2"),
+//    MODE_3("3", "3"),
     ;
     private String mode;
     private String show;
@@ -31,7 +32,7 @@ public enum SettingPrintModeEnum {
         return SettingPrintModeEnum.MODE_0;
     }
 
-    public static SettingPrintModeEnum getEnumFromShow(String show){
+    public static SettingPrintModeEnum getEnumFromShow(String show) {
         SettingPrintModeEnum[] modes = SettingPrintModeEnum.values();
         for (SettingPrintModeEnum mo : modes) {
             if (mo.show.equals(show)) {

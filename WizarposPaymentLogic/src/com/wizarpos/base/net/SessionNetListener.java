@@ -9,6 +9,7 @@ import com.wizarpos.pay.common.utils.UuidUitl;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.UserEntityDao;
+import com.wizarpos.recode.data.info.SnManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,15 +74,8 @@ public class SessionNetListener extends ResponseListener {
             loginParams.put("lastTime", AppConfigHelper.getConfig(AppConfigDef.lastOpreatorUpateTime, "0"));
             loginParams.put("mid", AppConfigHelper.getConfig(AppConfigDef.mid));
         }
-        String terminalUniqNo;
-        if (DeviceManager.getInstance().isWizarDevice() || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_SHENGTENG_M10) {
-            terminalUniqNo = android.os.Build.SERIAL;//终端序列号
-        } else {
-            terminalUniqNo = DeviceManager.getImei(PaymentApplication.getInstance());//IMEI地址
-        }
-        if (TextUtils.isEmpty(terminalUniqNo)){
-            terminalUniqNo = UuidUitl.getUuid();
-        }
+        String terminalUniqNo = SnManager.getSn(PaymentApplication.getInstance());
+
         loginParams.put("terminalUniqNo", terminalUniqNo);
         NetRequest.getInstance().addRequest(
                 Constants.SC_100_MERCHANT_INFO_SUBMIT, loginParams,

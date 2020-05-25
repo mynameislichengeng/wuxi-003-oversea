@@ -16,11 +16,33 @@ public class ZxingBarcodeManager {
 
     private static final int BLACK = 0xff000000;
     private static final int WHITE = 0xFFFFFFFF;
+    //条形码
     private static BarcodeFormat barcodeFormat = BarcodeFormat.CODE_128;
+    //二维码
+    private static BarcodeFormat qrcodeFormat = BarcodeFormat.QR_CODE;
+
     private static Bitmap.Config BITMAP_CONFIG = Bitmap.Config.RGB_565;
 
 
+    /**
+     * 条形码
+     *
+     * @param contents
+     * @param desiredWidth
+     * @param desiredHeight
+     * @return
+     */
     public static Bitmap creatBarcode(String contents, int desiredWidth, int desiredHeight) {
+        Bitmap bitmap = createBase(contents, barcodeFormat, desiredWidth, desiredHeight);
+        return bitmap;
+    }
+
+    public static Bitmap creatQrcode(String contents, int desiredWidth, int desiredHeight) {
+        Bitmap bitmap = createBase(contents, qrcodeFormat, desiredWidth, desiredHeight);
+        return bitmap;
+    }
+
+    private static Bitmap createBase(String contents, BarcodeFormat barcodeFormat, int desiredWidth, int desiredHeight) {
         MultiFormatWriter writer = new MultiFormatWriter();
         BitMatrix result = null;
         try {
@@ -47,6 +69,7 @@ public class ZxingBarcodeManager {
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
     }
+
 
     private static void log(String msg) {
         Log.d("print", TAG + ">>" + msg);

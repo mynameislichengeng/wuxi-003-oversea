@@ -2,5 +2,9 @@ package com.wizarpos.recode.print.constants;
 
 public enum PrintTypeEnum {
 
-    TEXT, BC, LEFT_RIGHT
+    TEXT,
+
+    LEFT_RIGHT,
+    BC,//条形码
+    QC//二维码
 }

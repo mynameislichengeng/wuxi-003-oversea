@@ -5,6 +5,7 @@ import com.wizarpos.pay.recode.domain.base.ResponseHttpBaseResult;
 import java.util.List;
 
 /**
+ * 这个是964使用的对象
  * activity交易记录列表
  */
 public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
@@ -193,6 +194,12 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
             private String sn;
             private String merchantTradeCode;
 
+            private String diffCode;//显示的remark
+
+
+
+
+
 
             public int getCnyAmount() {
                 return cnyAmount;
@@ -368,6 +375,14 @@ public class ResponseTranRecoderListBean extends ResponseHttpBaseResult {
 
             public void setMerchantTradeCode(String merchantTradeCode) {
                 this.merchantTradeCode = merchantTradeCode;
+            }
+
+            public String getDiffCode() {
+                return diffCode;
+            }
+
+            public void setDiffCode(String diffCode) {
+                this.diffCode = diffCode;
             }
         }
     }

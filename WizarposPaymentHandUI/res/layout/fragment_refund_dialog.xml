@@ -21,14 +21,13 @@
         android:background="#f4f4f4" />
 
 
-
     <com.ui.setting.CommonItem
         android:id="@+id/ciAmount"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        app:etTextRight="0.00"
         app:textLeft="@string/amount_tag"
-        app:textRight="$"
-        app:etTextRight="0.00"/>
+        app:textRight="$" />
 
 
     <LinearLayout
@@ -45,8 +44,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/pup_cancle"
-            android:textColor="@android:color/black"
+            android:text="@string/btn_cancle_big"
+            android:textColor="#0074E1"
             android:textSize="14sp"
             app:rv_backgroundPressColor="@color/color_silver"
             app:rv_cornerRadius="5dp"

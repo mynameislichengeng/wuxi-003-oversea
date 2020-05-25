@@ -33,11 +33,13 @@ import com.wizarpos.recode.print.content.MerchantIdContent;
 import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
 import com.wizarpos.recode.print.content.RefundContent;
+import com.wizarpos.recode.print.content.RemarkContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.recode.print.content.TransNumContent;
 import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
+import com.wizarpos.recode.print.content.barcode.QrCodeTextContent;
 import com.wizarpos.wizarpospaymentlogic.R;
 
 import java.io.UnsupportedEncodingException;
@@ -131,9 +133,9 @@ public class TransactionCancelPresenter {
             listener.onFaild(new Response(1, "没有输入订单号"));
             return;
         }
-        if (transNum.startsWith("P") || transNum.startsWith("p")) {
-            transNum = "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + transNum.substring(1);
-        }
+//        if (transNum.startsWith("P") || transNum.startsWith("p")) {
+//            transNum = "P" + AppConfigHelper.getConfig(AppConfigDef.mid) + transNum.substring(1);
+//        }
         voidTransaction.getTransDetial(transNum, bankcardpay, new ResultListener() {
 
             @Override
@@ -449,6 +451,8 @@ public class TransactionCancelPresenter {
                     resp.setSettlementAmount(result.getString(HttpConstants.API_955_RESPONSE.SETTLEMENTAMOUNT.getKey()));
                     //发票号
                     resp.setMerchantTradeCode(result.getString(HttpConstants.API_955_RESPONSE.MERCHANTTRADECODE.getKey()));
+                    //remark
+                    resp.setDiffCode(result.getString(HttpConstants.API_955_RESPONSE.DIFF_CODE.getKey()));
 
                     if (result.getString("thirdExtName") != null) {
                         resp.setThirdExtName(result.getString("thirdExtName"));
@@ -582,7 +586,7 @@ public class TransactionCancelPresenter {
             printString += builder.center(builder.bold(merchant));
 
             String address = MerchantAddrContent.getPrintContent();
-            if(!TextUtils.isEmpty(address)){
+            if (!TextUtils.isEmpty(address)) {
                 printString += address;
             }
 //
@@ -603,7 +607,6 @@ public class TransactionCancelPresenter {
             if (!TextUtils.isEmpty(tel)) {
                 printString += builder.center(tel);
             }
-
 
 
             printString += MerchantIdContent.printStringRefund(context);
@@ -631,7 +634,6 @@ public class TransactionCancelPresenter {
             printString += TransTypeContent.printStringRefund(context, resp);
 
 
-
             String transNumPrintString = TransNumContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(transNumPrintString)) {
                 printString += transNumPrintString;
@@ -645,13 +647,15 @@ public class TransactionCancelPresenter {
                 }
             }
 
-
+            String remarkPrintStr = RemarkContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintStr)) {
+                printString += remarkPrintStr;
+            }
 
             String accNamePrintString = AcctNameContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
-
 
 
             String acctPrintString = AcctContent.printStringRefund(context, resp);
@@ -660,10 +664,15 @@ public class TransactionCancelPresenter {
             }
 
 
-
             String barcodePrint = BarcodeTextContent.printStringRefund(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
+            }
+
+
+            String qrcodePrint = QrCodeTextContent.printStringRefund(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
             }
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
@@ -789,7 +798,7 @@ public class TransactionCancelPresenter {
             printString += builder.center(builder.bold(merchant));
 
             String address = MerchantAddrContent.getPrintContent();
-            if(!TextUtils.isEmpty(address)){
+            if (!TextUtils.isEmpty(address)) {
                 printString += address;
             }
 //
@@ -840,23 +849,10 @@ public class TransactionCancelPresenter {
 
             printString += PayTimeContent.printStringRefund(resp);
 
-//            String payType = resp.getTransKind();
-//            if ("WechatPay".equals(payType)) {
-//                payType = "Wechat Pay";
-//            } else if (payType.contains("Union")) {
-//                payType = "Union Pay QR";
-//            }
-//            String printType = context.getString(R.string.print_type);
-//            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
-
             printString += TransTypeContent.printStringRefund(context, resp);
 
 
-//            String thirdTransOrder = resp.getThirdTradeNo();
-//            if (!TextUtils.isEmpty(thirdTransOrder)) {
-//                printString += context.getString(R.string.print_trans) + builder.br();
-//                printString += multipleSpaces(32 - thirdTransOrder.getBytes("GBK").length) + thirdTransOrder + builder.br();
-//            }
+
 
             String transNumPrintString = TransNumContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(transNumPrintString)) {
@@ -870,11 +866,10 @@ public class TransactionCancelPresenter {
                 }
             }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
+            String remarkPrintStr = RemarkContent.printStringRefund(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintStr)) {
+                printString += remarkPrintStr;
+            }
 
             String accNamePrintString = AcctNameContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
@@ -882,11 +877,7 @@ public class TransactionCancelPresenter {
             }
 
 
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
 
             String acctPrintString = AcctContent.printStringRefund(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
@@ -898,6 +889,10 @@ public class TransactionCancelPresenter {
             String barcodePrint = BarcodeTextContent.printStringRefund(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
+            }
+            String qrcodePrint = QrCodeTextContent.printStringRefund(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
             }
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));

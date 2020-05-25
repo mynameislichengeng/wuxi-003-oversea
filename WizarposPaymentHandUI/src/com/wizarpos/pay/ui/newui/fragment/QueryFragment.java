@@ -1,6 +1,7 @@
 package com.wizarpos.pay.ui.newui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -12,23 +13,30 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lc.baseui.widget.ed.EditViewUtil;
-import com.wizarpos.atool.tool.EditTextUtil;
 import com.wizarpos.pay.common.DialogHelper;
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.ViewHolder;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.hisotory.activitylist.activity.QueryScanQrCodeActivity;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.ArrayItem;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.data.TranLogIdDataUtil;
+import com.wizarpos.recode.data.info.RefundRelationMidsManager;
+
+import org.angmarch.spinner.lib.NiceSpinner;
+import org.angmarch.spinner.lib.OnSpinnerItemSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,8 +44,11 @@ import java.util.Map;
  */
 public class QueryFragment extends Fragment implements View.OnClickListener {
 
+    private final String TAG = QueryFragment.class.getSimpleName();
+
     private final int DEFAULT_TRANTYPE_INDEX = 0;//类型，默认位置
-    private final int DEFAULT_TIME_RANGE_INDEX = 2;//默认位置
+    private final int DEFAULT_TIME_RANGE_INDEX = -1;//默认位置
+    private final int DEFAULT_TRANLOG_PRIFIX_INDEX = 0;
 
     //右侧抽屉相关数据
     private View view = null;
@@ -48,9 +59,11 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
      * @param tranTypeIndex index
      * @param timeRangeIndex index
      */
-    private int tranType, timeRange, tranTypeIndex = DEFAULT_TRANTYPE_INDEX, timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
+    private int tranType, timeRange, tranTypeIndex = DEFAULT_TRANTYPE_INDEX, timeRangeIndex = DEFAULT_TIME_RANGE_INDEX, tranLogPrifix = DEFAULT_TRANLOG_PRIFIX_INDEX;
     private BaseLogicAdapter<ArrayItem> tranTypeAdapter, timeRangeAdapter;
     private EditText etStartTime, etEndTime, etTranLogId, etInvoiceNum;
+    private TextView tvQrCodeScan;
+    private NiceSpinner niceSpinner;
 
     private QueryFragmentListener mListener;
 
@@ -117,7 +130,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                         timeRange = item.getRealValue();
                         timeRangeIndex = position;
                         timeRangeAdapter.notifyDataSetChanged();
-                        if (item.getRealValue() == 6) {
+                        if (item.getRealValue() == Integer.valueOf(TransRecordConstants.TimeRange.CUSTOM_TIME.getType())) {
                             //显示时间起始选择
                             view.findViewById(R.id.llTimeChoose).setVisibility(View.VISIBLE);
                         } else {
@@ -142,6 +155,21 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         etStartTime.setInputType(InputType.TYPE_NULL);
         etEndTime = (EditText) view.findViewById(R.id.etEndTime);
         etEndTime.setInputType(InputType.TYPE_NULL);
+        //3 receipt number
+        //3.1 商户号
+        niceSpinner = view.findViewById(R.id.nice_spinner);
+        List<String> dataset = RefundRelationMidsManager.getRelationMid();
+//        dataset.add("1111111");
+        niceSpinner.attachDataSource(dataset);
+        niceSpinner.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+            @Override
+            public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
+                Log.d("tag", "position:" + position);
+                tranLogPrifix = position;
+            }
+        });
+
+        //3.2编辑
         etTranLogId = (EditText) view.findViewById(R.id.etTranLogId);
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_Q1
                 || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_WIZARHAND_M0) {
@@ -176,15 +204,22 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         });
         view.findViewById(R.id.llDrawer).setOnClickListener(this);//防止点击穿透
         doQueryReset();
+        //二维码扫描
+        tvQrCodeScan = view.findViewById(R.id.tvQRScan);
+        String str = tvQrCodeScan.getText().toString();
+        str = str.replaceAll("#", "&");
+        tvQrCodeScan.setText(str);
+        tvQrCodeScan.setOnClickListener(this);
+
         return view;
     }
 
-    private void onQuery() {
+    private void onQuery(String scanResult) {
         if (mListener != null) {
             Map<String, String> params = new HashMap<>();
             params.put("tranType", "" + tranType);
             params.put("timeRange", "" + timeRange);
-            if (timeRange == 6) {
+            if (timeRange == Integer.valueOf(TransRecordConstants.TimeRange.CUSTOM_TIME.getType())) {
                 String startDate = etStartTime.getText().toString();
                 String endDate = etEndTime.getText().toString();
                 try {
@@ -210,10 +245,19 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
             }
+
             String tranlogId = "";
-            if (etTranLogId.getText() != null && !TextUtils.isEmpty(etTranLogId.getText().toString())) {
-                tranlogId = "P" + etTranLogId.getText().toString();
+            if (TextUtils.isEmpty(scanResult)) {
+                if (etTranLogId.getText() != null && !TextUtils.isEmpty(etTranLogId.getText().toString())) {
+//                tranlogId = "P" + etTranLogId.getText().toString();
+                    String tranLogPrfixStr = RefundRelationMidsManager.getRelationMid().get(tranLogPrifix);
+                    tranlogId = TranLogIdDataUtil.createTranLogId(tranLogPrfixStr, etTranLogId.getText().toString());
+                }
+            } else {
+                tranlogId = scanResult;
             }
+
+
             String invoiceNum = "";
             if (etInvoiceNum.getText() != null && !TextUtils.isEmpty(etInvoiceNum.getText().toString())) {
                 invoiceNum = etInvoiceNum.getText().toString();
@@ -246,14 +290,16 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     public void doQueryReset() {
         tranTypeIndex = DEFAULT_TRANTYPE_INDEX;
         tranType = Integer.valueOf(TransRecordConstants.TransType.ALL.getType());
-        timeRange = Integer.valueOf(TransRecordConstants.TimeRange.THIS_WEEK.getType());
+        timeRange = Integer.valueOf(TransRecordConstants.TimeRange.DEFAULT.getType());
         timeRangeIndex = DEFAULT_TIME_RANGE_INDEX;
+        tranLogPrifix = DEFAULT_TRANLOG_PRIFIX_INDEX;
         etStartTime.setText("");
         etEndTime.setText("");
         etTranLogId.setText("");
         etInvoiceNum.setText("");
         tranTypeAdapter.notifyDataSetChanged();
         timeRangeAdapter.notifyDataSetChanged();
+        niceSpinner.setSelectedIndex(DEFAULT_TRANLOG_PRIFIX_INDEX);
         view.findViewById(R.id.llTimeChoose).setVisibility(View.GONE);
     }
 
@@ -264,10 +310,45 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                 doQueryReset();
                 break;
             case R.id.tvQuery:
-                onQuery();
+                onQuery(null);
+                break;
+            case R.id.tvQRScan:
+                operateOpenStartScanQrCode();
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == QueryScanQrCodeActivity.INTENT_REQUEST_CODE) {
+            if (resultCode == QueryScanQrCodeActivity.INTENT_RESPONSE_SUCCESS) {
+                operateHandlerQrCodeResult(data);
+            }
+        }
+    }
+
+    /**
+     * 开始扫描二维码
+     */
+    private void operateOpenStartScanQrCode() {
+        Intent intent = new Intent(getContext(), QueryScanQrCodeActivity.class);
+        startActivityForResult(intent, QueryScanQrCodeActivity.INTENT_REQUEST_CODE);
+
+    }
+
+    /**
+     * 处理返回的二维码结果
+     */
+    private void operateHandlerQrCodeResult(Intent data) {
+        String result = data.getStringExtra(QueryScanQrCodeActivity.INTENT_KEY_TRAN_LOG);
+        Log.d("tag", TAG + ">>activity onActivityResult:" + result);
+        if (TextUtils.isEmpty(result)) {
+            Toast.makeText(getContext(), R.string.scan_qr_code_result_null, Toast.LENGTH_SHORT).show();
+        } else {
+            onQuery(result);
         }
     }
 
@@ -284,6 +365,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
          * @param tranType
          * @param startDate
          * @param endDate
+         * @param tranlogId 流水号 P 商户号-log
          */
         void onQuery(String timeRange, String tranType, String startDate, String endDate, String tranlogId, String invoiceNum);
     }

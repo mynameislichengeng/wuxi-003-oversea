@@ -7,6 +7,7 @@ import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
+import com.wizarpos.recode.data.info.TranTypeManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -16,6 +17,9 @@ public class AcctNameContent extends PrintBase {
 
 
     public static String printStringPayfor(Context context, TransactionInfo transactionInfo) {
+        if (TranTypeManager.isPayAliPay(transactionInfo)) {
+            return null;
+        }
         String acctName = transactionInfo.getThirdExtName();
         try {
             return printStringBase(context, acctName);
@@ -26,6 +30,9 @@ public class AcctNameContent extends PrintBase {
     }
 
     public static String printStringRefund(Context context, RefundDetailResp resp) {
+        if (TranTypeManager.isRefundAlipay(resp)) {
+            return null;
+        }
         String acctName = resp.getThirdExtName();
         try {
             return printStringBase(context, acctName);
@@ -36,6 +43,10 @@ public class AcctNameContent extends PrintBase {
     }
 
     public static String printStringActivity(Context context, DailyDetailResp resp) {
+        if (TranTypeManager.isActivityAlipay(resp)) {
+            return null;
+        }
+
         String acctName = resp.getThirdExtName();
         try {
             return printStringBase(context, acctName);

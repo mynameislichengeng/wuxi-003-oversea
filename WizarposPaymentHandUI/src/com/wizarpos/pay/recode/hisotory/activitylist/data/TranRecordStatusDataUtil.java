@@ -8,7 +8,7 @@ public class TranRecordStatusDataUtil {
     public static TranRecordStatusParam createDefault() {
         TranRecordStatusParam tranRecordStatusParam = new TranRecordStatusParam();
         tranRecordStatusParam.setPageNo(TransRecordConstants.PAGENO_DEFAULT);
-        tranRecordStatusParam.setTimeRange(TransRecordConstants.TimeRange.THIS_WEEK.getType());
+        tranRecordStatusParam.setTimeRange(TransRecordConstants.TimeRange.DEFAULT.getType());
         tranRecordStatusParam.setTransType(TransRecordConstants.TransType.ALL.getType());
         tranRecordStatusParam.setPageSize(TransRecordConstants.PAGE_SIZE);
         tranRecordStatusParam.setNextPage(TransRecordConstants.IS_NEXT_REFRESH);

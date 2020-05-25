@@ -16,7 +16,7 @@ public class DefaultPrinterImpl implements Printer {
 
     @Override
     public void print(Bitmap bitmap) {
-        PrinterHelper.printBitmap(bitmap);
+//        PrinterHelper.printBitmap(bitmap);
     }
 
     @Override

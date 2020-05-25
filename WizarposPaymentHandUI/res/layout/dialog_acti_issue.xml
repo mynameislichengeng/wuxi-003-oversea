@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_radius_top6dp_bg_blue">
+
+        <TextView
+            android:id="@+id/dialog_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="@string/acti_tran_issue_title"
+            android:textColor="@color/text_main_white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_radius_bottom6dp_bg_white"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/dialog_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/color_value_51596d"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/dialog_ed_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/color_value_51596d"
+            android:textSize="22sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/color_value_dde3e7"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dialog_left_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radius6dp_bg_grey_press_white"
+                android:text="@string/acti_tran_issue_btn_customer_copy"
+                android:textColor="@color/bg_main_blue"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/dialog_right_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radius6dp_bg_blue_press_grey"
+                android:text="@string/acti_tran_issue_btn_merchant_copy"
+                android:textColor="@color/bg_main_white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_value_dde3e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/dialog_btn_three"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radius6dp_bg_grey_press_white"
+                android:text="@string/cancle_one"
+                android:textColor="@color/bg_main_blue"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

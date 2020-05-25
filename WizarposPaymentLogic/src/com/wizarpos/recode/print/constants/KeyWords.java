@@ -11,7 +11,7 @@ public class KeyWords {
             HtmlRemarkConstans.RIGHT_START.getValue(), HtmlRemarkConstans.RIGHT_END.getValue(), // 居右
             HtmlRemarkConstans.LEFT_RIGHT_START.getValue(), HtmlRemarkConstans.LEFT_RIGHT_END.getValue(),    //
             HtmlRemarkConstans.BARCODE_START.getValue(), HtmlRemarkConstans.BARCODE_END.getValue(),    // 一维码
-            "<qc>", "</qc>",    // 二维码
+            HtmlRemarkConstans.QRCODE_START.getValue(), HtmlRemarkConstans.QRCODE_END.getValue(),    // 二维码
             "<t/>",                // tab
             "<ul>", "</ul>",    // 下划线
             "<img>", "</img>",    // 图片

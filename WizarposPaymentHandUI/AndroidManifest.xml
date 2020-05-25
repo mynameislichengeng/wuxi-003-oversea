@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wizarpos.pay2.lite"
-    android:versionCode="42"
-    android:versionName="1.0.42">
+    android:versionCode="43"
+    android:versionName="1.0.43">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -154,7 +154,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <!-- amp设备专用 -->
-<!--        <uses-library android:name="com.pos.device"></uses-library>-->
+        <!--        <uses-library android:name="com.pos.device"></uses-library>-->
         <activity
             android:name="com.wizarpos.pay.login.view.StartupActivity"
             android:label="@string/app_name"
@@ -566,14 +566,16 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.wizarpos.pay.setting.activity.TipParameterSettingActivity" />
 
+
         <activity
-            android:name="com.wizarpos.pay.recode.test.TestBarCodeFormatActivity"
+            android:name="com.wizarpos.pay.ContentActivity"
             android:exported="true"
             android:screenOrientation="portrait"></activity>
+
         <activity
-            android:name="com.wizarpos.pay.recode.test.TestPrintActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:name="com.wizarpos.pay.recode.hisotory.activitylist.activity.QueryScanQrCodeActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.wizarpos.pay.recode.hisotory.activitylist.activity.TranLogDetailActivity"
             android:screenOrientation="portrait" />

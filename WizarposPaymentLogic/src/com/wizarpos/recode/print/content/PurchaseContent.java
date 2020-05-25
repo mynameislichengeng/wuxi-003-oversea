@@ -56,11 +56,11 @@ public class PurchaseContent extends PrintBase {
         String pur = null;
         if (!TextUtils.isEmpty(tipsAmount) && !tipsAmount.equals("0")) {
             String purchaseAmount = Calculater.formotFen(Calculater.subtract(transactionInfo.getRealAmount(), tipsAmount));
-            pur = printStringBase(context, purchaseAmount, "$", getPurchaseSpaceCount(purchaseAmount));
+            pur = printStringBase(context, purchaseAmount, "$", getPurchaseSpaceCount());
 //            pur = printPurchase + multipleSpaces( - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + "$" + purchaseAmount;
         } else {
 //            pur = printPurchase + multipleSpaces(getPurchaseSpaceCount() - printPurchase.getBytes("GBK").length - totalAmount.length()) + "$" + totalAmount;
-            pur = printStringBase(context, totalAmount, "$", getPurchaseSpaceCount(totalAmount));
+            pur = printStringBase(context, totalAmount, "$", getPurchaseSpaceCount());
         }
         return pur;
     }
@@ -80,9 +80,8 @@ public class PurchaseContent extends PrintBase {
         } else {
             purchaseAmount = divide100(tranAmount);
         }
-        int numSpace = tranZhSpaceNums(getPurchaseSpaceCount(purchaseAmount), 1, transCurrency);
+        int numSpace = tranZhSpaceNums(getPurchaseSpaceCount(), 1, transCurrency);
         return printStringBase(context, purchaseAmount, transCurrencyPrint, numSpace);
-//        return printPurchase + multipleSpaces(numSpace - printPurchase.getBytes("GBK").length - purchaseAmount.length()) + transCurrencyPrint + purchaseAmount;
     }
 
     private static String printStringBase(Context context, String value, String transCurrencyPrint, int numSpace) throws UnsupportedEncodingException {
@@ -106,7 +105,7 @@ public class PurchaseContent extends PrintBase {
         return sb.toString();
     }
 
-    private static int getPurchaseSpaceCount(String content) {
+    private static int getPurchaseSpaceCount( ) {
 
         return 31;
     }

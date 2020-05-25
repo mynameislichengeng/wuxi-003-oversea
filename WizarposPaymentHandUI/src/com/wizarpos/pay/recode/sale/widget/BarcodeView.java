@@ -92,12 +92,12 @@ public class BarcodeView extends RelativeLayout {
 
 
     private String transText(String text) {
-        if (!TextUtils.isEmpty(text)) {
-            if (text.startsWith("P")) {
-                return text.substring(1);
-            }
-
-        }
+//        if (!TextUtils.isEmpty(text)) {
+//            if (text.startsWith("P")) {
+//                return text.substring(1);
+//            }
+//
+//        }
         return text;
     }
 }

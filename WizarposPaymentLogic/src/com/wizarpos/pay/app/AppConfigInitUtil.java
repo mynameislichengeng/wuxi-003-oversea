@@ -12,6 +12,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.UserDao;
 import com.wizarpos.pay.db.UserEntityDao;
+import com.wizarpos.recode.data.info.SnManager;
 
 import java.util.HashMap;
 
@@ -34,12 +35,12 @@ public class AppConfigInitUtil {
     public static final String IP_INTERNATIONAL_FR = "guigu.wizarpos.com";//法语版测试地址
     public static final String IP_INTERNATIONAL_JPZ = "wa.lyhourpay.com";//柬埔寨地址
     public static final String IP_TEST = "oversea.zc-fund.com";//测试地址
-    public static final String IP_INTERNATION_JPZ_TEST="cambodia.hs1c.cn";//柬埔寨测试地址
+    public static final String IP_INTERNATION_JPZ_TEST = "cambodia.hs1c.cn";//柬埔寨测试地址
     public static final String DEFAULT_PORT = "8080";
 
     private final static int CACHE_MAX_SIZE = 100;
 
-    public static void init(Context context){
+    public static void init(Context context) {
         HashMap<String, String> appConfig = new HashMap<String, String>(CACHE_MAX_SIZE);
         AppConfigHelper.setCacheMap(appConfig);
 
@@ -309,14 +310,9 @@ public class AppConfigInitUtil {
         } else {
             UserDao.getInstance().init();// 用户列表
         }
-        String sn = "";
-        if (DeviceManager.getInstance().isWizarDevice() || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_SHENGTENG_M10) {
-            sn = android.os.Build.SERIAL;//终端序列号
-        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
-            sn = GetSnHelper.getMacAndSn(context);
-        } else {
-            sn = DeviceManager.getImei(context);//IMEI地址
-        }
+
+        String sn = SnManager.getSn(context);
+
         AppConfigHelper.setConfig(AppConfigDef.sn, sn);// sn
         if (TextUtils.isEmpty(AppConfigHelper.getConfig(AppConfigDef.ip))) {
             AppConfigHelper.setConfig(AppConfigDef.ip, Constants.DEFAULT_IP);

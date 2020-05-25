@@ -16,6 +16,9 @@ public class TranRecordStatusParam {
 
     private boolean isNextPage;
 
+
+
+
     public int getPageNo() {
         return pageNo;
     }
@@ -87,4 +90,6 @@ public class TranRecordStatusParam {
     public void setInvoiceNum(String invoiceNum) {
         this.invoiceNum = invoiceNum;
     }
+
+
 }

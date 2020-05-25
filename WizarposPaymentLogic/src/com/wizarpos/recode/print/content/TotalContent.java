@@ -68,7 +68,7 @@ public class TotalContent extends PrintBase {
         } else {
             sb.append(printTotal);
             //
-            int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(totalAmount), 1, tranCurrency);
+            int numSpaceTotal = tranZhSpaceNums(getTotalSpaceCount(), 1, tranCurrency);
             String space = multipleSpaces(numSpaceTotal - totalAmount.length());
             sb.append(space);
             //
@@ -82,7 +82,7 @@ public class TotalContent extends PrintBase {
     }
 
 
-    private static int getTotalSpaceCount(String content) {
+    private static int getTotalSpaceCount() {
 
         return 25;
     }

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
+import com.wizarpos.recode.data.info.TranTypeManager;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -15,6 +16,12 @@ public class AcctContent extends PrintBase {
 
 
     public static String printStringPayfor(Context context, TransactionInfo transactionInfo) {
+        if (TranTypeManager.isPayAliPay(transactionInfo)) {
+            return null;
+        }
+        if (TranTypeManager.isPayWechatPay(transactionInfo)) {
+            return null;
+        }
         String thirdExtId = transactionInfo.getThirdExtId();
         try {
             return printStringBase(context, thirdExtId);
@@ -27,6 +34,13 @@ public class AcctContent extends PrintBase {
     }
 
     public static String printStringRefund(Context context, RefundDetailResp resp) {
+        if (TranTypeManager.isRefundAlipay(resp)) {
+            return null;
+        }
+        if (TranTypeManager.isRefundWechat(resp)) {
+            return null;
+        }
+
         String thirdExtId = resp.getThirdExtId();
         try {
             return printStringBase(context, thirdExtId);
@@ -37,6 +51,12 @@ public class AcctContent extends PrintBase {
     }
 
     public static String printStringActivity(Context context, DailyDetailResp resp) {
+        if (TranTypeManager.isActivityAlipay(resp)) {
+            return null;
+        }
+        if (TranTypeManager.isActivityWechat(resp)) {
+            return null;
+        }
         String thirdExtId = resp.getThirdExtId();
         try {
             return printStringBase(context, thirdExtId);
@@ -59,11 +79,11 @@ public class AcctContent extends PrintBase {
             } else {
                 sb.append(printAcct);
                 if (acct.length() < PART_LENGTH) {
-                    String space = multipleSpaces(getAcctSpaceCount(acct) - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length);
+                    String space = multipleSpaces(getAcctSpaceCount() - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length);
                     sb.append(space);
                 } else {
                     sb.append(formatForBr());
-                    String space = multipleSpaces(getAcctSpaceCountArray(acct) - acct.getBytes("GBK").length);
+                    String space = multipleSpaces(getAcctSpaceCountArray() - acct.getBytes("GBK").length);
                     sb.append(space);
                 }
                 //
@@ -79,11 +99,11 @@ public class AcctContent extends PrintBase {
     }
 
 
-    private static int getAcctSpaceCount(String content) {
+    private static int getAcctSpaceCount() {
         return 32;
     }
 
-    private static int getAcctSpaceCountArray(String content) {
+    private static int getAcctSpaceCountArray() {
 
         return 27;
     }

@@ -45,4 +45,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="txt_sizeI">13sp</dimen>
     <dimen name="txt_sizeJ">12sp</dimen>
     <dimen name="txt_sizeK">11sp</dimen>
+    <dimen name="txt_sizel">10sp</dimen>
 </resources>

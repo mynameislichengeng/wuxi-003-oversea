@@ -152,6 +152,8 @@ public class NewPaySuccessActivity extends BaseViewActivity {
         int printNumber = Integer.valueOf(SettingPrinterModeManager.getCachePrintMode());
         final PrintServiceControllerProxy controller = new PrintServiceControllerProxy(this);
         switch (printNumber) {
+            case 0:
+                break;
             case 1:
                 if (AppConfigHelper.getConfig(AppConfigDef.SWITCH_LANGUAGE).equals("fr")) {
 //                    PaymentApplication.getInstance().startActivity(WebPrintActivity.getStartIntent(PaymentApplication.getInstance(), AppConfigHelper.getConfig(AppConfigDef.PRINT_CONTEXT)));

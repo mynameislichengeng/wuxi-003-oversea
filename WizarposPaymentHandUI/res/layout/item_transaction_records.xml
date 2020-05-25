@@ -154,24 +154,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_weight="3"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:gravity="center_vertical|left"
-                    android:maxWidth="140dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/receipt_gen_number" />
 
-                <TextView
-                    android:id="@+id/tvTranLogId"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:text="0828394234"
-                    android:textColor="#000000" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:paddingLeft="25dp">
+
+                    <TextView
+                        android:id="@+id/tvTranLogId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0828394234"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/tv_tranlogid_bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvTranLogId"
+                        android:layout_alignEnd="@id/tvTranLogId"
+                        android:text="12312"
+                        android:textColor="#000000" />
+                </RelativeLayout>
+
             </LinearLayout>
 
 
@@ -180,151 +197,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="10"
+                android:layout_marginTop="10dp"
+                android:layout_weight="3"
                 android:orientation="horizontal">
 
 
-                <LinearLayout
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/receipt_number" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="@string/receipt_number" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:paddingLeft="25dp">
 
                     <TextView
                         android:id="@+id/tvMasterTranLogId"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
                         android:text="0828394234"
                         android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llTopOptName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="right">
 
                     <TextView
+                        android:id="@+id/tv_MasterTranLogId_bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="@string/opertor_number" />
+                        android:layout_below="@id/tvMasterTranLogId"
+                        android:layout_alignEnd="@id/tvMasterTranLogId"
+                        android:text="12312"
+                        android:textColor="#000000" />
+                </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tvOperatorId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:minWidth="50dp"
-                        android:singleLine="false"
-                        android:text=""
-                        android:textColor="#0084ff" />
-                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llBeloweOptName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:layout_marginTop="10dp"
+                android:layout_weight="3"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/opertor_number" />
 
                 <TextView
                     android:id="@+id/tvBeloweOptName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="0"
-                    android:textColor="#0084ff" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llTranlogDetailReduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="卡券核销：" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:paddingLeft="25dp"
+                    android:text="0dasdadas"
                     android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="张" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="0.00"
-                    android:textColor="@color/orange" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="元" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llTranlogDetailReduceAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="扣减金额：" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="0.00"
-                    android:textColor="@color/orange" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="元" />
 
             </LinearLayout>
 

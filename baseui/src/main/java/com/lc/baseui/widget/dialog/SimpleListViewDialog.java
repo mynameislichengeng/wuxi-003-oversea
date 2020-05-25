@@ -112,6 +112,10 @@ public class SimpleListViewDialog extends CustomerDialog implements BaseRecycleA
         this.onCancleAndSuceClickListener = onCancleAndSuceClickListener;
     }
 
+    public void setBtnLeftText(int res) {
+        btnCancle.setText(res);
+    }
+
 
     public static interface OnCancleAndSuceClickListener {
         void onSure(View view);

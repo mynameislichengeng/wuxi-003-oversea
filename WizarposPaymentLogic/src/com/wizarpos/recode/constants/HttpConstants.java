@@ -11,6 +11,7 @@ public interface HttpConstants {
     String FIELD_TERMINALVERSION = "terminalVersion";//版本号
     String FIELD_MERCHANTTRADECODE = "merchantTradeCode";//流水票据
     String FIELD_TRANSCURRENCY = "transCurrency";//交易货币
+    String FIELD_DIFFCODE = "diffCode";
 
 
 
@@ -78,6 +79,7 @@ public interface HttpConstants {
         TRANAMOUNT(FIELD_TRANAMOUNT),
         MERCHANTTRADECODE(FIELD_MERCHANTTRADECODE),
         TRANSCURRENCY(FIELD_TRANSCURRENCY),
+        DIFF_CODE(FIELD_DIFFCODE),
         ;
 
         private String key;
@@ -105,6 +107,24 @@ public interface HttpConstants {
         }
 
         API_964_PARAM(String key) {
+            this.key = key;
+        }
+    }
+
+    /**
+     * activity历史记录查询
+     */
+    enum API_965_PARAM{
+        INVOICENO(FIELD_INVOICENO),
+        ;
+
+        private String key;
+
+        public String getKey() {
+            return key;
+        }
+
+        API_965_PARAM(String key) {
             this.key = key;
         }
     }

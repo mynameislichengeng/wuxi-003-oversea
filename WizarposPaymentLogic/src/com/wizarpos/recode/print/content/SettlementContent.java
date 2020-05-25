@@ -69,8 +69,7 @@ public class SettlementContent extends PrintBase {
             tempAmount = divide100(resp.getRefundAmount()).trim();
         }
         tempAmount = removeFuhao(tempAmount);
-//        String s = multipleSpaces(getSettlementSpaceCount() - tempAmount.length()) + tempCurrency + " " + tempAmount;
-//        return s;
+
 
         return printStringBase(tempCurrency, tempAmount);
     }
@@ -80,8 +79,7 @@ public class SettlementContent extends PrintBase {
         String settlementCurrency = resp.getSettlementCurrency();
         String settlementAmount = divide100(resp.getSettlementAmount());
         settlementAmount = removeFuhao(settlementAmount);
-//        String str = multipleSpaces(getSettlementSpaceCount() - settlementAmount.length()) + settlementCurrency + " " + settlementAmount;
-//        return str;
+
 
         return printStringBase(settlementCurrency, settlementAmount);
     }
@@ -93,20 +91,17 @@ public class SettlementContent extends PrintBase {
         if (isComputerSpaceForLeftRight()) {
             sb.append(formartForRight(settlementCurrency + " " + settlementAmount));
         } else {
-            String space = multipleSpaces(getSettlementSpaceCount(settlementCurrency + settlementAmount) - settlementCurrency.length() - settlementAmount.length());
+            String space = multipleSpaces(getSettlementSpaceCount() - settlementCurrency.length() - settlementAmount.length());
             sb.append(space);
             sb.append(settlementCurrency);
             sb.append(" ");
             sb.append(settlementAmount);
         }
-
-
         return sb.toString();
     }
 
 
-    private static int getSettlementSpaceCount(String content) {
-
-        return 28;
+    private static int getSettlementSpaceCount() {
+        return 32;
     }
 }

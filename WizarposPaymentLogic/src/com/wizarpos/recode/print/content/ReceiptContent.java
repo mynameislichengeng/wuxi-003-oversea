@@ -8,6 +8,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.RefundDetailResp;
 import com.wizarpos.pay.model.TransactionInfo;
+import com.wizarpos.recode.data.TranLogIdDataUtil;
 import com.wizarpos.recode.print.base.PrintBase;
 import com.wizarpos.wizarpospaymentlogic.R;
 
@@ -55,17 +56,18 @@ public class ReceiptContent extends PrintBase {
     private static String printStringBase(Context context, String tranLogId) throws UnsupportedEncodingException {
         String result = "";
         String printRecepit = getTitle(context);
-        String tranlogId = Tools.deleteMidTranLog(tranLogId, AppConfigHelper.getConfig(AppConfigDef.mid));
         if (isComputerSpaceForLeftRight()) {
             StringBuffer sb = new StringBuffer();
             String left = printRecepit + "#";
-            sb.append(createTextLineForLeftAndRight(left, tranlogId));
+            String[] rightstr = TranLogIdDataUtil.createTranlogForPrintFormart(tranLogId);
+            sb.append(createTextLineForLeftAndRight(left, rightstr[0]));
+            sb.append(formartForRight(rightstr[1]));
             return sb.toString();
         } else {
 
             result += printRecepit;
             result += "#";
-            result += multipleSpaces(getRecepitSpaceCount(tranlogId) - printRecepit.getBytes("GBK").length - tranlogId.length()) + tranlogId;
+            result += multipleSpaces(getRecepitSpaceCount() - printRecepit.getBytes("GBK").length - tranLogId.length()) + tranLogId;
             result += formatForBr();
         }
 
@@ -77,7 +79,7 @@ public class ReceiptContent extends PrintBase {
         return printRecepit;
     }
 
-    private static int getRecepitSpaceCount(String content) {
+    private static int getRecepitSpaceCount( ) {
 
 
         return 31;

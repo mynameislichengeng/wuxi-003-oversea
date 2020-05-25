@@ -55,6 +55,7 @@ import com.wizarpos.recode.print.content.PayTimeContent;
 import com.wizarpos.recode.print.content.PurchaseContent;
 import com.wizarpos.recode.print.content.ReceiptContent;
 import com.wizarpos.recode.print.content.RefundContent;
+import com.wizarpos.recode.print.content.RemarkContent;
 import com.wizarpos.recode.print.content.SaleContent;
 import com.wizarpos.recode.print.content.SettlementContent;
 import com.wizarpos.recode.print.content.TipsContent;
@@ -62,6 +63,7 @@ import com.wizarpos.recode.print.content.TotalContent;
 import com.wizarpos.recode.print.content.TransNumContent;
 import com.wizarpos.recode.print.content.TransTypeContent;
 import com.wizarpos.recode.print.content.barcode.BarcodeTextContent;
+import com.wizarpos.recode.print.content.barcode.QrCodeTextContent;
 import com.wizarpos.recode.print.content.daily.AliSalesContent;
 import com.wizarpos.recode.print.content.daily.BeginTimeContent;
 import com.wizarpos.recode.print.content.daily.EndTimeContent;
@@ -1370,7 +1372,7 @@ public class StatisticsPresenter extends BasePresenter {
 //            if ("Wechat".equals(payType)) {
 //                payType = "Wechat Pay";
 //            } else if (payType.contains("Union")) {
-//                payType = "Union Pay QR";
+//                payType = "Union Pay QC";
 //            }
 //            String printType = context.getString(R.string.print_type);
 //            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.length()) + payType + builder.br();
@@ -1394,23 +1396,17 @@ public class StatisticsPresenter extends BasePresenter {
                 }
             }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
+            String remarkPrintString = RemarkContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintString)) {
+                printString += remarkPrintString;
+            }
+
 
             String accNamePrintString = AcctNameContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
 
             String acctPrintString = AcctContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
@@ -1422,6 +1418,11 @@ public class StatisticsPresenter extends BasePresenter {
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
+            }
+
+            String qrcodePrint = QrCodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
             }
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
@@ -1503,7 +1504,7 @@ public class StatisticsPresenter extends BasePresenter {
 //            if ("Wechat".equals(payType)) {
 //                payType = "Wechat Pay";
 //            } else if (payType.contains("Union")) {
-//                payType = "Union Pay QR";
+//                payType = "Union Pay QC";
 //            }
 //            String printType = context.getString(R.string.print_type);
 //            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.length()) + payType + builder.br();
@@ -1529,32 +1530,29 @@ public class StatisticsPresenter extends BasePresenter {
                 }
             }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
-
+            String remarkPrintString = RemarkContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintString)) {
+                printString += remarkPrintString;
+            }
             String accNamePrintString = AcctNameContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
             String acctPrintString = AcctContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
                 printString += acctPrintString;
             }
 
-//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
+            }
+            String qrcodePrint = QrCodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
             }
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
@@ -1761,7 +1759,7 @@ public class StatisticsPresenter extends BasePresenter {
 //            if ("Wechat".equals(payType)) {
 //                payType = "Wechat Pay";
 //            } else if (payType.contains("Union")) {
-//                payType = "Union Pay QR";
+//                payType = "Union Pay QC";
 //            }
 //            String printType = context.getString(R.string.print_type);
 //            printString += printType + multipleSpaces(32 - printType.getBytes("GBK").length - payType.getBytes("GBK").length) + payType + builder.br();
@@ -1786,32 +1784,30 @@ public class StatisticsPresenter extends BasePresenter {
                     printString += str + builder.br();
                 }
             }
+            String remarkPrintString = RemarkContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintString)) {
+                printString += remarkPrintString;
+            }
 
-//            String acctName = resp.getThirdExtName();
-//            if (!TextUtils.isEmpty(acctName)) {
-//                String printAcctName = context.getString(R.string.print_acctName);
-//                printString += printAcctName + multipleSpaces(32 - printAcctName.getBytes("GBK").length - acctName.getBytes("GBK").length) + acctName + builder.br();
-//            }
             String accNamePrintString = AcctNameContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
             }
 
-//            String acct = resp.getThirdExtId();
-//            if (!TextUtils.isEmpty(acct)) {
-//                String printAcct = context.getString(R.string.print_acct);
-//                printString += printAcct + multipleSpaces(32 - printAcct.getBytes("GBK").length - acct.getBytes("GBK").length) + acct + builder.br();
-//            }
+
             String acctPrintString = AcctContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(acctPrintString)) {
                 printString += acctPrintString;
             }
 
-//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringActivity(resp);
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
+            }
+            String qrcodePrint = QrCodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
             }
 
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
@@ -1924,7 +1920,10 @@ public class StatisticsPresenter extends BasePresenter {
                 }
             }
 
-
+            String remarkPrintString = RemarkContent.printStringActivity(context, resp);
+            if (!TextUtils.isEmpty(remarkPrintString)) {
+                printString += remarkPrintString;
+            }
             String accNamePrintString = AcctNameContent.printStringActivity(context, resp);
             if (!TextUtils.isEmpty(accNamePrintString)) {
                 printString += accNamePrintString;
@@ -1942,7 +1941,10 @@ public class StatisticsPresenter extends BasePresenter {
             if (!TextUtils.isEmpty(barcodePrint)) {
                 printString += barcodePrint;
             }
-
+            String qrcodePrint = QrCodeTextContent.printStringActivity(resp);
+            if (!TextUtils.isEmpty(qrcodePrint)) {
+                printString += qrcodePrint;
+            }
             printString += builder.center(builder.bold(context.getString(R.string.print_approved)));
             printString += builder.br();
             printString += builder.center(builder.bold(context.getString(R.string.print_customer_copy)));
@@ -2259,7 +2261,7 @@ public class StatisticsPresenter extends BasePresenter {
             lines.add(new HTMLPrintModel.LeftAndRightLine("Net Sales x " + tranLogVo.getAlipayNetSalesNumber(), "$" + Tools.formatFen(tranLogVo.getAlipayNetSalesAmount())));
             lines.add(new HTMLPrintModel.EmptyLine());
 
-            lines.add(new HTMLPrintModel.SimpleLine("Union Pay QR", true, true));
+            lines.add(new HTMLPrintModel.SimpleLine("Union Pay QC", true, true));
             lines.add(new HTMLPrintModel.LeftAndRightLine("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber(), "$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())));
             lines.add(new HTMLPrintModel.EmptyLine());
 
@@ -2341,7 +2343,7 @@ public class StatisticsPresenter extends BasePresenter {
         printString += builder.lineSpace();
         printString += builder.br();
 
-        printString += builder.center(builder.bold("Union Pay QR SUMMARY"));
+        printString += builder.center(builder.bold("Union Pay QC SUMMARY"));
         printString += UnionPaySalesContent.printContent(tranLogVo);
         printString += builder.lineSpace();
 //        printString += "Net Sales x " + tranLogVo.getUnionPayNetSalesNumber() + multipleSpaces(32 - (("Net Sales x " + tranLogVo.getUnionPayNetSalesNumber()) + "$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())).length()) + ("$" + Tools.formatFen(tranLogVo.getUnionPayNetSalesAmount())) + builder.br();

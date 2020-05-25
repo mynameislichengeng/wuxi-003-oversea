@@ -13,11 +13,16 @@ public enum HtmlRemarkConstans {
     LEFT_RIGHT_START("<lr>"),//2端对齐
     LEFT_RIGHT_END("</lr>"),//2端对齐
 
-    BOLD_END("<b>"),//
+    BOLD_START("<b>"),//
+    BOLD_END("</b>"),//
 
 
     BARCODE_START("<bc>"),
     BARCODE_END("</bc>"),
+
+
+    QRCODE_START("<qc>"),
+    QRCODE_END("</qc>"),
 
     LINE("<br/>"),
     LINE_N("<nbr/>"),

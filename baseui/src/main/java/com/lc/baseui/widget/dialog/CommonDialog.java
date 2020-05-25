@@ -65,7 +65,7 @@ public class CommonDialog extends Dialog {
         initView();
     }
 
-    private void initView() {
+    protected void initView() {
         dialog_title_tv = (TextView) findViewById(R.id.dialog_title_tv);
         dialog_left_btn = (Button) findViewById(R.id.dialog_left_btn);
         dialog_right_btn = (Button) findViewById(R.id.dialog_right_btn);
@@ -81,6 +81,8 @@ public class CommonDialog extends Dialog {
         dialog_content_tv = (TextView) findViewById(R.id.dialog_content_tv);
         dialog_ed_content = (EditText) findViewById(R.id.dialog_ed_content);
         switch (uiStyle) {
+            case NULLVIEW:
+                break;
             case EDITVIEW:
                 dialog_ed_content.setVisibility(View.VISIBLE);
                 break;
@@ -153,7 +155,6 @@ public class CommonDialog extends Dialog {
     }
 
     public void setLeftBtnClick(View.OnClickListener clickListener) {
-        dismiss();
         if (clickListener == null) {
             return;
         }

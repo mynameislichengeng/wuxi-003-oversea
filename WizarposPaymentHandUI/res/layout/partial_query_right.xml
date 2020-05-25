@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llDrawer"
     android:layout_width="260dp"
     android:layout_height="match_parent"
@@ -203,7 +204,7 @@
                     android:id="@+id/llTranLogId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -229,19 +230,96 @@
                             android:text="" />
                     </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/etTranLogId"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/edittext_selector"
-                        android:hint="@string/enter_receipt_number"
-                        android:inputType="number"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/shape_bg_line_frame_color_grey_corner5">
+
+                        <TextView
+                            android:id="@+id/tranlog_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="@string/tranlog_tag"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/tranlog_line"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tranlog_tag"
+                            android:background="@color/line_gray" />
+
+                        <org.angmarch.spinner.lib.NiceSpinner
+                            android:id="@+id/nice_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toRightOf="@id/tranlog_line"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="9dp"
+                            android:paddingRight="9dp"
+                            android:paddingBottom="9dp"
+                            android:text="dasdasd"
+                            android:textSize="14sp"
+                            app:backgroundSelector="@drawable/selector_bg_white_press_blue_conner_right5"
+                            app:hideArrow="true"
+                            app:popupTextAlignment="start"
+                            app:textTint="#666666" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/shape_bg_line_frame_color_grey_corner5">
+
+                        <TextView
+                            android:id="@+id/tranlog_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="--"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/tranlogvalue_line"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tranlog_value"
+
+                            android:background="@color/line_gray" />
+
+                        <EditText
+                            android:id="@+id/etTranLogId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tranlogvalue_line"
+                            android:background="@drawable/selector_edittext_press_blue_coner_right5"
+                            android:hint="@string/enter_receipt_number"
+                            android:inputType="number"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <ImageView
@@ -323,4 +401,25 @@
             android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+
+
+        <TextView
+            android:id="@+id/tvQRScan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/btn_blue_corner"
+            android:gravity="center"
+            android:text="@string/query_qr_scan"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
 </LinearLayout>

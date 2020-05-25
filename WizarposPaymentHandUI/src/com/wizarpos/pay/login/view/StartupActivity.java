@@ -64,18 +64,17 @@ public class StartupActivity extends BaseViewActivity {
 
     private void init() {
         Log.d("sn", AppConfigHelper.getConfig(AppConfigDef.sn));//显示sn wu
-//		if (Constants.TRUE.equals(AppConfigHelper.getConfig(AppConfigDef.test_load_safe_mode))) {
         presenter.getPubCertificate(new ResultListener() {// 取证书
 
             @Override
             public void onSuccess(Response response) {
                 go();
-                // ping();
+
             }
 
             @Override
             public void onFaild(Response response) {
-//							go();
+
                 DialogHelper2.showDialog(StartupActivity.this, response.msg, new DialogListener() {
 
                     @Override
@@ -83,13 +82,10 @@ public class StartupActivity extends BaseViewActivity {
                         StartupActivity.this.finish();
                     }
                 });
-                // ping();
+
             }
         });
-//		} else {
-//			go();
-//			// ping();
-//		}
+
     }
 
     private void ping() {
@@ -123,7 +119,6 @@ public class StartupActivity extends BaseViewActivity {
             Log.d("tagtagtag", "进入登陆界面");
             startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
         }
-//        TestBarCodeFormatActivity.startActivtyUp(this);
         this.finish();
     }
 

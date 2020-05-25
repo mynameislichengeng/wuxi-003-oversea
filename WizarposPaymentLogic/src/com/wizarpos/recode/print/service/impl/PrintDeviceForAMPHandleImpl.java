@@ -37,7 +37,7 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
     private Paint samllTipsTextPaint = new Paint();
 
 
-    private final String TEXT_SPACE = " ";
+
 
     public PrintDeviceForAMPHandleImpl() {
         init();
@@ -229,22 +229,8 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
         return Printer.getInstance().getWidth();
     }
 
-    /**
-     * 根据指定的空格数，获得空格文本
-     *
-     * @param count
-     * @return
-     */
-    private String getSpaceText(int count) {
-        if (count <= 0) {
-            return "";
-        }
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < count; i++) {
-            sb.append(TEXT_SPACE);
-        }
-        return sb.toString();
-    }
+
+
 
     private void log(String msg) {
         Log.d("print", TAG + ">>" + msg);

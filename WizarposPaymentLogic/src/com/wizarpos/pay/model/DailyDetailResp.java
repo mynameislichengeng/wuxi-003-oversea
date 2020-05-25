@@ -37,6 +37,10 @@ public class DailyDetailResp implements Serializable {
     private String optName;
     private String bank_info;
 
+    private String diffCode;//就是需要显示的remark
+
+
+
     public String getCancelKind() {
         return cancelKind;
     }
@@ -262,5 +266,13 @@ public class DailyDetailResp implements Serializable {
 
     public void setMerchantTradeCode(String merchantTradeCode) {
         this.merchantTradeCode = merchantTradeCode;
+    }
+
+    public String getDiffCode() {
+        return diffCode;
+    }
+
+    public void setDiffCode(String diffCode) {
+        this.diffCode = diffCode;
     }
 }

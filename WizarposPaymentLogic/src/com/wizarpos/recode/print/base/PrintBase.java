@@ -1,17 +1,19 @@
 package com.wizarpos.recode.print.base;
 
+import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.common.device.printer.Q1PrintBuilder;
 import com.wizarpos.pay.common.utils.Calculater;
+import com.wizarpos.pay.model.TransactionInfo;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.print.constants.PrintConstants;
+import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 public class PrintBase {
 
-//    private static int COUNTSPACE = 0;
 
     protected final static int PART_LENGTH = 18;//当长度大于14的时候，就分割一下
-//    protected static final int PART_NUM_13 = 13;
+
 
     protected static Q1PrintBuilder q1PrintBuilder = new Q1PrintBuilder();
 
@@ -26,6 +28,12 @@ public class PrintBase {
         return Calculater.divide100(originStr);
     }
 
+    /**
+     * 移除负号，有的数据前面有一个负号，可以将其移除
+     *
+     * @param originStr
+     * @return
+     */
     protected static String removeFuhao(String originStr) {
         if (originStr.startsWith("-")) {
             return originStr.substring(1);
@@ -74,16 +82,35 @@ public class PrintBase {
      * @return
      */
     protected static boolean isComputerSpaceForLeftRight() {
-        if (getDeviceTypeForAMP8200()) {
-            return true;
-        }
-        if (getDeviceTypeForPaxA920()) {
-            return true;
-        }
-        if (getDeviceTypeForN3N5()) {
-            return true;
-        }
-        return false;
+//        if (getDeviceTypeForAMP8200()) {
+//            return true;
+//        }
+//        if (getDeviceTypeForPaxA920()) {
+//            return true;
+//        }
+//        if (getDeviceTypeForN3N5()) {
+//            return true;
+//        }
+
+        return true;
+    }
+
+    /**
+     * 是否打开条形码
+     *
+     * @return
+     */
+    protected static boolean isOpenBarCodeStatus() {
+        return ReceiptDataManager.isOpenBarcodeStatus();
+    }
+
+    /**
+     * 是打开二维码
+     *
+     * @return
+     */
+    protected static boolean isOpenQrCodeStatus() {
+        return ReceiptDataManager.isOpenQRCodeStatus();
     }
 
     /**
@@ -97,13 +124,10 @@ public class PrintBase {
         StringBuffer sb = new StringBuffer();
         if (rightText.length() > PART_LENGTH) {
             sb.append(formartForLeft(leftText));
-//            sb.append(formartForLineNew());
             sb.append(formartForRight(rightText));
         } else {
             sb.append(formartForLeft(leftText + rightText));
         }
-
-//        sb.append(formartForLineNew());
         return sb.toString();
     }
 
@@ -118,12 +142,10 @@ public class PrintBase {
         StringBuffer sb = new StringBuffer();
         if (rightText.length() > PART_LENGTH) {
             sb.append(formartForLeft(leftText));
-//            sb.append(formartForLineNew());
             sb.append(formartForRight(rightText));
         } else {
             sb.append(formartForLeftAndRight(leftText, rightText));
         }
-//        sb.append(formartForLineNew());
         return sb.toString();
     }
 
@@ -153,6 +175,10 @@ public class PrintBase {
         return q1PrintBuilder.barcode(txt);
     }
 
+    protected static String formatForQC(String txt) {
+        return q1PrintBuilder.qrcode(txt);
+    }
+
     protected static String formatForBr() {
         return q1PrintBuilder.br();
     }
@@ -166,11 +192,5 @@ public class PrintBase {
         return q1PrintBuilder.lineSpace();
     }
 
-//    public static int getCOUNTSPACE() {
-//        return COUNTSPACE;
-//    }
 
-//    public static void setCOUNTSPACE(int COUNTSPACE) {
-//        PrintBase.COUNTSPACE = COUNTSPACE;
-//    }
 }

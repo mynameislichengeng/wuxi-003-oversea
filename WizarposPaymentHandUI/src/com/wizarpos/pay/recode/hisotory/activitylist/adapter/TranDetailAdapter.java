@@ -33,38 +33,51 @@ public class TranDetailAdapter extends RefundClickAdapter {
 
     @Override
     public void onBindViewHolder(SimpleRecycleViewHodler holder, int position) {
-        super.onBindViewHolder(holder, position);
+
         DailyDetailResp adpterParam = getT();
 
-        boolean isVisible = true;
-        if (position == 4) {
-            //如果不存在该值，那么就隐藏
-            String merchantTradeCode = adpterParam.getMerchantTradeCode();
-            if (TextUtils.isEmpty(merchantTradeCode)) {
-                isVisible = false;
-            }
-        }
-        holder.setVisibility(isVisible);
-
-        TextView tvValue = holder.getView(R.id.tv_adapter_value);
+        holder.setVisibility(true);
         TextView tvTitle = holder.getView(R.id.tv_adapter_title);
-        if (position == 3) {
-            //
-            tvTitle.setText(stuName[3]);
-            //
-            String value = adpterParam.getSn();
-            tvValue.setText(value);
-        } else if (position == 4) {
+        TextView tvValue = holder.getView(R.id.tv_adapter_value);
+        TextView tvBottom = holder.getView(R.id.tv_adapter_bottom);
+        tvBottom.setVisibility(View.GONE);
+        settingTextViewMaxWidth(tvValue, R.dimen.dp_180);
+        settingTextViewMaxWidth(tvBottom, R.dimen.dp_180);
 
-            String merchantTradeCode = adpterParam.getMerchantTradeCode();
-            if (!TextUtils.isEmpty(merchantTradeCode)) {
-                tvTitle.setText(stuName[4]);
-                tvValue.setText(merchantTradeCode);
-            }
-        } else if (position == 5) {
-            tvTitle.setText(stuName[5]);
-            String value = adpterParam.getPayTime();
-            tvValue.setText(value);
+        switch (position) {
+            case 0:
+                setText(tvTitle, stuName[0]);
+                setSaleAmountItem(tvValue, adpterParam);
+                float a = tvTitle.getTextSize();
+                System.out.println("----字体大小---：" + a);
+                return;
+            case 1:
+                setText(tvTitle, stuName[1]);
+                setPaymentTypeItem(tvValue, adpterParam);
+                return;
+            case 2:
+                setText(tvTitle, stuName[2]);
+                setReceiptItem(tvValue, tvBottom, adpterParam);
+                return;
+            case 3:
+                setText(tvTitle, stuName[3]);
+                String sn = adpterParam.getSn();
+                setText(tvValue, sn);
+
+                return;
+            case 4:
+                setText(tvTitle, stuName[4]);
+                setInvoiceItem(holder, tvValue, adpterParam);
+                return;
+            case 5:
+                setText(tvTitle, stuName[5]);
+                setPaytimeItem(tvValue, adpterParam);
+                return;
+            case 6:
+                setText(tvTitle, stuName[6]);
+                setRemarkItem(holder, tvValue, adpterParam);
+                return;
+
         }
     }
 

@@ -19,6 +19,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
+import com.wizarpos.recode.data.info.SnManager;
 import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 
 import java.util.HashMap;
@@ -79,21 +80,10 @@ public class NetBundler {
     public Headers bundleHeader() {
         boolean isDbNull = (null == PaymentApplication.getInstance().getDbController());
         String defaultSn = "";
-        if (isDbNull)
-            if (DeviceManager.getInstance().isWizarDevice() || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_SHENGTENG_M10) {
-                defaultSn = android.os.Build.SERIAL;//终端序列号
-            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
-                defaultSn = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
-            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-                defaultSn = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
-            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
-                defaultSn = android.os.Build.SERIAL;//终端序列号
-            } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_AMP8) {
-//                defaultSn = android.os.Build.SERIAL;//终端序列号
-                defaultSn = AMPPrintManager.getInstance().getSN();
-            }  else {
-                defaultSn = DeviceManager.getImei(PaymentApplication.getInstance());//IMEI地址
-            }
+        if (isDbNull){
+            defaultSn = SnManager.getSn(PaymentApplication.getInstance());
+        }
+
         String sn = AppConfigHelper.getConfig(AppConfigDef.sn);
         String operatorId = AppConfigHelper.getConfig(AppConfigDef.operatorNo);
         String operatorName = AppConfigHelper.getConfig(AppConfigDef.operatorTrueName);

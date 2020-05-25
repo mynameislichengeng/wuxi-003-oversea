@@ -30,7 +30,6 @@ import com.wizarpos.pay.common.utils.MD5Util;
 import com.wizarpos.pay.common.utils.TimeJudgeUtil;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.common.utils.UuidUitl;
-import com.wizarpos.pay.db.AppConfig;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
@@ -45,7 +44,10 @@ import com.wizarpos.pay.model.LoginedMerchant;
 import com.wizarpos.pay.model.SysParam;
 import com.wizarpos.pay.model.UserEntity;
 import com.wizarpos.pay.test.TestStartMenuActivity;
+import com.wizarpos.recode.data.info.MidConfigManager;
+import com.wizarpos.recode.data.info.RefundRelationMidsManager;
 import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.data.info.SnManager;
 import com.wizarpos.recode.print.devicesdk.amp.AMPPrintManager;
 import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 import com.wizarpos.recode.util.PackageAndroidManager;
@@ -185,25 +187,7 @@ public class LoginPresenter2 extends BasePresenter {
     }
 
     private String getSn() {
-        String terminalUniqNo;
-        if (DeviceManager.getInstance().isWizarDevice() || DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_SHENGTENG_M10) {
-            terminalUniqNo = android.os.Build.SERIAL;//终端序列号
-        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_N3_OR_N5) {
-            terminalUniqNo = PaymentApplication.getInstance().deviceEngine.getDeviceInfo().getSn();
-        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PULAN) {
-            terminalUniqNo = GetSnHelper.getMacAndSn(PaymentApplication.getInstance());
-        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
-            terminalUniqNo = android.os.Build.SERIAL;//终端序列号
-        } else if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_AMP8) {
-
-            terminalUniqNo = AMPPrintManager.getInstance().getSN();
-        } else {
-            terminalUniqNo = DeviceManager.getImei(context);//IMEI地址
-        }
-        if (TextUtils.isEmpty(terminalUniqNo)) {
-            terminalUniqNo = UuidUitl.getUuid();
-        }
-        return terminalUniqNo;
+        return SnManager.getSn(context);
     }
 
     /**
@@ -437,7 +421,8 @@ public class LoginPresenter2 extends BasePresenter {
 
             // 存储慧商户信息
             AppConfigHelper.setConfig(AppConfigDef.pay_id, loginResp.getMerchant().getPayId());// 支付渠道
-            AppConfigHelper.setConfig(AppConfigDef.mid, loginResp.getMerchant().getMid());// 慧商户号
+            MidConfigManager.setMid(loginResp.getMerchant().getMid());
+//            AppConfigHelper.setConfig(AppConfigDef.mid, );// 慧商户号
             AppConfigHelper.setConfig(AppConfigDef.fid, loginResp.getTerminal().getFid());// 慧商户联盟号
             AppConfigHelper.setConfig(AppConfigDef.collectTips, loginResp.getMerchantDefSuffix().getCollectTips());//是否启用小费  ON启用 OFF禁用
             AppConfigHelper.setConfig(AppConfigDef.tipsPercentageAllow, loginResp.getMerchantDefSuffix().getTipsPercentageAllow());//是否允许手动设置百分比，T允许，F不允许
@@ -496,6 +481,7 @@ public class LoginPresenter2 extends BasePresenter {
             if (DeviceManager.getInstance().isSupportBankCard() == false) {//手机不支持银行卡消费，不能
 //                newDefaultPaymentRouter();
             }
+            RefundRelationMidsManager.settingRefundNameDefault(loginResp.getRefundRelationMids());
 
             // 存储收单应用信息
             AppConfigHelper.setConfig(AppConfigDef.CARDLINK_MECHANTID, loginResp.getMechantId());
@@ -800,6 +786,7 @@ public class LoginPresenter2 extends BasePresenter {
 //    }
 
     protected void signOnFinish() {
+        Log.d("tagtagtag", "登陆完成signOnFinish()");
         saveMerchantInfo();
         AppStateManager.setState(AppStateDef.isLogin, Constants.TRUE);
         cardLinkPresenter.setCardLinkPresenterListener(new CardLinkPresenter.CardLinkPresenterListener() {

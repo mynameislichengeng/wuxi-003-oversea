@@ -5,7 +5,7 @@ package com.lc.baseui.constants;
  */
 
 public enum UIStyleEnum {
-
+    NULLVIEW("-1"),
     TEXTVIEW("1"),
     EDITVIEW("2"),
     EDITVIEW_NUM_ZIMU("3"),//只能0～9和a~z和A~Z

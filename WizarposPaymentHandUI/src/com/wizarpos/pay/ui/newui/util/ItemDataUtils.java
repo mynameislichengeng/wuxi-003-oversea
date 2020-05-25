@@ -31,12 +31,12 @@ public class ItemDataUtils {
 
     public static List<ArrayItem> getTimeRanges() {
         List<ArrayItem> timeRanges = new ArrayList<>();
-        timeRanges.add(new ArrayItem(0, Pay2Application.getInstance().getResources().getString(R.string.today)));
+//        timeRanges.add(new ArrayItem(0, Pay2Application.getInstance().getResources().getString(R.string.today)));
         timeRanges.add(new ArrayItem(1, Pay2Application.getInstance().getResources().getString(R.string.yestoday)));
         timeRanges.add(new ArrayItem(2, Pay2Application.getInstance().getResources().getString(R.string.this_week)));
-        timeRanges.add(new ArrayItem(3, Pay2Application.getInstance().getResources().getString(R.string.before_week)));
-        timeRanges.add(new ArrayItem(4, Pay2Application.getInstance().getResources().getString(R.string.this_month)));
-        timeRanges.add(new ArrayItem(5, Pay2Application.getInstance().getResources().getString(R.string.before_month)));
+//        timeRanges.add(new ArrayItem(3, Pay2Application.getInstance().getResources().getString(R.string.before_week)));
+//        timeRanges.add(new ArrayItem(4, Pay2Application.getInstance().getResources().getString(R.string.this_month)));
+//        timeRanges.add(new ArrayItem(5, Pay2Application.getInstance().getResources().getString(R.string.before_month)));
         timeRanges.add(new ArrayItem(6, Pay2Application.getInstance().getResources().getString(R.string.custom)));
         return timeRanges;
     }

@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.pax.poslink.peripheries.POSLinkPrinter;
 import com.pax.poslink.peripheries.ProcessResult;
-import com.wizarpos.atool.log.Logger;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
@@ -44,6 +43,8 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
                 String rightText = indexs[1];
                 printDataFormatter.addRightAlign().addContent(rightText);
                 printDataFormatter.addLineSeparator();
+                break;
+            case QC:
                 break;
             default:
                 printDataFormatter.addContent(str);

@@ -27,6 +27,7 @@ public class RefundDetailResp implements Serializable {
     private String merchantTradeCode;
 
     private String tranAmount;
+    private String diffCode;
 
     public String getThirdExtName() {
         return thirdExtName;
@@ -172,5 +173,13 @@ public class RefundDetailResp implements Serializable {
 
     public void setMerchantTradeCode(String merchantTradeCode) {
         this.merchantTradeCode = merchantTradeCode;
+    }
+
+    public String getDiffCode() {
+        return diffCode;
+    }
+
+    public void setDiffCode(String diffCode) {
+        this.diffCode = diffCode;
     }
 }

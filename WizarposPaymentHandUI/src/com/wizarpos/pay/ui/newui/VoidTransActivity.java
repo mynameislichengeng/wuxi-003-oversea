@@ -65,7 +65,9 @@ public class VoidTransActivity extends BaseViewActivity {
 
     private void transactionCancle(final boolean bankcardpay) {
         progresser.showProgress();
-        presenter.getTransactionDetial(Tools.deleteMidTranLog(transDetail.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid)), bankcardpay, new BasePresenter.ResultListener() {
+//        String tranLog = Tools.deleteMidTranLog(transDetail.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+        String tranLog = transDetail.getTranLogId();
+        presenter.getTransactionDetial(tranLog, bankcardpay, new BasePresenter.ResultListener() {
             @Override
             public void onSuccess(Response response) {
                 payTranRsp = (PayTranRsp) response.result;
@@ -76,7 +78,6 @@ public class VoidTransActivity extends BaseViewActivity {
                             response.setMsg("success");
                         }
                         CommonToastUtil.showMsgBelow(VoidTransActivity.this, CommonToastUtil.LEVEL_SUCCESS, response.getMsg());
-//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).showFromDialog();
                         setResult(RESULT_OK);
                         finish();
                     }
@@ -94,8 +95,7 @@ public class VoidTransActivity extends BaseViewActivity {
                         });
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-                        //      CommonToastUtil.showMsgBelow(VoidTransActivity.this, CommonToastUtil.LEVEL_ERROR, response.getMsg());
-//                        Toast.makeText(VoidTransActivity.this,response.getMsg(),Toast.LENGTH_SHORT).showFromDialog();
+
 
                     }
                 });

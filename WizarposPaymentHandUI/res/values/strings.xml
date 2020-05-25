@@ -283,6 +283,7 @@
     <string name="receipt_gen_number">撤销流水号:</string>
     <string name="enter_sale_amount">请在键盘输入金额</string>
     <string name="cancle">撤销</string>
+    <string name="cancle_one">撤销</string>
     <string name="cancle_success">撤销成功</string>
     <string name="cancle_fails">撤销失败</string>
     <string name="config_tenpay_toast">扫码支付</string>
@@ -364,6 +365,12 @@
     <string name="receipt_qr_code">收据二维码</string>
     <string name="tran_detail_info">交易详情</string>
     <string name="tran_detail">详情</string>
+    <string name="tranlog_tag">P</string>
+    <string name="acti_tran_issue_title">重新打印</string>
+    <string name="acti_tran_issue_btn_customer_copy">Customer Copy</string>
+    <string name="acti_tran_issue_btn_merchant_copy">Merchant Copy</string>
+    <string name="query_qr_scan">Scan QR # Search</string>
+    <string name="btn_cancle_big">CANCLE</string>
 
     <string-array name="refund_adapter_item_title">
 
@@ -389,6 +396,8 @@
         <item>发票:</item>
 
         <item>交易时间:</item>
+        <item>说明:</item>
 
     </string-array>
+
 </resources>

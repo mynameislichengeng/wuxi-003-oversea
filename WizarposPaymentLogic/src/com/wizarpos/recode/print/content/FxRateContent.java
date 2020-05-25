@@ -60,7 +60,7 @@ public class FxRateContent extends PrintBase {
         } else {
             result += printFx;
             result += formatForBr();
-            result += multipleSpaces(getCADSpaceCount(exchangeRateString) - showCNY.length()) + showCNY + formatForBr();
+            result += multipleSpaces(getCADSpaceCount() - showCNY.length()) + showCNY + formatForBr();
             result += formatForBr() + formatForNBr();
         }
 
@@ -69,7 +69,7 @@ public class FxRateContent extends PrintBase {
     }
 
 
-    private static int getCADSpaceCount(String content) {
+    private static int getCADSpaceCount() {
 
         return 32;
     }

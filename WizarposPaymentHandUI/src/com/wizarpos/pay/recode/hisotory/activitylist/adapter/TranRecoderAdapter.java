@@ -2,6 +2,7 @@ package com.wizarpos.pay.recode.hisotory.activitylist.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.lc.librefreshlistview.adapter.BaseRecycleAdapter;
 import com.lc.librefreshlistview.holder.SimpleRecycleViewHodler;
 import com.wizarpos.atool.tool.Tools;
-import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
@@ -21,10 +21,14 @@ import com.wizarpos.pay.model.DailyDetailResp;
 //import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialListener;
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
+import com.wizarpos.pay.recode.util.date.SimpleDateManager;
 import com.wizarpos.pay.ui.newui.util.TodayTotalUtil;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.data.TranLogIdDataUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -53,6 +57,8 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
     }
 
     private void operateChildView(int position, final SimpleRecycleViewHodler viewHolder) {
+
+        operateSettingLayoutTitleDay(position, viewHolder);
         final DailyDetailResp item = getLists().get(position);
 
         //显示多少钱
@@ -66,7 +72,6 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         if (TextUtils.isEmpty(item.getTransKind())) {
 
         } else if (item.getTransKind().contains(context.getString(R.string.pay_tag))) {//消费判断字符比较需处理
-//            viewHolder.ivTranlogIcon.setImageResource(R.drawable.ic_xiaofei);
             ivTranlogIcon.setImageResource(TodayTotalUtil.getPayItemImage(item.getTransName()));
             initBtnsView(viewHolder, true);
         } else if (item.getTransKind().contains(context.getString(R.string.refund_tag))) {//消费判断字符比较需处理
@@ -78,7 +83,7 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         tvTranType.setText(item.getTransKind());
 
         TextView tvTranMode = (TextView) viewHolder.getView(R.id.tvTranMode);
-        if ("Union Pay QR".equals(item.getTransName())) {
+        if ("Union Pay QC".equals(item.getTransName())) {
             tvTranMode.setText(item.getTransName());
         } else {
             tvTranMode.setText(item.getTransName().replace(context.getString(R.string.pay_tag), "").replace(context.getString(R.string.refund_tag), ""));
@@ -86,33 +91,38 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         TextView tvTranDate = (TextView) viewHolder.getView(R.id.tvTranDate);
         tvTranDate.setText(item.getPayTime());
 
-        String tranLogId = Tools.deleteMidTranLog(item.getTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
+        //receipt number
+        String masterTranlogId = item.getMasterTranLogId();
+        TextView tvMasterTranLogId = ((TextView) viewHolder.getView(R.id.tvMasterTranLogId));
+        TextView tv_MasterTranLogId_bottom = ((TextView) viewHolder.getView(R.id.tv_MasterTranLogId_bottom));
+        tvMasterTranLogId.setText(TranLogIdDataUtil.createTranlogFormatMid(masterTranlogId));
+        tv_MasterTranLogId_bottom.setText(TranLogIdDataUtil.createTranlogFormatSuffixlog(masterTranlogId));
 
-        String masterTranlogId = Tools.deleteMidTranLog(item.getMasterTranLogId(), AppConfigHelper.getConfig(AppConfigDef.mid));
-
+        //refund receipt number
+        String tranLogId = item.getTranLogId();
         LinearLayout llTranLogId = ((LinearLayout) viewHolder.getView(R.id.llTranLogId));
         TextView tvTranLogId = (TextView) viewHolder.getView(R.id.tvTranLogId);
+        TextView tv_tranlogid_bottom = (TextView) viewHolder.getView(R.id.tv_tranlogid_bottom);
         if (context.getString(R.string.pay_tag).equals(item.getTransKind())) {
             llTranLogId.setVisibility(View.GONE);
         } else {
             llTranLogId.setVisibility(View.VISIBLE);
-            tvTranLogId.setText(tranLogId);
+            tvTranLogId.setText(TranLogIdDataUtil.createTranlogFormatMid(tranLogId));
+            tv_tranlogid_bottom.setText(TranLogIdDataUtil.createTranlogFormatSuffixlog(masterTranlogId));
         }
-        TextView tvMasterTranLogId = ((TextView) viewHolder.getView(R.id.tvMasterTranLogId));
-        tvMasterTranLogId.setText(masterTranlogId);
 
-        LinearLayout llTopOpt = (LinearLayout) viewHolder.getView(R.id.llTopOptName);
+
         LinearLayout llBelowOpt = (LinearLayout) viewHolder.getView(R.id.llBeloweOptName);
         TextView tvBelowOperator = (TextView) viewHolder.getView(R.id.tvBeloweOptName);
         if (item.getOptName() != null) {
-            llTopOpt.setVisibility(View.GONE);
             llBelowOpt.setVisibility(View.VISIBLE);
             tvBelowOperator.setText(TextUtils.isEmpty(item.getOptName()) ? "" : item.getOptName());
+        } else {
+            llBelowOpt.setVisibility(View.GONE);
         }
 
         final LinearLayout llDetail = (LinearLayout) viewHolder.getView(R.id.llDetail);
-        viewHolder.getView(R.id.llTranlogDetailReduce).setVisibility(View.GONE);//隐藏卡劵核销
-        viewHolder.getView(R.id.llTranlogDetailReduceAmount).setVisibility(View.GONE);//隐藏减扣金额
+
         final ImageView ivBottomLine = (ImageView) viewHolder.getView(R.id.ivBottomLine);
         final ImageView ivArrowRight = viewHolder.getView(R.id.ivArrowRight);
 
@@ -267,6 +277,73 @@ public class TranRecoderAdapter extends BaseRecycleAdapter<DailyDetailResp> {
 
     public void setOnTranLogDetialListener(OnTranLogDetialListener onTranLogDetialListener) {
         this.onTranLogDetialListener = onTranLogDetialListener;
+    }
+
+    /**
+     * 设置每天的title
+     */
+    private void operateSettingLayoutTitleDay(int position, final SimpleRecycleViewHodler viewHolder) {
+        final DailyDetailResp item = getLists().get(position);
+        RelativeLayout rel_day_header = viewHolder.getView(R.id.rel_day_header);
+
+
+        boolean isShowTitle = false;
+
+        if (position == 0) {
+            isShowTitle = true;
+        } else {
+            Calendar calendar = Calendar.getInstance();
+
+            //当前
+            String tranTime = item.getTranTime();
+            Date date = SimpleDateManager.fromYYYYMMDDHHMMSS(tranTime);
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            //前一条
+            DailyDetailResp beforeItem = getLists().get(position - 1);
+            String beforeTranTime = beforeItem.getTranTime();
+            Date beforedate = SimpleDateManager.fromYYYYMMDDHHMMSS(beforeTranTime);
+            calendar.setTime(beforedate);
+            int beforeday = calendar.get(Calendar.DAY_OF_MONTH);
+
+            if (day != beforeday) {
+                isShowTitle = true;
+            }
+        }
+
+
+        //只有第一项才由这个值
+        if (!isShowTitle) {
+            rel_day_header.setVisibility(View.GONE);
+        } else {
+            String timeStr = item.getPayTime();
+            rel_day_header.setVisibility(View.VISIBLE);
+
+            TextView tvmonthyear = viewHolder.getView(R.id.tv_month_year);
+            Date date = SimpleDateManager.fromYYYYMMDDHHMMSS(timeStr);
+            if (date != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
+                //按照 may12, 2020这样来显示
+                StringBuilder sb = new StringBuilder();
+                sb.append(SimpleDateManager.getMonthEnglish(month));
+                sb.append(day);
+                sb.append(",");
+                sb.append(" ");
+                sb.append(year);
+
+                tvmonthyear.setText(sb.toString());
+
+            } else {
+                Log.e("error", "时间有问题");
+            }
+        }
+
+
     }
 
 }
