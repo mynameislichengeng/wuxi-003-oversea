@@ -21,6 +21,9 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
 
     private final int MAX_WIDTH = 32;
 
+    public static int QR_WIDTH = 350;
+    public static int QR_HEIGHT = 350;
+
     public PrintDeviceForQ2HandleImpl() {
         startPrint();
     }
@@ -113,43 +116,10 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
             printerLine();
         } else if (isEndKeyWords(keyword)) {
             printerLine();
+            printerLine();
+            printerLine();
         }
 
-
-//        else if (keyword.equals("<w>")) {
-//            printerWrite(PrinterCommand.getCmdEscSo());
-//
-//        } else if (keyword.equals("</w>")) {
-//            printerWrite(PrinterCommand.getCmdEscDc4());
-//        } else if (keyword.equals("<h>")) {
-//            printerWrite(PrinterCommand.setFontEnlarge(0x01));
-//        } else if (keyword.equals("</h>")) {
-//            printerWrite(PrinterCommand.setFontEnlarge(0x00));
-//        } else if (keyword.equals("<s>")) {
-//            printerWrite(PrinterCommand.getCmdSmallFontCN(1));
-//            printerWrite(PrinterCommand.getCmdSmallFontEN(1));
-//        } else if (keyword.equals("</s>")) {
-//            printerWrite(PrinterCommand.getCmdSmallFontCN(0));
-//            printerWrite(PrinterCommand.getCmdSmallFontEN(0));
-//        } else if (keyword.equals("<i>")) {
-//
-//        } else if (keyword.equals("</i>")) {
-//
-//        }  else if (keyword.equals("<ul>")) {
-//
-//        } else if (keyword.equals("</ul>")) { // 下划线
-//
-//        } else if (keyword.equals("<img>")) {
-//
-//        } else if (keyword.equals("</img>")) {
-//
-//        } else if (keyword.equals("<t/>")) {
-//
-//        } else if (keyword.equals("<sls>")) {
-//            printerWrite(PrinterCommand.getCmdEsc3N(20));
-//        } else if (keyword.equals("</sls>")) {
-//            printerWrite(PrinterCommand.getCmdEsc2());
-//        }
     }
 
 
@@ -255,7 +225,7 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
      * @param qrcode
      */
     private static void printerQrcode(String qrcode) {
-        Bitmap bitmap = ZxingBarcodeManager.creatQrcode(qrcode, 350, 350);
+        Bitmap bitmap = ZxingBarcodeManager.creatQrcode(qrcode, QR_WIDTH, QR_HEIGHT);
         printerBitmap(bitmap);
     }
 

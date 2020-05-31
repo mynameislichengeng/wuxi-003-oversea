@@ -12,7 +12,7 @@ public class RemarkContent extends PrintBase {
 
     public static String printStringActivity(Context context, DailyDetailResp resp) {
         String remark = resp.getDiffCode();
-        remark = "83y123";
+
         if (TextUtils.isEmpty(remark)) {
             return null;
         }
@@ -21,7 +21,7 @@ public class RemarkContent extends PrintBase {
 
     public static String printStringRefund(Context context, RefundDetailResp resp) {
         String remark = resp.getDiffCode();
-        remark = "83y123";
+
         if (TextUtils.isEmpty(remark)) {
             return null;
         }

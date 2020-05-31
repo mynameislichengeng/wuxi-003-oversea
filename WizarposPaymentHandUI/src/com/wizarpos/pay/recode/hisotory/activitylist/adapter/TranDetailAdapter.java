@@ -41,15 +41,13 @@ public class TranDetailAdapter extends RefundClickAdapter {
         TextView tvValue = holder.getView(R.id.tv_adapter_value);
         TextView tvBottom = holder.getView(R.id.tv_adapter_bottom);
         tvBottom.setVisibility(View.GONE);
-        settingTextViewMaxWidth(tvValue, R.dimen.dp_180);
-        settingTextViewMaxWidth(tvBottom, R.dimen.dp_180);
+//        settingTextViewMaxWidth(tvValue, R.dimen.dp_180);
+//        settingTextViewMaxWidth(tvBottom, R.dimen.dp_180);
 
         switch (position) {
             case 0:
                 setText(tvTitle, stuName[0]);
                 setSaleAmountItem(tvValue, adpterParam);
-                float a = tvTitle.getTextSize();
-                System.out.println("----字体大小---：" + a);
                 return;
             case 1:
                 setText(tvTitle, stuName[1]);
@@ -57,6 +55,7 @@ public class TranDetailAdapter extends RefundClickAdapter {
                 return;
             case 2:
                 setText(tvTitle, stuName[2]);
+//                settingTextViewMaxWidth(tvValue, R.dimen.dp_220);
                 setReceiptItem(tvValue, tvBottom, adpterParam);
                 return;
             case 3:
@@ -72,6 +71,7 @@ public class TranDetailAdapter extends RefundClickAdapter {
             case 5:
                 setText(tvTitle, stuName[5]);
                 setPaytimeItem(tvValue, adpterParam);
+//                settingTextViewMaxWidth(tvValue, R.dimen.dp_220);
                 return;
             case 6:
                 setText(tvTitle, stuName[6]);

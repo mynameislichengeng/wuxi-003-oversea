@@ -43,8 +43,8 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
         TextView tvBottom = holder.getView(R.id.tv_adapter_bottom);
         tvBottom.setVisibility(View.GONE);
         settingTextSize(tvTitle, tvValue, tvBottom);
-        settingTextViewMaxWidth(tvValue, R.dimen.dp_150);
-        settingTextViewMaxWidth(tvBottom, R.dimen.dp_150);
+//        settingTextViewMaxWidth(tvValue, R.dimen.dp_150);
+//        settingTextViewMaxWidth(tvBottom, R.dimen.dp_150);
 
         DailyDetailResp refundWarnAdapterParam = getT();
 
@@ -60,8 +60,8 @@ public class RefundClickAdapter extends BaseRecycleAdapter<DailyDetailResp> {
             case 3://Receipt#:
                 setText(tvTitle, stuName[2]);
                 setReceiptItem(tvValue, tvBottom, refundWarnAdapterParam);
-                settingTextViewMaxWidth(tvValue, R.dimen.dp_160);
-                settingTextViewMaxWidth(tvBottom, R.dimen.dp_160);
+//                settingTextViewMaxWidth(tvValue, R.dimen.dp_160);
+//                settingTextViewMaxWidth(tvBottom, R.dimen.dp_160);
                 return;
             case 1://time
                 setText(tvTitle, stuName[3]);
