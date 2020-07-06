@@ -1,15 +1,16 @@
 package com.wizarpos.recode.print.service.impl;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.pax.poslink.peripheries.POSLinkPrinter;
-import com.pax.poslink.peripheries.ProcessResult;
-import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
+import com.wizarpos.recode.print.data.PrintPartiesDataManager;
+import com.wizarpos.recode.print.service.help.MyA20PrinterListenerImpl;
 import com.wizarpos.recode.print.service.PrintHandleService;
+
+import java.util.List;
 
 /**
  * paxa920打印方式
@@ -32,9 +33,13 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
         }
         switch (printTypeEnum) {
             case BC://条形码
-//                String barCodeStr = String.format("\\$BARD,2,1,8,%s", str);
-//                printDataFormatter.addContent(barCodeStr);
+                String s = PrintConstants.PrintContentPartity.BC.getStart() + str + PrintConstants.PrintContentPartity.BC.getEnd();
+                printDataFormatter.addContent(s);
 //                printDataFormatter.addLineSeparator();
+                break;
+            case QC:
+                String s2 = PrintConstants.PrintContentPartity.QC.getStart() + str + PrintConstants.PrintContentPartity.QC.getEnd();
+                printDataFormatter.addContent(s2);
                 break;
             case LEFT_RIGHT:
                 String[] indexs = str.split(PrintConstants.LEFT_RIGHT_MARK);
@@ -43,8 +48,6 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
                 String rightText = indexs[1];
                 printDataFormatter.addRightAlign().addContent(rightText);
                 printDataFormatter.addLineSeparator();
-                break;
-            case QC:
                 break;
             default:
                 printDataFormatter.addContent(str);
@@ -72,36 +75,37 @@ public class PrintDeviceForA920HandleImpl extends PrintHandleService {
             setPrintTypeEnum(PrintTypeEnum.LEFT_RIGHT);
         } else if (isLeftAndRightEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
+
         } else if (isBCStartKeyWords(keyword)) {//条形码
             setPrintTypeEnum(PrintTypeEnum.BC);
         } else if (isBCEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
+
+        } else if (isQCStartKeyWords(keyword)) {//二维码
+            setPrintTypeEnum(PrintTypeEnum.QC);
+        } else if (isQCEndKeyWords(keyword)) {
+            setPrintTypeEnum(PrintTypeEnum.TEXT);
+
         } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
             printDataFormatter.addLineSeparator();
         } else if (isEndKeyWords(keyword)) {//结束，打印
-            Context context = PaymentApplication.getInstance().getApplicationContext();
-            printDataFormatter.addLineSeparator();
-            printDataFormatter.addLineSeparator();
-            printDataFormatter.addLineSeparator();
-//            printDataFormatter.addLineSeparator();
-            String s = printDataFormatter.build();
-            int cutmode = POSLinkPrinter.CutMode.DO_NOT_CUT;
-            log("A920打印的内容: " + s);
-            POSLinkPrinter.getInstance(context).print(s, cutmode, new POSLinkPrinter.PrintListener() {
-                @Override
-                public void onSuccess() {
-                    log("A920打印完成onSuccess()");
-
-                }
-
-                @Override
-                public void onError(ProcessResult processResult) {
-                    log("A920打印完成onError()");
-                }
-            });
+            printer();
         }
 
     }
+
+
+    private void printer() {
+        printDataFormatter.addLineSeparator();
+        printDataFormatter.addLineSeparator();
+        printDataFormatter.addLineSeparator();
+        String s = printDataFormatter.build();
+        log("A920打印的内容: " + s);
+        List<PrintConstants.PartityItem> mReList = PrintPartiesDataManager.getParList(s);
+        MyA20PrinterListenerImpl printer = new MyA20PrinterListenerImpl(mReList);
+        printer.print();
+    }
+
 
     private void log(String msg) {
         Log.d("print", TAG + ">>" + msg);

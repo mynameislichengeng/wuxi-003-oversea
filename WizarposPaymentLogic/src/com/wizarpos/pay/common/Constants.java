@@ -39,16 +39,15 @@ public class Constants {
     public static final String SERVER_VERSION = "V1_9";//服务器版本放到head中维护 wu
 
     //正式地址
-    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL;
+//    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL;
     //测试地址
-//    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR;
+    public static final String DEFAULT_IP = AppConfigInitUtil.IP_INTERNATIONAL_FR;
+
+
     public static final String DEFAULT_PORT = AppConfigInitUtil.DEFAULT_PORT;
 
     public static final String SUFFIX_URL = "/member-server/service";//服务器版本放到head中
-    //    public static final String SERVER_VERSION = "V1_6";//服务器版本放到head中维护 wu
-//
-//    public static final String DEFAULT_IP = "192.168.1.130";
-//    public static final String DEFAULT_PORT = "8080";
+
     public static final String ALIPAYFLAG = "A";
     public static final String BAIDUPAYFLAG = "B";
     public static final String UNION = "UNS";
@@ -575,6 +574,11 @@ public class Constants {
      * 含有分页查询，这里是按天分页,
      */
     public static final String SC_965_TRAN_DETAIL_PAGE = "965";
+
+    /**
+     * 查找当前关联的商户列表
+     */
+    public static final String SC_966_SELECT_FUNDS_LIST = "966";
 
     /**
      * 券的详情

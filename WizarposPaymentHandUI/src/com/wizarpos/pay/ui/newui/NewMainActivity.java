@@ -51,6 +51,8 @@ import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay2.lite.R;
+import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
+import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
 
@@ -242,7 +244,9 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         //清除登出标记
         AppStateManager.setState(AppStateDef.IS_SIGN_OUT_EXIT, Constants.FALSE);
 //        //TODO testprinter
-
+//        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+//            ReceiptDataManager.settingBarcodeStatus(ReceiptStatusEnum.CLOSE);
+//        }
     }
 
     @Override

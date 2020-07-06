@@ -42,7 +42,6 @@ public class AMPPrintManager {
      */
     public String getSN() {
         return DevConfig.getSN();
-//        return "0820647289";
     }
 
 

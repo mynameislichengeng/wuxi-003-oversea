@@ -58,17 +58,6 @@ public class NetBundler {
         request.setPem(getPubCertAlias());
         request.setSuffix(createSuffix());
         Log.d(NetRequest.LOG_TAG, request.toString());
-//        if (DeviceManager.getInstance().isWizarDevice()) { //非慧银机具直接绕过 wu
-//            String signPart = JSON.toJSONString(request.getParam(), SerializerFeature.WriteDateUseDateFormat);
-//            byte[] s = DeviceManager.getInstance().doRSAEncrypt(signPart);
-//            request.setSignature(ByteUtil.byteToHex(s));
-//        }
-//        if (!DeviceManager.getInstance().isWizarDevice()) { //非慧银机具加密报文
-//            //除train环境中暂不支持加密 @yaosong [20160112]
-//            if (AppConfigHelper.getConfig(AppConfigDef.ip).contains(AppConfigInitUtil.IP_TRAIN)) {
-//                return getSecureParams(request);
-//            }
-//        }
         return JSON.toJSONString(request, SerializerFeature.WriteDateUseDateFormat);
     }
 

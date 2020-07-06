@@ -2,6 +2,7 @@ package com.wizarpos.recode.print.service;
 
 import com.wizarpos.recode.print.constants.HtmlRemarkConstans;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
+import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 public abstract class PrintHandleService {
 
@@ -102,5 +103,12 @@ public abstract class PrintHandleService {
             sb.append(TEXT_SPACE);
         }
         return sb.toString();
+    }
+
+    protected static boolean isOpenQrCodeStatus() {
+        return ReceiptDataManager.isOpenQRCodeStatus();
+    }
+    protected static boolean isOpenBarCodeStatus(){
+        return ReceiptDataManager.isOpenBarcodeStatus();
     }
 }

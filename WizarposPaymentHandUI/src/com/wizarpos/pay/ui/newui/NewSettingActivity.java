@@ -152,10 +152,10 @@ public class NewSettingActivity extends BaseViewActivity {
      * 设置barcode的switch按钮
      */
     private void settingBarcodeSwitchOnClick() {
-        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
-            ll_receipt_barcode.setVisibility(View.GONE);
-            return;
-        }
+//        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+//            ll_receipt_barcode.setVisibility(View.GONE);
+//            return;
+//        }
 
         barCodeSwitchButton = ll_receipt_barcode.findViewById(R.id.swbtn_common);
 
@@ -180,10 +180,10 @@ public class NewSettingActivity extends BaseViewActivity {
     }
 
     private void settingQRCodeSwitchOnClick() {
-        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
-            ll_receipt_barcode.setVisibility(View.GONE);
-            return;
-        }
+//        if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
+//            ll_receipt_qrcode.setVisibility(View.GONE);
+//            return;
+//        }
 
         qrCodeSwitchButton = ll_receipt_qrcode.findViewById(R.id.swbtn_common);
         if (ReceiptDataManager.isOpenQRCodeStatus()) {

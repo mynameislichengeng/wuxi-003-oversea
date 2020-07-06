@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
+import com.motion.libsa920sdk.init.PaxInitManager;
 import com.nexgo.oaf.apiv3.DeviceEngine;
 import com.pax.poslink.POSLinkAndroid;
 import com.pos.device.SDKManager;
@@ -72,7 +73,8 @@ public abstract class PaymentApplication extends ImageLoadApp {
             deviceEngine = N3N5PrintManager.getInstance().initEngine(this);
         }
         if (DeviceManager.getInstance().getDeviceType() == DeviceManager.DEVICE_TYPE_PAX_A920) {
-            POSLinkAndroid.init(getApplicationContext());
+            PaxInitManager.init(getApplicationContext());
+
         }
 
 

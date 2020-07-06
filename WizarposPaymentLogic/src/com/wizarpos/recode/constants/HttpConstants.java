@@ -12,7 +12,8 @@ public interface HttpConstants {
     String FIELD_MERCHANTTRADECODE = "merchantTradeCode";//流水票据
     String FIELD_TRANSCURRENCY = "transCurrency";//交易货币
     String FIELD_DIFFCODE = "diffCode";
-
+    String FIELD_MID = "mid";
+    String FIELD_FID = "fid";
 
 
     /**
@@ -96,7 +97,7 @@ public interface HttpConstants {
     /**
      * activity历史记录查询
      */
-    enum API_964_PARAM{
+    enum API_964_PARAM {
         INVOICENO(FIELD_INVOICENO),
         ;
 
@@ -114,7 +115,7 @@ public interface HttpConstants {
     /**
      * activity历史记录查询
      */
-    enum API_965_PARAM{
+    enum API_965_PARAM {
         INVOICENO(FIELD_INVOICENO),
         ;
 
@@ -125,6 +126,22 @@ public interface HttpConstants {
         }
 
         API_965_PARAM(String key) {
+            this.key = key;
+        }
+    }
+
+    enum API_966_PARAM {
+        MID(FIELD_MID),
+        FID(FIELD_FID),
+        ;
+
+        private String key;
+
+        public String getKey() {
+            return key;
+        }
+
+        API_966_PARAM(String key) {
             this.key = key;
         }
     }

@@ -8,8 +8,9 @@ import com.wizarpos.device.printer.PrinterCommand;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
 import com.wizarpos.recode.print.service.PrintHandleService;
-import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 import com.wizarpos.jni.PrinterInterface;
+import com.wizarpos.recode.zxing.ZxingQRcodeManager;
+import com.wizarpos.recode.zxing.bean.QRCodeParam;
 
 import java.io.UnsupportedEncodingException;
 
@@ -21,8 +22,7 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
 
     private final int MAX_WIDTH = 32;
 
-    public static int QR_WIDTH = 350;
-    public static int QR_HEIGHT = 350;
+
 
     public PrintDeviceForQ2HandleImpl() {
         startPrint();
@@ -46,17 +46,37 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
 
         switch (printTypeEnum) {
             case BC://一维码
+
+            {
                 settingFormatCenter();
-                printerBarcode(str);
-                //文字
-                String bartext = getAlignCenter(str);
-                printerText(bartext);
-                printerLine();
-                break;
-            case QC:
-                printerQrcode(str);
-                printerLine();
-                break;
+                int width = 350;
+                int height = 60;
+                QRCodeParam.BottomText bottomText = QRCodeParam.createBottomText(str, 22, 20);
+                QRCodeParam qrCodeParam = QRCodeParam.createImgAndBottomTextBARCode(str, 0, width, height, bottomText);
+                qrCodeParam.setPicHeight(81);
+                Bitmap bitmap = ZxingQRcodeManager.createImageAndBottomText(qrCodeParam);
+                printerBitmap(bitmap);
+            }
+            break;
+            case QC: {
+                settingFormatCenter();
+                int width = 250;
+                int height = 250;
+                int left = 50;
+                Bitmap qrbitmap = null;
+                if (isOpenBarCodeStatus()) {
+                    QRCodeParam qrCodeParam = QRCodeParam.createImgQRCode(str, left, width, height);
+                    qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam);
+                } else {
+                    QRCodeParam.BottomText bottomText = QRCodeParam.createBottomText(str, 22, 18);
+                    QRCodeParam qrCodeParam = QRCodeParam.createImgAndBottomTextQRCode(str, left, width, height, bottomText);
+                    qrCodeParam.setPicHeight(278);
+                    qrbitmap = ZxingQRcodeManager.createImageAndBottomText(qrCodeParam);
+                }
+                printerBitmap(qrbitmap);
+            }
+
+            break;
             case LEFT_RIGHT:
                 String[] indexs = str.split(PrintConstants.LEFT_RIGHT_MARK);
                 //计算空格
@@ -209,25 +229,7 @@ public class PrintDeviceForQ2HandleImpl extends PrintHandleService {
         printerWrite(PrinterCommand.linefeed());
     }
 
-    /**
-     * 打印条形码
-     *
-     * @param barcode
-     */
-    private static void printerBarcode(String barcode) {
-        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(barcode, 350, 60);
-        printerBitmap(bitmap);
-    }
 
-    /**
-     * 打印二维码
-     *
-     * @param qrcode
-     */
-    private static void printerQrcode(String qrcode) {
-        Bitmap bitmap = ZxingBarcodeManager.creatQrcode(qrcode, QR_WIDTH, QR_HEIGHT);
-        printerBitmap(bitmap);
-    }
 
 
     /**

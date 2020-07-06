@@ -6,15 +6,16 @@ import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.pax.poslink.peripheries.POSLinkPrinter;
 import com.pos.device.printer.PrintCanvas;
 import com.pos.device.printer.PrintTask;
 import com.pos.device.printer.Printer;
 import com.pos.device.printer.PrinterCallback;
-import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.recode.print.constants.PrintConstants;
 import com.wizarpos.recode.print.constants.PrintTypeEnum;
 import com.wizarpos.recode.print.service.PrintHandleService;
-import com.wizarpos.recode.zxing.ZxingBarcodeManager;
+import com.wizarpos.recode.zxing.ZxingQRcodeManager;
+import com.wizarpos.recode.zxing.bean.QRCodeParam;
 
 /**
  * AMP 设置打印的类
@@ -37,8 +38,6 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
     private Paint samllTipsTextPaint = new Paint();
 
 
-
-
     public PrintDeviceForAMPHandleImpl() {
         init();
     }
@@ -59,17 +58,36 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
         }
         switch (printTypeEnum) {
             case BC://条形码
-
-                //显示条形码
-                Bitmap bitmap = ZxingBarcodeManager.creatBarcode(str, getPrinterWidth() + 36, 60);
-//                int scaledHeight = (getPrinterWidth() * bitmap.getHeight()) / bitmap.getWidth();
-//                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, getPrinterWidth(), scaledHeight, false);
+            {
+                int width = getPrinterWidth();
+                int height = 60;
+                QRCodeParam.BottomText bottomText = QRCodeParam.createBottomText(str, 22, 23);
+                QRCodeParam qrCodeParam = QRCodeParam.createImgAndBottomTextBARCode(str, 0, width, height, bottomText);
+                qrCodeParam.setPicHeight(85);
+                Bitmap bitmap = ZxingQRcodeManager.createImageAndBottomText(qrCodeParam);
                 printCanvas.drawBitmap(bitmap, bitmapPaint);
+            }
 
-                //显示文本
-                str = getTextForCenter(samllTipsTextPaint, str);
-                printCanvas.drawText(str, samllTipsTextPaint);
-                break;
+            break;
+            case QC: {
+
+                int width = 250;
+                int height = 250;
+                int left = (getPrinterWidth() - width) / 2;
+                Bitmap qrbitmap = null;
+                if (isOpenBarCodeStatus()) {
+                    QRCodeParam qrCodeParam = QRCodeParam.createImgQRCode(str, left, width, height);
+                    qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam);
+                } else {
+                    QRCodeParam.BottomText bottomText = QRCodeParam.createBottomText(str, 22, 20);
+                    QRCodeParam qrCodeParam = QRCodeParam.createImgAndBottomTextQRCode(str, left, width, height, bottomText);
+                    qrCodeParam.setPicHeight(280);
+                    qrbitmap = ZxingQRcodeManager.createImageAndBottomText(qrCodeParam);
+                }
+                printCanvas.drawBitmap(qrbitmap, bitmapPaint);
+            }
+
+            break;
             case LEFT_RIGHT://需要左右的
                 String[] indexs = str.split(PrintConstants.LEFT_RIGHT_MARK);
                 str = getTextForLeftRight(textPaint, indexs[0], indexs[1]);
@@ -108,14 +126,21 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
             align = Paint.Align.RIGHT;
         } else if (isRightEndKeyWords(keyword)) {
             align = Paint.Align.LEFT;
-        } else if (isLeftAndRightStartKeyWords(keyword)) {//
+        } else if (isLeftAndRightStartKeyWords(keyword)) {//两端对齐
             setPrintTypeEnum(PrintTypeEnum.LEFT_RIGHT);
         } else if (isLeftAndRightEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
+
         } else if (isBCStartKeyWords(keyword)) {//条形码
             setPrintTypeEnum(PrintTypeEnum.BC);
         } else if (isBCEndKeyWords(keyword)) {
             setPrintTypeEnum(PrintTypeEnum.TEXT);
+
+        } else if (isQCStartKeyWords(keyword)) {//二维码开始
+            setPrintTypeEnum(PrintTypeEnum.QC);
+        } else if (isQCEndKeyWords(keyword)) {
+            setPrintTypeEnum(PrintTypeEnum.TEXT);
+
         } else if (isNewLineSpaceKeyWords(keyword)) {//换空格行
             paintSpaceLine();
         } else if (isEndKeyWords(keyword)) {//结束，打印
@@ -226,10 +251,10 @@ public class PrintDeviceForAMPHandleImpl extends PrintHandleService {
      * @return
      */
     private int getPrinterWidth() {
-        return Printer.getInstance().getWidth();
+        int width = Printer.getInstance().getWidth();
+        log("printer:打印的宽度：" + width);
+        return width;
     }
-
-
 
 
     private void log(String msg) {

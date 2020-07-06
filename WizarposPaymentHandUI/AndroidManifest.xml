@@ -43,16 +43,6 @@
         android:name="com.wizarpos.cashier.permission.CASHIER_WEPAY"
         android:protectionLevel="normal" />
 
-    <!--
-    <permission
-        android:name="com.wizarpos.cashier.permission.CASHEIR_BROADCAST"
-        android:protectionLevel="normal" />
-    -->
-
-
-    <!-- 声明支付易客显广播权限 ,调用新的客显工程 -->
-    <!-- <uses-permission android:name="com.android.permission.SEND_PAY" /> -->
-
 
     <!-- 打印权限 -->
     <uses-permission android:name="android.permission.WIZARPOS_PRINTER" />
@@ -154,7 +144,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <!-- amp设备专用 -->
-        <!--        <uses-library android:name="com.pos.device"></uses-library>-->
+<!--        <uses-library android:name="com.pos.device"></uses-library>-->
         <activity
             android:name="com.wizarpos.pay.login.view.StartupActivity"
             android:label="@string/app_name"

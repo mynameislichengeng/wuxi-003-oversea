@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay2.lite.R;
 import com.wizarpos.recode.zxing.ZxingBarcodeManager;
+import com.wizarpos.recode.zxing.ZxingQRcodeManager;
+import com.wizarpos.recode.zxing.bean.QRCodeParam;
 
 /**
  * 条形码view
@@ -58,15 +60,7 @@ public class BarcodeView extends RelativeLayout {
         int width = (int) (400 * scale + 0.5f);
         int high = (int) (60 * scale + 0.5f);
         setBarcodeTextAndImg(transLog, width, high);
-        if (scale < 1.4) {
-//            LayoutParams lp = (LayoutParams) barCodeText.getLayoutParams();
-//
-////            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            lp.setMargins(0, -15, 0, 0);
-//            barCodeText.setLayoutParams(lp);
-        } else {
 
-        }
     }
 
 
@@ -77,7 +71,8 @@ public class BarcodeView extends RelativeLayout {
         //移除不要的字符
         String content = transText(text);
         setBarCodeImgarCodeText(content);
-        Bitmap bitmap = ZxingBarcodeManager.creatBarcode(content, width, hight);
+        QRCodeParam qrCodeParam = QRCodeParam.createImgBARCode(content, 0, width, hight);
+        Bitmap bitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam);
         setBarCodeImg(bitmap);
     }
 
@@ -92,12 +87,7 @@ public class BarcodeView extends RelativeLayout {
 
 
     private String transText(String text) {
-//        if (!TextUtils.isEmpty(text)) {
-//            if (text.startsWith("P")) {
-//                return text.substring(1);
-//            }
-//
-//        }
+
         return text;
     }
 }

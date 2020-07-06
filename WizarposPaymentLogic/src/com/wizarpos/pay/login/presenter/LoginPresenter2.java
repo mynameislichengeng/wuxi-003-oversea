@@ -495,7 +495,7 @@ public class LoginPresenter2 extends BasePresenter {
             AppConfigHelper.setConfig(AppConfigDef.sn, loginResp.getTerminal().getSn());
             CashierOpreatorManager cashierOpreatorManager = new CashierOpreatorManager(context);
             //存储操作员信息
-            AppConfigHelper.setConfig(AppConfigDef.operatorNo, operatorNo);
+//            AppConfigHelper.setConfig(AppConfigDef.operatorNo, operatorNo);
             AppConfigHelper.setConfig(AppConfigDef.operatorTrueName,
                     loginResp.getMuser().getName());
             //更新登录操作员自身数据

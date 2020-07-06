@@ -123,7 +123,7 @@ public class NewTranlogActivity extends NewBaseTranlogActivity implements TransR
             }
         });
         //这里是，更新一下商户列表，商户列表是用在，右边抽屉中的
-        TranRecordHttpManager.doRefunmidInfo(this);
+        TranRecordHttpManager.doSelectRefunmidInfo();
     }
 
     private void initView() {

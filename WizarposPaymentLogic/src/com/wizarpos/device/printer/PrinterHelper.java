@@ -1,10 +1,8 @@
 package com.wizarpos.device.printer;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
+
 import android.util.Log;
 
-import com.wizarpos.jni.PrinterInterface;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.recode.print.constants.KeyWords;
 import com.wizarpos.recode.print.service.impl.PrintDeviceForA920HandleImpl;

@@ -46,10 +46,10 @@ public class QrCodeTextContent extends PrintBase {
                 String qrCode = formatForQC(transLogId);
                 sb.append(qrCode);
                 //如果没有打开二维码，那么还要显示一下transLogId
-                if (!isOpenBarCodeStatus()) {
-                    String qrText = formatForC(transLogId);
-                    sb.append(qrText);
-                }
+//                if (!isOpenBarCodeStatus()) {
+//                    String qrText = formatForC(transLogId);
+//                    sb.append(qrText);
+//                }
 
                 return sb.toString();
             } else {

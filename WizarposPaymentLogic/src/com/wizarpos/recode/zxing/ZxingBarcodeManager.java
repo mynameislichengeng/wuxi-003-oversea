@@ -7,6 +7,10 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import java.util.Hashtable;
 
 /**
  * zx-条形码
@@ -18,10 +22,9 @@ public class ZxingBarcodeManager {
     private static final int WHITE = 0xFFFFFFFF;
     //条形码
     private static BarcodeFormat barcodeFormat = BarcodeFormat.CODE_128;
-    //二维码
-    private static BarcodeFormat qrcodeFormat = BarcodeFormat.QR_CODE;
 
     private static Bitmap.Config BITMAP_CONFIG = Bitmap.Config.RGB_565;
+
 
 
     /**
@@ -37,10 +40,7 @@ public class ZxingBarcodeManager {
         return bitmap;
     }
 
-    public static Bitmap creatQrcode(String contents, int desiredWidth, int desiredHeight) {
-        Bitmap bitmap = createBase(contents, qrcodeFormat, desiredWidth, desiredHeight);
-        return bitmap;
-    }
+
 
     private static Bitmap createBase(String contents, BarcodeFormat barcodeFormat, int desiredWidth, int desiredHeight) {
         MultiFormatWriter writer = new MultiFormatWriter();
@@ -69,6 +69,7 @@ public class ZxingBarcodeManager {
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
     }
+
 
 
     private static void log(String msg) {

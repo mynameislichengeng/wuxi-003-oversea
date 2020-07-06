@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">libsA920sdk</string>
+
+    <string-array name="commSetting_types">
+        <item>UART</item>
+        <item>TCP</item>
+        <item>BLUETOOTH</item>
+        <item>SSL</item>
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>USB</item>
+        <item>AIDL</item>
+        <!--<item>USB CDC-ECM</item>-->
+    </string-array>
 </resources>

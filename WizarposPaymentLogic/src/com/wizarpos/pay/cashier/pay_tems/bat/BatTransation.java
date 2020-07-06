@@ -226,19 +226,7 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if(!TextUtils.isEmpty(address)){
                 printString += address;
             }
-//            String address = AppConfigHelper.getConfig(AppConfigDef.merchantAddr);
-//            if (!TextUtils.isEmpty(address)) {
-//                if (address.getBytes("GBK").length <= 32) {
-//                    printString += builder.center(address);
-//                } else if (address.getBytes("GBK").length <= 64) {
-//                    printString += builder.center(address.substring(0, 32));
-//                    printString += builder.center(address.substring(32));
-//                } else if (address.getBytes("GBK").length <= 96) {
-//                    printString += builder.center(address.substring(0, 32));
-//                    printString += builder.center(address.substring(32, 64));
-//                    printString += builder.center(address.substring(64));
-//                }
-//            }
+
 
 
             String tel = AppConfigHelper.getConfig(AppConfigDef.merchantTel);
@@ -305,8 +293,6 @@ public class BatTransation extends OnlinePaymentTransactionImpl {
             if (!TextUtils.isEmpty(acctPrintString)) {
                 printString += acctPrintString;
             }
-
-//            printString += builder.br();
 
             String barcodePrint = BarcodeTextContent.printStringPayfor(transactionInfo);
             if (!TextUtils.isEmpty(barcodePrint)) {

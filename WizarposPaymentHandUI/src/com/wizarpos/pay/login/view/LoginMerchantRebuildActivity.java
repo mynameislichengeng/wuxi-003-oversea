@@ -502,10 +502,10 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         }
         spHelper.putString(AppConfigDef.SP_lastLoginMid, lastLoginMid);
         if (spHelper.getBoolean(AppConfigDef.SP_isRemember, false)) {
-            spHelper.putString(AppConfigDef.SP_lastLoginId, et_operater.getText().toString());
-//			AppConfigHelper.setConfig(AppConfigDef.loginOptName, et_operater.getText().toString());
-            spHelper.putString(AppConfigDef.SP_lastPasswd, et_password.getText().toString());
+
         }
+        spHelper.putString(AppConfigDef.SP_lastLoginId, et_operater.getText().toString());
+        spHelper.putString(AppConfigDef.SP_lastPasswd, et_password.getText().toString());
         //开启网络收单服务
         if (AppConfigHelper.getConfig(AppConfigDef.isUseNetPay, false)) {
             initNetPay();

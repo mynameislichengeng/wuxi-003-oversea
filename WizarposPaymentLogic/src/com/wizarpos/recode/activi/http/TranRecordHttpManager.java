@@ -19,6 +19,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.model.LoginResp;
 import com.wizarpos.pay.model.LoginedMerchant;
 import com.wizarpos.recode.constants.HttpConstants;
+import com.wizarpos.recode.data.info.FidConfigManager;
 import com.wizarpos.recode.data.info.MidConfigManager;
 import com.wizarpos.recode.data.info.RefundRelationMidsManager;
 import com.wizarpos.recode.data.info.SnManager;
@@ -107,7 +108,6 @@ public class TranRecordHttpManager {
         } else {
             lasttime = String.valueOf(loginedMerchant.getLastOpreatorUpateTime());
         }
-
         params.put("loginName", lastLoginId);//1001
         params.put("passwd", MD5Util.getMd5Str(lastPasswd));//md5加密
         params.put("mid", lastLoginMid);//
@@ -131,7 +131,30 @@ public class TranRecordHttpManager {
                 if (loginResp != null && loginResp.getRefundRelationMids() != null) {
                     RefundRelationMidsManager.settingRefundNameDefault(loginResp.getRefundRelationMids());
                 }
+            }
 
+            @Override
+            public void onFaild(Response response) {
+
+            }
+        });
+    }
+
+    public static void doSelectRefunmidInfo() {
+        String mid = MidConfigManager.getMid();
+        String fid = FidConfigManager.getFid();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("mid", mid);//
+        params.put("fid", fid);//
+        NetRequest.getInstance().addRequest(Constants.SC_966_SELECT_FUNDS_LIST, params, new ResponseListener() {
+
+            @Override
+            public void onSuccess(Response response) {
+                LoginResp loginResp = JSONObject.parseObject(response.getResult().toString(), LoginResp.class);
+                Log.d("tagtagtag", "返回结果:" + JSON.toJSONString(loginResp));
+                if (loginResp != null && loginResp.getRefundRelationMids() != null) {
+                    RefundRelationMidsManager.settingRefundNameDefault(loginResp.getRefundRelationMids());
+                }
             }
 
             @Override
