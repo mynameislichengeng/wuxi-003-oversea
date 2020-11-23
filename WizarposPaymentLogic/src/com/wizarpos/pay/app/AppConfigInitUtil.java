@@ -32,7 +32,10 @@ public class AppConfigInitUtil {
     public static final String IP_INTERNATIONAL_TEST = "haiwai.wizarpos.com";//国际版地址
     //    public static final String PORT_INTERNATIONAL_TEST = "7777";//国际版地址
     public static final String IP_INTERNATIONAL = "motionpaytech.com";//国际版地址
-    public static final String IP_INTERNATIONAL_FR = "guigu.wizarpos.com";//法语版测试地址
+//    public static final String IP_INTERNATIONAL_FR = "guigu.wizarpos.com";//法语版测试地址
+    public static final String IP_INTERNATIONAL_FR = "guigu.motionpaydev.com";//法语版测试地址
+
+
     public static final String IP_INTERNATIONAL_JPZ = "wa.lyhourpay.com";//柬埔寨地址
     public static final String IP_TEST = "oversea.zc-fund.com";//测试地址
     public static final String IP_INTERNATION_JPZ_TEST = "cambodia.hs1c.cn";//柬埔寨测试地址
