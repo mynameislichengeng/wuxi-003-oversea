@@ -17,7 +17,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.SwipeLayout.DoubleClickListener;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.wizarpos.pay.db.UserBean;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class CashierListAdapter extends BaseSwipeAdapter {
 

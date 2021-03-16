@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class SlideView extends LinearLayout {
 	private static final String TAG = "SlideView";

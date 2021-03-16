@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.wizarpos.hspos.api.EnumProgressCode;
 import com.wizarpos.hspos.api.ParamInfo;
 import com.wizarpos.hspos.api.TransInfo;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class CardLinkConfigActivity extends CardLinkBaseActivity {
 

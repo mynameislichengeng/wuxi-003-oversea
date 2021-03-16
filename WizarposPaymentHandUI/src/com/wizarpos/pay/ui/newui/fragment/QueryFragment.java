@@ -25,7 +25,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.activity.QueryScanQrCodeAct
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.ArrayItem;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.data.TranLogIdDataUtil;
 import com.wizarpos.recode.data.info.RefundRelationMidsManager;
 

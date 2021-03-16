@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wizarpos.pay.ui.newui.NewMainActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import org.xclcharts.common.DensityUtil;
 

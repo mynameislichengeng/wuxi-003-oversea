@@ -6,7 +6,7 @@ import com.wizarpos.log.util.LogEx;
 import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.statistics.fragment.RecordFragment2;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 

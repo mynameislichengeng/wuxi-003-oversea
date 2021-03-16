@@ -9,7 +9,7 @@ import android.view.View;
 import com.wizarpos.log.util.LogEx;
 import com.wizarpos.pay.common.view.DashedCircularProgress;
 import com.wizarpos.pay.common.view.RunningTextView;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /** 
  * @Author:Huangweicai

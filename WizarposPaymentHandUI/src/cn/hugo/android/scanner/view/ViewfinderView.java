@@ -18,7 +18,7 @@ import android.view.View;
 import cn.hugo.android.scanner.camera.CameraManager;
 
 import com.google.zxing.ResultPoint;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder

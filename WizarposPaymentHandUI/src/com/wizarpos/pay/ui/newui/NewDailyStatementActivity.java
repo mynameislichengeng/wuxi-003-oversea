@@ -16,7 +16,7 @@ import com.wizarpos.pay.model.TodayDetailBean;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.ProgressLayout;
 import com.wizarpos.pay.ui.newui.adapter.ShowDetailAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;

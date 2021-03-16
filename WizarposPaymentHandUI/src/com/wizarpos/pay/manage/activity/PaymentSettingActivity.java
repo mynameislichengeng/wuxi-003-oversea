@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 支付设置

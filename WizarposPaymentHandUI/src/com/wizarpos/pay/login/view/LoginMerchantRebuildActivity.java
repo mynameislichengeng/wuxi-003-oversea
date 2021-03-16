@@ -70,7 +70,7 @@ import com.wizarpos.pay.view.util.CommonDigistKeyListener;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
 import com.wizarpos.pay.view.util.VcodeDialogFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.util.PackageAndroidManager;
 
 import java.util.ArrayList;

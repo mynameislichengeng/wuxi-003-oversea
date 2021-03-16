@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.wizarpos.base.net.Response;
 import com.wizarpos.pay.ui.newui.NewThirdpayScanActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.barcode.scanner.ScannerResult;
 
 public class QueryScanQrCodeActivity extends NewThirdpayScanActivity {
@@ -60,6 +60,6 @@ public class QueryScanQrCodeActivity extends NewThirdpayScanActivity {
     }
 
     private void log(String msg) {
-        Log.d("tag", TAG + ">>" + msg);
+        Log.d("tagtagtag", TAG + ">>" + msg);
     }
 }

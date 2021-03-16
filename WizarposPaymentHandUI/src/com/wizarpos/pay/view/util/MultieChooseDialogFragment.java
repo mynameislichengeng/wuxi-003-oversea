@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.SimpleAdapter;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

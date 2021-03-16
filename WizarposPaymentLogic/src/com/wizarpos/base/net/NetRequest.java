@@ -87,9 +87,9 @@ public class NetRequest {
                 Log.d(LOG_TAG, "url: " + url);
                 final String json = netBundler.bundleMsgRequest(serverCode, params);
                 final Headers headers = netBundler.bundleHeader();
-                Log.d(LOG_TAG, "header:\n" + headers.toString());
-                Log.d(LOG_TAG, "serviceCode:" + serverCode);
-                Log.d(LOG_TAG, "req:" + json);
+                Log.d(LOG_TAG, "\nheader:" + headers.toString()+"\n");
+                Log.d(LOG_TAG, "\nserviceCode:" + serverCode+"\n");
+                Log.d(LOG_TAG, "\nreq:" + json+"\n");
                 addPostRequest(url, json, headers, tag, new SessionNetListener(serverCode, params, tag, listener));
             }
         });
@@ -229,12 +229,7 @@ public class NetRequest {
                                 @Override
                                 public void run() {
                                     listener.onFaild(purpose);
-//                                    if (sessionListener != null){
-//                                        if (purpose.code == SessionListener.SESSION_ERROR_CODE) {
-//                                            sessionListener.sessionDead();
-//                                        }
-//                                    }
-//                                    listener.onFaild(purpose);
+
                                 }
                             });
                         } else {
@@ -242,10 +237,7 @@ public class NetRequest {
                                 @Override
                                 public void run() {
                                     listener.onSuccess(purpose);
-//                                    if (sessionListener != null){
-//                                        sessionListener.sessionAlive();
-//                                    }
-//                                    listener.onSuccess(purpose);
+
                                 }
                             });
                         }
@@ -265,7 +257,7 @@ public class NetRequest {
             if (TextUtils.isEmpty(result)) {
                 return new com.wizarpos.base.net.Response(-1, PaymentApplication.getInstance().getResources().getString(R.string.data_parse_error));
             }
-            Log.d("NetRequest", "resp: " + result);
+            Log.d("NetRequest", "\nresp: " + result + "\n");
             for (String aHijackHead : hijackHead) {
                 if (result.startsWith(aHijackHead)) {
                     String msg = PaymentApplication.getInstance().getResources().getString(R.string.network_hijackhead);

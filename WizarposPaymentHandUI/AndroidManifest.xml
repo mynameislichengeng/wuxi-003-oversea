@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wizarpos.pay2.lite"
+    package="com.motionpay.pay2.lite"
     android:versionCode="43"
     android:versionName="1.0.43">
 
@@ -144,7 +144,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <!-- amp设备专用 -->
-<!--        <uses-library android:name="com.pos.device"></uses-library>-->
+        <uses-library android:name="com.pos.device"></uses-library>
         <activity
             android:name="com.wizarpos.pay.login.view.StartupActivity"
             android:label="@string/app_name"

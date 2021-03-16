@@ -17,7 +17,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.login.presenter.StartupPresenter;
 import com.wizarpos.pay.login.view.LoginActivity;
 import com.wizarpos.pay.setting.presenter.AppConfiger;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class HostSettingsActivity extends BaseViewActivity {
     private EditText etHostAddress, etHostPort;

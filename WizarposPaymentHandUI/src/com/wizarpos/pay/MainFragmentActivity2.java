@@ -27,7 +27,7 @@ import com.wizarpos.pay.manage.fragment.ManagerFragment;
 import com.wizarpos.pay.setting.fragment.SettingFragment;
 import com.wizarpos.pay.statistics.fragment.AccountFragment2;
 import com.wizarpos.pay.thirdapp.SpeakMgr;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class MainFragmentActivity2 extends BaseViewActivity implements OnClickListener {
 	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();

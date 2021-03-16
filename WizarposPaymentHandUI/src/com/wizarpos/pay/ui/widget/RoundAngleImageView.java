@@ -14,7 +14,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 
 public class RoundAngleImageView extends ImageView {

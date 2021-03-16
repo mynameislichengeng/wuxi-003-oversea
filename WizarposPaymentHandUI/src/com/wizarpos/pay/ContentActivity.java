@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.wizarpos.device.printer.PrinterHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ContentActivity extends Activity implements View.OnClickListener {
     private Button btn;

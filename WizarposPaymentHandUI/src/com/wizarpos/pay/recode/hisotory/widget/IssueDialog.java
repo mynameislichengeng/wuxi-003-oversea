@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.lc.baseui.constants.UIStyleEnum;
 import com.lc.baseui.widget.dialog.CommonDialog;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class IssueDialog extends CommonDialog {
 

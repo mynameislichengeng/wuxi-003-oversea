@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

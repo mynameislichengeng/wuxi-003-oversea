@@ -36,7 +36,7 @@
 //import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 //import com.wizarpos.pay.ui.newui.adapter.TranlogDetailAdapter;
 //import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
-//import com.wizarpos.pay2.lite.R;
+//import com.motionpay.pay2.lite.R;
 //
 //import java.util.ArrayList;
 //import java.util.List;

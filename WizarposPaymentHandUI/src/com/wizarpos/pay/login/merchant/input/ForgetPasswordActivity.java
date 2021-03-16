@@ -14,7 +14,7 @@ import com.wizarpos.pay.login.util.RegexUtil;
 import com.wizarpos.pay.ui.TimeTextViewEx;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

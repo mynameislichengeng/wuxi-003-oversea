@@ -20,7 +20,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.sale.widget.BarcodeView;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.Tools;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 
 

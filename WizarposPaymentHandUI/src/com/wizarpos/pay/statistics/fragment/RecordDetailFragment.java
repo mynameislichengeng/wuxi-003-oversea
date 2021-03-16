@@ -20,7 +20,7 @@ import com.wizarpos.pay.statistics.model.GroupQueryResp;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.ProgressLayout;
 import com.wizarpos.pay.view.adapter.TransDataAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 交易明细fragment

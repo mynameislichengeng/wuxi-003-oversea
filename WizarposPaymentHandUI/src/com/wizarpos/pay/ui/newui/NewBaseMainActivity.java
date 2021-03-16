@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 
 import com.wizarpos.pay.common.base.BaseActivity;
 import com.wizarpos.pay.ui.ProgressLayout;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by wu on 16/3/27.

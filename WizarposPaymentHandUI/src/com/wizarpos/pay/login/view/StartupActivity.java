@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.nexgo.common.LogUtils;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.log.util.LogEx;
@@ -14,6 +15,7 @@ import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.device.DeviceManager;
+import com.wizarpos.pay.common.utils.Logger2;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
@@ -25,7 +27,7 @@ import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
@@ -163,7 +165,17 @@ public class StartupActivity extends BaseViewActivity {
                         .setMessage("我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！")
                         .setPositiveButton("好，去设置")
                         .show();
+
             }
         }
     };
+
+    private void getIntentTest(){
+        Intent intent = getIntent();
+        if(intent!=null){
+
+        }else {
+            Log.d("tagtagtag", "intent=null");
+        }
+    }
 }

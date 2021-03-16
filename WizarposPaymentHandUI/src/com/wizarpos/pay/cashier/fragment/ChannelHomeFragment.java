@@ -26,7 +26,7 @@ import com.wizarpos.pay.cashier.bean.BaseListDataBean;
 import com.wizarpos.pay.cashier.fragment.HomeNavAmountFragment.OnUpdateUiListener;
 import com.wizarpos.pay.cashier.view.GatheringActivity;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 收款fragment

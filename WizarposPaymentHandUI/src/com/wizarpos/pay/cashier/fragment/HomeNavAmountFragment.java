@@ -16,7 +16,7 @@ import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.view.RunningTextView;
 import com.wizarpos.pay.statistics.model.GroupQueryResp;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /** 
  * @Author:Huangweicai

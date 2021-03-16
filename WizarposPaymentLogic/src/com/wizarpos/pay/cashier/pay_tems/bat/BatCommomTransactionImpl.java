@@ -48,20 +48,17 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
     public void commonPay(final String flag, String payChannel, String authCode, final BasePresenter.ResultListener listener) {
         Map<String, Object> params = new HashMap<>();
         params.put("mixFlag", 0);
-        params.put("payChannel", payChannel);
-        params.put("authCode", authCode);
+        //todo 测试
+//        params.put("payChannel",payChannel);
+        params.put("payChannel", Constants.WEPAYFLAG);
+        //todo 主扫==null
+//        params.put("authCode", authCode);
+        params.put("authCode", null);
+
         params.put("captcha", AppConfigHelper.getConfig(AppConfigDef.auth_code));
         params.put("ids", transactionInfo.getIds());//支付用券//list
         params.put("amount", transactionInfo.getRealAmount());
-//        if (TextUtils.isEmpty(transactionInfo.getSaleInputAmount())) {
-//            if (isMixTransaction()) {
-//                params.put("inputAmount", transactionInfo.getMixInitAmount());
-//            } else {
-//                params.put("inputAmount", transactionInfo.getInitAmount());
-//            }
-//        } else {
-//            params.put("inputAmount", transactionInfo.getSaleInputAmount());
-//        }
+
         params.put("inputAmount", transactionInfo.getRealAmount());
         params.put("cardNo", transactionInfo.getCardNo());//
         params.put("rechargeOn", transactionInfo.getRechargeOn());
@@ -70,7 +67,9 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
         Map<String, Object> marketList = new HashMap<>();
         params.put("payMarketActivity", marketList);
         params.put("wmHxInfo", transactionInfo.getBatTicket());
-        params.put("flag", flag);
+        //todo
+//        params.put("flag", flag);
+        params.put("flag", "weixin_native");
         params.put("tipAmount", transactionInfo.getTips());
         params.put(HttpConstants.API_953_PARAM.INVOICENO.getKey(), InvoiceLoginServiceImpl.getInstatnce().getAppconfigInvoiceValue());
         BatNewReq req = new BatNewReq();

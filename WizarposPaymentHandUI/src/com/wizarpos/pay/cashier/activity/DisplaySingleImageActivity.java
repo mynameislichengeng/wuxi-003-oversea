@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 显示单张图片.支持缩放

@@ -20,7 +20,7 @@ import android.os.SystemClock;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by castorflex on 11/10/13.

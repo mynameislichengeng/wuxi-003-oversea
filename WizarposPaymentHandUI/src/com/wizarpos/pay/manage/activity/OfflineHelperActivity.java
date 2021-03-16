@@ -22,7 +22,7 @@ import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.db.CashPayRepair;
 import com.wizarpos.pay.manager.presenter.OfflineHelper;
 import com.wizarpos.pay.view.adapter.OfflineTransDataAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  *  离线助手

@@ -8,7 +8,7 @@ import com.wizarpos.pay.recode.constants.SaleConstants;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay.recode.sale.service.InvoiceService;
 import com.wizarpos.pay.recode.sale.widget.SaleInvoiceEditView;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.sale.service.InvoiceLoginServiceImpl;
 
 

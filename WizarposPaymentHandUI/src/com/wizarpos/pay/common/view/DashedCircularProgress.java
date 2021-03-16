@@ -21,7 +21,7 @@ import com.wizarpos.pay.common.view.painter.InternalCirclePainter;
 import com.wizarpos.pay.common.view.painter.InternalCirclePainterImp;
 import com.wizarpos.pay.common.view.painter.ProgressPainter;
 import com.wizarpos.pay.common.view.painter.ProgressPainterImp;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @author Adrián García Lomas

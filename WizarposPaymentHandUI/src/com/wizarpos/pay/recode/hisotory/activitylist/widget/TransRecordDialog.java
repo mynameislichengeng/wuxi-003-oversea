@@ -9,7 +9,7 @@ import com.lc.baseui.widget.dialog.SimpleListViewDialog;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.RefundClickAdapter;
 import com.wizarpos.pay.recode.hisotory.widget.IssueDialog;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TransRecordDialog {
 

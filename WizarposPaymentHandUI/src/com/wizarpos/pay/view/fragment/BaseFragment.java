@@ -18,7 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wizarpos.pay.app.ImageLoadApp;
 import com.wizarpos.pay.ui.ErrorView.OnRetryListener;
 import com.wizarpos.pay.ui.ProgressLayout;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public abstract class BaseFragment extends Fragment implements OnRetryListener, OnClickListener {
 

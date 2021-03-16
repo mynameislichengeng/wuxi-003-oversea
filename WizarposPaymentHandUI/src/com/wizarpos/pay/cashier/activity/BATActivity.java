@@ -3,7 +3,7 @@ package com.wizarpos.pay.cashier.activity;
 import android.content.Intent;
 
 import com.wizarpos.pay.cashier.presenter.MixTransactionFinishReceiver;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public abstract class BATActivity extends TransactionActivity {
 

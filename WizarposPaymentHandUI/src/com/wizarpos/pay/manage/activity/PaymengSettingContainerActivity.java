@@ -9,7 +9,7 @@ import com.wizarpos.pay.manage.fragment.AlipaySettingFragment;
 import com.wizarpos.pay.manage.fragment.BaiduSettingFragment;
 import com.wizarpos.pay.manage.fragment.TenpaySettingFragment;
 import com.wizarpos.pay.manage.fragment.WepaySettingFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 设置页面,加载fragment

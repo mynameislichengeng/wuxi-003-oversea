@@ -22,7 +22,7 @@ import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.manage.entity.CheckDataBean;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 支付方式选择

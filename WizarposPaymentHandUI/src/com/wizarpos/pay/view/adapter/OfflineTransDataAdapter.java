@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.pay.db.CashPayRepair;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class OfflineTransDataAdapter extends BaseAdapter {
 

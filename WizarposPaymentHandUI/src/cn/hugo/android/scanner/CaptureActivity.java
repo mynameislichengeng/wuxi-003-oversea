@@ -36,7 +36,7 @@ import com.google.zxing.client.result.ResultParser;
 import com.wizarpos.log.util.LogEx;
 import com.wizarpos.pay.cashier.view.input.InputInfoCameraActivity;
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * This activity opens the camera and does the actual scanning on a background thread. It draws a viewfinder to help the user place the barcode correctly, shows

@@ -22,7 +22,7 @@ import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.model.SendTransInfo;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 银行卡撤销

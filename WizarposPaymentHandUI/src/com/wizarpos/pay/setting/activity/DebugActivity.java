@@ -18,7 +18,7 @@ import com.wizarpos.pay.common.device.printer.MidFilterPrinterBuilder;
 import com.wizarpos.pay.common.device.printer.Q1PrintBuilder;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.Date;
 

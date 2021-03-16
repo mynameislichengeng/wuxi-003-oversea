@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.device.DeviceManager;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 键盘fragment

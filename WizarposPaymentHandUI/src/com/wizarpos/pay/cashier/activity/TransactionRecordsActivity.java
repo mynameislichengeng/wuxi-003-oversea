@@ -9,7 +9,7 @@ import android.widget.ExpandableListView;
 import com.wizarpos.pay.cashier.adapter.ExpandAdapter;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.ui.PinnedSectionListView;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by Tea on 16/3/22.

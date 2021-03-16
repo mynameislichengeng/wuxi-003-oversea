@@ -11,7 +11,7 @@ import com.lc.baseui.constants.UIStyleEnum;
 import com.lc.baseui.tools.keyBoradManager;
 import com.lc.baseui.widget.dialog.CommonDialog;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 编辑invoice对话框

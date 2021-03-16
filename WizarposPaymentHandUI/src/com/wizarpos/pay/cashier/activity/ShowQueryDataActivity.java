@@ -17,7 +17,7 @@ import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.statistics.model.GroupQueryResp;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.view.adapter.TransDataAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ShowQueryDataActivity extends BaseViewActivity {
 	private StatisticsPresenter presenter;

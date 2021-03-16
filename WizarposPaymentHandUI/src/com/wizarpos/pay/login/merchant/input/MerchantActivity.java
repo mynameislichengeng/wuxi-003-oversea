@@ -31,7 +31,7 @@
 //import com.wizarpos.pay.login.presenter.MerchantLoginPresenter;
 //import com.wizarpos.pay.view.util.DialogHelper2;
 //import com.wizarpos.pay.view.util.DialogHelper2.DialogChoiseListener;
-//import com.wizarpos.pay2.lite.R;
+//import com.motionpay.pay2.lite.R;
 //
 ///**
 // * @Author: yaosong

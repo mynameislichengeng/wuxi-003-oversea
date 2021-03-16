@@ -18,7 +18,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.Tools;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 撤销

@@ -28,7 +28,7 @@ import com.wizarpos.pay.setting.presenter.AppConfiger;
 import com.wizarpos.pay.view.fragment.InputPadFragment;
 import com.wizarpos.pay.view.fragment.OnMumberClickListener;
 import com.wizarpos.pay.view.util.Tools;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.HashMap;
 import java.util.Map;

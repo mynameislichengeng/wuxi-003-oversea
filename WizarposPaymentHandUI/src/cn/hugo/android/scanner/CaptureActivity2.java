@@ -25,7 +25,7 @@ import com.google.zxing.client.result.ResultParser;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.log.util.LogEx;
 import com.wizarpos.pay.cashier.activity.BATMicroActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

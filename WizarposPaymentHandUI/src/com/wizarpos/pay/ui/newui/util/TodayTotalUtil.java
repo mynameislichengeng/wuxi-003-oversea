@@ -5,7 +5,7 @@ import android.util.SparseArray;
 import com.wizarpos.pay.app.PaymentApplication;
 import com.wizarpos.pay.model.TodayDetailBean;
 import com.wizarpos.pay.model.TranLogVo;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by Song on 2016/4/7.

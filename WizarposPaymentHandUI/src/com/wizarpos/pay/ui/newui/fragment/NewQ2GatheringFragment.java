@@ -30,7 +30,7 @@ import com.wizarpos.pay.setting.presenter.RateUpdate;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.alibaba.fastjson.JSONObject;
 
 

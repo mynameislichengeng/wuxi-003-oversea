@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.nineoldandroids.view.ViewHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 使用ViewRragHelper实现侧滑效果功能

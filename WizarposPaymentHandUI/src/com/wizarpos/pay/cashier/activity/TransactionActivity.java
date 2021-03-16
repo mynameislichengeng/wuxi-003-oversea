@@ -29,7 +29,7 @@ import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.thirdapp.ThirdAppBroadcastReceiver;
 import com.wizarpos.pay.thirdapp.ThirdAppBroadcastReceiver.ThirdAppListener;
 import com.wizarpos.pay.view.fragment.ScalQrFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public abstract class TransactionActivity extends TransactionFlowController implements ThirdAppFinisher {
 

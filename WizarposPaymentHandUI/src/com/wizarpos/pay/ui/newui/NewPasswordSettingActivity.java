@@ -12,7 +12,7 @@ import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.setting.presenter.AppConfiger;
 import com.wizarpos.pay.view.util.StringUtilUI;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by blue_sky on 2016/3/23.

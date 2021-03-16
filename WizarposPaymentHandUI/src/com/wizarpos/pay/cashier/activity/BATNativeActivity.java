@@ -10,7 +10,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.pay.common.view.MaterialImageLoading;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public abstract class BATNativeActivity extends BATActivity {
 

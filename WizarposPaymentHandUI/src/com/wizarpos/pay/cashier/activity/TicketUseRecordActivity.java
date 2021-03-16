@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import com.wizarpos.pay.cashier.adapter.TicketRecordAdapter;
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by Tea on 16/3/23.

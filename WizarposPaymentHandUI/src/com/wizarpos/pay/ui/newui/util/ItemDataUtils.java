@@ -5,7 +5,7 @@ import android.content.Context;
 import com.wizarpos.pay.app.Pay2Application;
 import com.wizarpos.pay.ui.newui.entity.ItemBean;
 import com.wizarpos.pay.view.ArrayItem;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 
 import java.util.ArrayList;

@@ -29,7 +29,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import cn.hugo.android.scanner.config.Config;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Manages beeps and vibrations for {@link CaptureActivity}.

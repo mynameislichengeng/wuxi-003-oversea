@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.cashier.adapter.MainFragmentAdapter;
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ScanTicketUseActivity extends BaseViewActivity implements OnClickListener, ScanListener {
 

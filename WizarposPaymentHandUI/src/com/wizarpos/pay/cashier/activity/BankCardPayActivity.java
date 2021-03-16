@@ -29,7 +29,7 @@ import com.wizarpos.pay.view.fragment.OnMumberClickListener;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogChoiseListener;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

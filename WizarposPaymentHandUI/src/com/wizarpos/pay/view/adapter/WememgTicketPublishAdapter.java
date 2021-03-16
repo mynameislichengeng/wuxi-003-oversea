@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.wizarpos.pay.cashier.model.TicketDef;
 import com.wizarpos.pay.cashier.model.TicketInfo;
 import com.wizarpos.pay.common.utils.Calculater;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 微盟券

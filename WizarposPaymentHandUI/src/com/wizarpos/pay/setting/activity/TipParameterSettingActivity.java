@@ -24,7 +24,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.TipsConfigInfo;
 import com.wizarpos.pay.setting.presenter.TipsConfig;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

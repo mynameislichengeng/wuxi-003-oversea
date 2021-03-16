@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ExpandAdapter extends BaseExpandableListAdapter implements
 		ExpandableListAdapter {

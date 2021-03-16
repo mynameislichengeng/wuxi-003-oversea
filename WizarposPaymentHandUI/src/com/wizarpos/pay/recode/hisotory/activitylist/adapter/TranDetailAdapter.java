@@ -12,7 +12,7 @@ import com.wizarpos.log.util.StringUtil;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.DailyDetailResp;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 
 public class TranDetailAdapter extends RefundClickAdapter {

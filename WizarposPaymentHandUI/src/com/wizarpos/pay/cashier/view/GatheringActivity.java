@@ -54,7 +54,7 @@ import com.wizarpos.pay.view.TransTypeItem;
 import com.wizarpos.pay.view.fragment.InputPadFragment;
 import com.wizarpos.pay.view.fragment.OnMumberClickListener;
 import com.wizarpos.pay.view.util.Constents;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

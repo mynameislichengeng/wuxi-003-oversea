@@ -14,7 +14,7 @@ import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.model.OrderDef;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 

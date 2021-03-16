@@ -23,7 +23,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.wizarpos.pay.cashier.activity.QwalletNativeActivity;
 import com.wizarpos.pay.cashier.view.WebViewController.WebViewStateListener;
 import com.wizarpos.pay.view.smooth.SmoothProgressBar;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class BrowseFragment extends Fragment implements WebViewStateListener {
 

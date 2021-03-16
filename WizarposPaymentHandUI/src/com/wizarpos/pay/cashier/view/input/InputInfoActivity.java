@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.device.DeviceManager;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 录入activity

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.TodayDetailBean;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

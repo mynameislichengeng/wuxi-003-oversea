@@ -16,7 +16,7 @@ import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.HashMap;
 import java.util.Map;

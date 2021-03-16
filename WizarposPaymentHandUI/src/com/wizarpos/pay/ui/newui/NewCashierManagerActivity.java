@@ -22,7 +22,7 @@ import com.wizarpos.pay.manage.activity.EditCashierManagerActivity;
 import com.wizarpos.pay.manage.adapter.CashierListAdapter.CashierListOpt;
 import com.wizarpos.pay.manager.presenter.CashierManager;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.io.Serializable;
 

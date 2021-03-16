@@ -19,7 +19,7 @@ import com.wizarpos.pay.cashier.merchant_apply.entity.MerchantApplyRequest;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.login.util.DigitsTextWatcher;
 import com.wizarpos.pay.login.util.RegexUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

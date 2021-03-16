@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by blue_sky on 2016/3/23.

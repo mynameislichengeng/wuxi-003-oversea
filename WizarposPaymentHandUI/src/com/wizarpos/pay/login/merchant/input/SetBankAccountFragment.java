@@ -13,7 +13,7 @@ import com.wizarpos.pay.cashier.merchant_apply.base.MerchantApplyConstants;
 import com.wizarpos.pay.cashier.merchant_apply.entity.MerchantApplyRequest;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.DialogHelper2;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

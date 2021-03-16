@@ -1,6 +1,6 @@
 package com.wizarpos.pay.view.fragment;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

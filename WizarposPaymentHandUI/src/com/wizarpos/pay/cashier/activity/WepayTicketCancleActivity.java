@@ -14,7 +14,7 @@ import com.wizarpos.pay.cashier.view.input.InputInfoActivity;
 import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.utils.UIHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class WepayTicketCancleActivity extends TransactionActivity {
 	private static final int REQUEST_CODE = 10001;

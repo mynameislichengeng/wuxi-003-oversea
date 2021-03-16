@@ -11,7 +11,7 @@ import com.wizarpos.pay.cashier.view.WebViewController.WebViewStateListener;
 import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.utils.Logger2;
 import com.wizarpos.pay.common.utils.UIHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 手Q扫码支付 (废弃状态)

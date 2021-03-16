@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.ui.ErrorView.OnRetryListener;
 import com.wizarpos.pay.ui.ProgressLayout;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public abstract class BaseViewFragment extends Fragment implements OnRetryListener, OnClickListener {
 

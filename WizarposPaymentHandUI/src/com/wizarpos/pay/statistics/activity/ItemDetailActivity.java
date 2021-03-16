@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.statistics.adapter.MixDetialAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ItemDetailActivity extends BaseViewActivity {
 

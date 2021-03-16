@@ -49,7 +49,7 @@ import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
 import com.wizarpos.pay.view.util.StringUtilUI;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 //import com.wizarpos.netpay.server.NetPayProxy;
 

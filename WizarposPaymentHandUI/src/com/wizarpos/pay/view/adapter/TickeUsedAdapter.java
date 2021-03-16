@@ -27,7 +27,7 @@ import com.wizarpos.pay.cashier.presenter.ticket.impl.TicketManagerImpl;
 import com.wizarpos.pay.cashier.presenter.ticket.inf.TicketManager;
 import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.utils.Calculater;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TickeUsedAdapter extends BaseAdapter {
 	private Context context;

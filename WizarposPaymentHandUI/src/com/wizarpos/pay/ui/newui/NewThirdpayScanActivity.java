@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,7 +22,7 @@ import com.wizarpos.barcode.scanner.interfaces.IScannerResult;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.common.device.ScanFragment.DisplayListener;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import cn.hugo.android.scanner.CaptureActivity2;
 
@@ -31,6 +32,8 @@ import cn.hugo.android.scanner.CaptureActivity2;
  * 仅为极简版设计的第三方支付扫描界面/仅适配Q1
  */
 public abstract class NewThirdpayScanActivity extends CaptureActivity2 implements DisplayListener, IScannerResult {
+
+    private final String TAG = NewThirdpayScanActivity.class.getSimpleName();
     public static final String IS_SUCCESS = "isSuccess";
     public static final int TO_RESULT = 1;
     protected boolean isSuccessPayed = false;
@@ -153,6 +156,7 @@ public abstract class NewThirdpayScanActivity extends CaptureActivity2 implement
         scanner.onPause();
         if (!TextUtils.isEmpty(scannerResult.getResult())) {
             try {
+                Log.d("tagtagtag", TAG+"scanCompleted()");
                 onScanSuccess(scannerResult);
             } catch (Exception e) {
                 CommonToastUtil.showMsgBelow(NewThirdpayScanActivity.this, CommonToastUtil.LEVEL_ERROR, "扫描失败");

@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wizarpos.log.util.StringUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.zxing.ZxingBarcodeManager;
 import com.wizarpos.recode.zxing.ZxingQRcodeManager;
 import com.wizarpos.recode.zxing.bean.QRCodeParam;

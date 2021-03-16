@@ -24,7 +24,7 @@ import com.wizarpos.pay.statistics.activity.QueryActivity;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.view.ArrayItem;
 import com.wizarpos.pay.view.fragment.BaseFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 账本

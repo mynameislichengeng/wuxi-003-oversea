@@ -22,7 +22,7 @@ import com.wizarpos.pay.setting.activity.ContactCustomerServiceActivity;
 import com.wizarpos.pay.setting.activity.SuggestionFeedbackActivity;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.view.fragment.BaseFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class SettingFragment extends BaseFragment {
 	private TextView tvVersionNum, tvSNum;

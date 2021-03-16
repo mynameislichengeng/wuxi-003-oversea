@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.wizarpos.pay.ui.AmountEditText;
 import com.wizarpos.pay.view.fragment.InputPadFragment.InputType;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author:Huangweicai

@@ -36,7 +36,7 @@ import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.model.ThirdGiveTicketsReq;
 import com.wizarpos.pay.view.util.Constents;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

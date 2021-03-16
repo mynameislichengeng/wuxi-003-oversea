@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.ui.utils.Tools;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

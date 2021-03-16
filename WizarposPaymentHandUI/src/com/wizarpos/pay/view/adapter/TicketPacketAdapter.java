@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.wizarpos.atool.tool.DateUtil;
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.pay.cashier.model.TicketPacketInfo;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author:Huangweicai

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.statistics.model.TicketTranLogResp;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 券明细记录适配器

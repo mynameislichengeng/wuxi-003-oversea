@@ -18,7 +18,7 @@ import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.OrderDef;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.view.util.DialogHelper2;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * copy from{@link com.wizarpos.pay.cashier.activity.UnionPayMicroActivity}
@@ -90,7 +90,9 @@ public class NewMicroActivity extends NewThirdpayScanActivity implements OnClick
 
     @Override
     protected void onScanSuccess(ScannerResult scannerResult) {
+
         String authCode = scannerResult.getResult();
+        Log.d("tagtagtag", TAG_LOG+"onScanSuccess: "+authCode);
         trans(authCode);
     }
 
@@ -183,6 +185,7 @@ public class NewMicroActivity extends NewThirdpayScanActivity implements OnClick
     @Override
     public void display(Response response) {
         String authCode = response.getResult().toString();
+        Log.d(TAG_LOG,"authCode:"+authCode);
         trans(authCode);
     }
 

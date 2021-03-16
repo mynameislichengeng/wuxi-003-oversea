@@ -21,7 +21,7 @@ import com.wizarpos.pay.view.util.Constents;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.MultieChooseDialogFragment;
 import com.wizarpos.pay.view.util.MultieChooseItem;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

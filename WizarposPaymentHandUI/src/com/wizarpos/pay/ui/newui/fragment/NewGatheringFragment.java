@@ -23,7 +23,7 @@ import com.wizarpos.pay.view.fragment.InputPadFragment;
 import com.wizarpos.pay.view.fragment.OnMumberClickListener;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class NewGatheringFragment extends BaseViewFragment implements OnMumberClickListener, InputPadFragment.OnKeyChangedListener {
     private final static String TAG_LOG = "NewGatheringFragment";

@@ -12,7 +12,7 @@ import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.statistics.adapter.TicketDetialAdapter;
 import com.wizarpos.pay.statistics.model.TicketTranLogResp;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 券明细列表

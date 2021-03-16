@@ -11,7 +11,7 @@ import com.wizarpos.pay.cashier.model.TicketInfo;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.view.adapter.TickeUsedAdapter;
 import com.wizarpos.pay.view.adapter.TickeUsedAdapter.OnProcessListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TicketUseActivity extends BaseViewActivity implements OnProcessListener{
 	private TickeUsedAdapter ticketUsedAdapter = null;

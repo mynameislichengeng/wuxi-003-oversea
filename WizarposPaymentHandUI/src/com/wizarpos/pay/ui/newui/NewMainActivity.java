@@ -50,7 +50,7 @@ import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
 import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 

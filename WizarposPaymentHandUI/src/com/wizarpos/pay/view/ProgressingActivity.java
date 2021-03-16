@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import com.wizarpos.pay.MainFragmentActivity2;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.view.util.MyProgressDialog;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ProgressingActivity extends BaseViewActivity {
 	MyProgressDialog myDialog;

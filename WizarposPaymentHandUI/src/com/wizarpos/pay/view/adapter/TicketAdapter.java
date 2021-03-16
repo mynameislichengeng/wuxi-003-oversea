@@ -25,7 +25,7 @@ import com.wizarpos.pay.cashier.model.TicketPacketInfo;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.ui.BasePopupWindow;
 import com.wizarpos.pay.ui.PopupWindowEx;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TicketAdapter extends BaseAdapter {
 

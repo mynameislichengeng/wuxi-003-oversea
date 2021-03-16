@@ -10,7 +10,7 @@ import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

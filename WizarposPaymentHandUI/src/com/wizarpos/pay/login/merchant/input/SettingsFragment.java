@@ -14,7 +14,7 @@ import com.wizarpos.pay.cashier.merchant_apply.MerchantApplyNetMgr;
 import com.wizarpos.pay.cashier.merchant_apply.base.MerchantApplyConstants;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
 import com.wizarpos.pay.view.util.AgreementDialogFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

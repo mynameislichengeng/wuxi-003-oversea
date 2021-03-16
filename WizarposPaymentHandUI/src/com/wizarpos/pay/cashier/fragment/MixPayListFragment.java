@@ -16,7 +16,7 @@ import com.wizarpos.pay.cashier.model.TransactionInfo2;
 import com.wizarpos.pay.cashier.presenter.TransactionTemsController;
 import com.wizarpos.pay.cashier.presenter.transaction.TransactionImpl2;
 import com.wizarpos.pay.common.utils.Calculater;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 组合支付已收

@@ -18,7 +18,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.model.GetCommonTicketInfoResp;
 import com.wizarpos.pay.view.util.DialogHelper2;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class WizarTicketCancleActivity extends TransactionActivity {
     private static final int REQUEST_CODE = 10001;

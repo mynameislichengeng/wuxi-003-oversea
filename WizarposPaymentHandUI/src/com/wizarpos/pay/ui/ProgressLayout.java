@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.common.base.BaseViewStateListener;
 import com.wizarpos.pay.ui.ErrorView.OnRetryListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by wu on 2015/4/16 0016.

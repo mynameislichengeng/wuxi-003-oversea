@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogChoiseListener;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class VcodeDialogFragment extends DialogFragment {
 

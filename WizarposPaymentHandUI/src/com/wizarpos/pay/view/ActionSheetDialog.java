@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.wizarpos.pay.common.base.BaseLogicAdapter;
 import com.wizarpos.pay.common.base.ViewHolder;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.List;
 

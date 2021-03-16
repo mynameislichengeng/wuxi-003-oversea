@@ -13,7 +13,7 @@ import com.wizarpos.pay.cardlink.CardLinkListener;
 import com.wizarpos.pay.cardlink.SettleAndLoginProxy;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.ui.widget.CommonToastUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * Created by wu on 16/3/28.

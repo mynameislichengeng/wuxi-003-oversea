@@ -28,7 +28,7 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
 import com.wizarpos.pay.ui.newui.NewPaySuccessActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TransactionFlowController extends BaseViewActivity implements ITransactionFlowController {
 	/** 在跳转到会员应用的时候保存intent*/

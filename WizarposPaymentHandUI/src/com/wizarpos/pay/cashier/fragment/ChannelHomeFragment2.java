@@ -43,7 +43,7 @@ import com.wizarpos.pay.statistics.fragment.AccountFragment2;
 import com.wizarpos.pay.statistics.model.GroupQueryPay;
 import com.wizarpos.pay.statistics.model.GroupQueryResp;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ChannelHomeFragment2 extends HomeFragment implements OnItemClickListener ,OnTotalFragmentClickedListener{
 	private Button btnIpay, ticketCancle;

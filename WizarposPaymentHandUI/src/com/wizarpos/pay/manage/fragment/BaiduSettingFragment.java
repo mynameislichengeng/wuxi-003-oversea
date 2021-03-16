@@ -21,7 +21,7 @@ import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class BaiduSettingFragment extends Fragment {
 	private Button btnPartner, btnAppKey, btnOk;

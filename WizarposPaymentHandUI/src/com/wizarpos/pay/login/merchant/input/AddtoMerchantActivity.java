@@ -14,7 +14,7 @@ import com.wizarpos.pay.cashier.merchant_apply.entity.MobileMerchantBindRequest;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.login.util.RegexUtil;
 import com.wizarpos.pay.ui.TimeTextViewEx;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * @Author: yaosong

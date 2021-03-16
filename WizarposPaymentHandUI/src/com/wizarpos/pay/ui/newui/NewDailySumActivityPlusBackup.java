@@ -17,7 +17,7 @@
 //import com.wizarpos.pay.ui.newui.util.TodayTotalUtil;
 //import com.wizarpos.pay.ui.widget.PieChart02View;
 //import com.wizarpos.pay.view.util.Tools;
-//import com.wizarpos.pay2.lite.R;
+//import com.motionpay.pay2.lite.R;
 //
 //import org.xclcharts.chart.PieData;
 //

@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.wizarpos.pay.statistics.adapter.MixDetialAdapter;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ItemMixDetialPopWindow {
 

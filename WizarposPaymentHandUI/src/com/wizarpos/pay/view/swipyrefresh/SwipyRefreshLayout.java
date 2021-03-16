@@ -35,7 +35,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
 import android.widget.AbsListView;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * The SwipeRefreshLayout should be used whenever the user can refresh the contents of a view via a vertical swipe gesture. The activity that instantiates this

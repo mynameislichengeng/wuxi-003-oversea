@@ -3,7 +3,7 @@ package com.wizarpos.pay.statistics.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

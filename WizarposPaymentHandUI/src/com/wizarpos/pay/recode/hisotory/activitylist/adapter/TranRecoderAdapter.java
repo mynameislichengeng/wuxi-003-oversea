@@ -23,7 +23,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.callback.OnTranLogDetialLis
 import com.wizarpos.pay.recode.constants.TransRecordConstants;
 import com.wizarpos.pay.recode.util.date.SimpleDateManager;
 import com.wizarpos.pay.ui.newui.util.TodayTotalUtil;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.data.TranLogIdDataUtil;
 
 import java.util.ArrayList;

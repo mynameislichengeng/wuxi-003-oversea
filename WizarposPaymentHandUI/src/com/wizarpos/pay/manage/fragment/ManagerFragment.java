@@ -23,7 +23,7 @@ import com.wizarpos.pay.manage.activity.PaymentSecurityCodeActivity;
 import com.wizarpos.pay.manage.activity.PaymentSettingActivity;
 import com.wizarpos.pay.manage.activity.PaymentSettingListActivity;
 import com.wizarpos.pay.view.fragment.BaseFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ManagerFragment extends BaseFragment {
 	private LinearLayout llCancleTrans, llPassword, llCahierManager, llPaySetting, llOffline,llNetpay;

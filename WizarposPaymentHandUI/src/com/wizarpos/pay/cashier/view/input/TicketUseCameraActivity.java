@@ -12,7 +12,7 @@ import com.wizarpos.base.net.Response;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.common.device.ScanFragment;
 import com.wizarpos.pay.common.device.ScanFragment.DisplayListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TicketUseCameraActivity extends CaptureActivity implements DisplayListener {
 

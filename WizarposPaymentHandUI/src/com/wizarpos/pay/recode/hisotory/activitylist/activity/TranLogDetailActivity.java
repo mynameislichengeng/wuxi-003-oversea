@@ -11,7 +11,7 @@ import com.wizarpos.pay.model.DailyDetailResp;
 import com.wizarpos.pay.recode.constants.IntentConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.adapter.TranDetailAdapter;
 import com.wizarpos.pay.recode.sale.widget.BarcodeView;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class TranLogDetailActivity extends BaseViewActivity {
 

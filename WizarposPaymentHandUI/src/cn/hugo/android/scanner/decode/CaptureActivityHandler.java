@@ -39,7 +39,7 @@ import cn.hugo.android.scanner.view.ViewfinderResultPointCallback;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * This class handles all the messaging which comprises the state machine for

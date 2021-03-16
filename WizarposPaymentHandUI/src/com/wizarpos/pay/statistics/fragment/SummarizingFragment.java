@@ -22,7 +22,7 @@ import com.wizarpos.pay.view.adapter.TransDataAdapter;
 import com.wizarpos.pay.view.swipyrefresh.SwipyRefreshLayout;
 import com.wizarpos.pay.view.swipyrefresh.SwipyRefreshLayout.OnRefreshListener;
 import com.wizarpos.pay.view.swipyrefresh.SwipyRefreshLayoutDirection;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 收款汇总

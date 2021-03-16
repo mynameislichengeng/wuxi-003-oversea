@@ -13,7 +13,7 @@ import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.setting.presenter.AppConfiger;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ModifyPasswordActivity extends BaseViewActivity {
     EditText etOriginal, etNew, etPassword;// 原密码，新密码，确定的密码

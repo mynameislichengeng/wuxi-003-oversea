@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.wizarpos.atool.tool.Tools;
 import com.wizarpos.log.util.LogEx;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 

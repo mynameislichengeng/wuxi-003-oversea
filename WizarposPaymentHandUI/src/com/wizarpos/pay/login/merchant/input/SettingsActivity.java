@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import com.wizarpos.pay.cashier.merchant_apply.MerchantApplyNetMgr;
 import com.wizarpos.pay.cashier.merchant_apply.base.MerchantApplyConstants;
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 import java.util.ArrayList;
 import java.util.List;

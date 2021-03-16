@@ -10,7 +10,7 @@ import com.lc.librefreshlistview.adapter.BaseRecycleAdapter;
 import com.lc.librefreshlistview.holder.SimpleRecycleViewHodler;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.model.DailyDetailResp;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 import com.wizarpos.recode.data.TranLogIdDataUtil;
 

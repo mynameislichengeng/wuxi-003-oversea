@@ -19,7 +19,7 @@ import com.wizarpos.pay.thirdapp.ThirdAppBroadcastReceiver;
 import com.wizarpos.pay.view.fragment.InputPadFragment;
 import com.wizarpos.pay.view.fragment.InputPadFragment.OnKeyChangedListener;
 import com.wizarpos.pay.view.fragment.OnMumberClickListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 
 /**

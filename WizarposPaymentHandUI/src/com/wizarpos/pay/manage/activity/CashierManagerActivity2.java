@@ -25,7 +25,7 @@ import com.wizarpos.pay.view.ListViewCompat;
 import com.wizarpos.pay.view.MessageItem;
 import com.wizarpos.pay.view.SlideView;
 import com.wizarpos.pay.view.SlideView.OnSlideListener;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 废弃 wu

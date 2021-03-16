@@ -22,7 +22,7 @@ import com.wizarpos.pay.recode.constants.IntentConstants;
 import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
 import com.wizarpos.pay.ui.newui.NewTranlogActivity;
 import com.wizarpos.pay.view.util.NewCashTextWatcher;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.constants.TransRecordLogicConstants;
 
 /**

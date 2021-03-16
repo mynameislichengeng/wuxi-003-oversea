@@ -11,7 +11,7 @@ import com.wizarpos.barcode.scanner.ScannerRelativeLayout;
 import com.wizarpos.barcode.scanner.ScannerResult;
 import com.wizarpos.pay.common.device.DeviceManager;
 import com.wizarpos.pay.view.fragment.LazyFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ScanTwoDimensionCode extends LazyFragment {
 

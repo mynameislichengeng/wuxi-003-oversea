@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wizarpos.pay.db.UserBean;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class CashierManagerAdapter extends BaseAdapter {
 	public interface CashierManagerInfo {

@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
 import com.wizarpos.pay.common.base.BaseViewActivity;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 public class ContactCustomerServiceActivity extends BaseViewActivity {
 	LinearLayout llContact;

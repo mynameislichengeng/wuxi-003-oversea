@@ -47,7 +47,7 @@ import com.wizarpos.pay.recode.hisotory.activitylist.data.TransRecordDataUtil;
 import com.wizarpos.pay.recode.hisotory.activitylist.widget.TransRecordDialog;
 import com.wizarpos.pay.statistics.presenter.StatisticsPresenter;
 import com.wizarpos.pay.ui.newui.fragment.QueryFragment;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.activi.http.TranRecordHttpManager;
 import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 

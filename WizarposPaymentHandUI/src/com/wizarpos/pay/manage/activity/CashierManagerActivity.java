@@ -15,7 +15,7 @@ import com.wizarpos.pay.db.UserBean;
 import com.wizarpos.pay.manage.adapter.CashierListAdapter;
 import com.wizarpos.pay.manage.adapter.CashierListAdapter.CashierListOpt;
 import com.wizarpos.pay.manager.presenter.CashierManager;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 收银员列表

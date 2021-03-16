@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 
 /**
  * 

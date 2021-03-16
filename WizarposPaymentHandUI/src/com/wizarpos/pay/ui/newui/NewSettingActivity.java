@@ -25,7 +25,7 @@ import com.wizarpos.pay.manage.activity.ModifyPasswordActivity;
 import com.wizarpos.pay.setting.activity.TipParameterSettingActivity;
 import com.wizarpos.pay.ui.newui.util.ItemDataUtils;
 import com.wizarpos.pay.view.ArrayItem;
-import com.wizarpos.pay2.lite.R;
+import com.motionpay.pay2.lite.R;
 import com.wizarpos.recode.print.constants.SettingPrintModeEnum;
 import com.wizarpos.recode.print.data.SettingPrinterModeManager;
 import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
