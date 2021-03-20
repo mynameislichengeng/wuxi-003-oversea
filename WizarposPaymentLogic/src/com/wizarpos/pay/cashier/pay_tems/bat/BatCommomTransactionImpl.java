@@ -49,11 +49,11 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
         Map<String, Object> params = new HashMap<>();
         params.put("mixFlag", 0);
         //todo 测试
-//        params.put("payChannel",payChannel);
-        params.put("payChannel", Constants.WEPAYFLAG);
+        params.put("payChannel",payChannel);
+//        params.put("payChannel", Constants.WEPAYFLAG);
         //todo 主扫==null
-//        params.put("authCode", authCode);
-        params.put("authCode", null);
+        params.put("authCode", authCode);
+//        params.put("authCode", null);
 
         params.put("captcha", AppConfigHelper.getConfig(AppConfigDef.auth_code));
         params.put("ids", transactionInfo.getIds());//支付用券//list
@@ -68,8 +68,8 @@ public class BatCommomTransactionImpl extends BatTransation implements BatCommon
         params.put("payMarketActivity", marketList);
         params.put("wmHxInfo", transactionInfo.getBatTicket());
         //todo
-//        params.put("flag", flag);
-        params.put("flag", "weixin_native");
+        params.put("flag", flag);
+//        params.put("flag", "weixin_native");
         params.put("tipAmount", transactionInfo.getTips());
         params.put(HttpConstants.API_953_PARAM.INVOICENO.getKey(), InvoiceLoginServiceImpl.getInstatnce().getAppconfigInvoiceValue());
         BatNewReq req = new BatNewReq();

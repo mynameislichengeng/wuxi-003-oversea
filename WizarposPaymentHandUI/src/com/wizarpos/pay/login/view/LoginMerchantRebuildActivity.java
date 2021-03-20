@@ -83,6 +83,15 @@ import java.util.List;
  */
 public class LoginMerchantRebuildActivity extends TransactionActivity implements LoginPresenter2.LoginPresenterListener, ThirdAppListener, OnEditorActionListener, XEditText.DrawableRightListener {
 
+
+
+    public static void showActivity(Context context){
+        context.startActivity(new Intent(context, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
+    }
+
+    public static void showActivity(Context context,String msg){
+
+    }
     /**
      * 密码最大长度
      */
