@@ -40,9 +40,9 @@ public class ZSHttpManager extends BaseHttpManager {
         params.put("captcha", AppConfigHelper.getConfig(AppConfigDef.auth_code));
 //        params.put("ids", transactionInfo.getIds());//支付用券//list
 
-      BigDecimal bigDecimal1 =   new BigDecimal(req.getRealAmount()).multiply(new BigDecimal(100));
+//      BigDecimal bigDecimal1 =   new BigDecimal(req.getRealAmount()).multiply(new BigDecimal(100));
         ;
-        params.put("amount", bigDecimal1.setScale(0, BigDecimal.ROUND_DOWN).toString());
+        params.put("amount", req.getRealAmount());
 
         params.put("inputAmount", req.getRealAmount());
 //        params.put("cardNo", transactionInfo.getCardNo());//

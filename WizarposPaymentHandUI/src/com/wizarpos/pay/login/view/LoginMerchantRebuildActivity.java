@@ -57,7 +57,9 @@ import com.wizarpos.pay.login.merchant.input.NewMerChantFillFormActivity;
 import com.wizarpos.pay.login.presenter.LoginPresenter2;
 import com.wizarpos.pay.model.LoginedMerchant;
 import com.wizarpos.pay.push.presenter.PushPresenter;
+import com.wizarpos.pay.recode.zusao.activity.ZSSelectPayTypeActivity;
 import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
+import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
 import com.wizarpos.pay.setting.activity.HostSettingsActivity;
 import com.wizarpos.pay.setting.activity.SetLanguageActivity;
 import com.wizarpos.pay.test.TestStartMenuActivity;
@@ -84,7 +86,7 @@ import java.util.List;
  */
 public class LoginMerchantRebuildActivity extends TransactionActivity implements LoginPresenter2.LoginPresenterListener, ThirdAppListener, OnEditorActionListener, XEditText.DrawableRightListener {
 
-
+    private final String TAG = LoginMerchantRebuildActivity.class.getSimpleName();
     /**
      * 密码最大长度
      */
@@ -709,9 +711,19 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
 
     private void operateIntentConnect() {
         if (ZsConnectManager.isZsPayType()) {
-
+            Log.d("tagtagtag", TAG + "主扫-跳到 选择界面");
+            ZSSelectPayTypeActivity.showActivity(this);
         } else {
             startNewActivity(NewMainActivity.class);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
+            Log.d("tagtagtag", TAG + "主扫返回--onActivityResult()--");
+            ZsConnectManager.onActivityMyselfIntentResult(this,data);
         }
     }
 }

@@ -186,7 +186,7 @@ public class StartupActivity extends BaseViewActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
-            Log.d("tagtagtag", TAG + "--onActivityResult()--");
+            Log.d("tagtagtag", TAG + "主扫返回--onActivityResult()--");
 //            ZsConnectManager.onActivityMyselfIntentResult(this,data);
             ZsConnectManager.connectIntentResult(this);
         }
@@ -194,6 +194,7 @@ public class StartupActivity extends BaseViewActivity {
 
     private void operateIntentConnect() {
         if (ZsConnectManager.isZsPayType()) {
+            Log.d("tagtagtag", TAG + "主扫 调到 登录界面");
             ZsConnectManager.requestIntent(this, LoginMerchantRebuildActivity.class);
         } else {
             startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));

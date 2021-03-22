@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.lc.baseui.activity.base.TitleFragmentActivity;
 import com.motionpay.pay2.lite.R;
 import com.wizarpos.pay.common.Constants;
+import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.utils.Calculater;
 import com.wizarpos.pay.recode.http.HttpNewCallback;
 import com.wizarpos.pay.recode.zusao.bean.acti.ZSSelectTypeActivityParam;
+import com.wizarpos.pay.recode.zusao.bean.connect.ZsConnectIntentBeanReq;
 import com.wizarpos.pay.recode.zusao.bean.req.ZSGetQrCode953Req;
 import com.wizarpos.pay.recode.zusao.bean.resp.ZSGetQrCode953Resp;
 import com.wizarpos.pay.recode.zusao.callback.ZSSelectTypeActivityCallback;
@@ -24,16 +26,15 @@ import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
 import com.wizarpos.pay.recode.zusao.constants.ZsPayChannelEnum;
 import com.wizarpos.pay.recode.zusao.http.ZSHttpManager;
 
+import java.math.BigDecimal;
+
 public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements View.OnClickListener, ZSSelectTypeActivityCallback {
 
     private final static String TAG = ZSSelectPayTypeActivity.class.getSimpleName();
 
-    public static void showActivity(Context context, String amount, String tipsAmount) {
-        Intent intent = new Intent();
-        intent.putExtra(Constants.realAmount, amount);
-        intent.putExtra(Constants.tipsAmount, tipsAmount);
-        intent.setClass(context, ZSSelectPayTypeActivity.class);
-        ZsConnectManager.requestIntent(context, intent);
+    public static void showActivity(Context context) {
+//        ZsConnectManager.requestIntent(context, ZSSelectPayTypeActivity.class);
+        context.startActivity(new Intent(context, ZSSelectPayTypeActivity.class));
     }
 
     private RelativeLayout relCancle;
@@ -68,11 +69,8 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
     public void initData() {
         Intent intent = getIntent();
         if (intent != null) {
-            String realAmount = intent.getStringExtra(Constants.realAmount);
-            //todo
-            activityParam.setRealAmount(TextUtils.isEmpty(realAmount) ? "0" : realAmount);
-            String tipsAmount = intent.getStringExtra(Constants.tipsAmount);
-            activityParam.setTipAmount(TextUtils.isEmpty(tipsAmount) ? "0" : tipsAmount);
+            ZsConnectIntentBeanReq req = ZsConnectManager.getConnectIntentBeanParam();
+            activityParam.setRealAmount(req.getReqPayload().getBaseAmount());
         }
     }
 
@@ -101,7 +99,8 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
     private void doHttpGetQrCode() {
         showProgressDialog(R.string.zs_http_dialog_get_qrcode);
         ZSGetQrCode953Req req = new ZSGetQrCode953Req();
-        req.setRealAmount(getTotalValue());
+        BigDecimal bigDecimal1 = new BigDecimal(getTotalValue()).multiply(new BigDecimal(100));
+        req.setRealAmount(bigDecimal1.setScale(0, BigDecimal.ROUND_DOWN).toString());
         req.setTipAmount(activityParam.getTipAmount());
         req.setFlag(activityParam.getPayChannelEnum().getFlag());
         req.setPayChannel(activityParam.getPayChannelEnum().getChannel());
@@ -125,7 +124,7 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
 
 
     private String getTotalValue() {
-        return activityParam.getRealAmount();
+        return activityParam == null ? "0" : activityParam.getRealAmount();
     }
 
 
@@ -159,8 +158,8 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
-            Log.d("tagtagtag", TAG + "--onActivityResult()--");
-            ZsConnectManager.onActivityMyselfIntentResult(this,data);
+            Log.d("tagtagtag", TAG + "主扫返回--onActivityResult()--");
+            ZsConnectManager.onActivityMyselfIntentResult(this, data);
         }
     }
 }

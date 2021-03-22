@@ -688,5 +688,6 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
 //
 //        }
 
+
     }
 }
