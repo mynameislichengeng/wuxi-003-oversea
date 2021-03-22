@@ -352,4 +352,8 @@
     <string name="invoice_title_input">输入发票编号</string>
     <string name="invoice_num">发票号</string>
     <string name="hint_enter_invoice_num">输入发票号</string>
+
+
+    <string name="zs_total">总额</string>
+    <string name="zs_select_payment">支付方式</string>
 </resources>

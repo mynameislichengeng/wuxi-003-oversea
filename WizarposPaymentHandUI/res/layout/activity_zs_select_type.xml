@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rel_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel_head_text"
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:id="@+id/tv_head_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/zs_total"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_head_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="value"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/rel_head_text"
+            android:layout_marginTop="5dp"
+            android:background="@color/c_dedede" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rel_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel_head"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rel_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zs_select_payment"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_content_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_content_title">
+
+            <RelativeLayout
+                android:id="@+id/rel_content_zfb"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_bg_line_grey_radius_5">
+
+
+                <ImageView
+                    android:id="@+id/iv_ali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_zs_ali_pay" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_content_wx"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/rel_content_zfb"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_bg_line_grey_radius_5">
+
+                <ImageView
+                    android:id="@+id/iv_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_zs_wx_pay" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_content_cloud"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/rel_content_wx"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_bg_line_grey_radius_5">
+
+                <ImageView
+                    android:id="@+id/iv_cloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_zs_cloud_pay" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_btn_normal_blue_press_grey_radius_30dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:text="@string/zs_cancle"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>

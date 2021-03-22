@@ -170,5 +170,6 @@
 
     <string name="go_pay">Bien</string>
 
-
+    <string name="zs_total">Total</string>
+    <string name="zs_select_payment">Select Payment</string>
 </resources>

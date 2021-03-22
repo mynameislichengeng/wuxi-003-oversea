@@ -3,11 +3,12 @@ package com.wizarpos.pay.login.view;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.nexgo.common.LogUtils;
+
 import com.wizarpos.base.net.NetRequest;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.log.util.LogEx;
@@ -15,13 +16,17 @@ import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.common.base.BasePresenter.ResultListener;
 import com.wizarpos.pay.common.base.BaseViewActivity;
 import com.wizarpos.pay.common.device.DeviceManager;
-import com.wizarpos.pay.common.utils.Logger2;
+
 import com.wizarpos.pay.common.utils.UIHelper;
 import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.presenter.StartupPresenter;
+
+import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
+import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
+import com.wizarpos.pay.recode.zusao.sp.ZSSettingManager;
 import com.wizarpos.pay.setting.util.LanguageUtils;
 import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
@@ -39,6 +44,8 @@ import java.util.List;
  * @author wu
  */
 public class StartupActivity extends BaseViewActivity {
+
+    private final static String TAG = StartupActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE_SETTING = 1;
     private StartupPresenter presenter;
@@ -59,9 +66,11 @@ public class StartupActivity extends BaseViewActivity {
                 StartupActivity.this.finish();
             }
         });
+        ZsConnectManager.init(getIntent());
         presenter = new StartupPresenter(this);
         progresser.showProgress();
         init();
+
     }
 
     private void init() {
@@ -114,14 +123,17 @@ public class StartupActivity extends BaseViewActivity {
     }
 
     private void go() {
-        if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
-            Log.d("tagtagtag", "进入home界面");
-            startActivity(new Intent(this, NewMainActivity.class));
-        } else {
-            Log.d("tagtagtag", "进入登陆界面");
-            startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
-        }
-        this.finish();
+//       String loginState =  AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE);
+//        Log.d("tagtagtag", loginState+"  go()");
+//        if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
+//            Log.d("tagtagtag", "进入home界面");
+//            startActivity(new Intent(this, NewMainActivity.class));
+//        } else {
+//            Log.d("tagtagtag", "进入登陆界面");
+//            startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
+//        }
+        operateIntentConnect();
+
     }
 
     private void doRequestPermissions() {
@@ -170,12 +182,23 @@ public class StartupActivity extends BaseViewActivity {
         }
     };
 
-    private void getIntentTest(){
-        Intent intent = getIntent();
-        if(intent!=null){
-
-        }else {
-            Log.d("tagtagtag", "intent=null");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
+            Log.d("tagtagtag", TAG + "--onActivityResult()--");
+//            ZsConnectManager.onActivityMyselfIntentResult(this,data);
+            ZsConnectManager.connectIntentResult(this);
         }
+    }
+
+    private void operateIntentConnect() {
+        if (ZsConnectManager.isZsPayType()) {
+            ZsConnectManager.requestIntent(this, LoginMerchantRebuildActivity.class);
+        } else {
+            startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
+            finish();
+        }
+
     }
 }

@@ -23,7 +23,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wizarpos.base.net.Response;
 import com.wizarpos.hspos.api.EnumCommand;
 import com.wizarpos.hspos.api.TransInfo;
-import com.wizarpos.pay.ContentActivity;
 import com.wizarpos.pay.app.ImageLoadApp;
 import com.wizarpos.pay.cardlink.CardLinkListener;
 import com.wizarpos.pay.cardlink.CardLinkPresenter;
@@ -42,6 +41,9 @@ import com.wizarpos.pay.db.AppStateDef;
 import com.wizarpos.pay.db.AppStateManager;
 import com.wizarpos.pay.login.view.LoginMerchantRebuildActivity;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
+import com.wizarpos.pay.recode.zusao.activity.ZSSelectPayTypeActivity;
+import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
+import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
 import com.wizarpos.pay.ui.newui.entity.ItemBean;
 import com.wizarpos.pay.ui.newui.fragment.NewGatheringFragment;
 import com.wizarpos.pay.ui.newui.fragment.NewQ2GatheringFragment;
@@ -51,8 +53,6 @@ import com.wizarpos.pay.ui.widget.CommonToastUtil;
 import com.wizarpos.pay.ui.widget.RoundAngleImageView;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.motionpay.pay2.lite.R;
-import com.wizarpos.recode.receipt.constants.ReceiptStatusEnum;
-import com.wizarpos.recode.receipt.service.ReceiptDataManager;
 
 public class NewMainActivity extends NewBaseMainActivity implements OnClickListener, CardLinkListener, CardLinkPresenter.EndTransListener, ReceivablesFragment.PayBtnClickListener, ReceivablesFragment.OnSaveListener {
 
@@ -287,16 +287,17 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
             if (!TextUtils.isEmpty(collectTips) && collectTips.equals(Constants.COLLETOFF) && receivablesFragment == null) {
                 goUnionPay();
             } else if (receivablesFragment != null) {
-                Intent intent = new Intent();
                 if (payAmounts.equals("0.00")) {
                     Toast.makeText(this, getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
-                intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
-                intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent();
+//                intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
+//                intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
+//                intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+//                startActivity(intent);
+//                finish();
+                showActivity(payAmounts, tipAmount);
             } else {
                 String amount = newGatheringFragment.getAmount();
                 if (amount == null) {
@@ -319,16 +320,18 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
             if (!TextUtils.isEmpty(collectTips) && collectTips.equals(Constants.COLLETOFF) && receivablesFragment == null) {
                 goUnionPay();
             } else if (receivablesFragment != null) {
-                Intent intent = new Intent();
+
                 if (payAmounts.equals("0.00")) {
                     Toast.makeText(this, getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
-                intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
-                intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent();
+//                intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
+//                intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
+//                intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+//                startActivity(intent);
+//                finish();
+                showActivity(payAmounts, tipAmount);
             } else {
                 String amount = newGatheringFragment.getAmount();
                 if (TextUtils.isEmpty(amount)) {
@@ -379,15 +382,16 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
             Toast.makeText(this, getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Intent intent = new Intent();
             if (amount.equals("0.00")) {
                 Toast.makeText(this, getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
                 return;
             }
-            intent.putExtra(Constants.realAmount, Calculater.formotYuan(amount));
-            intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent();
+//            intent.putExtra(Constants.realAmount, Calculater.formotYuan(amount));
+//            intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+//            startActivity(intent);
+//            finish();
+            showActivity(amount, null);
         }
     }
 
@@ -406,12 +410,13 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         if (!TextUtils.isEmpty(collectTips) && collectTips.equals(Constants.COLLETOFF) && receivablesFragment == null) {
             goUnionPay();
         } else if (receivablesFragment != null) {
-            Intent intent = new Intent();
-            intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
-            intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
-            intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent();
+//            intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmounts));
+//            intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipAmount));
+//            intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+//            startActivity(intent);
+//            finish();
+            showActivity(payAmounts, tipAmount);
         } else {
             receivablesFragment = new ReceivablesFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent, receivablesFragment, TAG_RECEIVABLES_FRAGMENT).commit();
@@ -641,16 +646,17 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
 
     @Override
     public void onPayBtnClick(String payAmount, String tipsAmount) {
-        Intent intent = new Intent();
         if (payAmount.equals("0.00")) {
             Toast.makeText(this, getResources().getString(R.string.payamount_warn), Toast.LENGTH_SHORT).show();
             return;
         }
-        intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmount));
-        intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipsAmount));
-        intent.setClass(NewMainActivity.this, NewMicroActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent();
+//        intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmount));
+//        intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipsAmount));
+//        intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+//        startActivity(intent);
+//        finish();
+        showActivity(payAmount, tipsAmount);
     }
 
     @Override
@@ -662,9 +668,25 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == TIP_SETTING_CODE && resultCode == RESULT_OK) {
-//            startActivity(new Intent(NewMainActivity.this, TipParameterSettingActivity.class));
-//            finish();
+//        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
+//            Log.d("tagtagtag", LOG_TAG + "--onActivityResult()--");
+//            ZsConnectManager.onActivityMyselfIntentResult(this,data);
 //        }
+    }
+
+
+    public void showActivity(String payAmount, String tipsAmount) {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.realAmount, Calculater.formotYuan(payAmount));
+        intent.putExtra(Constants.tipsAmount, Calculater.formotYuan(tipsAmount));
+        intent.setClass(NewMainActivity.this, NewMicroActivity.class);
+        startActivity(intent);
+        finish();
+//        if (ZsConnectManager.isZsPayType()) {
+//            ZSSelectPayTypeActivity.showActivity(this, payAmount, tipsAmount);
+//        } else {
+//
+//        }
+
     }
 }

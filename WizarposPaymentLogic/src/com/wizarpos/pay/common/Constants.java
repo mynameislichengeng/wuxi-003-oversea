@@ -952,6 +952,13 @@ public class Constants {
      */
     public static final String SC_960_REFUND = "960";
 
+    /**
+     * 关闭订单号
+     */
+    public static final String SC_962_CLOSE_ORDER_NO = "962";
+
+
+
 
     public static final String TEST_CARD_NO = "105100000100002045";
 

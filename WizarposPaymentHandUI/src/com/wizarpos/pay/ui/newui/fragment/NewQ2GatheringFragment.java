@@ -26,6 +26,8 @@ import com.wizarpos.pay.db.AppConfigDef;
 import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.sale.callback.InvoiceUIClickListener;
 import com.wizarpos.pay.recode.sale.service.impl.InvoiceServiceImpl;
+
+
 import com.wizarpos.pay.setting.presenter.RateUpdate;
 import com.wizarpos.pay.view.InputPad;
 import com.wizarpos.pay.view.fragment.common.BaseViewFragment;
@@ -99,6 +101,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
                 }
             }
         }));
+        initZsConnect();
     }
 
     private void setLayoutInvoiceTv() {
@@ -123,6 +126,7 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
         });
     }
 
+
     private void initInputPad() {
         inputPad = (InputPad) mainView.findViewById(R.id.inputPad);
         etAmount.setSelection(etAmount.getText().length());
@@ -134,6 +138,16 @@ public class NewQ2GatheringFragment extends BaseViewFragment {
                 onSubmit();
             }
         });
+    }
+
+    private void initZsConnect() {
+//        if (ZsConnectManager.isZsPayType()) {
+//            ZsConnectIntentBeanReq req = ZsConnectManager.getConnectIntentBeanParam();
+//            String baseAmount = Calculater.formotYuan(req.getReqPayload().getBaseAmount());
+//            Log.d("tagtagtag", "charget:" + baseAmount);
+//            etAmount.setText(baseAmount);
+//        }
+
     }
 
     private void onSubmit() {

@@ -57,6 +57,7 @@ import com.wizarpos.pay.login.merchant.input.NewMerChantFillFormActivity;
 import com.wizarpos.pay.login.presenter.LoginPresenter2;
 import com.wizarpos.pay.model.LoginedMerchant;
 import com.wizarpos.pay.push.presenter.PushPresenter;
+import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
 import com.wizarpos.pay.setting.activity.HostSettingsActivity;
 import com.wizarpos.pay.setting.activity.SetLanguageActivity;
 import com.wizarpos.pay.test.TestStartMenuActivity;
@@ -84,14 +85,6 @@ import java.util.List;
 public class LoginMerchantRebuildActivity extends TransactionActivity implements LoginPresenter2.LoginPresenterListener, ThirdAppListener, OnEditorActionListener, XEditText.DrawableRightListener {
 
 
-
-    public static void showActivity(Context context){
-        context.startActivity(new Intent(context, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
-    }
-
-    public static void showActivity(Context context,String msg){
-
-    }
     /**
      * 密码最大长度
      */
@@ -507,7 +500,8 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
             thirdAppController.reset();
         } else {
 //            startNewActivity(MainFragmentActivity2.class);
-            startNewActivity(NewMainActivity.class);
+            operateIntentConnect();
+
         }
         spHelper.putString(AppConfigDef.SP_lastLoginMid, lastLoginMid);
         if (spHelper.getBoolean(AppConfigDef.SP_isRemember, false)) {
@@ -625,50 +619,6 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         return false;
     }
 
-/*    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        //修复Q1密码明文问题 用onkey来进行控制
-        if(v.getId() != R.id.et_password)
-        {
-            return false;
-        }
-        if(event.getAction() != KeyEvent.ACTION_UP)
-        {
-            return true;
-        }
-        *//** 只对数字和删除键进行监听*//*
-        if(keyCode <= KeyEvent.KEYCODE_9 && keyCode >= KeyEvent.KEYCODE_0)
-        {
-            if(et_password.getText().toString().length() >= MAX_PWD_LENGTH)
-            {//密码长度不能大于MAX_PWD_LENGTH位
-                return true;
-            }
-            String tag = keyCode - KeyEvent.KEYCODE_0 + "";
-            String etTag ;
-            if(et_password.getTag() == null)
-            {
-                etTag = tag;
-            }else
-            {//将密码保存在tag里面
-                etTag = et_password.getTag().toString() + tag;
-            }
-            et_password.setTag(etTag);
-            et_password.setText(StringUtilUI.copyChar(etTag.length(), "*"));
-            return true;
-        }
-        if(keyCode == KeyEvent.KEYCODE_DEL)
-        {//删除键
-            if(et_password.getTag() == null || TextUtils.isEmpty(et_password.getTag().toString()))
-            {
-                return false;
-            }
-            String etTag = et_password.getTag().toString().substring(0, et_password.getTag().toString().length()-1) ;
-            et_password.setTag(etTag);
-            et_password.setText(StringUtilUI.copyChar(etTag.length(), "*"));
-            return true;
-        }
-        return true;
-    }*/
 
     /**
      * @Author: Huangweicai
@@ -753,6 +703,15 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
 //                et_password.setText(StringUtilUI.copyChar(tag.length(), "*"));
 //            }
             et_password.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.icon_hide_pw), null);
+        }
+    }
+
+
+    private void operateIntentConnect() {
+        if (ZsConnectManager.isZsPayType()) {
+
+        } else {
+            startNewActivity(NewMainActivity.class);
         }
     }
 }

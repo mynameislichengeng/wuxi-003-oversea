@@ -96,4 +96,7 @@
         <item>@color/purple</item>
         <item>@color/red_color</item>
     </integer-array>
+
+
+    <color name="c_dedede">#dedede</color>
 </resources>

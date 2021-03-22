@@ -586,6 +586,15 @@
             android:process=":pushservice" />
         <service android:name="com.wizarpos.pay.service.ReceiveIntentService" />
 
+        <activity
+            android:name="com.wizarpos.pay.recode.zusao.activity.ZSSelectPayTypeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.wizarpos.pay.recode.zusao.activity.ZSShowQrCodeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

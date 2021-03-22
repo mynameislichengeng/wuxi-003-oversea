@@ -103,7 +103,7 @@ public class NewPaySuccessActivity extends BaseViewActivity {
             } else if ("BANK".equals(payTypeUpCase)) {
                 payDes = "银行卡支付";
                 ivPaySuccess.setImageResource(R.drawable.success_yinghangka);
-            } else if ("UNS".equals(payTypeUpCase)) {
+            } else if ("CLOUD".equals(payTypeUpCase)) {
                 payDes = "银联支付";
                 ivPaySuccess.setImageResource(R.drawable.ic_pay_union);
             }
