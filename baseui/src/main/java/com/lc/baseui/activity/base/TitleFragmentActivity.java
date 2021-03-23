@@ -177,4 +177,8 @@ public abstract class TitleFragmentActivity extends BaseFragmentActivity {
         return tv_right.getTag();
     }
 
+    protected void setLeftTitleRootVisible(int visible) {
+        fl_left_head.setVisibility(visible);
+    }
+
 }

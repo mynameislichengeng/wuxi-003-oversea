@@ -226,7 +226,12 @@
     <string name="zs_zfb">Alipay</string>
     <string name="zs_wechatpay">WeChatPay</string>
     <string name="zs_ysf">Cloud QuickPass</string>
-    <string name="zs_cancle">CANCLE</string>
+    <string name="zs_cancle">CANCEL</string>
     <string name="zs_http_dialog_get_qrcode">正在请求获取二维码</string>
     <string name="zs_create_qrcode">正在合成二维码</string>
+    <string name="zs_cancelling">CANCELLING</string>
+    <string name="zs_loading">LOADING</string>
+    <string name="zs_change_payment_title">Change Payment Method</string>
+    <string name="zs_please_qr_code_3">Please complete payment in 3 minutes.</string>
+    <string name="zs_APPROVED">APPROVED</string>
 </resources>

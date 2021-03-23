@@ -45,6 +45,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements C
         initData();
         setContentView(getLayout());
         initView();
+
     }
 
     /**

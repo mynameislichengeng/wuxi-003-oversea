@@ -13,9 +13,11 @@ public class ZSSettingManager {
     public static void clearScanCodePayType() {
         AppConfigHelper.setConfig(KEY_CODE_PAY_TYPE, "");
     }
+
     public static String getScanCodePayType() {
         return AppConfigHelper.getConfig(KEY_CODE_PAY_TYPE, "");
     }
+
     public static void setScanCodePayType(ZsSettingEnum zsSettingEnum) {
         AppConfigHelper.setConfig(KEY_CODE_PAY_TYPE, zsSettingEnum.getType());
     }
@@ -23,9 +25,11 @@ public class ZSSettingManager {
     public static void clearConnectJson() {
         setConnectJson("");
     }
+
     public static String getConnectJson() {
-        return AppConfigHelper.getConfig(KEY_CODE_PAY_TYPE, "");
+        return AppConfigHelper.getConfig(KEY_CODE_CONNECT_REQUEST, "");
     }
+
     public static void setConnectJson(String json) {
         AppConfigHelper.setConfig(KEY_CODE_CONNECT_REQUEST, json);
     }

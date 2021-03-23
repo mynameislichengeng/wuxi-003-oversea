@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.wizarpos.pay.recode.zusao.bean.connect.ZsConnectIntentBeanReq;
+import com.wizarpos.pay.recode.zusao.bean.connect.ZsConnectIntentBeanResp;
 import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
 import com.wizarpos.pay.recode.zusao.constants.ZsSettingEnum;
 import com.wizarpos.pay.recode.zusao.sp.ZSSettingManager;
@@ -47,37 +48,65 @@ public class ZsConnectManager {
     }
 
 
-
-
-
-
-
-    public static void onActivityMyselfIntentResult(Activity activity, Intent intent) {
+    public static void intentSettingResultForSuccessOnActivity(Activity activity, Intent intent) {
         String json = intent.getStringExtra(ZsConstants.INTENT_MYSELF_KEY);
         //
-        resultIntentForStart(activity, json);
+        intentSettingResultForSuccessStart(activity, json);
     }
 
-    public static void resultIntentForStart(Activity activity, String json) {
+    public static void intentSettingResultForSuccessStart(Activity activity, String json) {
         Intent intent = new Intent();
         intent.putExtra(ZsConstants.INTENT_MYSELF_KEY, json);
         activity.setResult(ZsConstants.INTENT_MYSELF_RESULT_CODE, intent);
         activity.finish();
     }
 
-    public static void requestIntent(Context context, Intent intent) {
-        ((Activity) context).startActivityForResult(intent, ZsConstants.INTENT_MYSELF_REQUEST_CODE);
-    }
-    public static void requestIntent(Context context,Class cls){
+
+
+
+    public static void starActivityForResultMethodSuccess(Context context, Class cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
-        requestIntent(context, intent);
+//        starActivityForResultMethodSuccess(context, intent);
+        ((Activity) context).startActivityForResult(intent, ZsConstants.INTENT_MYSELF_REQUEST_CODE);
     }
 
-    public static void connectIntentResult(Activity context){
+    public static void startActivityForResultMethodMiddle(Activity context, Class cls) {
         Intent intent = new Intent();
-        intent.putExtra("MotionPayTransactionStatus", "RESULTCODE_OK");
-        context.setResult(Activity.RESULT_OK,intent);
+        intent.setClass(context, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        context.startActivity(intent);
+        context.finish();
+    }
+    public static void startActivityForResultMethodMiddle(Activity context, Intent intent) {
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        context.startActivity(intent);
+        context.finish();
+    }
+    /**
+     * 返回成功结果  到connect
+     *
+     * @param context
+     * @param jsonIntent
+     */
+    public static void connectIntentResultSuccess(Activity context, Intent jsonIntent) {
+        String json = jsonIntent.getStringExtra(ZsConstants.INTENT_MYSELF_KEY);
+        Log.d("tagtagtag", TAG + "connectIntentResultSuccess()--返回json:" + json);
+        ZsConnectIntentBeanResp resp = ZsConnectIntentBeanResp.convertFormPay(json);
+
+        Intent intent = new Intent();
+        intent.putExtra("MotionPayTransactionStatus", "RESULT_OK");
+        intent.putExtra("MotionPayTransactionPayload", JSON.toJSONString(resp));
+        context.setResult(Activity.RESULT_OK, intent);
+        context.finish();
+    }
+
+    public static void connectIntentResultCanceled(Activity context) {
+        Intent intent = new Intent();
+        intent.putExtra("MotionPayTransactionStatus", "RESULT_CANCELED");
+        //todo
+        context.setResult(Activity.RESULT_CANCELED, intent);
         context.finish();
     }
 

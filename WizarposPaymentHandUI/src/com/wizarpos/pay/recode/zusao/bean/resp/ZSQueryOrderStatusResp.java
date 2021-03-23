@@ -73,6 +73,16 @@ public class ZSQueryOrderStatusResp {
     private String tranCode;
     private String transCurrency;
 
+    private String thirdTradeNo;
+
+    public String getThirdTradeNo() {
+        return thirdTradeNo;
+    }
+
+    public void setThirdTradeNo(String thirdTradeNo) {
+        this.thirdTradeNo = thirdTradeNo;
+    }
+
     public int getAmount() {
         return amount;
     }

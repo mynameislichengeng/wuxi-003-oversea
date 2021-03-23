@@ -1,50 +1,64 @@
 package com.wizarpos.pay.recode.zusao.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.lc.baseui.activity.base.TitleFragmentActivity;
 import com.motionpay.pay2.lite.R;
-import com.wizarpos.pay.common.Constants;
 import com.wizarpos.pay.recode.http.HttpNewCallback;
 import com.wizarpos.pay.recode.zusao.bean.acti.ZSShowQrCodeActivityParam;
 import com.wizarpos.pay.recode.zusao.bean.req.ZSCloseOrderNoReq;
 import com.wizarpos.pay.recode.zusao.bean.req.ZSQueryOrderStatusReq;
 import com.wizarpos.pay.recode.zusao.bean.resp.ZSQueryOrderStatusResp;
+import com.wizarpos.pay.recode.zusao.callback.ZSShowQrCodeActivityCallback;
 import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
 import com.wizarpos.pay.recode.zusao.constants.ZsPayChannelEnum;
 import com.wizarpos.pay.recode.zusao.http.ZSHttpManager;
+import com.wizarpos.pay.recode.zusao.util.AmountUtil;
 import com.wizarpos.recode.zxing.ZxingQRcodeManager;
 import com.wizarpos.recode.zxing.bean.QRCodeParam;
+import com.wizarpos.recode.zxing.callback.DrawListener;
 
 
-public class ZSShowQrCodeActivity extends TitleFragmentActivity {
+public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.OnClickListener, ZSShowQrCodeActivityCallback {
 
     private final String TAG = ZSShowQrCodeActivity.class.getSimpleName();
 
-    public static void showActivity(Context context, String realPath, String orderNo, ZsPayChannelEnum zsPayChannelEnum, String total) {
+
+    public static void showActivity(Activity context, String realPath, String orderNo, ZsPayChannelEnum zsPayChannelEnum, String total) {
         ZSShowQrCodeActivityParam param = new ZSShowQrCodeActivityParam();
         param.setRealPath(realPath);
         param.setOrderNo(orderNo);
         param.setZsPayChannelEnum(zsPayChannelEnum);
         param.setRealAmount(total);
+
         Intent intent = new Intent();
         intent.putExtra(INTENT_DATA, param);
-        ZsConnectManager.requestIntent(context, intent);
+        intent.setClass(context, ZSShowQrCodeActivity.class);
+        ZsConnectManager.startActivityForResultMethodMiddle(context, intent);
     }
 
     private TextView tv_amount;
     private ImageView ivQrCode;
+    private RelativeLayout relChange, relCancel;
     private ZSShowQrCodeActivityParam activityParam;
     private final static int WHAT_QUERY = 1;
+    private final static int WHAT_UI = 2;
 
     @Override
     public int getContentLayout() {
@@ -53,11 +67,20 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
 
     @Override
     public void init(android.view.View view) {
+        setTitleCenter(activityParam.getZsPayChannelEnum().getTitle());
+        setLeftTitleRootVisible(View.GONE);
         tv_amount = findViewById(R.id.tv_amount);
-        tv_amount.setText(activityParam.getRealAmount());
+        tv_amount.setText(AmountUtil.showUi(activityParam.getRealAmount()));
         ivQrCode = findViewById(R.id.iv_qrcode);
+
+        relChange = findViewById(R.id.rel_bottom_change_pay);
+        relChange.setOnClickListener(this);
+
+        relCancel = findViewById(R.id.rel_bottom_cancel);
+        relCancel.setOnClickListener(this);
         operateCreateQrCode();
-        settingTimingTask();
+        operateRotation();
+        operateShowUITiming();
     }
 
     @Override
@@ -68,12 +91,57 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rel_bottom_change_pay:
+                operateChange();
+                break;
+            case R.id.rel_bottom_cancel:
+                operateCancel();
+                break;
+        }
+    }
+
+
+    @Override
+    public synchronized void operateChange() {
+        removeHandlerTask();
+        operateQueryOrder(OperateTypeEnum.CHANGE);
+    }
+
+    @Override
+    public synchronized void operateCancel() {
+        removeHandlerTask();
+        operateQueryOrder(OperateTypeEnum.CANCEL);
+    }
+
+    @Override
+    public synchronized void operateRotation() {
+        settingTimingTask(WHAT_QUERY, 2 * 1000);
+    }
+
+    @Override
+    public synchronized void operateShowUITiming() {
+        settingTimingTask(WHAT_UI, 3 * 60 * 1000);
+    }
+
+    private void operateQueryOrder(OperateTypeEnum operateTypeEnum) {
+        if (isFinishing()) {
+            return;
+        }
+        doQueryOrder(operateTypeEnum);
+    }
+
+
     private void operateCreateQrCode() {
         doCreateQrCode();
     }
 
-    private void operateQueryOrder() {
-        doQueryOrder();
+
+    private void operateCloseOrder(OperateTypeEnum operateTypeEnum) {
+        showProgressDialog(R.string.zs_cancelling);
+        doCloseOrder(operateTypeEnum);
     }
 
 
@@ -86,19 +154,93 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
         });
     }
 
-    private void handlerQueryOrderOnSuccessCallback(ZSQueryOrderStatusResp resp) {
+    private synchronized void handlerQueryOrderOnSuccessCallback(ZSQueryOrderStatusResp resp, OperateTypeEnum operateTypeEnum) {
         Log.d("tagtagtag", TAG + " 订单状态:" + resp.getState());
+        if (isFinishing()) {
+            return;
+        }
+
         if (resp.getState() == 2) {
-            doCloseOrder();
-            ZsConnectManager.resultIntentForStart(this, JSON.toJSONString(resp));
-        } else {
-            settingTimingTask();
+            ZSPaySuccessActivity.showActivity(this, activityParam, JSON.toJSONString(resp));
+//            ZsConnectManager.intentSettingResultForSuccessStart(this, JSON.toJSONString(resp));
+            return;
+        }
+
+        switch (operateTypeEnum) {
+            case CANCEL:
+                operateCloseOrder(operateTypeEnum);
+                break;
+            case CHANGE:
+                operateCloseOrder(operateTypeEnum);
+                break;
+            case ROTATION:
+                operateRotation();
+                break;
+            case UI_TIME:
+                operateCloseOrder(operateTypeEnum);
+                break;
         }
     }
 
-    private void handlerQueryOrderOnErrorCallback(int code, String msg) {
-        if (code == 120) {
-            settingTimingTask();
+    private synchronized void handlerQueryOrderOnErrorCallback(int code, String msg, OperateTypeEnum operateTypeEnum) {
+        Log.d("tagtagtag", "code: " + code + " ,msg:" + msg);
+        if (isFinishing()) {
+            return;
+        }
+
+        switch (operateTypeEnum) {
+            case CANCEL:
+                operateCloseOrder(operateTypeEnum);
+                break;
+            case CHANGE:
+                operateCloseOrder(operateTypeEnum);
+                break;
+            case ROTATION:
+                operateRotation();
+                break;
+            case UI_TIME:
+                operateCloseOrder(operateTypeEnum);
+                break;
+        }
+
+    }
+
+
+    private void handlerCloseOrderOnSuccessCallback(OperateTypeEnum operateTypeEnum) {
+        if (isFinishing()) {
+            return;
+        }
+        hiddenProgressDialog();
+        switch (operateTypeEnum) {
+            case CANCEL:
+                finish();
+                break;
+            case CHANGE:
+                ZSSelectPayTypeActivity.showActivity(this);
+                break;
+            case UI_TIME:
+                finish();
+                break;
+        }
+
+
+    }
+
+    private void handlerCloseOrderOnErrorCallback(OperateTypeEnum operateTypeEnum) {
+        if (isFinishing()) {
+            return;
+        }
+        hiddenProgressDialog();
+        switch (operateTypeEnum) {
+            case CANCEL:
+                finish();
+                break;
+            case CHANGE:
+                ZSSelectPayTypeActivity.showActivity(this);
+                break;
+            case UI_TIME:
+                finish();
+                break;
         }
     }
 
@@ -109,15 +251,20 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case WHAT_QUERY:
-                    operateQueryOrder();
+                    operateQueryOrder(OperateTypeEnum.ROTATION);
+                    break;
+                case WHAT_UI:
+                    removeCallbacksAndMessages(null);
+                    operateQueryOrder(OperateTypeEnum.UI_TIME);
                     break;
             }
         }
     };
 
-    private void settingTimingTask() {
-        mHandlerTask.sendEmptyMessageDelayed(WHAT_QUERY, 2000);
+    private void settingTimingTask(int what, long time) {
+        mHandlerTask.sendEmptyMessageDelayed(what, time);
     }
+
 
     private void removeHandlerTask() {
         mHandlerTask.removeCallbacksAndMessages(null);
@@ -129,26 +276,36 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
             @Override
             public void run() {
                 QRCodeParam qrCodeParam = QRCodeParam.createImgQRCode(activityParam.getRealPath(), 0, 500, 500);
-                Bitmap qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam);
+                Bitmap qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam, new DrawListener() {
+                    @Override
+                    public void draw(Canvas canvas) {
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_zfb_small, null);
+//                        bitmap.setWidth(50);
+//                        bitmap.setHeight(50);
+                        Paint paint = new Paint();
+                        paint.setColor(Color.WHITE);
+                        canvas.drawBitmap(bitmap, 200, 200, paint);
+                    }
+                });
                 handlerQrCodeCallback(qrbitmap);
             }
         }).start();
     }
 
 
-    private void doQueryOrder() {
+    private void doQueryOrder(final OperateTypeEnum operateTypeEnum) {
         ZSQueryOrderStatusReq req = new ZSQueryOrderStatusReq();
         req.setOrderNo(activityParam.getOrderNo());
         req.setFlag(activityParam.getZsPayChannelEnum() == ZsPayChannelEnum.CLOUD ? ZsPayChannelEnum.CLOUD.getFlag() : null);
         ZSHttpManager.doPost954(req, new HttpNewCallback() {
             @Override
             public <T> void onSuccess(T t) {
-                handlerQueryOrderOnSuccessCallback((ZSQueryOrderStatusResp) t);
+                handlerQueryOrderOnSuccessCallback((ZSQueryOrderStatusResp) t, operateTypeEnum);
             }
 
             @Override
             public <M> void onError(int code, M m) {
-                handlerQueryOrderOnErrorCallback(code, m == null ? null : (String) m);
+                handlerQueryOrderOnErrorCallback(code, m == null ? null : (String) m, operateTypeEnum);
             }
 
             @Override
@@ -158,19 +315,19 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
         });
     }
 
-    private void doCloseOrder() {
+    private void doCloseOrder(final OperateTypeEnum operateTypeEnum) {
         ZSCloseOrderNoReq req = new ZSCloseOrderNoReq();
         req.setOrderNo(activityParam.getOrderNo());
         req.setFlag(activityParam.getZsPayChannelEnum() == ZsPayChannelEnum.CLOUD ? ZsPayChannelEnum.CLOUD.getFlag() : null);
         ZSHttpManager.doPost962(req, new HttpNewCallback() {
             @Override
             public <T> void onSuccess(T t) {
-//                handlerQueryOrderOnSuccessCallback((ZSQueryOrderStatusResp) t);
+                handlerCloseOrderOnSuccessCallback(operateTypeEnum);
             }
 
             @Override
             public <M> void onError(int code, M m) {
-//                handlerQueryOrderOnErrorCallback(code, m == null ? null : (String) m);
+                handlerCloseOrderOnErrorCallback(operateTypeEnum);
             }
 
             @Override
@@ -185,4 +342,28 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity {
         super.onDestroy();
         removeHandlerTask();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("tagtagtag", TAG + "onKeyDown()");
+        return false;
+    }
+
+    public enum OperateTypeEnum {
+        ROTATION(0),
+        CANCEL(1),
+        UI_TIME(2),
+        CHANGE(3),
+        ;
+        private int code;
+
+        OperateTypeEnum(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
 }

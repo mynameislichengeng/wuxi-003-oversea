@@ -360,9 +360,9 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
                 }
                 return false;
             } else {
-                AppStateManager.clearCache();
-                AppConfigHelper.clearCache();
-                AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
+//                AppStateManager.clearCache();
+//                AppConfigHelper.clearCache();
+//                AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
                 NewMainActivity.this.finish();
                 System.exit(0);
                 return false;
@@ -670,7 +670,7 @@ public class NewMainActivity extends NewBaseMainActivity implements OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
 //            Log.d("tagtagtag", LOG_TAG + "--onActivityResult()--");
-//            ZsConnectManager.onActivityMyselfIntentResult(this,data);
+//            ZsConnectManager.intentSettingResultForSuccessOnActivity(this,data);
 //        }
     }
 

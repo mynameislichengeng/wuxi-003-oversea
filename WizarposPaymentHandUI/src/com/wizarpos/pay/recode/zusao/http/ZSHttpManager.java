@@ -56,7 +56,7 @@ public class ZSHttpManager extends BaseHttpManager {
         params.put("flag", req.getFlag());
 //        params.put("flag", "weixin_native");
         params.put("tipAmount", req.getTipAmount());
-        params.put(HttpConstants.API_953_PARAM.INVOICENO.getKey(), InvoiceLoginServiceImpl.getInstatnce().getAppconfigInvoiceValue());
+        params.put(HttpConstants.API_953_PARAM.INVOICENO.getKey(), req.getInvoiceNo());
 
         BatNewReq batNewReq = new BatNewReq();
         batNewReq.setGoods_info(TextUtils.isEmpty(null) ? "第三方支付" : null);
@@ -81,7 +81,7 @@ public class ZSHttpManager extends BaseHttpManager {
 
             @Override
             public <M> void onError(int code, M r) {
-                httpNewCallback.onError(code,r);
+                httpNewCallback.onError(code, r);
             }
         });
 
@@ -90,6 +90,7 @@ public class ZSHttpManager extends BaseHttpManager {
 
     /**
      * 查询订单状态
+     *
      * @param req
      * @param httpNewCallback
      */
@@ -109,7 +110,7 @@ public class ZSHttpManager extends BaseHttpManager {
 
             @Override
             public <M> void onError(int code, M r) {
-                httpNewCallback.onError(code,r);
+                httpNewCallback.onError(code, r);
             }
         });
 
@@ -117,9 +118,9 @@ public class ZSHttpManager extends BaseHttpManager {
     }
 
 
-
     /**
      * 关闭订单
+     *
      * @param req
      * @param httpNewCallback
      */
@@ -139,7 +140,7 @@ public class ZSHttpManager extends BaseHttpManager {
 
             @Override
             public <M> void onError(int code, M r) {
-                httpNewCallback.onError(code,r);
+                httpNewCallback.onError(code, r);
             }
         });
 

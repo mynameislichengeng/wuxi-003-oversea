@@ -12,6 +12,8 @@ public class ZSSelectTypeActivityParam {
 
     private String tipAmount;
 
+    private String invoiceNo;
+
 
     public ZsPayChannelEnum getPayChannelEnum() {
         return payChannelEnum;
@@ -35,5 +37,13 @@ public class ZSSelectTypeActivityParam {
 
     public void setTipAmount(String tipAmount) {
         this.tipAmount = tipAmount;
+    }
+
+    public String getInvoiceNo() {
+        return invoiceNo;
+    }
+
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
     }
 }

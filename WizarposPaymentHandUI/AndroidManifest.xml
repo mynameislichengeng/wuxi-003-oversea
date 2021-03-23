@@ -595,6 +595,11 @@
             android:name="com.wizarpos.pay.recode.zusao.activity.ZSShowQrCodeActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.wizarpos.pay.recode.zusao.activity.ZSPaySuccessActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

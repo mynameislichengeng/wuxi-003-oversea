@@ -710,20 +710,27 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
 
 
     private void operateIntentConnect() {
+
         if (ZsConnectManager.isZsPayType()) {
             Log.d("tagtagtag", TAG + "主扫-跳到 选择界面");
             ZSSelectPayTypeActivity.showActivity(this);
+
         } else {
             startNewActivity(NewMainActivity.class);
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
-            Log.d("tagtagtag", TAG + "主扫返回--onActivityResult()--");
-            ZsConnectManager.onActivityMyselfIntentResult(this,data);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d("tagtagtag", TAG + "onActivityResult()--requestCode:" + requestCode + ",resultCode:" + resultCode);
+//        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE) {
+//            if (resultCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
+//                ZsConnectManager.intentSettingResultForSuccessOnActivity(this, data);
+//            } else {
+//                finish();
+//            }
+//        }
+//
+//    }
 }

@@ -39,6 +39,7 @@ public class ZsConnectIntentBeanReq {
         private String UserDefinedEchoData;
         private String CardEntryMethod;
         private String AutoPrint;
+        private String TipAmount;
 
         public String getBaseAmount() {
             return BaseAmount;
@@ -70,6 +71,14 @@ public class ZsConnectIntentBeanReq {
 
         public void setAutoPrint(String AutoPrint) {
             this.AutoPrint = AutoPrint;
+        }
+
+        public String getTipAmount() {
+            return TipAmount;
+        }
+
+        public void setTipAmount(String tipAmount) {
+            TipAmount = tipAmount;
         }
     }
 }

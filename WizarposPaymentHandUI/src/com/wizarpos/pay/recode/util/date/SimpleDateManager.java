@@ -8,9 +8,16 @@ public class SimpleDateManager {
 
     private static final String YYYY_MMM_DD = "yyyy-MM-dd";
     private static final String YYYY_MMM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    private static final String HH_MM_SS = "HH:mm:ss";
 
     public static String toStrYYYYMMDD(long time) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYY_MMM_DD);
+        String str = simpleDateFormat.format(new Date(time));
+        return str;
+    }
+
+    public static String toStrHHMMSS(long time) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(HH_MM_SS);
         String str = simpleDateFormat.format(new Date(time));
         return str;
     }

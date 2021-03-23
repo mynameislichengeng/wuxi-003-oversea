@@ -26,7 +26,7 @@ public class AppStateInitUtil {
         try {
             AppStateManager.setState(AppStateDef.isInService, Constants.FALSE);
             AppStateManager.setState(AppStateDef.isOffline, Constants.FALSE);
-            AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
+//            AppStateManager.setState(AppStateDef.isLogin, Constants.FALSE);
             AppStateManager.setState(AppStateDef.isRegisterTerminal, Constants.FALSE);
             AppStateManager.setState(AppStateDef.PUB_CERT_AILAS, "");
             AppStateManager.setState(AppStateDef.LAST_PRINT, "");

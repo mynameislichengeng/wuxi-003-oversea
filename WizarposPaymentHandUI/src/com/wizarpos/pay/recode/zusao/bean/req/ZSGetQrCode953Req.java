@@ -12,6 +12,8 @@ public class ZSGetQrCode953Req {
 
     private String tipAmount;
 
+    private String invoiceNo;
+
     public String getFlag() {
         return flag;
     }
@@ -50,5 +52,13 @@ public class ZSGetQrCode953Req {
 
     public void setTipAmount(String tipAmount) {
         this.tipAmount = tipAmount;
+    }
+
+    public String getInvoiceNo() {
+        return invoiceNo;
+    }
+
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
     }
 }

@@ -132,11 +132,13 @@
         android:background="@drawable/selector_btn_normal_blue_press_grey_radius_30dp">
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_cancel"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@null"
             android:text="@string/zs_cancle"
+            android:clickable="false"
             android:textColor="@color/white" />
     </RelativeLayout>
 </RelativeLayout>

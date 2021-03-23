@@ -26,7 +26,6 @@ import com.wizarpos.pay.login.presenter.StartupPresenter;
 
 import com.wizarpos.pay.recode.zusao.connect.ZsConnectManager;
 import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
-import com.wizarpos.pay.recode.zusao.sp.ZSSettingManager;
 import com.wizarpos.pay.setting.util.LanguageUtils;
 import com.wizarpos.pay.test.TestStartMenuActivity;
 import com.wizarpos.pay.ui.newui.NewMainActivity;
@@ -125,14 +124,19 @@ public class StartupActivity extends BaseViewActivity {
     private void go() {
 //       String loginState =  AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE);
 //        Log.d("tagtagtag", loginState+"  go()");
-//        if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
-//            Log.d("tagtagtag", "进入home界面");
-//            startActivity(new Intent(this, NewMainActivity.class));
-//        } else {
-//            Log.d("tagtagtag", "进入登陆界面");
-//            startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
-//        }
-        operateIntentConnect();
+        if (ZsConnectManager.isZsPayType()) {
+            operateIntentConnect();
+        } else {
+            if (Constants.TRUE.equals(AppStateManager.getState(AppStateDef.isLogin, Constants.FALSE))) {
+                Log.d("tagtagtag", "进入home界面");
+                startActivity(new Intent(this, NewMainActivity.class));
+            } else {
+                Log.d("tagtagtag", "进入登陆界面");
+                startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
+            }
+            finish();
+        }
+
 
     }
 
@@ -185,21 +189,20 @@ public class StartupActivity extends BaseViewActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE && requestCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
-            Log.d("tagtagtag", TAG + "主扫返回--onActivityResult()--");
-//            ZsConnectManager.onActivityMyselfIntentResult(this,data);
-            ZsConnectManager.connectIntentResult(this);
+        Log.d("tagtagtag", TAG + "onActivityResult()--requestCode:" + requestCode + ",resultCode:" + resultCode);
+        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE) {
+            if (resultCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
+                ZsConnectManager.connectIntentResultSuccess(this, data);
+            } else {
+
+                ZsConnectManager.connectIntentResultCanceled(this);
+            }
+
         }
     }
 
     private void operateIntentConnect() {
-        if (ZsConnectManager.isZsPayType()) {
-            Log.d("tagtagtag", TAG + "主扫 调到 登录界面");
-            ZsConnectManager.requestIntent(this, LoginMerchantRebuildActivity.class);
-        } else {
-            startActivity(new Intent(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class));
-            finish();
-        }
-
+        Log.d("tagtagtag", TAG + "主扫 调到 登陆界面");
+        ZsConnectManager.starActivityForResultMethodSuccess(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class);
     }
 }
