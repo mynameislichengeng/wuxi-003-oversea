@@ -56,12 +56,12 @@
 
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rel_qrcode1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="@string/zs_please_qr_code_3"
             android:textSize="15sp" />
 
     </RelativeLayout>

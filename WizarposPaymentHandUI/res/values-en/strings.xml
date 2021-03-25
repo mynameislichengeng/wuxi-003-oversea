@@ -232,7 +232,7 @@
     <string name="zs_cancelling">CANCELLING</string>
     <string name="zs_loading">LOADING</string>
     <string name="zs_change_payment_title">Change Payment Method</string>
-    <string name="zs_please_qr_code_3">Please complete payment in 3 minutes.</string>
+    <string name="zs_please_qr_code_3">Please complete payment in %d minutes.</string>
     <string name="zs_APPROVED">APPROVED</string>
     <string name="zs_PROCESSING">PROCESSING</string>
 </resources>

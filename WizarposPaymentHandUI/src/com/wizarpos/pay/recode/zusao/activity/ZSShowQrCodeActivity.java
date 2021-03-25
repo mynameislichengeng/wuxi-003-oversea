@@ -32,7 +32,6 @@ import com.wizarpos.pay.recode.zusao.http.ZSHttpManager;
 import com.wizarpos.pay.recode.zusao.util.AmountUtil;
 import com.wizarpos.recode.zxing.ZxingQRcodeManager;
 import com.wizarpos.recode.zxing.bean.QRCodeParam;
-import com.wizarpos.recode.zxing.callback.DrawListener;
 
 
 public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.OnClickListener, ZSShowQrCodeActivityCallback {
@@ -53,12 +52,13 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         ZsConnectManager.startActivityForResultMethodMiddle(context, intent);
     }
 
-    private TextView tv_amount;
+    private TextView tv_amount, tv_time;
     private ImageView ivQrCode, ivQrCodeLogo;
     private RelativeLayout relChange, relCancel;
     private ZSShowQrCodeActivityParam activityParam;
     private final static int WHAT_QUERY = 1;
     private final static int WHAT_UI = 2;
+    private int TIME_COUNT = 3;
 
     @Override
     public int getContentLayout() {
@@ -71,6 +71,7 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         setLeftTitleRootVisible(View.GONE);
         tv_amount = findViewById(R.id.tv_amount);
         tv_amount.setText(AmountUtil.showUi(activityParam.getRealAmount()));
+        tv_time = findViewById(R.id.tv_time);
         ivQrCode = findViewById(R.id.iv_qrcode);
         ivQrCodeLogo = findViewById(R.id.iv_qrcode_logo);
         switch (activityParam.getZsPayChannelEnum()) {
@@ -143,7 +144,20 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
 
     @Override
     public synchronized void operateShowUITiming() {
-        settingTimingTask(WHAT_UI, 3 * 60 * 1000);
+        if (isFinishing()) {
+            return;
+        }
+        if (TIME_COUNT > 0) {
+            String format = getResources().getString(R.string.zs_please_qr_code_3);
+            String text = String.format(format, TIME_COUNT);
+            tv_time.setText(text);
+            settingTimingTask(WHAT_UI, 1 * 60 * 1000);
+            TIME_COUNT--;
+        } else {
+            removeHandlerTask();
+            operateQueryOrder(OperateTypeEnum.UI_TIME);
+        }
+
     }
 
     private void operateQueryOrder(OperateTypeEnum operateTypeEnum) {
@@ -274,8 +288,8 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
                     operateQueryOrder(OperateTypeEnum.ROTATION);
                     break;
                 case WHAT_UI:
-                    removeCallbacksAndMessages(null);
-                    operateQueryOrder(OperateTypeEnum.UI_TIME);
+                    operateShowUITiming();
+
                     break;
             }
         }
@@ -296,36 +310,7 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
             @Override
             public void run() {
                 QRCodeParam qrCodeParam = QRCodeParam.createImgQRCode(activityParam.getRealPath(), 0, 500, 500);
-                Bitmap qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam, new DrawListener() {
-                    @Override
-                    public void draw(Canvas canvas) {
-
-//                        ZsPayChannelEnum payChannelEnum = activityParam.getZsPayChannelEnum();
-//                        Bitmap bitmap = null;
-//                        switch (payChannelEnum) {
-//                            case ALIPAY:
-//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_zfb, null);
-//                                break;
-//                            case WX:
-//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_wx, null);
-//                                break;
-//                            case CLOUD:
-//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_cloud, null);
-//                                break;
-//                        }
-//
-//                        int width = bitmap.getWidth();
-//                        int height = bitmap.getHeight();
-//                        Log.d("tagtagtag", "width:" + width + ", height:" + height);
-//
-//
-//                        Paint paint = new Paint();
-//                        paint.setColor(Color.WHITE);
-//                        canvas.drawBitmap(bitmap, 200, 200, paint);
-
-
-                    }
-                });
+                Bitmap qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam);
                 handlerQrCodeCallback(qrbitmap);
             }
         }).start();
