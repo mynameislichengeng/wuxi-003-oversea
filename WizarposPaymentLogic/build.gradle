@@ -12,8 +12,13 @@ dependencies {
     //amp包引入
     provided files('external-libs/sdk.jar')
 
-}
 
+}
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -47,12 +52,12 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
-    defaultConfig{
+    defaultConfig {
         ndk {
             abiFilters "armeabi"
         }
     }
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
 

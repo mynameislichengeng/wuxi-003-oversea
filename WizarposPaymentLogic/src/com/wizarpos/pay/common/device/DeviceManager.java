@@ -322,6 +322,11 @@ public class DeviceManager {
      * 判断设备类型
      */
     public int getDeviceType() {
+
+        if(isAMPDevice()){
+            return DEVICE_TYPE_AMP8;
+        }
+
         /*
          * 1.wizarHAND_Q1
          * 2.WIZARPOS 1
@@ -472,5 +477,11 @@ public class DeviceManager {
         TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         sn = mTelephonyMgr.getDeviceId();
         return sn;
+    }
+
+
+    private boolean isAMPDevice(){
+        boolean isAMPTerminal = Build.MODEL.contains("AMP") || Build.MANUFACTURER.contains("AMP");
+        return isAMPTerminal;
     }
 }

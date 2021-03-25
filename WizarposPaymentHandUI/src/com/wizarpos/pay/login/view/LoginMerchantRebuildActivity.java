@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -74,6 +75,7 @@ import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
 import com.wizarpos.pay.view.util.VcodeDialogFragment;
 import com.motionpay.pay2.lite.R;
+import com.wizarpos.recode.data.info.SnManager;
 import com.wizarpos.recode.util.PackageAndroidManager;
 
 import java.util.ArrayList;
@@ -720,17 +722,5 @@ public class LoginMerchantRebuildActivity extends TransactionActivity implements
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.d("tagtagtag", TAG + "onActivityResult()--requestCode:" + requestCode + ",resultCode:" + resultCode);
-//        if (requestCode == ZsConstants.INTENT_MYSELF_REQUEST_CODE) {
-//            if (resultCode == ZsConstants.INTENT_MYSELF_RESULT_CODE) {
-//                ZsConnectManager.intentSettingResultForSuccessOnActivity(this, data);
-//            } else {
-//                finish();
-//            }
-//        }
-//
-//    }
+
 }

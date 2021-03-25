@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 
 import com.wizarpos.base.net.NetRequest;
@@ -32,6 +33,7 @@ import com.wizarpos.pay.ui.newui.NewMainActivity;
 import com.wizarpos.pay.view.util.DialogHelper2;
 import com.wizarpos.pay.view.util.DialogHelper2.DialogListener;
 import com.motionpay.pay2.lite.R;
+import com.wizarpos.recode.data.info.SnManager;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
@@ -65,7 +67,7 @@ public class StartupActivity extends BaseViewActivity {
                 StartupActivity.this.finish();
             }
         });
-        ZsConnectManager.init(getIntent());
+        ZsConnectManager.init(this, getIntent());
         presenter = new StartupPresenter(this);
         progresser.showProgress();
         init();
@@ -205,4 +207,6 @@ public class StartupActivity extends BaseViewActivity {
         Log.d("tagtagtag", TAG + "主扫 调到 登陆界面");
         ZsConnectManager.starActivityForResultMethodSuccess(this, com.wizarpos.pay.login.view.LoginMerchantRebuildActivity.class);
     }
+
+
 }

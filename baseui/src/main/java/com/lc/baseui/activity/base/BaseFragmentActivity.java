@@ -91,7 +91,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements C
      **/
     public void hiddenProgressDialog() {
         if (circlePointProgressDialog != null) {
-            circlePointProgressDialog.dismiss();
+            if (circlePointProgressDialog.isShowing()) {
+                circlePointProgressDialog.dismiss();
+            }
         }
     }
 

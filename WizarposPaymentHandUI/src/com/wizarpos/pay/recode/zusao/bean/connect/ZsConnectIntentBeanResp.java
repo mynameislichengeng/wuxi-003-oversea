@@ -3,8 +3,6 @@ package com.wizarpos.pay.recode.zusao.bean.connect;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.wizarpos.pay.db.AppConfigDef;
-import com.wizarpos.pay.db.AppConfigHelper;
 import com.wizarpos.pay.recode.util.date.SimpleDateManager;
 import com.wizarpos.pay.recode.zusao.bean.resp.ZSQueryOrderStatusResp;
 import com.wizarpos.pay.recode.zusao.constants.ZsPayChannelEnum;
@@ -13,170 +11,190 @@ import java.util.Date;
 
 public class ZsConnectIntentBeanResp {
 
-    private String KEY_RESPONSE_MERCH_NAME;
+    private String response_resultcode_key;
 
-    private String KEY_RESPONSE_TIME;
+    private String response_code_key;
 
-    private String KEY_RESPONSE_DATE;
+    private String response_merch_name_key;
 
-    private String KEY_RESPONSE_TID;
+    private String response_time_key;
 
-    private String KEY_RESPONSE_MID;
+    private String response_date_key;
 
-    private String KEY_RESPONSE_TRANSNAME;
+    private String response_tid_key;
 
-    private String KEY_RESPONSE_CARDLABEL;
+    private String response_mid_key;
 
-    private String KEY_RESPONSE_BASEAMT;
+    private String response_transname_key;
 
-    private String KEY_RESPONSE_TIPAMT;
+    private String response_cardlabel_key;
 
-    private String KEY_RESPONSE_TOTALAMT;
+    private String response_baseamt_key;
 
-    private String KEY_RESPONSE_TRACENUM;
+    private String response_tipamt_key;
 
-    private String KEY_RESPONSE_TRANSREF;
+    private String response_totalamt_key;
 
-    private String KEY_RESPONSE_USER_DEFINED_ECHO_DATA;
+    private String response_trace_key;
+
+    private String response_transref_key;
+
+    private String response_user_defined_echo_data;
 
 
-    public String getKEY_RESPONSE_MERCH_NAME() {
-        return KEY_RESPONSE_MERCH_NAME;
+    public String getResponse_merch_name_key() {
+        return response_merch_name_key;
     }
 
-    public void setKEY_RESPONSE_MERCH_NAME(String KEY_RESPONSE_MERCH_NAME) {
-        this.KEY_RESPONSE_MERCH_NAME = KEY_RESPONSE_MERCH_NAME;
+    public void setResponse_merch_name_key(String response_merch_name_key) {
+        this.response_merch_name_key = response_merch_name_key;
     }
 
-    public String getKEY_RESPONSE_TIME() {
-        return KEY_RESPONSE_TIME;
+    public String getResponse_time_key() {
+        return response_time_key;
     }
 
-    public void setKEY_RESPONSE_TIME(String KEY_RESPONSE_TIME) {
-        this.KEY_RESPONSE_TIME = KEY_RESPONSE_TIME;
+    public void setResponse_time_key(String response_time_key) {
+        this.response_time_key = response_time_key;
     }
 
-    public String getKEY_RESPONSE_DATE() {
-        return KEY_RESPONSE_DATE;
+    public String getResponse_date_key() {
+        return response_date_key;
     }
 
-    public void setKEY_RESPONSE_DATE(String KEY_RESPONSE_DATE) {
-        this.KEY_RESPONSE_DATE = KEY_RESPONSE_DATE;
+    public void setResponse_date_key(String response_date_key) {
+        this.response_date_key = response_date_key;
     }
 
-    public String getKEY_RESPONSE_TID() {
-        return KEY_RESPONSE_TID;
+    public String getResponse_tid_key() {
+        return response_tid_key;
     }
 
-    public void setKEY_RESPONSE_TID(String KEY_RESPONSE_TID) {
-        this.KEY_RESPONSE_TID = KEY_RESPONSE_TID;
+    public void setResponse_tid_key(String response_tid_key) {
+        this.response_tid_key = response_tid_key;
     }
 
-    public String getKEY_RESPONSE_MID() {
-        return KEY_RESPONSE_MID;
+    public String getResponse_mid_key() {
+        return response_mid_key;
     }
 
-    public void setKEY_RESPONSE_MID(String KEY_RESPONSE_MID) {
-        this.KEY_RESPONSE_MID = KEY_RESPONSE_MID;
+    public void setResponse_mid_key(String response_mid_key) {
+        this.response_mid_key = response_mid_key;
     }
 
-    public String getKEY_RESPONSE_TRANSNAME() {
-        return KEY_RESPONSE_TRANSNAME;
+    public String getResponse_transname_key() {
+        return response_transname_key;
     }
 
-    public void setKEY_RESPONSE_TRANSNAME(String KEY_RESPONSE_TRANSNAME) {
-        this.KEY_RESPONSE_TRANSNAME = KEY_RESPONSE_TRANSNAME;
+    public void setResponse_transname_key(String response_transname_key) {
+        this.response_transname_key = response_transname_key;
     }
 
-    public String getKEY_RESPONSE_CARDLABEL() {
-        return KEY_RESPONSE_CARDLABEL;
+    public String getResponse_cardlabel_key() {
+        return response_cardlabel_key;
     }
 
-    public void setKEY_RESPONSE_CARDLABEL(String KEY_RESPONSE_CARDLABEL) {
-        this.KEY_RESPONSE_CARDLABEL = KEY_RESPONSE_CARDLABEL;
+    public void setResponse_cardlabel_key(String response_cardlabel_key) {
+        this.response_cardlabel_key = response_cardlabel_key;
     }
 
-    public String getKEY_RESPONSE_BASEAMT() {
-        return KEY_RESPONSE_BASEAMT;
+    public String getResponse_baseamt_key() {
+        return response_baseamt_key;
     }
 
-    public void setKEY_RESPONSE_BASEAMT(String KEY_RESPONSE_BASEAMT) {
-        this.KEY_RESPONSE_BASEAMT = KEY_RESPONSE_BASEAMT;
+    public void setResponse_baseamt_key(String response_baseamt_key) {
+        this.response_baseamt_key = response_baseamt_key;
     }
 
-    public String getKEY_RESPONSE_TIPAMT() {
-        return KEY_RESPONSE_TIPAMT;
+    public String getResponse_tipamt_key() {
+        return response_tipamt_key;
     }
 
-    public void setKEY_RESPONSE_TIPAMT(String KEY_RESPONSE_TIPAMT) {
-        this.KEY_RESPONSE_TIPAMT = KEY_RESPONSE_TIPAMT;
+    public void setResponse_tipamt_key(String response_tipamt_key) {
+        this.response_tipamt_key = response_tipamt_key;
     }
 
-    public String getKEY_RESPONSE_TOTALAMT() {
-        return KEY_RESPONSE_TOTALAMT;
+    public String getResponse_totalamt_key() {
+        return response_totalamt_key;
     }
 
-    public void setKEY_RESPONSE_TOTALAMT(String KEY_RESPONSE_TOTALAMT) {
-        this.KEY_RESPONSE_TOTALAMT = KEY_RESPONSE_TOTALAMT;
+    public void setResponse_totalamt_key(String response_totalamt_key) {
+        this.response_totalamt_key = response_totalamt_key;
     }
 
-    public String getKEY_RESPONSE_TRACENUM() {
-        return KEY_RESPONSE_TRACENUM;
+    public String getResponse_trace_key() {
+        return response_trace_key;
     }
 
-    public void setKEY_RESPONSE_TRACENUM(String KEY_RESPONSE_TRACENUM) {
-        this.KEY_RESPONSE_TRACENUM = KEY_RESPONSE_TRACENUM;
+    public void setResponse_trace_key(String response_trace_key) {
+        this.response_trace_key = response_trace_key;
     }
 
-    public String getKEY_RESPONSE_TRANSREF() {
-        return KEY_RESPONSE_TRANSREF;
+    public String getResponse_transref_key() {
+        return response_transref_key;
     }
 
-    public void setKEY_RESPONSE_TRANSREF(String KEY_RESPONSE_TRANSREF) {
-        this.KEY_RESPONSE_TRANSREF = KEY_RESPONSE_TRANSREF;
+    public void setResponse_transref_key(String response_transref_key) {
+        this.response_transref_key = response_transref_key;
     }
 
-    public String getKEY_RESPONSE_USER_DEFINED_ECHO_DATA() {
-        return KEY_RESPONSE_USER_DEFINED_ECHO_DATA;
+    public String getResponse_user_defined_echo_data() {
+        return response_user_defined_echo_data;
     }
 
-    public void setKEY_RESPONSE_USER_DEFINED_ECHO_DATA(String KEY_RESPONSE_USER_DEFINED_ECHO_DATA) {
-        this.KEY_RESPONSE_USER_DEFINED_ECHO_DATA = KEY_RESPONSE_USER_DEFINED_ECHO_DATA;
+    public void setResponse_user_defined_echo_data(String response_user_defined_echo_data) {
+        this.response_user_defined_echo_data = response_user_defined_echo_data;
+    }
+
+    public String getResponse_resultcode_key() {
+        return response_resultcode_key;
+    }
+
+    public void setResponse_resultcode_key(String response_resultcode_key) {
+        this.response_resultcode_key = response_resultcode_key;
+    }
+
+    public String getResponse_code_key() {
+        return response_code_key;
+    }
+
+    public void setResponse_code_key(String response_code_key) {
+        this.response_code_key = response_code_key;
     }
 
     public static ZsConnectIntentBeanResp convertFormPay(String json) {
         ZSQueryOrderStatusResp resp = JSON.parseObject(json, ZSQueryOrderStatusResp.class);
-
         ZsConnectIntentBeanResp connectResult = new ZsConnectIntentBeanResp();
-        connectResult.setKEY_RESPONSE_MERCH_NAME(resp.getMerchantDef().getMerchantShortName());
+        connectResult.setResponse_resultcode_key("0000");
+        connectResult.setResponse_merch_name_key(resp.getMerchantDef().getMerchantShortName());
         //
         String payTime = resp.getPayTime();
         if (!TextUtils.isEmpty(payTime)) {
             Date date = SimpleDateManager.fromYYYYMMDDHHMMSS(payTime);
             String time = SimpleDateManager.toStrHHMMSS(date.getTime());
             String fDate = SimpleDateManager.toStrYYYYMMDD(date.getTime());
-            connectResult.setKEY_RESPONSE_TIME(time);
-            connectResult.setKEY_RESPONSE_DATE(fDate);
+            connectResult.setResponse_time_key(time);
+            connectResult.setResponse_date_key(fDate);
         }
         //
-        connectResult.setKEY_RESPONSE_TID(resp.getSn());
+        connectResult.setResponse_tid_key(resp.getSn());
 
 
-        connectResult.setKEY_RESPONSE_TRANSREF(resp.getThirdTradeNo());
+        connectResult.setResponse_transref_key(resp.getThirdTradeNo());
 
-        connectResult.setKEY_RESPONSE_MID(resp.getMerchantDef().getMid());
+        connectResult.setResponse_mid_key(resp.getMerchantDef().getMid());
 
-        connectResult.setKEY_RESPONSE_TRANSNAME("SALE");
+        connectResult.setResponse_transname_key("SALE");
 
-        connectResult.setKEY_RESPONSE_CARDLABEL(ZsPayChannelEnum.of(resp.getPayType()).getDesc());
+        connectResult.setResponse_cardlabel_key(ZsPayChannelEnum.of(resp.getPayType()).getDesc());
 
-        connectResult.setKEY_RESPONSE_TIPAMT(String.valueOf(resp.getTipAmount()));
+        connectResult.setResponse_tipamt_key(String.valueOf(resp.getTipAmount()));
 
-        connectResult.setKEY_RESPONSE_TOTALAMT(String.valueOf(resp.getAmount()));
+        connectResult.setResponse_totalamt_key(String.valueOf(resp.getAmount()));
 
-        connectResult.setKEY_RESPONSE_TRACENUM(resp.getId());
+        connectResult.setResponse_trace_key(resp.getId());
 
-        connectResult.setKEY_RESPONSE_USER_DEFINED_ECHO_DATA(resp.getMerchantTradeCode());
+        connectResult.setResponse_user_defined_echo_data(resp.getMerchantTradeCode());
 
         return connectResult;
     }

@@ -190,6 +190,8 @@ public class LoginPresenter2 extends BasePresenter {
         return SnManager.getSn(context);
     }
 
+
+
     /**
      * 商户终端体系改造 首次登陆进行短信验证
      */

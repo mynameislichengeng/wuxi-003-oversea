@@ -1,5 +1,7 @@
 package com.wizarpos.pay.recode.zusao.util;
 
+import android.text.TextUtils;
+
 import java.math.BigDecimal;
 
 public class AmountUtil {
@@ -11,6 +13,9 @@ public class AmountUtil {
      * @return
      */
     public static String showUi(String amount) {
+        if (TextUtils.isEmpty(amount)) {
+            return "0";
+        }
         BigDecimal big = new BigDecimal(amount);
         String showAmount = big.setScale(2, BigDecimal.ROUND_UP).toString();
         String foramt = "$%s";

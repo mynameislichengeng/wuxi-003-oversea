@@ -7,16 +7,28 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.amobilepayment.android.tmslibrary.DownloadStatus;
+import com.amobilepayment.android.tmslibrary.FirmwareUpdateStatus;
+import com.amobilepayment.android.tmslibrary.IServerResponse;
+import com.amobilepayment.android.tmslibrary.STATE;
+import com.amobilepayment.android.tmslibrary.TMS;
+import com.amobilepayment.android.tmslibrary.TMS_FILE_TYPE;
+import com.lc.baseui.tools.data.SPUtils;
 import com.wizarpos.pay.recode.zusao.bean.connect.ZsConnectIntentBeanReq;
 import com.wizarpos.pay.recode.zusao.bean.connect.ZsConnectIntentBeanResp;
 import com.wizarpos.pay.recode.zusao.constants.ZsConstants;
 import com.wizarpos.pay.recode.zusao.constants.ZsSettingEnum;
 import com.wizarpos.pay.recode.zusao.sp.ZSSettingManager;
+import com.wizarpos.recode.data.info.SnManager;
+
+import java.util.ArrayList;
 
 public class ZsConnectManager {
     private final static String TAG = ZsConnectManager.class.getSimpleName();
 
-    public static void init(Intent intent) {
+    public static void init(Context context, Intent intent) {
+//        TMS.getInstance().init(context, new ServerResponseCallback());
+//        settingLibs(context);
         ZSSettingManager.clearScanCodePayType();
         ZSSettingManager.clearConnectJson();
         if (intent == null) {
@@ -62,8 +74,6 @@ public class ZsConnectManager {
     }
 
 
-
-
     public static void starActivityForResultMethodSuccess(Context context, Class cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
@@ -78,12 +88,14 @@ public class ZsConnectManager {
         context.startActivity(intent);
         context.finish();
     }
+
     public static void startActivityForResultMethodMiddle(Activity context, Intent intent) {
 
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         context.startActivity(intent);
         context.finish();
     }
+
     /**
      * 返回成功结果  到connect
      *
@@ -109,5 +121,24 @@ public class ZsConnectManager {
         context.setResult(Activity.RESULT_CANCELED, intent);
         context.finish();
     }
+
+
+    public static void settingLibs(Context context) {
+        String sn = SnManager.getSn(context);
+//        TMS.getInstance().setConfigurationParameter(sn,
+//                "SETTINGS.ALTPAYMENTAPP", "MOTIONPAY", "com.amobilepayment.android.ecrconnect");
+//
+//        String settings = (String) SPUtils.get(context, "sp_zs_lib_setting", "");
+//        if (settings.equals("1")) {
+//            Log.d("tagtagtag", "has setting:");
+//            return;
+//        }
+//        SPUtils.put(context, "sp_zs_lib_setting", "1");
+//
+//        Log.d("tagtagtag", "sn:" + sn);
+
+
+    }
+
 
 }

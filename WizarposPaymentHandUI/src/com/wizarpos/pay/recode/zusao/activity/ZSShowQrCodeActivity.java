@@ -54,7 +54,7 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
     }
 
     private TextView tv_amount;
-    private ImageView ivQrCode;
+    private ImageView ivQrCode, ivQrCodeLogo;
     private RelativeLayout relChange, relCancel;
     private ZSShowQrCodeActivityParam activityParam;
     private final static int WHAT_QUERY = 1;
@@ -72,6 +72,18 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         tv_amount = findViewById(R.id.tv_amount);
         tv_amount.setText(AmountUtil.showUi(activityParam.getRealAmount()));
         ivQrCode = findViewById(R.id.iv_qrcode);
+        ivQrCodeLogo = findViewById(R.id.iv_qrcode_logo);
+        switch (activityParam.getZsPayChannelEnum()) {
+            case ALIPAY:
+                ivQrCodeLogo.setImageResource(R.drawable.ic_qrcode_zfb);
+                break;
+            case WX:
+                ivQrCodeLogo.setImageResource(R.drawable.ic_qrcode_wx);
+                break;
+            case CLOUD:
+                ivQrCodeLogo.setImageResource(R.drawable.ic_qrcode_cloud);
+                break;
+        }
 
         relChange = findViewById(R.id.rel_bottom_change_pay);
         relChange.setOnClickListener(this);
@@ -88,7 +100,13 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         Intent intent = getIntent();
         if (intent != null) {
             activityParam = intent.getParcelableExtra(INTENT_DATA);
+
         }
+//        activityParam = new ZSShowQrCodeActivityParam();
+//        activityParam.setRealAmount("0.12");
+//        activityParam.setOrderNo("123");
+//        activityParam.setRealPath("www.baidu.com");
+//        activityParam.setZsPayChannelEnum(ZsPayChannelEnum.ALIPAY);
     }
 
     @Override
@@ -107,12 +125,14 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
     @Override
     public synchronized void operateChange() {
         removeHandlerTask();
+        showProgressDialog(R.string.zs_PROCESSING);
         operateQueryOrder(OperateTypeEnum.CHANGE);
     }
 
     @Override
     public synchronized void operateCancel() {
         removeHandlerTask();
+        showProgressDialog(R.string.zs_PROCESSING);
         operateQueryOrder(OperateTypeEnum.CANCEL);
     }
 
@@ -159,7 +179,7 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         if (isFinishing()) {
             return;
         }
-
+        hiddenProgressDialog();
         if (resp.getState() == 2) {
             ZSPaySuccessActivity.showActivity(this, activityParam, JSON.toJSONString(resp));
 //            ZsConnectManager.intentSettingResultForSuccessStart(this, JSON.toJSONString(resp));
@@ -187,7 +207,7 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
         if (isFinishing()) {
             return;
         }
-
+        hiddenProgressDialog();
         switch (operateTypeEnum) {
             case CANCEL:
                 operateCloseOrder(operateTypeEnum);
@@ -279,12 +299,31 @@ public class ZSShowQrCodeActivity extends TitleFragmentActivity implements View.
                 Bitmap qrbitmap = ZxingQRcodeManager.createOnlyImg(qrCodeParam, new DrawListener() {
                     @Override
                     public void draw(Canvas canvas) {
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_zfb_small, null);
-//                        bitmap.setWidth(50);
-//                        bitmap.setHeight(50);
-                        Paint paint = new Paint();
-                        paint.setColor(Color.WHITE);
-                        canvas.drawBitmap(bitmap, 200, 200, paint);
+
+//                        ZsPayChannelEnum payChannelEnum = activityParam.getZsPayChannelEnum();
+//                        Bitmap bitmap = null;
+//                        switch (payChannelEnum) {
+//                            case ALIPAY:
+//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_zfb, null);
+//                                break;
+//                            case WX:
+//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_wx, null);
+//                                break;
+//                            case CLOUD:
+//                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_qrcode_cloud, null);
+//                                break;
+//                        }
+//
+//                        int width = bitmap.getWidth();
+//                        int height = bitmap.getHeight();
+//                        Log.d("tagtagtag", "width:" + width + ", height:" + height);
+//
+//
+//                        Paint paint = new Paint();
+//                        paint.setColor(Color.WHITE);
+//                        canvas.drawBitmap(bitmap, 200, 200, paint);
+
+
                     }
                 });
                 handlerQrCodeCallback(qrbitmap);

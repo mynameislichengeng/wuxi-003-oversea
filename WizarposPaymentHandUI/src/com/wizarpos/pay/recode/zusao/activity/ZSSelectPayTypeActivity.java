@@ -77,6 +77,8 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
 
         relCloudPay = view.findViewById(R.id.rel_content_cloud);
         relCloudPay.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -94,8 +96,15 @@ public class ZSSelectPayTypeActivity extends TitleFragmentActivity implements Vi
         if (isFinishing()) {
             return;
         }
-        toast(R.string.zs_cancelling);
-        finish();
+        removeHandler();
+        showProgressDialog(R.string.zs_cancelling);
+        mHandlerTask.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hiddenProgressDialog();
+                finish();
+            }
+        }, 1000 * 2);
     }
 
     /**
